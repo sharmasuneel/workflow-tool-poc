@@ -1,0 +1,89 @@
+{
+    "nodes": [
+        {
+            "id": "upload",
+            "name": "Upload",
+            "inputs": 0,
+            "outputs": 1,
+            "class": "upload",
+            "data": {},
+            "component": "upload",
+            "icon": "fa fa-upload",
+            "html": "<div id=\"uploadchildcontainer\">Upload</div>"
+        },
+        {
+            "id": "download",
+            "name": "Download",
+            "inputs": 1,
+            "outputs": 1,
+            "class": "download",
+            "data": {},
+            "icon": "fa fa-download",
+            "html": "<div id=\"downloadchildcontainer\">Download</div>"
+        },
+        {
+            "id": "quality-check",
+            "name": "Decide",
+            "inputs": 1,
+            "outputs": 1,
+            "class": "decide",
+            "icon": "fa fa-check-square-o",
+            "data": {},
+            "html": "<div id=\"decidechildcontainer\"><i class=\"fa fa-check-square-o\" aria-hidden=\"true\"></i>Decide</div>"
+        },
+        {
+            "id": "process",
+            "name": "Process",
+            "inputs": 1,
+            "outputs": 1,
+            "class": "process",
+            "data": {},
+            "html": "<div>\n <div class=\"title-box\"><i class=\"fas fa-cogs\"></i> Process</div>\n</div>"
+        },
+        {
+            "id": "review",
+            "name": "Review",
+            "inputs": 1,
+            "outputs": 1,
+            "class": "review",
+            "data": {},
+            "html": "<div>\n  <div class=\"title-box\"><i class=\"fas fa-check-circle\"></i> Review</div>\n</div>"
+        },
+        {
+            "id": "approve",
+            "name": "Approve",
+            "inputs": 1,
+            "outputs": 1,
+            "class": "approve",
+            "data": {},
+            "html": "<div>\n  <div class=\"title-box\"><i class=\"fas fa-thumbs-up\"></i> Approve</div>\n</div>"
+        },
+        {
+            "id": "notify",
+            "name": "Notify",
+            "inputs": 1,
+            "outputs": 0,
+            "class": "notify",
+            "data": {},
+            "html": "<div>\n  <div class=\"title-box\"><i class=\"fas fa-bell\"></i> Notify</div>\n</div>"
+        },
+        {
+            "id": "error",
+            "name": "Error",
+            "inputs": 1,
+            "outputs": 0,
+            "class": "error",
+            "data": {},
+            "html": "<div>\n  <div class=\"title-box\"><i class=\"fas fa-exclamation-triangle\"></i> Error</div>\n</div>"
+        },
+        {
+            "id": "end",
+            "name": "End",
+            "inputs": 1,
+            "outputs": 0,
+            "class": "end",
+            "data": {},
+            "html": "<div>\n  <div class=\"title-box\"><i class=\"fas fa-stop\"></i> End</div>\n</div>"
+        }
+    ]
+}

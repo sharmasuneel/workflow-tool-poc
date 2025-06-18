@@ -1,0 +1,38 @@
+<div class="upload-container">
+    <div class="upload-wrapper">
+        <div class="upload-header" (click)="toggleQualityCheck()">
+            <i class="fa fa-check-square-o" aria-hidden="true"></i>Decide
+        </div>
+
+        <div *ngIf="isExpanded">
+            <div class="quality-check-container">
+
+                <div class="file-placeholder">
+                    Files will be here
+                </div>
+
+                <div class="section">
+                    <h4>Notification Management:</h4>
+                    <label>
+                        <input type="checkbox" [(ngModel)]="notifyEmail" />
+                        Email
+                    </label>
+                    <label>
+                        <input type="checkbox" [(ngModel)]="notifyDashboard" />
+                        Dashboard Notification
+                    </label>
+                </div>
+
+                <div class="section">
+                    <h4>Miscellaneous:</h4>
+                    <label class="toggle-label">
+                        User Commentary:
+                        <input type="checkbox" [(ngModel)]="userCommentary" />
+                    </label>
+                </div>
+
+                <button class="save-button" (click)="onSave()">Save</button>
+            </div>
+
+        </div>
+    </div>

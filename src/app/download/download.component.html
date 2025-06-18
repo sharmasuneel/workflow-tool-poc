@@ -1,0 +1,43 @@
+<div class="upload-container">
+  <div class="upload-wrapper">
+    <div class="upload-header" (click)="toggleDownload()">
+      <i class="fa fa-download fa-2x red" aria-hidden="true"></i>Download
+    </div>
+
+    <div *ngIf="isExpanded">
+      <div class="download-container">
+        <h3>Download</h3>
+
+        <label>
+          <input type="checkbox" [(ngModel)]="acknowledged" />
+          Required user Acknowledgement
+        </label>
+
+        <div class="file-placeholder">
+          Files will be here
+        </div>
+
+        <div class="section">
+          <h4>Notification Management:</h4>
+          <label>
+            <input type="checkbox" [(ngModel)]="notifyEmail" />
+            Email
+          </label>
+          <label>
+            <input type="checkbox" [(ngModel)]="notifyDashboard" />
+            Dashboard Notification
+          </label>
+        </div>
+
+        <div class="section">
+          <h4>Miscellaneous:</h4>
+          <label>
+            User Commentary:
+            <input type="checkbox" [(ngModel)]="userCommentary" />
+          </label>
+        </div>
+
+        <button (click)="onSave()" class="save-button">Save</button>
+      </div>
+
+    </div>
