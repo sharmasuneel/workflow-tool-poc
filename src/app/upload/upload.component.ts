@@ -59,9 +59,17 @@ export class UploadComponent implements OnInit {
   onDragOver(event: DragEvent) {
     event.preventDefault();
   }
-
+  toFormData(obj: any): FormData {
+    const formData = new FormData();
+    for (const key in obj) {
+      if (obj.hasOwnProperty(key)) {
+        formData.append(key, obj[key]);
+      }
+    }
+    return formData;
+  }
   onSave() {
-    const formData = {
+    const jsonformData = {
       businessName: this.businessName,
       preparator: this.preparator,
       reviewer: this.reviewer,
@@ -71,7 +79,10 @@ export class UploadComponent implements OnInit {
       fileName: this.fileName
     };
 
-    this.dataService.postData(getConfig().upload, formData).subscribe({
+    const data = this.toFormData(jsonformData);
+
+
+    this.dataService.postData(getConfig().upload, data).subscribe({
       next: (response) => {
         console.log('Data saved successfully:', response);
       }
@@ -79,6 +90,6 @@ export class UploadComponent implements OnInit {
         console.error('Error saving data:', error);
       }
     });
-    console.log('Saved Data:', formData);
+    console.log('Saved Data:', data);
   }
 }

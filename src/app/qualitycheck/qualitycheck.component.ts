@@ -3,7 +3,7 @@ import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 
 @Component({
-  selector: 'app-quality-check',
+  selector: 'app-review',
   templateUrl: './qualitycheck.component.html',
   styleUrls: ['./qualitycheck.component.scss'],
   imports: [CommonModule, FormsModule],

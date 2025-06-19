@@ -190,7 +190,7 @@ export class DrawflowComponent implements OnInit {
             this.addComponents<DownloadComponent>(nodeData, 'download', 'Download', nodeId, DownloadComponent);
           }
           else if (nodeData.class === 'review') {
-            this.addComponents<QualityCheckComponent>(nodeData, 'decide', 'Review', nodeId, QualityCheckComponent);
+            this.addComponents<QualityCheckComponent>(nodeData, 'review', 'Review', nodeId, QualityCheckComponent);
           }
         }
       }

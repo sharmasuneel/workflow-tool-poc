@@ -6,6 +6,24 @@
   border-radius: 8px;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
 }
+.vrbar {
+  width: 2px;
+  background-color: #ccc;
+  height: 100%;
+  margin: 0 20px;
+}
+
+.subtitle {
+  font-size: 11px;
+  color: #666;
+  margin-bottom: 10px;
+}
+
+.dashboard-logo {
+  width: 40px;
+  height: 40px;
+  margin-right: 10px;
+}
 
 .dashboard-header {
   display: flex;
@@ -18,12 +36,26 @@
 
 .dashboard-title {
   flex: 0 0 auto;
+  font-size: 20px;
 }
 
 .dashboard-nav {
   flex: 1;
   display: flex;
-  justify-content: center;
+}
+
+.dashboard-date {
+  flex: 0 0 auto;
+  font-size: 10px;
+  color: #888;
+  border: 1px solid #e2dfdf;
+  padding: 5px 10px;
+  border-radius: 5px;
+  
+}
+.dateIcon {
+  margin-right: 5px;
+  margin-left: 15px;
 }
 
 .horizontal-nav {
@@ -32,11 +64,13 @@
   gap: 20px;
   padding: 0;
   margin: 0;
+  color: #888;
 }
 
 .horizontal-nav li a {
   text-decoration: none;
-  color: #333;
+  color: #8b8a8a;
+  font-size: medium;
 }
 
 .horizontal-nav li a:hover {

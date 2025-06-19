@@ -22,14 +22,14 @@
             "html": "<div id=\"downloadchildcontainer\">Download</div>"
         },
         {
-            "id": "quality-check",
+            "id": "review",
             "name": "Review",
             "inputs": 1,
             "outputs": 1,
             "class": "review",
             "icon": "fa fa-check-square-o",
             "data": {},
-            "html": "<div id=\"decidechildcontainer\"><i class=\"fa fa-check-square-o\" aria-hidden=\"true\"></i>Review</div>"
+            "html": "<div id=\"downloadchildcontainer\">Review</div>"
         },
         {
             "id": "attestation",
@@ -38,7 +38,7 @@
             "outputs": 1,
             "class": "attestation",
             "data": {},
-            "html": "<div>\n <div class=\"title-box\"><i class=\"fas fa-cogs\"></i> attestation</div>\n</div>"
+            "html": "<div id=\"downloadchildcontainer\">Attestation</div>"
         }
     ]
 }
