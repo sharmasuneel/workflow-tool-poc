@@ -1,25 +1,28 @@
-<header class="dashboard-header">
-  <div class="left-section">
-    <img src="assets/logo.png" alt="Logo" class="logo" />
-    <div class="greeting">
-      <h2>Good Morning, Vivek</h2>
-      <p>Last refreshed 5 minutes ago</p>
+<header class="bg-white border-b border-gray-200 px-6 py-4">
+  <div class="max-w-7xl mx-auto flex items-center justify-between">
+    <div class="flex items-center space-x-8">
+      <div class="flex items-center space-x-3">
+        <div class="w-8 h-8 bg-blue-600 rounded-lg flex items-center justify-center">
+          <div class="w-4 h-4 bg-white rounded-sm"></div>
+        </div>
+        <span class="text-xl font-semibold text-gray-900">WorkFlow</span>
+      </div>
+
+      <nav class="hidden md:flex space-x-8">
+        <a href="#" class="text-blue-600 font-medium border-b-2 border-blue-600 pb-4">Dashboard</a>
+        <a href="#" class="text-gray-600 hover:text-gray-900 pb-4">User Management</a>
+        <a href="#" class="text-gray-600 hover:text-gray-900 pb-4">Settings</a>
+        <a href="#" class="text-gray-600 hover:text-gray-900 pb-4">Help</a>
+      </nav>
     </div>
-  </div>
 
-  <nav class="nav-menu">
-    <a href="#" class="active">Dashboard</a>
-    <a href="#">User Management</a>
-    <a href="#">Settings</a>
-    <a href="#">Help</a>
-  </nav>
-
-  <div class="right-section">
-    <button class="icon-button">
-      <i class="material-icons">notifications</i>
-    </button>
-    <button class="icon-button">
-      <i class="material-icons">account_circle</i>
-    </button>
+    <div class="flex items-center space-x-4">
+      <button class="btn-ghost icon-btn">
+        <i class="lucide lucide-bell h-5 w-5"></i>
+      </button>
+      <button class="btn-ghost icon-btn">
+        <i class="lucide lucide-user h-5 w-5"></i>
+      </button>
+    </div>
   </div>
 </header>

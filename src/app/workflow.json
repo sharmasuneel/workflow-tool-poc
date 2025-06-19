@@ -1,0 +1,37 @@
+
+  {
+    "workflow": 1,
+    "note" :  "Get workflow list from server",
+    "name": "Workflow One",
+    "tasks": [
+      {
+        "taskId": 1,
+        "taskName": "file upload",
+        "url": "http://localhost/<context>/upload",
+        "http-method":"post",
+        "status":1,
+        "assignedToGroups": [1, 2],
+        "createdBy": 1,
+        "businessName": "File Upload",
+        "fileType": "text/csv",
+        "autofileVersioning": true,
+        "uploadType": "Data || set Template"
+      },
+      {
+        "taskId": 2,
+        "taskName": "file download",
+        "url": "http://localhost/<context>/download",
+        "http-method":"get",
+        "status":0,
+        "userGroupId":"2"
+      },
+      {
+        "taskId": 3,
+        "taskName": "review",
+        "url": "http://localhost/<context>/review",
+        "http-method":"post",
+        "status":0,
+        "userGroupId":"3"
+      }
+    ]
+  }

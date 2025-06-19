@@ -1,59 +1,13 @@
-.dashboard-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 10px 20px;
-  background-color: #ffffff;
-  border-bottom: 1px solid #ddd;
-}
-
-.left-section {
-  display: flex;
-  align-items: center;
-}
-
-.logo {
-  height: 40px;
-  margin-right: 15px;
-}
-
-.greeting h2 {
-  margin: 0;
-  font-size: 18px;
-}
-
-.greeting p {
-  margin: 0;
-  font-size: 12px;
-  color: gray;
-}
-
-.nav-menu {
-  display: flex;
-  gap: 20px;
-}
-
-.nav-menu a {
-  text-decoration: none;
-  color: #333;
-  font-weight: 500;
-  position: relative;
-}
-
-.nav-menu a.active::after {
-  content: '';
-  position: absolute;
-  bottom: -5px;
-  left: 0;
-  width: 100%;
-  height: 2px;
-  background-color: #007bff;
-}
-
-.right-section .icon-button {
+.btn-ghost {
   background: none;
   border: none;
   cursor: pointer;
-  margin-left: 10px;
-  font-size: 24px;
+}
+
+.icon-btn {
+  width: 2rem;
+  height: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }

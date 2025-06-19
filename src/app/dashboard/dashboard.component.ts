@@ -1,8 +1,12 @@
 import { Component } from "@angular/core";
+import { AppGrid } from "../common/grid/grid.component";
+import { HeaderComponent } from '../header/header.component';
+import { UserBannerComponent } from '../user-banner/user-banner.component';
 
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
+  imports: [AppGrid, HeaderComponent, UserBannerComponent],
   styleUrls: ['./dashboard.component.scss'],
   standalone: true
 })

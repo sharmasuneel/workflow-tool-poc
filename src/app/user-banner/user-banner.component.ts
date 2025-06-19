@@ -1,9 +1,13 @@
+import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-user-banner',
   templateUrl: './user-banner.component.html',
-  styleUrls: ['./user-banner.component.css']
+  standalone: true,
+  imports: [FormsModule, CommonModule],
+  styleUrls: ['./user-banner.component.scss']
 })
 export class UserBannerComponent {
   roles = [

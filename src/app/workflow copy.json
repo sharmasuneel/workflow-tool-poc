@@ -1,0 +1,32 @@
+
+  {
+    "workflowId": 1,
+    "name": "Workflow One",
+    "note" :  "Get workflow list from server",
+    "tasks": [
+      {
+        "taskId": 1,
+        "taskName": "file upload",
+        "url": "http://localhost/<context>/upload",
+        "http-method":"post",
+        "status":1,
+        "userGroupId":"1"
+      },
+      {
+        "taskId": 2,
+        "taskName": "file download",
+        "url": "http://localhost/<context>/download",
+        "http-method":"get",
+        "status":0,
+        "userGroupId":"2"
+      },
+      {
+        "taskId": 3,
+        "taskName": "review",
+        "url": "http://localhost/<context>/review",
+        "http-method":"post",
+        "status":0,
+        "userGroupId":"3"
+      }
+    ]
+  }
