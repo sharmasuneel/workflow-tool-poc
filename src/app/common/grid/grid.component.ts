@@ -17,7 +17,7 @@ import { ColDef } from 'ag-grid-community';
     </ag-grid-angular>
   `
 })
-export class DataTableComponent {
+export class AppGrid {
   columnDefs: ColDef[] = [
     { field: 'make' },
     { field: 'model' },

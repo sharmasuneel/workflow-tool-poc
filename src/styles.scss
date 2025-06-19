@@ -45,6 +45,10 @@ $drawflowangular-theme: mat.define-light-theme((
 @import '../node_modules/font-awesome/css/font-awesome.css';
 @import url("https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css");
 
+@import 'ag-grid-community/styles/ag-grid.css';
+@import 'ag-grid-community/styles/ag-theme-alpine.css';
+
+
 
 /* You can add global styles to this file, and also import other style files */
 :root {
