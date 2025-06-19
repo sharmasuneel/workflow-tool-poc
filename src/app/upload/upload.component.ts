@@ -19,6 +19,7 @@ export class UploadComponent implements OnInit {
   reviewer: string = '';
   approver: string = '';
   fileType: string = 'CSV';
+  file: any = null;
   autoVersioning: boolean = false;
   isExpanded: boolean = true;
   private appService = inject(AppService);
@@ -45,20 +46,22 @@ export class UploadComponent implements OnInit {
 
   onFileSelected(event: any) {
     const file = event.target.files[0];
-    debugger;
+    this.file = file;
     this.fileName = file.name;
   }
-
+  
   onFileDrop(event: DragEvent) {
     debugger;
     event.preventDefault();
     const file = event.dataTransfer?.files[0];
+    this.file = file;
     this.fileName = file?.name ?? '';
   }
 
   onDragOver(event: DragEvent) {
     event.preventDefault();
   }
+
   toFormData(obj: any): FormData {
     const formData = new FormData();
     for (const key in obj) {
@@ -68,6 +71,7 @@ export class UploadComponent implements OnInit {
     }
     return formData;
   }
+
   onSave() {
     const jsonformData = {
       businessName: this.businessName,
@@ -79,8 +83,11 @@ export class UploadComponent implements OnInit {
       fileName: this.fileName
     };
 
-    const data = this.toFormData(jsonformData);
-
+    const fileData = {
+     file: this.file,
+     metadata: JSON.stringify(jsonformData)
+    };
+    const data = this.toFormData(fileData)
 
     this.dataService.postData(getConfig().upload, data).subscribe({
       next: (response) => {
