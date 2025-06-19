@@ -16,12 +16,15 @@ import { QualityCheckComponent } from '../../qualitycheck/qualitycheck.component
 import { DataService } from '../../services/data.service';
 import { ActivatedRoute } from '@angular/router';
 
+import { v4 as uuidv4 } from 'uuid';
+import { FormsModule } from '@angular/forms';
+
 type NodeName = keyof typeof nodesData.nodes;
 
 @Component({
   selector: 'app-drawflow',
   templateUrl: './drawflow.component.html',
-  imports: [CommonModule],
+  imports: [FormsModule, CommonModule],
   standalone: true,
   styleUrls: ['./drawflow.component.css']
 })
@@ -59,13 +62,23 @@ export class DrawflowComponent implements OnInit {
   mobile_last_move: TouchEvent | null;
   draggableNodes: any = nodesData.nodes
   users: string[] = ['User A', 'User B', 'User C'];
+
+  workflowName: string = '';
   private dataService = inject(DataService);
+
+  private workflowId: any = 0;
 
   constructor(private injector: Injector, private appRef: ApplicationRef, private route: ActivatedRoute) { }
 
+  onWorkflowNameChange(event: any) {
+    this.workflowName = event.target.value;
+    this.workflowId = uuidv4(); // Generate a unique ID for the workflow
+    console.log('Workflow Name Changed:', this.workflowName, this.workflowId);
+  }
+
   ngOnInit() {
     this.route.params.subscribe((params: any) => {      
-        debugger;
+        // debugger;
     });
   }
 
@@ -176,8 +189,8 @@ export class DrawflowComponent implements OnInit {
           } else if (nodeData.class === 'download') {
             this.addComponents<DownloadComponent>(nodeData, 'download', 'Download', nodeId, DownloadComponent);
           }
-          else if (nodeData.class === 'decide') {
-            this.addComponents<QualityCheckComponent>(nodeData, 'decide', 'Decide', nodeId, QualityCheckComponent);
+          else if (nodeData.class === 'review') {
+            this.addComponents<QualityCheckComponent>(nodeData, 'decide', 'Review', nodeId, QualityCheckComponent);
           }
         }
       }
@@ -326,7 +339,7 @@ export class DrawflowComponent implements OnInit {
   }
 
   export() {
-    debugger
+    // debugger
     const html = JSON.stringify(this.editor.export(), null, 4)
   }
 

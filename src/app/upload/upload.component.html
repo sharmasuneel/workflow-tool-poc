@@ -5,11 +5,18 @@
     </div>
 
     <div *ngIf="isExpanded">
+
       <div class="upload-box" (drop)="onFileDrop($event)" (dragover)="onDragOver($event)">
-        <p>Drag & drop file(s) or <label for="fileInput">Browse</label></p>
-        <input type="file" id="fileInput" (change)="onFileSelected($event)" accept=".csv" hidden />
-        <p *ngIf="fileName">{{ fileName }}</p>
+        <p>
+          Drag & drop file(s) or
+          <label for="fileInput" class="browse-label">Browse</label>
+        </p>
+        <input type="file" id="fileInput" (change)="onFileSelected($event)" accept="*" hidden />
+        <p *ngIf="fileName" class="file-name">{{ fileName }}</p>
       </div>
+
+
+
 
       <form>
         <h3>Section 1</h3>
@@ -19,22 +26,25 @@
 
         <label>Preparator</label>
         <select [(ngModel)]="preparator" name="preparator">
-          <option *ngFor="let user of users" [value]="user">{{ user }}</option>
+          <option *ngFor="let prep of preparators" [value]="prep.name">{{ prep.name }}</option>
         </select>
 
         <label>Reviewer</label>
         <select [(ngModel)]="reviewer" name="reviewer">
-          <option *ngFor="let user of users" [value]="user">{{ user }}</option>
+          <option *ngFor="let rev of reviewers" [value]="rev.name">{{ rev.name }}</option>
         </select>
 
         <label>Approver</label>
         <select [(ngModel)]="approver" name="approver">
+          <option *ngFor="let apr of approvers" [value]="apr.name">{{ apr.name }}</option>
           <option *ngFor="let user of users" [value]="user">{{ user }}</option>
         </select>
 
         <label>File Type</label>
         <select [(ngModel)]="fileType" name="fileType">
           <option value="CSV">CSV</option>
+          <option value="DOC">DOC</option>
+          <option value="PDF">PDF</option>
         </select>
 
         <label>
