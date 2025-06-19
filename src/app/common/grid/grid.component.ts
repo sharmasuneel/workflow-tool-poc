@@ -1,12 +1,13 @@
 // data-table.component.ts
-import { Component } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { AgGridAngular } from 'ag-grid-angular';
 import { ColDef } from 'ag-grid-community';
 import { AllCommunityModule, ModuleRegistry } from "ag-grid-community";
- 
+import { AppService } from '../../services/app.service';
+
 ModuleRegistry.registerModules([AllCommunityModule]);
- 
+
 
 @Component({
   selector: 'app-grid',
@@ -21,16 +22,42 @@ ModuleRegistry.registerModules([AllCommunityModule]);
     </ag-grid-angular>
   `
 })
-export class AppGrid {
+
+/* 
+"workflowId": 1,
+        "workflow": "Quarterly Promotions",
+        "progress": 80,
+        "status": { "task": "In Progress", "review": "", "approval": "" },
+        "assignedTo": [
+            { "name": "Chetan M", "email": "chetan.m@example.com", "id": 101 },
+            { "name": "Priya S", "email": "priya.s@example.com", "id": 102 }
+        ],
+        "commentary": "" */
+export class AppGrid implements OnInit {
+  private appService = inject(AppService);
   columnDefs: ColDef[] = [
-    { field: 'make' },
-    { field: 'model' },
-    { field: 'price' }
+    { field: 'workflow' },
+    { field: 'progress' },
+    { field: 'status' },
+    { field: 'assignedTo' },
+    { field: 'commentary' }
   ];
 
-  rowData = [
-    { make: 'Toyota', model: 'Celica', price: 35000 },
-    { make: 'Ford', model: 'Mondeo', price: 32000 },
-    { make: 'Porsche', model: 'Boxster', price: 72000 }
-  ];
+  rowData: any[] = [];
+
+  transformData = (data: any[]) => {
+    return data.map(item => ({
+      workflow: item.workflow,
+      progress: item.progress + '%',
+      status: `Task: ${item.status.task}\nReview: ${item.status.review || 'waiting approval'}\nApproval: ${item.status.approval || 'waiting approval'}`,
+      assignedTo: item.assignedTo.map((user: any) => user.name).join(', '),
+      commentary: item.commentary || 'No comments'
+    }));
+  }
+
+  ngOnInit() {
+    setTimeout(() => {
+      this.rowData = this.transformData(this.appService.getWorkflows());
+    }, 1000);
+  }
 }

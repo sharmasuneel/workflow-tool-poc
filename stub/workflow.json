@@ -1,4 +1,4 @@
-const workflows = [
+[
     {
         "workflowId": 1,
         "workflow": "Quarterly Promotions",
