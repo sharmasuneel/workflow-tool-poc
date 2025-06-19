@@ -1,0 +1,57 @@
+const workflows = [
+    {
+        "workflowId": 1,
+        "workflow": "Quarterly Promotions",
+        "progress": 80,
+        "status": { "task": "In Progress", "review": "", "approval": "" },
+        "assignedTo": [
+            { "name": "Chetan M", "email": "chetan.m@example.com", "id": 101 },
+            { "name": "Priya S", "email": "priya.s@example.com", "id": 102 }
+        ],
+        "commentary": ""
+    },
+    {
+        "workflowId": 2,
+        "workflow": "Annual Salary Review",
+        "progress": 60,
+        "status": { "task": "", "review": "Waiting", "approval": "" },
+        "assignedTo": [
+            { "name": "Shivam P", "email": "shivam.p@example.com", "id": 103 },
+            { "name": "Rohit K", "email": "rohit.k@example.com", "id": 104 }
+        ],
+        "commentary": ""
+    },
+    {
+        "workflowId": 3,
+        "workflow": "Project Kickoff",
+        "progress": 40,
+        "status": { "task": "", "review": "", "approval": "Waiting" },
+        "assignedTo": [
+            { "name": "Vikas Singh", "email": "vikas.singh@example.com", "id": 105 },
+            { "name": "Anjali T", "email": "anjali.t@example.com", "id": 106 }
+        ],
+        "commentary": ""
+    },
+    {
+        "workflowId": 4,
+        "workflow": "Product Launch",
+        "progress": 90,
+        "status": { "task": "In Progress", "review": "", "approval": "" },
+        "assignedTo": [
+            { "name": "Aditya Mittal", "email": "aditya.mittal@example.com", "id": 107 },
+            { "name": "Sneha R", "email": "sneha.r@example.com", "id": 108 }
+        ],
+        "commentary": ""
+    },
+    {
+        "workflowId": 5,
+        "workflow": "Annual Salary Review",
+        "progress": 100,
+        "status": { "task": "", "review": "", "approval": "", "completed": true },
+        "assignedTo": [
+            { "name": "Chetan M", "email": "chetan.m@example.com", "id": 101 },
+            { "name": "Priya S", "email": "priya.s@example.com", "id": 102 }
+        ],
+        "commentary": ""
+    }
+];
