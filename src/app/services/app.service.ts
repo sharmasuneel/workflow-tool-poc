@@ -3,9 +3,10 @@ import { Injectable } from '@angular/core';
 @Injectable({
   providedIn: 'root'
 })
-export class UserService {
+export class AppService {
   private user: any = null;
   private users: any[] = [];
+  private workflows: any[] = [];
 
   setUsers(users: any[]) {
     this.users = users;
@@ -13,6 +14,14 @@ export class UserService {
 
   getUsers() {
     return this.users;
+  }
+
+  setWorkflows(workflows: any[]) {
+    this.workflows = workflows;
+  }
+
+  getWorkflows() {
+    return this.workflows;
   }
 
   setUser(user: any) {

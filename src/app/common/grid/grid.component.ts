@@ -3,6 +3,10 @@ import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { AgGridAngular } from 'ag-grid-angular';
 import { ColDef } from 'ag-grid-community';
+import { AllCommunityModule, ModuleRegistry } from "ag-grid-community";
+ 
+ModuleRegistry.registerModules([AllCommunityModule]);
+ 
 
 @Component({
   selector: 'app-grid',

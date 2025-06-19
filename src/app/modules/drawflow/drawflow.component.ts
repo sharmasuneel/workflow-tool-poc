@@ -5,6 +5,7 @@ import {
   createComponent,
   Injector,
   ApplicationRef,
+  inject,
 } from '@angular/core';
 import Drawflow from 'drawflow';
 import nodesData from './nodes.json'; // Assuming you have a JSON file with node data
@@ -12,6 +13,7 @@ import { CommonModule } from '@angular/common';
 import { UploadComponent } from '../../upload/upload.component';
 import { DownloadComponent } from '../../download/download.component';
 import { QualityCheckComponent } from '../../qualitycheck/qualitycheck.component';
+import { DataService } from '../../services/data.service';
 
 type NodeName = keyof typeof nodesData.nodes;
 
@@ -56,6 +58,7 @@ export class DrawflowComponent implements OnInit {
   mobile_last_move: TouchEvent | null;
   draggableNodes: any = nodesData.nodes
   users: string[] = ['User A', 'User B', 'User C'];
+  private dataService = inject(DataService);
 
   constructor(private injector: Injector, private appRef: ApplicationRef) { }
 
@@ -322,6 +325,13 @@ export class DrawflowComponent implements OnInit {
   export() {
     debugger
     const html = JSON.stringify(this.editor.export(), null, 4)
+  }
+
+  saveWorkflow() {
+    const data: any[] = []
+   /*  this.dataService.postData('http://localhost:3020/data/save-workflows', data).subscribe((response) => {
+      console.log('Workflow saved successfully:', response);
+    } */
   }
 
   onClear() {

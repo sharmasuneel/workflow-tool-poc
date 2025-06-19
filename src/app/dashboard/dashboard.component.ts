@@ -2,7 +2,7 @@ import { Component, inject } from "@angular/core";
 import { AppGrid } from "../common/grid/grid.component";
 import { HeaderComponent } from '../header/header.component';
 import { UserBannerComponent } from '../user-banner/user-banner.component';
-import { UserService } from "../services/user.service";
+import { AppService } from "../services/app.service";
 
 @Component({
   selector: 'app-dashboard',
@@ -14,7 +14,7 @@ import { UserService } from "../services/user.service";
 export class DashboardComponent {
   title: string;
   data: any[];
-  private userService = inject(UserService);
+  private appService = inject(AppService);
 
   constructor() {
     this.title = 'Dashboard';
@@ -23,7 +23,7 @@ export class DashboardComponent {
   users: any[] = [];
   ngOnInit() {
     setTimeout(() => {
-      this.users = this.userService.getUsers();
+      this.users = this.appService.getUsers();
       console.log('Users loaded:', this.users);
     }, 1000);
     this.loadData();

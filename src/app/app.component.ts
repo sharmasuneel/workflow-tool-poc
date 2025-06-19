@@ -4,7 +4,8 @@ import { RouterOutlet } from '@angular/router';
 
 import { DataService } from './services/data.service';
 import { User } from 'lucide';
-import { UserService } from './services/user.service';
+import { AppService } from './services/app.service';
+import getConfig from './config';
 
 @Component({
   selector: 'app-root',
@@ -16,15 +17,22 @@ import { UserService } from './services/user.service';
 export class AppComponent implements OnInit {
   title = 'drawflowangular';
   users: any[] = [];
+  workflows: any[] = [];
 
   private dataService = inject(DataService);
-  private userService = inject(UserService);
+  private appService = inject(AppService);
+
+  private urls = getConfig()
+
 
    ngOnInit() {
-    const userUrl = 'http://localhost:3020/users';
-    this.dataService.getData(userUrl).subscribe((data) => {
+    this.dataService.getData(this.urls.users).subscribe((data) => {
       this.users = data;
-      this.userService.setUsers(data);
+      this.appService.setUsers(data );
+    });
+    this.dataService.getData(this.urls.workflows).subscribe((data) => {
+      this.workflows = data;
+      this.appService.setWorkflows(data );
     });
   }
 }
