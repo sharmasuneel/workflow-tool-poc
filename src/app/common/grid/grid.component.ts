@@ -5,6 +5,7 @@ import { AgGridAngular } from 'ag-grid-angular';
 import { ColDef } from 'ag-grid-community';
 import { AllCommunityModule, ModuleRegistry } from "ag-grid-community";
 import { AppService } from '../../services/app.service';
+import { Router } from '@angular/router';
 
 ModuleRegistry.registerModules([AllCommunityModule]);
 
@@ -15,13 +16,15 @@ ModuleRegistry.registerModules([AllCommunityModule]);
   imports: [CommonModule, AgGridAngular],
   template: `
     <ag-grid-angular
-      style="width: 100%; height: 500px;"
+      style="height: 500px;"
       class="ag-theme-alpine"
+      [rowHeight]="80"
       [rowData]="rowData"
       [columnDefs]="columnDefs">
     </ag-grid-angular>
   `
 })
+
 
 /* 
 "workflowId": 1,
@@ -35,11 +38,42 @@ ModuleRegistry.registerModules([AllCommunityModule]);
         "commentary": "" */
 export class AppGrid implements OnInit {
   private appService = inject(AppService);
+
+  constructor(private router: Router) { }
   columnDefs: ColDef[] = [
-    { field: 'workflow' },
+    {
+      field: 'workflow', cellRenderer: (params: any) => {
+        return `<div>
+          <a class="my-action-btn">${params.getValue()}</a>
+        </div>`;
+      },
+      onCellClicked: (params: any) => {
+        if (params.event.target.classList.contains('my-action-btn')) {
+          this.router.navigate(['/workflow'], {
+            queryParams: { workflowId: params.data.workflowId}});
+        }
+      }
+    },
     { field: 'progress' },
-    { field: 'status' },
-    { field: 'assignedTo' },
+    {
+      field: 'status', cellRenderer: (params: any) => {
+        const { task, review, approval } = params.getValue();
+        return `<div>
+          <div><strong>Task:</strong> ${task}</div>
+          <div><strong>Review:</strong> ${review}</div>
+          <div><strong>Approval:</strong> ${approval}</div>
+        </div>`;
+      },
+    },
+    {
+      field: 'assignedTo',
+      cellRenderer: (params: any) => {
+        const users = params.data.assignedTo.split(',') || [];
+        return `<ul style="margin:0;padding-left:16px;">
+          ${users.map((user: any) => `<div>${user}</div>`).join('')}
+        </ul>`;
+      }
+    },
     { field: 'commentary' }
   ];
 
@@ -48,8 +82,13 @@ export class AppGrid implements OnInit {
   transformData = (data: any[]) => {
     return data.map(item => ({
       workflow: item.workflow,
+      workflowId: item.workflowId,
       progress: item.progress + '%',
-      status: `Task: ${item.status.task}\nReview: ${item.status.review || 'waiting approval'}\nApproval: ${item.status.approval || 'waiting approval'}`,
+      status: {
+        task: item.status.task,
+        review: item.status.review || 'waiting approval',
+        approval: item.status.approval || 'waiting approval'
+      },
       assignedTo: item.assignedTo.map((user: any) => user.name).join(', '),
       commentary: item.commentary || 'No comments'
     }));

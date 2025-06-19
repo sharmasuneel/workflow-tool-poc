@@ -14,6 +14,7 @@ import { UploadComponent } from '../../upload/upload.component';
 import { DownloadComponent } from '../../download/download.component';
 import { QualityCheckComponent } from '../../qualitycheck/qualitycheck.component';
 import { DataService } from '../../services/data.service';
+import { ActivatedRoute } from '@angular/router';
 
 type NodeName = keyof typeof nodesData.nodes;
 
@@ -60,10 +61,12 @@ export class DrawflowComponent implements OnInit {
   users: string[] = ['User A', 'User B', 'User C'];
   private dataService = inject(DataService);
 
-  constructor(private injector: Injector, private appRef: ApplicationRef) { }
+  constructor(private injector: Injector, private appRef: ApplicationRef, private route: ActivatedRoute) { }
 
   ngOnInit() {
-
+    this.route.params.subscribe((params: any) => {      
+        debugger;
+    });
   }
 
   onUploadClick() {
