@@ -4,11 +4,12 @@ import { FormsModule } from '@angular/forms';
 import { AppService } from '../services/app.service';
 import { DataService } from '../services/data.service';
 import getConfig from '../config';
+import { DropWrapperContainerComponent } from '../common/drop-wrapper-container/drop-wrapper-container.component';
 
 @Component({
   selector: 'app-upload',
   templateUrl: './upload.component.html',
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, DropWrapperContainerComponent],
   standalone: true,
   styleUrls: ['./upload.component.scss'],
 })
@@ -30,6 +31,7 @@ export class UploadComponent implements OnInit {
   preparators: any[] = []
   approvers: any[] = []
   reviewers: any[] = []
+  containerClass: "st1"
 
   ngOnInit() {
     setTimeout(() => {

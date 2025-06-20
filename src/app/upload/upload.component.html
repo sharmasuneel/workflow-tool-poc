@@ -1,62 +1,46 @@
-<div class="upload-container">
-  <div class="upload-wrapper">
-    <div class="upload-header" (click)="toggleUpload()">
-      <i class="fa fa-upload" aria-hidden="true"></i> Upload
-    </div>
-
-    <div *ngIf="isExpanded">
-
-      <div class="upload-box" (drop)="onFileDrop($event)" (dragover)="onDragOver($event)">
-        <p>
-          Drag & drop file(s) or
-          <label for="fileInput" class="browse-label">Browse</label>
-        </p>
-        <input type="file" id="fileInput" (change)="onFileSelected($event)" accept="*" hidden />
-        <p *ngIf="fileName" class="file-name">{{ fileName }}</p>
-      </div>
-
-
-
-
-      <form>
-        <h3>Section 1</h3>
-
-        <label>Business Name</label>
-        <input type="text" [(ngModel)]="businessName" name="businessName" />
-
-        <label>Preparator</label>
-        <select [(ngModel)]="preparator" name="preparator">
-          <option *ngFor="let prep of preparators" [value]="prep.name">{{ prep.name }}</option>
-        </select>
-
-        <label>Reviewer</label>
-        <select [(ngModel)]="reviewer" name="reviewer">
-          <option *ngFor="let rev of reviewers" [value]="rev.name">{{ rev.name }}</option>
-        </select>
-
-        <label>Approver</label>
-        <select [(ngModel)]="approver" name="approver">
-          <option *ngFor="let apr of approvers" [value]="apr.name">{{ apr.name }}</option>
-          <option *ngFor="let user of users" [value]="user">{{ user }}</option>
-        </select>
-
-        <label>File Type</label>
-        <select [(ngModel)]="fileType" name="fileType">
-          <option value="CSV">CSV</option>
-          <option value="DOC">DOC</option>
-          <option value="PDF">PDF</option>
-        </select>
-
-        <label>
-          <input type="checkbox" [(ngModel)]="autoVersioning" name="autoVersioning" />
-          Set auto file versioning
-        </label>
-
-        <button type="button" (click)="onSave()">Save</button>
-      </form>
-    </div>
+<app-drop-wrapper-container>
+  <div class="upload-box" (drop)="onFileDrop($event)" (dragover)="onDragOver($event)">
+    <p>
+      Drag & drop file(s) or
+      <label for="fileInput" class="browse-label">Browse</label>
+    </p>
+    <input type="file" id="fileInput" (change)="onFileSelected($event)" accept="*" hidden />
+    <p *ngIf="fileName" class="file-name">{{ fileName }}</p>
   </div>
+  <form>
+    <h3>Section 1</h3>
 
+    <label>Business Name</label>
+    <input type="text" [(ngModel)]="businessName" name="businessName" />
 
+    <label>Preparator</label>
+    <select [(ngModel)]="preparator" name="preparator">
+      <option *ngFor="let prep of preparators" [value]="prep.name">{{ prep.name }}</option>
+    </select>
 
-</div>
+    <label>Reviewer</label>
+    <select [(ngModel)]="reviewer" name="reviewer">
+      <option *ngFor="let rev of reviewers" [value]="rev.name">{{ rev.name }}</option>
+    </select>
+
+    <label>Approver</label>
+    <select [(ngModel)]="approver" name="approver">
+      <option *ngFor="let apr of approvers" [value]="apr.name">{{ apr.name }}</option>
+      <option *ngFor="let user of users" [value]="user">{{ user }}</option>
+    </select>
+
+    <label>File Type</label>
+    <select [(ngModel)]="fileType" name="fileType">
+      <option value="CSV">CSV</option>
+      <option value="DOC">DOC</option>
+      <option value="PDF">PDF</option>
+    </select>
+
+    <label>
+      <input type="checkbox" [(ngModel)]="autoVersioning" name="autoVersioning" />
+      Set auto file versioning
+    </label>
+
+    <button type="button" (click)="onSave()">Save</button>
+  </form>
+</app-drop-wrapper-container>

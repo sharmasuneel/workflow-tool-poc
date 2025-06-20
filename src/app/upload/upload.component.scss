@@ -4,6 +4,16 @@
   padding: 20px;
 }
 
+.expanded {
+  padding: 20px;
+  height: auto;
+}
+
+.collapsed {
+  padding: 0;
+  height: 0;
+}
+
 
 
 form label {

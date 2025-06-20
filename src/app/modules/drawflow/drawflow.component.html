@@ -11,29 +11,62 @@
 </head>
 
 <body> 
+  <!-- <header class="dashboard-header">
+    <img src="assets/icons/logo.png" alt="Company Logo" class="dashboard-logo" />
+    <div>
+      <h1 class="dashboard-title">PC Workflow</h1>
+      <div class="subtitle">Risk, Finance & Treasury</div>
+    </div>
+    <span class="vrbar"></span>
+    <nav class="dashboard-nav">
+      <ul class="horizontal-nav">
+        <li><a href="#">Dashboard</a></li>
+        <li><a href="#">User Management</a></li>
+        <li><a href="#">Settings</a></li>
+        <li><a href="#">Help</a></li>
+      </ul>
+    </nav>
+    <div class="dashboard-date">
+      30-4-25
+      <i class="fa fa-calendar dateIcon" aria-hidden="true"></i>
+    </div>
+  </header> -->
 
-  <header style="display: flex; align-items: center; gap: 1rem;">
+  <!-- <header style="display: flex; align-items: center; gap: 1rem;">
     <h2 style="margin: 0;">Workflow tool</h2>
     <div style="display: flex; align-items: center; gap: 0.5rem;">
       <label for="workflowName" style="margin: 0;">Workflow Name:</label>
       <input [(ngModel)]="workflowName" (input)="onWorkflowNameChange($event)">
     </div>
-  </header>
-  <div class="wrapper">
-    <div class="col">
-      <div
+  </header> -->
+  <div class="wrapper bgColorLightgrey">
+    <div class="col col1">
+      <div class="cont1">
+        <div><i class="fas fa-arrow-left leftblue"></i>Go to Dashboard</div>
+        <div class="monthlydoc">Monthly Documents</div>
+        <div class="attrib">Attributes</div>
+        <hr class="hrLine">
+      </div>
+      <!-- TODO Left nav icons -->
+      <div class="draggable-nodes-container" style="padding: 20px; display: flex; justify-content: center; align-items: center; flex-direction: column;">
+        <div class="draggable-row" *ngFor="let row of draggableNodes | slice:0:10; let i = index" style="display: flex; justify-content: center; align-items: center;">
+          <div
         class="drag-drawflow"
-        *ngFor="let node of draggableNodes"
+        *ngFor="let node of draggableNodes.slice(i*2, i*2+2); let j = index"
         draggable="true"
         (dragstart)="drag($event)"
         [attr.data-node]="node.id"
-        >
-        <i></i><span class={{node.icon}}>{{" "+ node.name}}</span>
+        style="display: inline-block; margin-right: 16px;"
+          >
+        <img [attr.data-node]="node.id" [src]="'assets/icons/' + node.icon + '.png'" alt="{{node.name}} icon"
+          style="width: 60px; height: 60px; vertical-align: middle; margin: 12px;">
+          </div>
+        </div>
       </div>
 
     </div>
 
-    <div class="col-right">
+    <div class="col-right bgColorLightgrey">
       <div id="drawflow" (drop)="drop($event)" (dragover)="allowDrop($event)">
 
         <div class="btn-save" (click)="saveWorkflow()">Save Workflow</div>

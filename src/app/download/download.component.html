@@ -1,11 +1,6 @@
-<div class="upload-container">
-  <div class="upload-wrapper">
-    <div class="upload-header" (click)="toggleDownload()">
-      <i class="fa fa-download fa-2x red" aria-hidden="true"></i>Download
-    </div>
 
-    <div *ngIf="isExpanded">
-      <div class="download-container">
+<app-drop-wrapper-container>
+   <div class="download-container">
         <h3>Download</h3>
 
         <label>
@@ -39,5 +34,4 @@
 
         <button (click)="onSave()" class="save-button">Save</button>
       </div>
-
-    </div>
+</app-drop-wrapper-container>

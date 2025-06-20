@@ -1,0 +1,33 @@
+.leftblue{
+    color: blue;
+    padding: 2px;
+    padding-right: 10px;
+}
+.monthlydoc {
+    color: rgb(83, 82, 82);
+    font-weight: 400;
+    padding: 2px;
+    margin-bottom: 10px;
+    margin-top: 10px;
+}
+.attrib {
+    color: rgb(167, 167, 167);
+    margin-bottom: 0;
+}
+.col1 {
+    border-top-right-radius: 10px;
+    background-color: #fff;
+}
+.bgColorLightgrey {
+    background-color: rgb(241, 240, 240);
+}
+.cont1 {
+    margin: 20px;
+    margin-bottom: 0;
+}
+.hrLine {
+    margin: 10px 0;
+}
+.hidden {
+    font-size: 10;
+}

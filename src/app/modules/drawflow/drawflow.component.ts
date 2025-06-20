@@ -13,6 +13,7 @@ import { CommonModule } from '@angular/common';
 import { UploadComponent } from '../../upload/upload.component';
 import { DownloadComponent } from '../../download/download.component';
 import { QualityCheckComponent } from '../../qualitycheck/qualitycheck.component';
+import { AttestationComponent } from '../../attestation/attestation.component';
 import { DataService } from '../../services/data.service';
 import { ActivatedRoute } from '@angular/router';
 
@@ -108,7 +109,7 @@ export class DrawflowComponent implements OnInit {
     if (nodeData && nodeData.class === id) {
       // Dynamically render UploadComponent inside the node
       const nodeContent = document.querySelector(`#node-${nodeId} .drawflow_content_node`);
-      const container = nodeContent?.children[0];
+      const container = nodeContent?.children[1];
       if (nodeContent && !nodeContent.querySelector('app-upload') && container?.innerHTML === innerHTML) {
         if (!container) {
           console.error('Element not found:' + id);
@@ -191,6 +192,8 @@ export class DrawflowComponent implements OnInit {
           }
           else if (nodeData.class === 'review') {
             this.addComponents<QualityCheckComponent>(nodeData, 'review', 'Review', nodeId, QualityCheckComponent);
+          } else if (nodeData.class === 'attestation') {
+            this.addComponents<AttestationComponent>(nodeData, 'attestation', 'Attestation', nodeId, AttestationComponent);
           }
         }
       }
@@ -322,6 +325,7 @@ export class DrawflowComponent implements OnInit {
     pos_y = pos_y * (this.editor.precanvas.clientHeight / (this.editor.precanvas.clientHeight * this.editor.zoom)) - (this.editor.precanvas.getBoundingClientRect().y * (this.editor.precanvas.clientHeight / (this.editor.precanvas.clientHeight * this.editor.zoom)));
     const node = nodesData.nodes.filter(node => node.id === id)[0] as { class: string, inputs: any, outputs: any, data: any, html: string };
     // debugger
+    // TODO Left nav icons when dropped.. node.json html -->
     if (node) {
       this.editor.addNode(
         node.class,

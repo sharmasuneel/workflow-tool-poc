@@ -6,11 +6,12 @@ import { DataService } from './services/data.service';
 import { User } from 'lucide';
 import { AppService } from './services/app.service';
 import getConfig from './config';
+import { HeaderComponent } from './header/header.component';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, CommonModule],
+  imports: [RouterOutlet, CommonModule, HeaderComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
 })

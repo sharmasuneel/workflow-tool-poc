@@ -116,9 +116,6 @@ header a {
 }
 
 .drag-drawflow {
-  line-height: 50px;
-  border-bottom: 1px solid var(--border-color);
-  padding-left: 20px;
   cursor: move;
   user-select: none;
 }
@@ -239,17 +236,16 @@ header a {
 .bar-zoom svg:nth-child(1) {
   padding-left: 0px;
 }
-
+//TODO drop area background
 #drawflow {
   position: relative;
   width: calc(100vw - 301px);
   height: calc(100% - 50px);
   top: 40px;
-  background: var(--background-color);
   background-size: 25px 25px;
   background-image:
-    linear-gradient(to right, #f1f1f1 1px, transparent 1px),
-    linear-gradient(to bottom, #f1f1f1 1px, transparent 1px);
+    linear-gradient(to right, #e7e4e4 1px, transparent 1px),
+    linear-gradient(to bottom, #e7e4e4 1px, transparent 1px);
 }
 
 @media only screen and (max-width: 768px) {
