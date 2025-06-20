@@ -1,12 +1,13 @@
 form label {
-  display: block;
-  margin-top: 10px;
+  // display: block;
+  // margin-top: 10px;
 }
 
-form input, form select {
-  width: 90%;
-  padding: 8px;
-  margin-top: 5px;
+form input,
+form select {
+  // width: 100%;
+  // padding: 8px;
+  // margin-top: 5px;
 }
 
 button {
@@ -45,4 +46,14 @@ button {
   margin-top: 10px;
   font-style: italic;
   color: #2c3e50;
+}
+
+
+.upload-wrapper {
+  // padding: 12px;
+  // display: flex;
+
+  .upload-type-select {
+
+  }
 }

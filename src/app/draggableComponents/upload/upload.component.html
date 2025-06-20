@@ -1,13 +1,17 @@
 <app-drop-wrapper-container>
-<div class="upload-type-select">
-  <label>Upload Type</label>
-  <select [(ngModel)]="uploadType" name="uploadType">
-    <option value="template">Set Template</option>
-    <option value="withData">With Data</option>
-  </select>
-</div>
-    <div class="upload-box" (drop)="onFileDrop($event)" (dragover)="onDragOver($event)">
-      <p>
+  <div class="upload-type-select mb-3">
+    <label class="mb-1">Upload Type</label>
+    <div class="col-12">
+      <select class="w-100 input-height" [(ngModel)]="uploadType" name="uploadType">
+        <option value="template">Set Template</option>
+        <option value="withData">With Data</option>
+      </select>
+    </div>
+  </div>
+
+  <label class="mb-1">Upload Template</label>
+  <div class="upload-box mb-3" (drop)="onFileDrop($event)" (dragover)="onDragOver($event)">
+    <p>
       Drag & drop file(s) or
       <label for="fileInput" class="browse-label">Browse</label>
     </p>
@@ -15,39 +19,61 @@
     <p *ngIf="fileName" class="file-name">{{ fileName }}</p>
   </div>
   <form>
-    <h3>Section 1</h3>
-    
-    <label>Business Name</label>
-    <input type="text" [(ngModel)]="businessName" name="businessName" />
-    
-    <label>Preparator</label>
-    <select [(ngModel)]="preparator" name="preparator">
-      <option *ngFor="let prep of preparators" [value]="prep.name">{{ prep.name }}</option>
-    </select>
-    
-    <label>Reviewer</label>
-    <select [(ngModel)]="reviewer" name="reviewer">
-      <option *ngFor="let rev of reviewers" [value]="rev.name">{{ rev.name }}</option>
-    </select>
-    
-    <label>Approver</label>
-    <select [(ngModel)]="approver" name="approver">
-      <option *ngFor="let apr of approvers" [value]="apr.name">{{ apr.name }}</option>
-      <option *ngFor="let user of users" [value]="user">{{ user }}</option>
-    </select>
+    <div class="form-check mb-2">
+      <input class="form-check-input" type="checkbox" [(ngModel)]="autoVersioning" name="autoVersioning" />
+      <label class="form-check-label" for="flexCheckDefault">
+        Set auto file versioning
+      </label>
+    </div>
 
-    <label>File Type</label>
-    <select [(ngModel)]="fileType" name="fileType">
-      <option value="CSV">CSV</option>
-      <option value="DOC">DOC</option>
-      <option value="PDF">PDF</option>
-    </select>
-    
-    <label>
-      <input type="checkbox" [(ngModel)]="autoVersioning" name="autoVersioning" />
-      Set auto file versioning
-    </label>
-    
+    <h5>Section 1</h5>
+    <div class="mb-2">
+      <label>Business Name</label>
+      <div class="col-12">
+        <input type="text" class="w-100 input-height" [(ngModel)]="businessName" name="businessName" />
+      </div>
+    </div>
+
+    <div class="mb-2">
+      <label>Preparator</label>
+      <div class="col-12">
+        <select class="w-100 input-height" [(ngModel)]="preparator" name="preparator">
+          <option *ngFor="let prep of preparators" [value]="prep.name">{{ prep.name }}</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="mb-2">
+      <label>Reviewer</label>
+      <div class="col-12">
+        <select class="w-100 input-height" [(ngModel)]="reviewer" name="reviewer">
+          <option *ngFor="let rev of reviewers" [value]="rev.name">{{ rev.name }}</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="mb-2">
+      <label>Approver</label>
+      <div class="col-12">
+        <select class="w-100 input-height" [(ngModel)]="approver" name="approver">
+          <option *ngFor="let apr of approvers" [value]="apr.name">{{ apr.name }}</option>
+          <option *ngFor="let user of users" [value]="user">{{ user }}</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="mb-2">
+      <label>File Type</label>
+      <div class="col-12">
+        <select class="w-100 input-height" [(ngModel)]="fileType" name="fileType">
+          <option value="CSV">CSV</option>
+          <option value="DOC">DOC</option>
+          <option value="PDF">PDF</option>
+        </select>
+      </div>
+    </div>
+
+
     <button type="button" (click)="onSave()">Save</button>
   </form>
 </app-drop-wrapper-container>
