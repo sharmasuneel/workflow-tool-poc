@@ -17,6 +17,7 @@ import { ActivatedRoute } from '@angular/router';
 
 import { v4 as uuidv4 } from 'uuid';
 import { FormsModule } from '@angular/forms';
+import getConfig from '../../config';
 
 type NodeName = keyof typeof nodesData.nodes;
 
@@ -359,7 +360,7 @@ export class DrawflowComponent implements OnInit {
       "autoVersioning": "true",
       "fileName": "document.pdf"
     }
-    this.dataService.postData('http://localhost:3020/data/save-workflows', data).subscribe((response) => {
+    this.dataService.postData(getConfig().saveWorkflow, data).subscribe((response) => {
       console.log('Workflow saved successfully:', response);
     })
   }

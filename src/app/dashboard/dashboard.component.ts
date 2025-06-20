@@ -3,11 +3,15 @@ import { AppGrid } from "../common/grid/grid.component";
 import { HeaderComponent } from '../header/header.component';
 import { UserBannerComponent } from '../user-banner/user-banner.component';
 import { AppService } from "../services/app.service";
+import { CommonModule } from "@angular/common";
+import { FormsModule } from "@angular/forms";
+import { DataService } from "../services/data.service";
+import getConfig from "../config";
 
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
-  imports: [AppGrid, HeaderComponent, UserBannerComponent],
+  imports: [AppGrid, UserBannerComponent, CommonModule, FormsModule],
   styleUrls: ['./dashboard.component.scss'],
   standalone: true
 })
@@ -15,6 +19,7 @@ export class DashboardComponent {
   title: string;
   data: any[];
   private appService = inject(AppService);
+  private dataService = inject(DataService);
 
   constructor() {
     this.title = 'Dashboard';
@@ -28,6 +33,26 @@ export class DashboardComponent {
     }, 1000);
     this.loadData();
   }
+
+  showCreateWorkflow: boolean = false
+  createNewWorkFlow() {
+
+    const data: any = {
+      worflowName: this.newWorkflowName,
+      "businessName": "Example Business",
+      "preparator": 2,
+      "reviewer": 1,
+      "approver": 3,
+      "fileType": "pdf",
+      "autoVersioning": "true",
+      "fileName": "document.pdf"
+    }
+    this.dataService.postData(getConfig().saveWorkflow, data).subscribe((response) => {
+      console.log('Workflow saved successfully:', response);
+    })
+
+  }
+  newWorkflowName: string
 
   loadData() {
     // Logic to load data for the dashboard
