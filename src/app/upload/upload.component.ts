@@ -43,6 +43,11 @@ export class UploadComponent implements OnInit {
     }, 100);
   }
 
+  getId(key: string, arr: any) {
+    return arr.filter((item: any) => item.name === key).map((item: any) => item.userGroupId)[0]
+
+  }
+
   toggleUpload() {
     this.isExpanded = !this.isExpanded;
   }
@@ -78,9 +83,9 @@ export class UploadComponent implements OnInit {
   onSave() {
     const jsonformData = {
       businessName: this.businessName,
-      preparator: this.preparator,
-      reviewer: this.reviewer,
-      approver: this.approver,
+      preparator: this.getId(this.preparator, this.preparators) || 1,
+      reviewer: this.getId(this.reviewer, this.reviewers) || 1,
+      approver: this.getId(this.approver, this.approvers) || 1,
       fileType: this.fileType,
       autoVersioning: this.autoVersioning,
       fileName: this.fileName
