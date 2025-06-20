@@ -32,6 +32,7 @@ export class UploadComponent implements OnInit {
   approvers: any[] = []
   reviewers: any[] = []
   containerClass: "st1"
+  uploadType: string
 
   ngOnInit() {
     setTimeout(() => {

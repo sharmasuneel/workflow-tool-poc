@@ -78,8 +78,8 @@ export class DrawflowComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.route.params.subscribe((params: any) => {      
-        // debugger;
+    this.route.params.subscribe((params: any) => {
+      // debugger;
     });
   }
 
@@ -348,10 +348,18 @@ export class DrawflowComponent implements OnInit {
   }
 
   saveWorkflow() {
-    const data: any[] = []
-   /*  this.dataService.postData('http://localhost:3020/data/save-workflows', data).subscribe((response) => {
+    const data: any = {
+      "businessName": "Example Business",
+      "preparator": 2,
+      "reviewer": 1,
+      "approver": 3,
+      "fileType": "pdf",
+      "autoVersioning": "true",
+      "fileName": "document.pdf"
+    }
+    this.dataService.postData('http://localhost:3020/data/save-workflows', data).subscribe((response) => {
       console.log('Workflow saved successfully:', response);
-    } */
+    })
   }
 
   onClear() {

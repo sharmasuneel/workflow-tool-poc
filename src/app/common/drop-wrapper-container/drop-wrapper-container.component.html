@@ -5,7 +5,7 @@
             <i class="fa" [ngClass]="isExpanded ? 'fa-chevron-up' : 'fa-chevron-down'" aria-hidden="true"></i>
         </span>
 
-        <div *ngIf="isExpanded">
+        <div *ngIf="isExpanded" class="containerBox">
             <ng-content></ng-content>
         </div>
     </div>
