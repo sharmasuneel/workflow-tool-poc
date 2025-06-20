@@ -10,10 +10,8 @@ import {
 import Drawflow from 'drawflow';
 import nodesData from './nodes.json'; // Assuming you have a JSON file with node data
 import { CommonModule } from '@angular/common';
-import { UploadComponent } from '../../upload/upload.component';
-import { DownloadComponent } from '../../download/download.component';
-import { QualityCheckComponent } from '../../qualitycheck/qualitycheck.component';
-import { AttestationComponent } from '../../attestation/attestation.component';
+// TODO import draggable components here
+import { UploadComponent, DownloadComponent, ReviewComponent, AttestComponent, StartComponent } from '../../draggableComponents/index';
 import { DataService } from '../../services/data.service';
 import { ActivatedRoute } from '@angular/router';
 
@@ -184,6 +182,7 @@ export class DrawflowComponent implements OnInit {
       if (e.target.closest('.drawflow_content_node') != null) {
         const nodeId = e.target.closest('.drawflow_content_node').parentElement.id.slice(5);
         const nodeData = this.editor.drawflow.drawflow.Home.data[nodeId];
+        //TODO add dragabble components here
         if (nodeData) {
           if (nodeData.class === 'upload') {
             this.addComponents<UploadComponent>(nodeData, 'upload', 'Upload', nodeId, UploadComponent);
@@ -191,9 +190,9 @@ export class DrawflowComponent implements OnInit {
             this.addComponents<DownloadComponent>(nodeData, 'download', 'Download', nodeId, DownloadComponent);
           }
           else if (nodeData.class === 'review') {
-            this.addComponents<QualityCheckComponent>(nodeData, 'review', 'Review', nodeId, QualityCheckComponent);
+            this.addComponents<ReviewComponent>(nodeData, 'review', 'Review', nodeId, ReviewComponent);
           } else if (nodeData.class === 'attestation') {
-            this.addComponents<AttestationComponent>(nodeData, 'attestation', 'Attestation', nodeId, AttestationComponent);
+            this.addComponents<AttestComponent>(nodeData, 'attestation', 'Attestation', nodeId, AttestComponent);
           }
         }
       }
@@ -346,7 +345,7 @@ export class DrawflowComponent implements OnInit {
     // debugger
     const html = JSON.stringify(this.editor.export(), null, 4)
   }
-
+  // TODO save workflow
   saveWorkflow() {
     const data: any = {
       "businessName": "Example Business",

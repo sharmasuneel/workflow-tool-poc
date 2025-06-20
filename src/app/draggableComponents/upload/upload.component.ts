@@ -1,10 +1,10 @@
 import { CommonModule } from '@angular/common';
 import { Component, inject, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { AppService } from '../services/app.service';
-import { DataService } from '../services/data.service';
-import getConfig from '../config';
-import { DropWrapperContainerComponent } from '../common/drop-wrapper-container/drop-wrapper-container.component';
+import { AppService } from '../../services/app.service';
+import { DataService } from '../../services/data.service';
+import getConfig from '../../config';
+import { DropWrapperContainerComponent } from '../../common/drop-wrapper-container/drop-wrapper-container.component';
 
 @Component({
   selector: 'app-upload',
