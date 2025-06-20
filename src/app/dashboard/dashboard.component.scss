@@ -99,3 +99,36 @@
   margin-top: 20px;
   text-align: right;
 }
+.closepopup {
+  position: absolute;
+  top: 8px;
+  right: 16px;
+}
+
+modal.small-popup {
+  width: 350px;
+  top: 30%;
+  left: 50%;
+  transform: translate(-50%, -30%);
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.18);
+  position: fixed;
+  z-index: 9999;
+  padding: 0;
+}
+
+.modal-content {
+  padding: 24px;
+}
+
+.modalfooterClass {
+  border: none
+}
+
+.modal-backdrop {
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(0,0,0,0.2);
+  z-index: 1040;
+}
