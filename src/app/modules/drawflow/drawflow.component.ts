@@ -194,6 +194,9 @@ export class DrawflowComponent implements OnInit {
           } else if (nodeData.class === 'attestation') {
             this.addComponents<AttestComponent>(nodeData, 'attestation', 'Attestation', nodeId, AttestComponent);
           }
+           else if (nodeData.class === 'start') {
+            this.addComponents<StartComponent>(nodeData, 'start', 'Start', nodeId, StartComponent);
+          }
         }
       }
       if (e.target.closest('.drawflow_content_node') != null || e.target.classList[0] === 'drawflow-node') {
