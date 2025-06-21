@@ -39,13 +39,7 @@ export class DashboardComponent {
 
     const data: any = {
       worflowName: this.newWorkflowName,
-      "businessName": "Example Business",
-      "preparator": 2,
-      "reviewer": 1,
-      "approver": 3,
-      "fileType": "pdf",
-      "autoVersioning": "true",
-      "fileName": "document.pdf"
+      user: this.users[0].users[0]
     }
     this.dataService.postData(getConfig().saveWorkflow, data).subscribe((response) => {
       console.log('Workflow saved successfully:', response);
