@@ -15,22 +15,29 @@
 
 
 .section {
-  margin-top: 16px;
+  // margin-top: 16px;
+  padding: 10px;
+  background: #ececec;
+  margin: 10px 0 10px 0;
+  border-radius: 0px;
 }
 
 .file-placeholder {
   margin: 12px 0;
   padding: 8px;
-  background-color: #f0f0f0;
+  background-color: #f2f2f2;
   text-align: center;
   border: 1px dashed #aaa;
 }
 
-.save-button {
-  margin-top: 16px;
-  background-color: #007bff;
-  color: white;
-  border: none;
-  padding: 8px 16px;
-  cursor: pointer;
+
+.font-16{
+  font-size: 16px;
+}  
+.btn-primary{
+  background-color: #085da8;
+  border: #085da8;
+}
+.text-primary{
+  color: #085da8;
 }

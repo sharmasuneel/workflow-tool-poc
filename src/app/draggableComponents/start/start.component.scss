@@ -13,12 +13,13 @@
 
 label,select, input ,textarea {
     font-size: 14px;
+    height: 30px;
 }
 ::ng-deep .ngb-tp-spacer{
     display: none;
 }
-.margin-33{
-    margin-left: 33px;
+.margin-64{
+    margin-left: 64px;
 }
 
 .font-16{
@@ -31,6 +32,3 @@ label,select, input ,textarea {
 .text-primary{
     color: #085da8;
 }
-::ng-deep .containerBox{
-    margin-left: 15px;
-} 

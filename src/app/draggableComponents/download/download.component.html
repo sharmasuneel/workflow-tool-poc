@@ -1,36 +1,41 @@
 <app-drop-wrapper-container>
-   <div class="download-container">
-        <h3>Download</h3>
+  <div class="text-primary font-16">Download</div>
+  <div class="mt-2">
+    <label class="text-muted">
+      <input type="checkbox" [(ngModel)]="acknowledged" />
+      Required user Acknowledgement
+    </label>
+  </div>
 
-        <label>
-          <input type="checkbox" [(ngModel)]="acknowledged" />
-          Required user Acknowledgement
-        </label>
-
-        <div class="file-placeholder">
-          Files will be here
-        </div>
-
-        <div class="section">
-          <h4>Notification Management:</h4>
-          <label>
-            <input type="checkbox" [(ngModel)]="notifyEmail" />
-            Email
-          </label>
-          <label>
-            <input type="checkbox" [(ngModel)]="notifyDashboard" />
-            Dashboard Notification
-          </label>
-        </div>
-
-        <div class="section">
-          <h4>Miscellaneous:</h4>
-          <label>
-            User Commentary:
-            <input type="checkbox" [(ngModel)]="userCommentary" />
-          </label>
-        </div>
-
-        <button (click)="onSave()" class="save-button">Save</button>
-      </div>
+  <div class="card section">
+    <div class="file-placeholder">
+      Files will be here
+    </div>
+  </div>
+  <div class="card section">
+    <div>Notification Management:</div>
+    <div>
+      <label  class="text-muted">
+        <input type="checkbox" [(ngModel)]="notifyEmail" />
+        Email
+      </label>
+    </div>
+    <div>
+      <label  class="text-muted">
+        <input type="checkbox" [(ngModel)]="notifyDashboard" />
+        Dashboard Notification
+      </label>
+    </div>
+    <div>
+      <div>Miscellaneous:</div>
+      <label  class="text-muted">
+        User Commentary:
+        <input type="checkbox" [(ngModel)]="userCommentary" />
+      </label>
+    </div>
+  </div>
+ 
+  <div class="mb-5">
+    <button (click)="onSave()" class="btn btn-primary w-25 pull-right">Save</button>
+  </div>
 </app-drop-wrapper-container>
