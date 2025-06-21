@@ -14,10 +14,6 @@ export class AttestComponent {
   notifyEmail = true;
   notifyDashboard = true;
   userCommentary = false;
-  isExpanded: boolean = true;
-  toggleQualityCheck() {
-    this.isExpanded = !this.isExpanded;
-  }
 
   onSave() {
     console.log('Saved settings:', {

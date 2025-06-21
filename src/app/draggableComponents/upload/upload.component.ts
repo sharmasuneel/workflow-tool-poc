@@ -5,6 +5,7 @@ import { AppService } from '../../services/app.service';
 import { DataService } from '../../services/data.service';
 import getConfig from '../../config';
 import { DropWrapperContainerComponent } from '../../common/drop-wrapper-container/drop-wrapper-container.component';
+import { toFormData } from '../../utils/dataTransformer'
 
 @Component({
   selector: 'app-upload',
@@ -23,7 +24,7 @@ export class UploadComponent implements OnInit {
   file: any = null;
   files: any[] = [];
   autoVersioning: boolean = false;
-  isExpanded: boolean = true;
+  
   private appService = inject(AppService);
   private dataService = inject(DataService);
 
@@ -53,38 +54,6 @@ export class UploadComponent implements OnInit {
 
   }
 
-  toggleUpload() {
-    this.isExpanded = !this.isExpanded;
-  }
-
-  /*  onFileSelected(event: any) {
-     const file = event.target.files[0];
-     this.file = file;
-     this.fileName = file.name;
-   } */
-
-  /* onFileDrop(event: DragEvent) {
-    debugger;
-    event.preventDefault();
-    const file = event.dataTransfer?.files[0];
-    this.file = file;
-    this.fileName = file?.name ?? '';
-  } */
-
-  /* onDragOver(event: DragEvent) {
-    event.preventDefault();
-  } */
-
-  toFormData(obj: any): FormData {
-    const formData = new FormData();
-    for (const key in obj) {
-      if (obj.hasOwnProperty(key)) {
-        formData.append(key, obj[key]);
-      }
-    }
-    return formData;
-  }
-
   onSave() {
     const jsonformData = {
       businessName: this.businessName,
@@ -96,11 +65,7 @@ export class UploadComponent implements OnInit {
       fileNames: this.fileNames
     };
 
-    const fileData = {
-      files: this.files,
-      metadata: JSON.stringify(jsonformData)
-    };
-    const data = this.toFormData(fileData)
+    const data = toFormData({ files: this.files, metadata: JSON.stringify(jsonformData) })
 
     this.dataService.postData(getConfig().upload, data).subscribe({
       next: (response) => {
@@ -119,8 +84,6 @@ export class UploadComponent implements OnInit {
     if (input.files) {
       this.fileNames = Array.from(input.files).map(file => file.name);
       this.files = Array.from(input.files);
-      debugger;
-      // Handle the files as needed
     }
   }
 

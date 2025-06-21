@@ -7,6 +7,7 @@ import { CommonModule } from "@angular/common";
 import { FormsModule } from "@angular/forms";
 import { DataService } from "../services/data.service";
 import getConfig from "../config";
+import { toFormData } from '../utils/dataTransformer'
 
 @Component({
   selector: 'app-dashboard',
@@ -31,45 +32,23 @@ export class DashboardComponent {
       this.users = this.appService.getUsers();
       console.log('Users loaded:', this.users);
     }, 1000);
-    this.loadData();
   }
 
   showCreateWorkflow: boolean = false
 
-  toFormData(obj: any): FormData {
-    const formData = new FormData();
-    for (const key in obj) {
-      if (obj.hasOwnProperty(key)) {
-        formData.append(key, obj[key]);
-      }
-    }
-    return formData;
-  }
-
   createNewWorkFlow() {
-
     const data: any = {
       worflowName: this.newWorkflowName,
       user: this.users[0].users[0]
     }
 
-    const formData =  this.toFormData({'metadata': JSON.stringify(JSON.stringify(data))})
+    const formData =  toFormData({'metadata': JSON.stringify(data)})
     this.dataService.postData(getConfig().saveWorkflow, formData).subscribe((response) => {
       console.log('Workflow saved successfully:', response);
     })
 
   }
   newWorkflowName: string
-
-  loadData() {
-    // Logic to load data for the dashboard
-    this.data = [
-      // Sample data
-      { id: 1, name: 'Item 1', value: 100 },
-      { id: 2, name: 'Item 2', value: 200 },
-      { id: 3, name: 'Item 3', value: 300 }
-    ];
-  }
 
   onUserInteraction(event: any) {
     // Handle user interactions

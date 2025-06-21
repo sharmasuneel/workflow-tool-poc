@@ -15,12 +15,6 @@ export class DownloadComponent {
   notifyEmail = false;
   notifyDashboard = false;
   userCommentary = false;
-  isExpanded: boolean = true;
-
-
-  toggleDownload() {
-    this.isExpanded = !this.isExpanded;
-  }
 
   onSave() {
     console.log('Saved settings:', {

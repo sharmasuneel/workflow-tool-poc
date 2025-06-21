@@ -1,30 +1,8 @@
 <div class="dashboard">
-  <!-- <header class="dashboard-header">
-    <img src="assets/icons/logo.png" alt="Company Logo" class="dashboard-logo" />
-    <div>
-      <h1 class="dashboard-title">PC Workflow</h1>
-      <div class="subtitle">Risk, Finance & Treasury</div>
-    </div>
-    <span class="vrbar"></span>
-    <nav class="dashboard-nav">
-      <ul class="horizontal-nav">
-        <li><a href="#">Dashboard</a></li>
-        <li><a href="#">User Management</a></li>
-        <li><a href="#">Settings</a></li>
-        <li><a href="#">Help</a></li>
-      </ul>
-    </nav>
-    <div class="dashboard-date">
-      30-4-25
-      <i class="fa fa-calendar dateIcon" aria-hidden="true"></i>
-    </div>
-  </header> -->
-
   <app-user-banner></app-user-banner>
-
-  <button type="button" (click)="showCreateWorkflow= true" 
-  style="background-color: #FFF8E7; border: none; color: #0e5ba3" class="btn btn-primary" 
-  data-toggle="modal" data-target="#exampleModal">
+  <button type="button" (click)="showCreateWorkflow= true"
+    style="background-color: #FFF8E7; border: none; color: #0e5ba3" class="btn btn-primary" data-toggle="modal"
+    data-target="#exampleModal">
     + Create new Workflow
   </button>
   <div *ngIf="showCreateWorkflow" class="modal-backdrop">
@@ -34,9 +12,10 @@
           <div>
             <h5 class="modal-title">Create New Workflow</h5>
             <label for="workflowName" class="form-label me-2">Please give a name</label>
-            <input type="text" id="workflowName" class="form-control" style="width: 60%;" [(ngModel)]="newWorkflowName" placeholder="Enter workflow name">
+            <input type="text" id="workflowName" class="form-control" style="width: 60%;" [(ngModel)]="newWorkflowName"
+              placeholder="Enter workflow name">
             <span type="button" class="close closepopup" (click)="showCreateWorkflow = false" aria-label="Close">
-                <span aria-hidden="true" class="btn-close"></span>
+              <span aria-hidden="true" class="btn-close"></span>
             </span>
           </div>
           <div class="modal-footer modalfooterClass">
