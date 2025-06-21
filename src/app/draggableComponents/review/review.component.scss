@@ -1,43 +1,43 @@
-.review-container {
+.download-container {
   border: 1px solid #ccc;
   padding: 16px;
+  width: 300px;
   font-family: Arial, sans-serif;
-  background-color: #fff;
+}
+.download-icon {
+  font-family: "Font Awesome 5 Free";
+  font-weight: 900;
+  margin-right: 8px;
+  font-size: 18px;
+  color: #007bff;
+  vertical-align: middle;
+}
+
+
+.section {
+  // margin-top: 16px;
+  padding: 10px;
+  background: #ececec;
+  margin: 10px 0 10px 0;
+  border-radius: 0px;
 }
 
 .file-placeholder {
   margin: 12px 0;
-  padding: 10px;
-  background-color: #f0f0f0;
+  padding: 8px;
+  background-color: #f2f2f2;
   text-align: center;
   border: 1px dashed #aaa;
 }
 
-.section {
-  margin-top: 16px;
-}
 
-.section h4 {
-  margin-bottom: 8px;
+.font-16{
+  font-size: 16px;
+}  
+.btn-primary{
+  background-color: #0e5ba3;
+  border: #0e5ba3;
 }
-
-label {
-  display: block;
-  margin-bottom: 6px;
-}
-
-.toggle-label {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.save-button {
-  margin-top: 20px;
-  background-color: #007bff;
-  color: white;
-  border: none;
-  padding: 8px 16px;
-  cursor: pointer;
-  float: right;
+.text-primary{
+  color: #0e5ba3 !important;
 }
