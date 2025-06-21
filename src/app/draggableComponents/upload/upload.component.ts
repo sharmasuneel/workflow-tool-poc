@@ -21,10 +21,15 @@ export class UploadComponent implements OnInit {
   approver: string = '';
   fileType: string = 'CSV';
   file: any = null;
+  files: any[] = [];
   autoVersioning: boolean = false;
   isExpanded: boolean = true;
   private appService = inject(AppService);
   private dataService = inject(DataService);
+
+
+  fileNames: string[] = [];
+
 
   users: string[] = [];
 
@@ -52,23 +57,23 @@ export class UploadComponent implements OnInit {
     this.isExpanded = !this.isExpanded;
   }
 
-  onFileSelected(event: any) {
-    const file = event.target.files[0];
-    this.file = file;
-    this.fileName = file.name;
-  }
-  
-  onFileDrop(event: DragEvent) {
+  /*  onFileSelected(event: any) {
+     const file = event.target.files[0];
+     this.file = file;
+     this.fileName = file.name;
+   } */
+
+  /* onFileDrop(event: DragEvent) {
     debugger;
     event.preventDefault();
     const file = event.dataTransfer?.files[0];
     this.file = file;
     this.fileName = file?.name ?? '';
-  }
+  } */
 
-  onDragOver(event: DragEvent) {
+  /* onDragOver(event: DragEvent) {
     event.preventDefault();
-  }
+  } */
 
   toFormData(obj: any): FormData {
     const formData = new FormData();
@@ -88,12 +93,12 @@ export class UploadComponent implements OnInit {
       approver: this.getId(this.approver, this.approvers) || 1,
       fileType: this.fileType,
       autoVersioning: this.autoVersioning,
-      fileName: this.fileName
+      fileNames: this.fileNames
     };
 
     const fileData = {
-     file: this.file,
-     metadata: JSON.stringify(jsonformData)
+      files: this.files,
+      metadata: JSON.stringify(jsonformData)
     };
     const data = this.toFormData(fileData)
 
@@ -107,4 +112,28 @@ export class UploadComponent implements OnInit {
     });
     console.log('Saved Data:', data);
   }
+
+
+  onFileSelected(event: Event): void {
+    const input = event.target as HTMLInputElement;
+    if (input.files) {
+      this.fileNames = Array.from(input.files).map(file => file.name);
+      this.files = Array.from(input.files);
+      debugger;
+      // Handle the files as needed
+    }
+  }
+
+  onFileDrop(event: DragEvent): void {
+    event.preventDefault();
+    if (event.dataTransfer?.files) {
+      this.fileNames = Array.from(event.dataTransfer.files).map(file => file.name);
+      // Handle the files as needed
+    }
+  }
+
+  onDragOver(event: DragEvent): void {
+    event.preventDefault();
+  }
+
 }

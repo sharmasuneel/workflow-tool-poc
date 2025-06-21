@@ -13,7 +13,7 @@ export class DropWrapperContainerComponent {
 
   isExpanded: boolean = true;
 
-  toggleDownload() {
+  toggleChildren() {
     this.isExpanded = !this.isExpanded;
   }
 

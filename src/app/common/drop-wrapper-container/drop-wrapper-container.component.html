@@ -1,6 +1,6 @@
 <div class="upload-container" [ngClass]="{'expanded': isExpanded, 'collapsed': !isExpanded}">
     <div class="upload-wrapper">
-        <span class="expand-icon" (click)="toggleDownload()" style="position:absolute; top:10px; right: 10px; cursor:pointer; height: 20px;
+        <span class="expand-icon" (click)="toggleChildren()" style="position:absolute; top:10px; right: 10px; cursor:pointer; height: 20px;
     float:right; margin: 10px;">
             <i class="fa" [ngClass]="isExpanded ? 'fa-chevron-up' : 'fa-chevron-down'" aria-hidden="true"></i>
         </span>
