@@ -35,13 +35,26 @@ export class DashboardComponent {
   }
 
   showCreateWorkflow: boolean = false
+
+  toFormData(obj: any): FormData {
+    const formData = new FormData();
+    for (const key in obj) {
+      if (obj.hasOwnProperty(key)) {
+        formData.append(key, obj[key]);
+      }
+    }
+    return formData;
+  }
+
   createNewWorkFlow() {
 
     const data: any = {
       worflowName: this.newWorkflowName,
       user: this.users[0].users[0]
     }
-    this.dataService.postData(getConfig().saveWorkflow, data).subscribe((response) => {
+
+    const formData =  this.toFormData({'metadata': JSON.stringify(JSON.stringify(data))})
+    this.dataService.postData(getConfig().saveWorkflow, formData).subscribe((response) => {
       console.log('Workflow saved successfully:', response);
     })
 
