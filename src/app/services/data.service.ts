@@ -18,4 +18,8 @@ export class DataService {
   postData(url: string, body: any): Observable<any> {
     return this.http.post<any>(url, body);
   }
+  
+  putData(url: string, body: any): Observable<any> {
+    return this.http.put<any>(url, body);
+  }
 }

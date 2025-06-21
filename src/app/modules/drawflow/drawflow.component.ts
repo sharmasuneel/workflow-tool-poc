@@ -18,6 +18,8 @@ import { ActivatedRoute } from '@angular/router';
 import { v4 as uuidv4 } from 'uuid';
 import { FormsModule } from '@angular/forms';
 import getConfig from '../../config';
+import { AppService } from '../../services/app.service';
+import { toFormData } from '../../utils/dataTransformer'
 
 type NodeName = keyof typeof nodesData.nodes;
 
@@ -65,6 +67,7 @@ export class DrawflowComponent implements OnInit {
 
   workflowName: string = '';
   private dataService = inject(DataService);
+  private appService = inject(AppService);
 
   private workflowId: any = 0;
 
@@ -351,16 +354,9 @@ export class DrawflowComponent implements OnInit {
   }
   // TODO save workflow
   saveWorkflow() {
-    const data: any = {
-      "businessName": "Example Business",
-      "preparator": 2,
-      "reviewer": 1,
-      "approver": 3,
-      "fileType": "pdf",
-      "autoVersioning": "true",
-      "fileName": "document.pdf"
-    }
-    this.dataService.postData(getConfig().saveWorkflow, data).subscribe((response) => {
+    const payload = this.appService.getWorkFlowPayload()
+    const data = toFormData({ files: payload.files, metadata: JSON.stringify(payload.metadata) })
+    this.dataService.putData(getConfig().saveWorkflowWithId, data).subscribe((response) => {
       console.log('Workflow saved successfully:', response);
     })
   }
