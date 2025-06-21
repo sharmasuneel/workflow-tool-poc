@@ -24,7 +24,7 @@ export class UploadComponent implements OnInit {
   file: any = null;
   files: any[] = [];
   autoVersioning: boolean = false;
-  
+
   private appService = inject(AppService);
   private dataService = inject(DataService);
 
@@ -54,19 +54,47 @@ export class UploadComponent implements OnInit {
 
   }
 
-  onSave() {
-    const jsonformData = {
-      businessName: this.businessName,
+  updateWorkFlowPayload() {
+    this.appService.setWorkFlowPayload('task', 'upload', 'update', { businessName: this.businessName,
       preparator: this.getId(this.preparator, this.preparators) || 1,
       reviewer: this.getId(this.reviewer, this.reviewers) || 1,
       approver: this.getId(this.approver, this.approvers) || 1,
       fileType: this.fileType,
       autoVersioning: this.autoVersioning,
-      fileNames: this.fileNames
-    };
+      taskType: 'upload',
+      fileNames: this.fileNames }, this.files)
+  }
 
-    const data = toFormData({ files: this.files, metadata: JSON.stringify(jsonformData) })
+  onFileSelected(event: Event): void {
+    const input = event.target as HTMLInputElement;
+    if (input.files) {
+      this.fileNames = Array.from(input.files).map(file => file.name);
+      this.files = Array.from(input.files);
+      this.updateWorkFlowPayload()
+    }
+  }
 
+  onFileDrop(event: DragEvent): void {
+    event.preventDefault();
+    if (event.dataTransfer?.files) {
+      this.fileNames = Array.from(event.dataTransfer.files).map(file => file.name);
+      this.updateWorkFlowPayload()
+    }
+  }
+
+  onDragOver(event: DragEvent): void {
+    event.preventDefault();
+  }
+
+  onSave() {
+    const payload = this.appService.getWorkFlowPayload()
+    const workflowId = this.appService.getWorkflowId()
+    if(!workflowId) {
+      alert('WorkflowId missing')
+      return
+    }
+
+    const data = toFormData({ files: payload.files, metadata: JSON.stringify(payload.metadata) })
     this.dataService.postData(getConfig().upload, data).subscribe({
       next: (response) => {
         console.log('Data saved successfully:', response);
@@ -78,25 +106,5 @@ export class UploadComponent implements OnInit {
     console.log('Saved Data:', data);
   }
 
-
-  onFileSelected(event: Event): void {
-    const input = event.target as HTMLInputElement;
-    if (input.files) {
-      this.fileNames = Array.from(input.files).map(file => file.name);
-      this.files = Array.from(input.files);
-    }
-  }
-
-  onFileDrop(event: DragEvent): void {
-    event.preventDefault();
-    if (event.dataTransfer?.files) {
-      this.fileNames = Array.from(event.dataTransfer.files).map(file => file.name);
-      // Handle the files as needed
-    }
-  }
-
-  onDragOver(event: DragEvent): void {
-    event.preventDefault();
-  }
 
 }

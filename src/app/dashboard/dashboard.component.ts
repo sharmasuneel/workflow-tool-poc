@@ -8,6 +8,7 @@ import { FormsModule } from "@angular/forms";
 import { DataService } from "../services/data.service";
 import getConfig from "../config";
 import { toFormData } from '../utils/dataTransformer'
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-dashboard',
@@ -22,7 +23,7 @@ export class DashboardComponent {
   private appService = inject(AppService);
   private dataService = inject(DataService);
 
-  constructor() {
+  constructor(private router: Router) {
     this.title = 'Dashboard';
     this.data = [];
   }
@@ -42,9 +43,12 @@ export class DashboardComponent {
       user: this.users[0].users[0]
     }
 
-    const formData =  toFormData({'metadata': JSON.stringify(data)})
+    const formData = toFormData({ 'metadata': JSON.stringify(data) })
     this.dataService.postData(getConfig().saveWorkflow, formData).subscribe((response) => {
       console.log('Workflow saved successfully:', response);
+      this.appService.setWorkflowId(response.workflowId)
+      this.appService.setWorkflowName(this.newWorkflowName)
+      this.router.navigate([`/workflow?id=${response.workflowId}`]);
     })
 
   }

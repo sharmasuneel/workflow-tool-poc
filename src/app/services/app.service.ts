@@ -7,7 +7,25 @@ export class AppService {
   private user: any = null;
   private users: any[] = [];
   private workflows: any[] = [];
-  private payloadWorkFlow: any = null;
+  private payloadWorkFlow: any = { metadata: {}, files: null };
+  private workflowId: string;
+  private workflowName: string;
+
+  setWorkflowName(name: string) {
+    this.workflowName = name;
+  }
+
+  getWorkflowName(): string {
+    return this.workflowName;
+  }
+
+  setWorkflowId(id: string) {
+    this.workflowId = id;
+  }
+
+  getWorkflowId(): string {
+    return this.workflowId;
+  }
 
   setUsers(users: any[]) {
     this.users = users;
@@ -25,8 +43,30 @@ export class AppService {
     return this.workflows;
   }
 
-  setWorkFlowPayload(payloadWorkFlow: any) {
-    this.payloadWorkFlow = payloadWorkFlow
+  setWorkFlowPayload(type: string, taskType: string, action: string, data: any, files: any) {
+    let metadata = this.payloadWorkFlow.metadata
+    metadata.workflowId = this.workflowId
+    metadata.workflow = this.workflowName
+    if (type === 'workflow') {
+      metadata.progress = data.progress || 0
+      metadata.commentary = data.commentary || ''
+      metadata.status = data.status || ''
+    }
+    if (type === 'task' && taskType) {
+      let tasks = metadata.tasks || []
+      if (tasks.length === 0 && action !== 'delete') {
+        tasks.push(data)
+      } else if (action === 'delete' && tasks.length > 0) {
+        tasks = metadata.tasks.filter((task: any) => task.taskType !== taskType)
+      } else {
+        tasks = metadata.tasks.map((task: any) =>
+          task.taskType === taskType ? { ...data } : task
+        )
+      }
+      metadata.tasks = tasks
+
+    }
+    this.payloadWorkFlow = { metadata, files }
   }
 
   getWorkFlowPayload() {
