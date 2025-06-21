@@ -43,7 +43,7 @@ export class AppService {
     return this.workflows;
   }
 
-  setWorkFlowPayload(type: string, taskType: string, action: string, data: any, files: any) {
+  setWorkFlowPayload(type: string, taskType: string, action: string, data: any, files?: any) {
     let metadata = this.payloadWorkFlow.metadata
     metadata.workflowId = this.workflowId
     metadata.workflow = this.workflowName
@@ -59,14 +59,15 @@ export class AppService {
       } else if (action === 'delete' && tasks.length > 0) {
         tasks = metadata.tasks.filter((task: any) => task.taskType !== taskType)
       } else {
-        tasks = metadata.tasks.map((task: any) =>
-          task.taskType === taskType ? { ...data } : task
+        tasks = metadata.tasks.map((task: any) => {
+          return task.taskType === taskType ? { ...data } : task
+        }
         )
       }
       metadata.tasks = tasks
 
     }
-    this.payloadWorkFlow = { metadata, files }
+    this.payloadWorkFlow = { metadata, files: files || this.payloadWorkFlow.files }
   }
 
   getWorkFlowPayload() {

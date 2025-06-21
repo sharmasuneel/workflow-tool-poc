@@ -28,17 +28,9 @@
   </div>
 
   <!-- End file drop -->
-  <!-- <div class="upload-box mb-3" (drop)="onFileDrop($event)" (dragover)="onDragOver($event)">
-    <p>
-      Drag & drop file(s) or
-      <label for="fileInput" class="browse-label">Browse</label>
-    </p>
-    <input type="file" id="fileInput" (change)="onFileSelected($event)" accept="*" hidden />
-  </div>
-  <p *ngIf="fileName" class="file-name">{{ fileName }}</p> -->
   <form>
     <div class="form-check mb-2">
-      <input class="form-check-input" type="checkbox" [(ngModel)]="autoVersioning" name="autoVersioning" />
+      <input class="form-check-input" type="checkbox" (change)="updateWorkFlowPayload()" [(ngModel)]="autoVersioning" name="autoVersioning" />
       <label class="form-check-label" for="flexCheckDefault">
         Set auto file versioning
       </label>
@@ -48,14 +40,14 @@
     <div class="mb-2">
       <label>Business Name</label>
       <div class="col-12">
-        <input type="text" class="w-100 input-height" [(ngModel)]="businessName" name="businessName" />
+        <input type="text" class="w-100 input-height" (change)="updateWorkFlowPayload()" [(ngModel)]="businessName" name="businessName" />
       </div>
     </div>
 
     <div class="mb-2">
       <label>Preparator</label>
       <div class="col-12">
-        <select class="w-100 input-height" [(ngModel)]="preparator" name="preparator">
+        <select class="w-100 input-height" [(ngModel)]="preparator" (change)="updateWorkFlowPayload()" name="preparator">
           <option *ngFor="let prep of preparators" [value]="prep.name">{{ prep.name }}</option>
         </select>
       </div>
@@ -64,7 +56,7 @@
     <div class="mb-2">
       <label>Reviewer</label>
       <div class="col-12">
-        <select class="w-100 input-height" [(ngModel)]="reviewer" name="reviewer">
+        <select class="w-100 input-height" (change)="updateWorkFlowPayload()" [(ngModel)]="reviewer" name="reviewer">
           <option *ngFor="let rev of reviewers" [value]="rev.name">{{ rev.name }}</option>
         </select>
       </div>
@@ -73,7 +65,7 @@
     <div class="mb-2">
       <label>Approver</label>
       <div class="col-12">
-        <select class="w-100 input-height" [(ngModel)]="approver" name="approver">
+        <select class="w-100 input-height" (change)="updateWorkFlowPayload()" [(ngModel)]="approver" name="approver">
           <option *ngFor="let apr of approvers" [value]="apr.name">{{ apr.name }}</option>
           <option *ngFor="let user of users" [value]="user">{{ user }}</option>
         </select>
@@ -83,7 +75,7 @@
     <div class="mb-2">
       <label>File Type</label>
       <div class="col-12">
-        <select class="w-100 input-height" [(ngModel)]="fileType" name="fileType">
+        <select class="w-100 input-height" (change)="updateWorkFlowPayload()" [(ngModel)]="fileType" name="fileType">
           <option value="CSV">CSV</option>
           <option value="DOC">DOC</option>
           <option value="PDF">PDF</option>
