@@ -1,4 +1,33 @@
 <app-drop-wrapper-container>
-    <label for="workflowName">Workflow Name:</label>
-    <input id="workflowName" type="text" placeholder="Enter workflow name" />
+    <div class="text-primary font-16">Start</div>
+    <div>
+        <label class="text-muted">Upload Type</label>
+        <select class="w-100" [(ngModel)]="uploadType">
+            <option>Auto Trigger</option>
+        </select>
+    </div>
+
+    <div class="mt-2">
+        <label class="text-muted">Frequency</label>
+        <select class="w-100" [(ngModel)]="frequency">
+            <option>Daily</option>
+            <option>Weekly</option>
+            <option>Monthly</option>
+        </select>
+    </div>
+
+    <div class="d-flex mt-2">
+        <label class="text-muted">Set Time</label>
+        <div class="margin-33">
+            <ngb-timepicker [(ngModel)]="time" />
+        </div>
+    </div>
+    <div class="mt-2">
+        <label class="text-muted">Select Date</label>
+        <mat-calendar [(selected)]="startDate"></mat-calendar>
+    </div>
+    <div>
+        <button class="btn btn-primary btn-sm mt-2 mb-3 pull-right w-25">Save</button>
+    </div>
+
 </app-drop-wrapper-container>

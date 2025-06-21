@@ -1,0 +1,36 @@
+::ng-deep .ngb-tp-input {
+    width: 46px !important;
+}
+
+::ng-deep  .ngb-dp-navigation-select{
+    width: 100px !important;
+}
+
+  ::ng-deep .ngb-tp-input-container {
+    width: 38px !important;
+    margin-left: 13px;
+}
+
+label,select, input ,textarea {
+    font-size: 14px;
+}
+::ng-deep .ngb-tp-spacer{
+    display: none;
+}
+.margin-33{
+    margin-left: 33px;
+}
+
+.font-16{
+    font-size: 16px;
+}  
+.btn-primary{
+    background-color: #085da8;
+    border: #085da8;
+}
+.text-primary{
+    color: #085da8;
+}
+::ng-deep .containerBox{
+    margin-left: 15px;
+} 
