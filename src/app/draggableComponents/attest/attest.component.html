@@ -1,28 +1,34 @@
+
 <app-drop-wrapper-container>
-    <div class="review-container">
-        <div class="file-placeholder">
-            Files will be here
-        </div>
-        <div class="section">
-            <h4>Notification Management:</h4>
-            <label>
-                <input type="checkbox" [(ngModel)]="notifyEmail" />
-                Email
-            </label>
-            <label>
-                <input type="checkbox" [(ngModel)]="notifyDashboard" />
-                Dashboard Notification
-            </label>
-        </div>
-
-        <div class="section">
-            <h4>Miscellaneous:</h4>
-            <label class="toggle-label">
-                User Commentary:
-                <input type="checkbox" [(ngModel)]="userCommentary" />
-            </label>
-        </div>
-
-        <button class="save-button" (click)="onSave()">Save</button>
+    <div class="card section">
+      <div class="file-placeholder">
+        Files will be here
+      </div>
     </div>
-</app-drop-wrapper-container>
+    <div class="card section">
+      <div>Notification Management:</div>
+      <div>
+        <label  class="text-muted">
+          <input type="checkbox" [(ngModel)]="notifyEmail" />
+          Email
+        </label>
+      </div>
+      <div>
+        <label  class="text-muted">
+          <input type="checkbox" [(ngModel)]="notifyDashboard" />
+          Dashboard Notification
+        </label>
+      </div>
+      <div>
+        <div>Miscellaneous:</div>
+        <label class="text-muted ">
+        <input type="checkbox" [(ngModel)]="userCommentary" />
+          User Commentary:
+        </label>
+      </div>
+    </div>
+   
+    <div class="mb-5">
+      <button (click)="onSave()" class="btn btn-primary w-25 pull-right">Save</button>
+    </div>
+  </app-drop-wrapper-container>
