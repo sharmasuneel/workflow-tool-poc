@@ -87,14 +87,25 @@ export class UploadComponent implements OnInit {
   }
 
   onSave() {
-    const payload = this.appService.getWorkFlowPayload()
     const workflowId = this.appService.getWorkflowId()
     if(!workflowId) {
       alert('WorkflowId missing')
       return
     }
 
-    const data = toFormData({ files: payload.files, metadata: JSON.stringify(payload.metadata) })
+    const jsonformData = {
+      workflowId: workflowId,
+      businessName: this.businessName,
+      preparator: this.getId(this.preparator, this.preparators) || 1,
+      reviewer: this.getId(this.reviewer, this.reviewers) || 1,
+      approver: this.getId(this.approver, this.approvers) || 1,
+      fileType: this.fileType,
+      autoVersioning: this.autoVersioning,
+      fileNames: this.fileNames,
+      taskType: 'upload'
+    };
+
+    const data = toFormData({ files: this.files, metadata: JSON.stringify(jsonformData) })
     this.dataService.postData(getConfig().upload, data).subscribe({
       next: (response) => {
         console.log('Data saved successfully:', response);

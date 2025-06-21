@@ -46,9 +46,9 @@ export class DashboardComponent {
     const formData = toFormData({ 'metadata': JSON.stringify(data) })
     this.dataService.postData(getConfig().saveWorkflow, formData).subscribe((response) => {
       console.log('Workflow saved successfully:', response);
-      this.appService.setWorkflowId(response.workflowId)
-      this.appService.setWorkflowName(this.newWorkflowName)
-      this.router.navigate([`/workflow?id=${response.workflowId}`]);
+      this.appService.setWorkflowId(response.workflowId || 12)
+      this.appService.setWorkflowName(this.newWorkflowName || 'sdfsd')
+      this.router.navigate(['/workflow'], { queryParams: { id: response.workflowId } });
     })
 
   }
