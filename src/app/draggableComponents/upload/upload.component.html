@@ -21,9 +21,11 @@
   </div>
 
   <!-- Display list of selected file names -->
-  <ul *ngIf="fileNames.length > 0" class="file-name-list">
-    <li *ngFor="let name of fileNames">{{ name }}</li>
-  </ul>
+  <div style="width: 85%; font-size: 8px; margin: 0; padding: 0">
+    <ul *ngIf="fileNames.length > 0" class="file-name-list">
+      <li *ngFor="let name of fileNames">{{ name }}</li>
+    </ul>
+  </div>
 
   <!-- End file drop -->
   <!-- <div class="upload-box mb-3" (drop)="onFileDrop($event)" (dragover)="onDragOver($event)">
