@@ -10,14 +10,30 @@
   </div>
 
   <label class="mb-1">Upload Template</label>
+
+  <!-- File drop -->
   <div class="upload-box mb-3" (drop)="onFileDrop($event)" (dragover)="onDragOver($event)">
     <p>
       Drag & drop file(s) or
       <label for="fileInput" class="browse-label">Browse</label>
     </p>
-    <input type="file" id="fileInput" (change)="onFileSelected($event)" accept="*" hidden />
-    <p *ngIf="fileName" class="file-name">{{ fileName }}</p>
+    <input type="file" id="fileInput" (change)="onFileSelected($event)" accept="*" multiple hidden />
   </div>
+
+  <!-- Display list of selected file names -->
+  <ul *ngIf="fileNames.length > 0" class="file-name-list">
+    <li *ngFor="let name of fileNames">{{ name }}</li>
+  </ul>
+
+  <!-- End file drop -->
+  <!-- <div class="upload-box mb-3" (drop)="onFileDrop($event)" (dragover)="onDragOver($event)">
+    <p>
+      Drag & drop file(s) or
+      <label for="fileInput" class="browse-label">Browse</label>
+    </p>
+    <input type="file" id="fileInput" (change)="onFileSelected($event)" accept="*" hidden />
+  </div>
+  <p *ngIf="fileName" class="file-name">{{ fileName }}</p> -->
   <form>
     <div class="form-check mb-2">
       <input class="form-check-input" type="checkbox" [(ngModel)]="autoVersioning" name="autoVersioning" />

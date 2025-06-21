@@ -1,4 +1,4 @@
-const node = false
+const node = true
 const config = {
     nodeApiEndpoints: {
         saveWorkflow: 'http://localhost:3020/data/save-workflows',

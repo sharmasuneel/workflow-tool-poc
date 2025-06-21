@@ -1,59 +1,60 @@
 form label {
-  // display: block;
-  // margin-top: 10px;
+    // display: block;
+    // margin-top: 10px;
 }
 
 form input,
 form select {
-  // width: 100%;
-  // padding: 8px;
-  // margin-top: 5px;
+    // width: 100%;
+    // padding: 8px;
+    // margin-top: 5px;
 }
 
 button {
-  margin-top: 20px;
-  background-color: #007bff;
-  color: white;
-  padding: 10px;
-  border: none;
-  width: 100%;
+    margin-top: 20px;
+    background-color: #007bff;
+    color: white;
+    padding: 10px;
+    border: none;
+    width: 100%;
 }
 
 .upload-box {
-  border: 2px dashed #4a90e2;
-  border-radius: 10px;
-  padding: 30px;
-  text-align: center;
-  background: #f9f9f9;
-  transition: background 0.3s ease;
-  cursor: pointer;
-  font-family: 'Segoe UI', sans-serif;
-  color: #333;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 2px dashed #4a90e2;
+    border-radius: 10px;
+    padding: 30px;
+    text-align: center;
+    background: #f9f9f9;
+    transition: background 0.3s ease;
+    cursor: pointer;
+    font-family: 'Segoe UI', sans-serif;
+    color: #333;
 }
 
 .upload-box:hover {
-  background: #eef6ff;
+    background: #eef6ff;
 }
 
 .browse-label {
-  color: #4a90e2;
-  font-weight: bold;
-  cursor: pointer;
-  text-decoration: underline;
+    color: #4a90e2;
+    font-weight: bold;
+    cursor: pointer;
+    text-decoration: underline;
 }
 
 .file-name {
-  margin-top: 10px;
-  font-style: italic;
-  color: #2c3e50;
+    margin-top: 10px;
+    color: #2c3e50;
 }
 
 
 .upload-wrapper {
-  // padding: 12px;
-  // display: flex;
+    // padding: 12px;
+    // display: flex;
 
-  .upload-type-select {
-
-  }
+    .upload-type-select {}
 }
