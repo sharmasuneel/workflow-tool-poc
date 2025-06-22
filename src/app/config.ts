@@ -10,7 +10,7 @@ const config = {
     },
     javaApiEndpoints: {
         saveWorkflow: baseUrl + 'workflows/create',
-        saveWorkflowWithId: baseUrl + 'update',
+        saveWorkflowWithId: baseUrl + 'workflows/update',
         users: baseUrl + 'groups',
         workflows: baseUrl + 'workflows',
         upload: baseUrl + 'files/upload'
