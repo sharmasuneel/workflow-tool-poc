@@ -9,7 +9,7 @@ const config = {
     },
     javaApiEndpoints: {
         saveWorkflow: 'http://localhost:8080/api/workflows/create',
-        saveWorkflowWithId: 'http://localhost:8080/api/update',
+        saveWorkflowWithId: 'http://localhost:8080/api/workflows/update',
         users: 'http://localhost:8080/api/groups',
         workflows: 'http://localhost:8080/api/workflows',
         upload: 'http://localhost:8080/api/files/upload'
