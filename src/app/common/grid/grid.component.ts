@@ -7,6 +7,7 @@ import { AllCommunityModule, ModuleRegistry } from "ag-grid-community";
 import { AppService } from '../../services/app.service';
 import { Router } from '@angular/router';
 import { Input } from '@angular/core';
+import { filterDataBySelectedTab, transformData } from '../../utils/dataTransformer'
 
 ModuleRegistry.registerModules([AllCommunityModule]);
 
@@ -20,7 +21,7 @@ ModuleRegistry.registerModules([AllCommunityModule]);
       style="height: 500px;"
       class="ag-theme-alpine"
       [rowHeight]="80"
-      [rowData]="filterRowData"
+      [rowData]="filteredData"
       [columnDefs]="columnDefs">
     </ag-grid-angular>
   `
@@ -41,7 +42,8 @@ export class AppGrid implements OnInit, OnChanges {
       onCellClicked: (params: any) => {
         if (params.event.target.classList.contains('my-action-btn')) {
           this.router.navigate(['/workflow'], {
-            queryParams: { id: params.data.workflowId, action: 'execute', type: 'workflow' }});
+            queryParams: { id: params.data.workflowId, action: 'execute', type: 'workflow' }
+          });
         }
       }
     },
@@ -68,40 +70,18 @@ export class AppGrid implements OnInit, OnChanges {
     { field: 'commentary' }
   ];
 
-  rowData: any[] = [];
-  filterRowData: any[] =[]
-
-  transformData = (data: any[]) => {
-    return data.map(item => ({
-      workflow: item.workflow,
-      workflowId: item.workflowId,
-      progress: item.progress + '%',
-      status: {
-        task: item.status.task,
-        review: item.status.review || 'waiting approval',
-        approval: item.status.approval || 'waiting approval'
-      },
-      createdBy: item.createdBy,
-      assignedTo: item.assignedTo.map((user: any) => user.name).join(', '),
-      commentary: item.commentary || 'No comments'
-    }));
-  }
+  filteredData: any[] = []
 
   ngOnInit() {
     setTimeout(() => {
-      this.rowData = this.transformData(this.appService.getWorkflows());
-      this.filterDataBySelectedTab(this.selectedRole)
+      this.filteredData = filterDataBySelectedTab(this.selectedRole, this.appService.getUser()?.userId, this.appService.getWorkflows())
     }, 1000);
-  }
-
-  filterDataBySelectedTab(selectedTab: string) {
-    this.filterRowData = this.rowData.filter((data: any) => data.createdBy.role === selectedTab)
   }
 
   ngOnChanges(changes: any): void {
     const selectedRole = changes.selectedRole
     if (selectedRole && !selectedRole.firstChange) {
-      this.filterDataBySelectedTab(selectedRole.currentValue)
+      this.filteredData = filterDataBySelectedTab(selectedRole.currentValue, this.appService.getUser().userId, this.appService.getWorkflows())
     }
   }
 

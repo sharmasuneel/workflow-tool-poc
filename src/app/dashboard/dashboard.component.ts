@@ -46,6 +46,7 @@ export class DashboardComponent {
   }
 
   showCreateWorkflow: boolean = false
+  showCreateWorkflowBtn: boolean= true
 
   createNewWorkFlow() {
     const data: any = {
@@ -69,5 +70,6 @@ export class DashboardComponent {
 
   filterWorkFlows(evt: any): void {
     this.selectedRole = evt
+    this.showCreateWorkflowBtn =  evt === 'owner'
   }
 }

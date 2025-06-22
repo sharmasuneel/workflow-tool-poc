@@ -1,6 +1,6 @@
 <div class="dashboard">
   <app-user-banner (roleSelected)="filterWorkFlows($event)"></app-user-banner>
-  <button type="button" (click)="showCreateWorkflow= true"
+  <button *ngIf="showCreateWorkflowBtn" type="button" (click)="showCreateWorkflow= true"
     style="background-color: #FFF8E7; border: none; color: #0e5ba3" class="btn btn-primary" data-toggle="modal"
     data-target="#exampleModal">
     + Create new Workflow

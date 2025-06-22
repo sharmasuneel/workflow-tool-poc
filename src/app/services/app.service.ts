@@ -13,7 +13,7 @@ export class AppService {
   private filter: any;
 
   setFilter(filter: any) {
-    this.filter = {...this.filter, ...filter};
+    this.filter = { ...this.filter, ...filter };
   }
 
   getFilter() {
@@ -49,7 +49,7 @@ export class AppService {
   }
 
   getWorkflows() {
-    return this.workflows;
+    return this.workflows
   }
 
   setWorkFlowPayload(type: string, taskType: string, action: string, data: any, files?: any) {

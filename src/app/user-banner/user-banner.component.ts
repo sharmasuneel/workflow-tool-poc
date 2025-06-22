@@ -2,6 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, inject, OnInit, Output } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { AppService } from '../services/app.service';
+import { filterDataBySelectedTab, transformData } from '../utils/dataTransformer';
 
 @Component({
   selector: 'app-user-banner',
@@ -26,15 +27,13 @@ export class UserBannerComponent implements OnInit {
   }
   
   getCount(role: string) {
-    const data =  this.appService.getWorkflows()
-    return data.filter((workflow: any) => workflow.createdBy.role === role).length
+    const filteredData = filterDataBySelectedTab(role, this.appService.getUser()?.userId, this.appService.getWorkflows())
+    return filteredData.filter((workflow: any) => workflow.myRole === role).length
   }
 
   setWorflowCountByRole() {
     this.roles = this.roles.map((item) => {
-      const d = {...item, count: this.getCount(item.role)}
-      debugger;
-      return d
+      return {...item, count: this.getCount(item.role)}
     })
   }
 
