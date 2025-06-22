@@ -20,6 +20,8 @@ import { FormsModule } from '@angular/forms';
 import getConfig from '../../config';
 import { AppService } from '../../services/app.service';
 import { toFormData } from '../../utils/dataTransformer'
+import { ToastrService } from 'ngx-toastr';
+import { Router } from '@angular/router';
 
 type NodeName = keyof typeof nodesData.nodes;
 
@@ -35,7 +37,6 @@ export class DrawflowComponent implements OnInit {
 
   @ViewChild('hello', { read: ViewContainerRef, static: true })
   container!: ViewContainerRef;
-
 
   @Input()
   nodes: any[];
@@ -68,10 +69,11 @@ export class DrawflowComponent implements OnInit {
   workflowName: string = '';
   private dataService = inject(DataService);
   private appService = inject(AppService);
+  private toastr = inject(ToastrService);
 
   private workflowId: any = 0;
 
-  constructor(private injector: Injector, private appRef: ApplicationRef, private route: ActivatedRoute) { }
+  constructor(private injector: Injector, private appRef: ApplicationRef, private route: ActivatedRoute, private router: Router) { }
 
   onWorkflowNameChange(event: any) {
     this.workflowName = event.target.value;
@@ -79,9 +81,32 @@ export class DrawflowComponent implements OnInit {
     console.log('Workflow Name Changed:', this.workflowName, this.workflowId);
   }
 
+  toDashboard() {
+    this.router.navigate(['']);
+  }
+  logout() {
+    this.appService.setUser(null)
+    this.router.navigate(['']);
+  }
+
   ngOnInit() {
-    this.route.params.subscribe((params: any) => {
-      // debugger;
+    this.route.queryParams.subscribe((queryParams: any) => {
+      console.log('Query Params:', queryParams);
+      const { id, action, name } = queryParams
+      if (action === 'create' && id && name) {
+        this.toastr.success(
+          `<i class="fa fa-check-circle" style="color:rgb(26, 27, 26); margin-right: 12px; border-radius: 1px"></i> Workflow ${name} initiated`,
+          '',
+          {
+            enableHtml: true,
+            timeOut: 6000,
+            progressBar: true,
+            // closeButton: true,
+            positionClass: 'toast-top-right',
+            toastClass: 'cust-toast ngx-toastr-transparent-bg'
+          }
+        );
+      }
     });
   }
 
@@ -198,7 +223,7 @@ export class DrawflowComponent implements OnInit {
           } else if (nodeData.class === 'attestation') {
             this.addComponents<AttestComponent>(nodeData, 'attestation', 'Attestation', nodeId, AttestComponent);
           }
-           else if (nodeData.class === 'start') {
+          else if (nodeData.class === 'start') {
             this.addComponents<StartComponent>(nodeData, 'start', 'Start', nodeId, StartComponent);
           }
         }
@@ -355,6 +380,7 @@ export class DrawflowComponent implements OnInit {
   // TODO save workflow
   saveWorkflow() {
     const payload = this.appService.getWorkFlowPayload()
+    payload.metadata = {...payload.metadata, drawflow: JSON.stringify(this.editor.export(), null, 4)}
     const data = toFormData({ files: payload.files, metadata: JSON.stringify(payload.metadata) })
     this.dataService.putData(getConfig().saveWorkflowWithId, data).subscribe((response) => {
       console.log('Workflow saved successfully:', response);

@@ -11,40 +11,11 @@
 </head>
 
 <body> 
-  <!-- <header class="dashboard-header">
-    <img src="assets/icons/logo.png" alt="Company Logo" class="dashboard-logo" />
-    <div>
-      <h1 class="dashboard-title">PC Workflow</h1>
-      <div class="subtitle">Risk, Finance & Treasury</div>
-    </div>
-    <span class="vrbar"></span>
-    <nav class="dashboard-nav">
-      <ul class="horizontal-nav">
-        <li><a href="#">Dashboard</a></li>
-        <li><a href="#">User Management</a></li>
-        <li><a href="#">Settings</a></li>
-        <li><a href="#">Help</a></li>
-      </ul>
-    </nav>
-    <div class="dashboard-date">
-      30-4-25
-      <i class="fa fa-calendar dateIcon" aria-hidden="true"></i>
-    </div>
-  </header> -->
-
-  <!-- <header style="display: flex; align-items: center; gap: 1rem;">
-    <h2 style="margin: 0;">Workflow tool</h2>
-    <div style="display: flex; align-items: center; gap: 0.5rem;">
-      <label for="workflowName" style="margin: 0;">Workflow Name:</label>
-      <input [(ngModel)]="workflowName" (input)="onWorkflowNameChange($event)">
-    </div>
-  </header> -->
   <div class="wrapper bgColorLightgrey">
     <div class="col col1">
-      <div class="pull-right" style="margin-right: 10px;"><img src="assets/icons/Icon_Logout.svg" /></div>
+      <div (click)="logout()" class="pull-right" style="cursor: pointer; margin-right: 10px;"><img src="assets/icons/Icon_Logout.svg" /></div>
       <div class="cont1">
-       
-        <div class="mt-3"><i class="fas fa-arrow-left leftblue"></i>Go to Dashboard</div>
+        <div class="mt-3" style="cursor: pointer; width: 155px;" (click)="toDashboard()"><i class="fas fa-arrow-left leftblue"></i>Go to Dashboard</div>
         <div class="align-item-center d-flex justify-content-between monthlydoc">Monthly Documents  <img src="assets/icons/Icon_more3dot.svg" /></div>
         <div class="attrib">Attributes</div>
         <hr class="hrLine">
@@ -90,10 +61,7 @@
               </span>
           </button>
       </div>
-  
-        
       </div>
-
     </div>
 
     <div class="col-right bgColorLightgrey">

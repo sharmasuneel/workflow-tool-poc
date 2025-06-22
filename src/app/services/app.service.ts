@@ -10,6 +10,15 @@ export class AppService {
   private payloadWorkFlow: any = { metadata: {}, files: null };
   private workflowId: string;
   private workflowName: string;
+  private filter: any;
+
+  setFilter(filter: any) {
+    this.filter = {...this.filter, ...filter};
+  }
+
+  getFilter() {
+    return this.filter;
+  }
 
   setWorkflowName(name: string) {
     this.workflowName = name;

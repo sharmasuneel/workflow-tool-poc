@@ -1,0 +1,17 @@
+<div class="d-flex justify-content-center" *ngIf="allUsers && allUsers.length > 0">
+    <form style="border: 1px solid #ccc; padding: 2rem; border-radius: 8px; background: #fff; margin-top: 40px;">
+        <div class="mb-3">
+            <label for="username" class="form-label">Username</label>
+            <select class="form-select mb-2" id="userSelect" [(ngModel)]="selectedUser" name="userSelect">
+                <option *ngFor="let user of allUsers" [ngValue]="user">{{ user.name }}</option>
+            </select>
+        </div>
+        <div class="mb-3">
+            <label for="password" class="form-label">Password</label>
+            <input type="password" class="form-control" id="password">
+        </div>
+        <div class="d-flex justify-content-end">
+            <button type="submit" class="btn btn-primary" (click)="login()">Login</button>
+        </div>
+    </form>
+</div>

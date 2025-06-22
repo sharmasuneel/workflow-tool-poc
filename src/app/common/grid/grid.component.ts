@@ -1,11 +1,12 @@
 // data-table.component.ts
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, inject, OnChanges, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { AgGridAngular } from 'ag-grid-angular';
 import { ColDef } from 'ag-grid-community';
 import { AllCommunityModule, ModuleRegistry } from "ag-grid-community";
 import { AppService } from '../../services/app.service';
 import { Router } from '@angular/router';
+import { Input } from '@angular/core';
 
 ModuleRegistry.registerModules([AllCommunityModule]);
 
@@ -19,25 +20,15 @@ ModuleRegistry.registerModules([AllCommunityModule]);
       style="height: 500px;"
       class="ag-theme-alpine"
       [rowHeight]="80"
-      [rowData]="rowData"
+      [rowData]="filterRowData"
       [columnDefs]="columnDefs">
     </ag-grid-angular>
   `
 })
 
-
-/* 
-"workflowId": 1,
-        "workflow": "Quarterly Promotions",
-        "progress": 80,
-        "status": { "task": "In Progress", "review": "", "approval": "" },
-        "assignedTo": [
-            { "name": "Chetan M", "email": "chetan.m@example.com", "id": 101 },
-            { "name": "Priya S", "email": "priya.s@example.com", "id": 102 }
-        ],
-        "commentary": "" */
-export class AppGrid implements OnInit {
+export class AppGrid implements OnInit, OnChanges {
   private appService = inject(AppService);
+  @Input() selectedRole: string = 'owner';
 
   constructor(private router: Router) { }
   columnDefs: ColDef[] = [
@@ -50,7 +41,7 @@ export class AppGrid implements OnInit {
       onCellClicked: (params: any) => {
         if (params.event.target.classList.contains('my-action-btn')) {
           this.router.navigate(['/workflow'], {
-            queryParams: { workflowId: params.data.workflowId}});
+            queryParams: { id: params.data.workflowId, action: 'execute', type: 'workflow' }});
         }
       }
     },
@@ -78,6 +69,7 @@ export class AppGrid implements OnInit {
   ];
 
   rowData: any[] = [];
+  filterRowData: any[] =[]
 
   transformData = (data: any[]) => {
     return data.map(item => ({
@@ -89,6 +81,7 @@ export class AppGrid implements OnInit {
         review: item.status.review || 'waiting approval',
         approval: item.status.approval || 'waiting approval'
       },
+      createdBy: item.createdBy,
       assignedTo: item.assignedTo.map((user: any) => user.name).join(', '),
       commentary: item.commentary || 'No comments'
     }));
@@ -97,6 +90,19 @@ export class AppGrid implements OnInit {
   ngOnInit() {
     setTimeout(() => {
       this.rowData = this.transformData(this.appService.getWorkflows());
+      this.filterDataBySelectedTab(this.selectedRole)
     }, 1000);
   }
+
+  filterDataBySelectedTab(selectedTab: string) {
+    this.filterRowData = this.rowData.filter((data: any) => data.createdBy.role === selectedTab)
+  }
+
+  ngOnChanges(changes: any): void {
+    const selectedRole = changes.selectedRole
+    if (selectedRole && !selectedRole.firstChange) {
+      this.filterDataBySelectedTab(selectedRole.currentValue)
+    }
+  }
+
 }

@@ -1,20 +1,22 @@
 <header class="dashboard-header">
     <img src="assets/icons/logo.png" alt="Company Logo" class="dashboard-logo" />
     <div>
-      <h1 class="dashboard-title">PC Workflow</h1>
+      <h1 class="dashboard-title">
+        {{ greetMsg + (appService.getUser() ? ', ' + appService.getUser().name : '') }}
+      </h1>
       <div class="subtitle">Risk, Finance & Treasury</div>
     </div>
     <span class="vrbar"></span>
     <nav class="dashboard-nav">
       <ul class="horizontal-nav">
-        <li><a href="#">Dashboard</a></li>
-        <li><a href="#">User Management</a></li>
-        <li><a href="#">Settings</a></li>
-        <li><a href="#">Help</a></li>
+        <li><a href="#" (click)="onNavClick($event, 'dashboard')">Dashboard</a></li>
+        <li><a href="#" (click)="onNavClick($event, 'userManagement')">User Management</a></li>
+        <li><a href="#" (click)="onNavClick($event, 'settings')">Settings</a></li>
+        <li><a href="#" (click)="onNavClick($event, 'help')">Help</a></li>
       </ul>
     </nav>
     <div class="dashboard-date">
-      30-4-25
+      {{ today }}
       <i class="fa fa-calendar dateIcon" aria-hidden="true"></i>
     </div>
   </header>

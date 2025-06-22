@@ -98,6 +98,10 @@ header a {
   color: black;
 }
 
+.cust-toast {
+  background-color: #96015b !important;
+}
+
 .wrapper {
   width: 100%;
   height: calc(100vh - 67px);
@@ -223,6 +227,23 @@ header a {
   border-right: 1px solid var(--border-color);
   z-index: 5;
 }
+
+#toast-container {
+  position: absolute;
+  top: 70px;
+  right: 0px;
+  width: 500px;
+}
+// Example: Stylish success toast
+.toast-success {
+  background-color: #28a745 !important;
+  color: white;
+  font-weight: bold;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  padding: 16px;
+}
+
 
 .bar-zoom svg {
   cursor: pointer;

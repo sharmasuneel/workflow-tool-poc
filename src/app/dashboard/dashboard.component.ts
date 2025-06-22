@@ -1,6 +1,5 @@
-import { Component, inject } from "@angular/core";
+import { Component, EventEmitter, inject, Output } from "@angular/core";
 import { AppGrid } from "../common/grid/grid.component";
-import { HeaderComponent } from '../header/header.component';
 import { UserBannerComponent } from '../user-banner/user-banner.component';
 import { AppService } from "../services/app.service";
 import { CommonModule } from "@angular/common";
@@ -17,6 +16,8 @@ import { Router } from '@angular/router';
   styleUrls: ['./dashboard.component.scss'],
   standalone: true
 })
+
+
 export class DashboardComponent {
   title: string;
   data: any[];
@@ -27,8 +28,17 @@ export class DashboardComponent {
     this.title = 'Dashboard';
     this.data = [];
   }
+
+  @Output() selectedRoleChange = new EventEmitter<string>();
+  selectedRole: string ='owner'
+  loggedInUser: any 
   users: any[] = [];
   ngOnInit() {
+    this.loggedInUser = this.appService.getUser()
+
+    if(!this.loggedInUser) {
+      this.router.navigate([''])
+    }
     setTimeout(() => {
       this.users = this.appService.getUsers();
       console.log('Users loaded:', this.users);
@@ -46,16 +56,18 @@ export class DashboardComponent {
     const formData = toFormData({ 'metadata': JSON.stringify(data) })
     this.dataService.postData(getConfig().saveWorkflow, formData).subscribe((response) => {
       console.log('Workflow saved successfully:', response);
-      this.appService.setWorkflowId(response.workflowId || 12)
-      this.appService.setWorkflowName(this.newWorkflowName || 'sdfsd')
-      this.router.navigate(['/workflow'], { queryParams: { id: response.workflowId } });
+      this.appService.setWorkflowId(response.workflowId)
+      this.appService.setWorkflowName(this.newWorkflowName)
+      this.router.navigate(['/workflow'], { queryParams: { id: response.workflowId, action: 'create', name: this.newWorkflowName} });
     })
-
   }
   newWorkflowName: string
 
   onUserInteraction(event: any) {
-    // Handle user interactions
     console.log('User interacted with:', event);
+  }
+
+  filterWorkFlows(evt: any): void {
+    this.selectedRole = evt
   }
 }
