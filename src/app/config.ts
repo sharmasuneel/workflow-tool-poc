@@ -1,4 +1,4 @@
-const node = true
+const node = false
 const config = {
     nodeApiEndpoints: {
         saveWorkflow: 'http://localhost:3020/data/save-workflows',
@@ -8,7 +8,7 @@ const config = {
         upload: 'http://localhost:3020/data/upload',
     },
     javaApiEndpoints: {
-        saveWorkflow: 'http://localhost:8080/api/workflows',
+        saveWorkflow: 'http://localhost:8080/api/workflows/create',
         saveWorkflowWithId: 'http://localhost:8080/api/update',
         users: 'http://localhost:8080/api/groups',
         workflows: 'http://localhost:8080/api/workflows',

@@ -1,0 +1,46 @@
+{
+    "workflowId": 12345,
+    "workflow": "Updated Workflow Name",
+    "progress": 80,
+    "commentary": "Updated commentary",
+    "status": "In Progress",
+    "user": {
+        "userId": 1,
+        "name": "Alice Prep",
+        "role": "preparator"
+    },
+    "task": [
+        {
+            "taskId": 1,
+            "name": "Updated",
+            "businessName": "Example Business",
+            "preparator": 2,
+            "reviewer": 1,
+            "approver": 3,
+            "fileType": "pdf",
+            "autoVersioning": "true",
+            "fileNames": [
+                "document.pdf"
+            ],
+            "taskType": "Upload"
+        },
+        {
+            "taskId": 2,
+            "name": "New Task 2",
+            "taskType": "download",
+            "preparator": 2,
+            "reviewer": 1,
+            "approver": 3
+        },
+        {
+            "taskId": 3,
+            "name": "New Task 2",
+            "taskType": "review"
+        },
+        {
+            "taskId": 4,
+            "name": "New Task 2",
+            "taskType": "attach"
+        }
+    ]
+}
