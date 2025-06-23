@@ -37,7 +37,7 @@ export class AppGrid implements OnInit, OnChanges {
   constructor(private router: Router) { }
   columnDefs: ColDef[] = [
     {
-      field: 'workflow',
+      field: 'workflowName',
       width: 200,
       cellRenderer: (params: any) => {
         return `<div>

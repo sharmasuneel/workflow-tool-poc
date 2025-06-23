@@ -39,11 +39,11 @@ function transformData(data: any[], users: any[], userId: number) {
     const usersByGroupId = getAssignedToUsersById(users, userId)
     const d = data.map(item => {
         const dd = {
-            workflow: item.workflow,
+            workflowName: item.workflowName,
             workflowId: item.workflowId,
             progress: item.progress + '%',
             status: {
-                task: item.status.task,
+                task: item.status.task || 'in-progress',
                 review: item.status.review || 'waiting approval',
                 approval: item.status.approval || 'waiting approval'
             },
