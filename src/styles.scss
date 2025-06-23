@@ -41,8 +41,8 @@ $drawflowangular-theme: mat.define-light-theme((color: (primary: $drawflowangula
 @import '../node_modules/font-awesome/css/font-awesome.css';
 @import url("https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css");
 
-@import 'ag-grid-community/styles/ag-grid.css';
-@import 'ag-grid-community/styles/ag-theme-alpine.css';
+// @import 'ag-grid-community/styles/ag-grid.css';
+// @import 'ag-grid-community/styles/ag-theme-alpine.css';
 
 
 
@@ -544,4 +544,47 @@ body {
 }
 .p-b-5{
   padding-bottom:5px
+}
+
+.status-container {
+  display: flex;
+  align-items: center;
+ 
+}
+
+.status-icon {
+  margin-right: 12px;
+}
+
+.status-icon img {
+  width: 24px;
+  height: 24px;
+}
+
+.status-details {
+  font-size: 14px;
+  color: #333;
+}
+.status-details p{
+  display: block;
+  margin-bottom: -16px;
+}
+
+
+.status-text.in-progress {
+  color: #0e5ba3 !important; 
+}
+.my-action-btn{
+   color: #0e5ba3 !important; 
+}
+
+.ag-theme-alpine .ag-body-viewport,.ag-row {
+  background-color: #e8e8e8;
+  border: none;
+}
+.ag-header-container{
+background-color: #f3f3f3 ;
+}
+.ag-header-cell-resize{
+  display: none !important;
 }

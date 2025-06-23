@@ -50,7 +50,7 @@ export class DashboardComponent {
 
   createNewWorkFlow() {
     const data: any = {
-      worflowName: this.newWorkflowName,
+      workflowName: this.newWorkflowName,
       createdBy: this.users[0].users[0].userId
     }
 

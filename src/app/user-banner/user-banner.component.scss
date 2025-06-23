@@ -55,6 +55,7 @@
   text-align: center;
   position: relative;
   box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+  margin: 5px;
 }
 .user-role-card:hover
 {
@@ -87,4 +88,23 @@
   position: absolute;
   right: 24px;
   bottom: 10%;
+}
+.role-icon {
+  width: 40px; 
+  height: 40px; 
+  margin-right: 16px;
+}
+.active{
+  background-color: #0e5ba3 !important;
+  color: #ffffff !important;
+}
+.user-role-card.active  h3,
+.user-role-card.active .count,
+.user-role-card.active .label
+{
+  color: #ffffff;
+}
+
+.my-action-btn{
+  cursor: pointer;
 }

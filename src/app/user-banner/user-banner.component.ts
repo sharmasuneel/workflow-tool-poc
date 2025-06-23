@@ -18,6 +18,8 @@ export class UserBannerComponent implements OnInit {
     { name: 'Reviewer', role: 'reviewer', count: 2, label: 'Pending Tasks' },
     { name: 'Approver', count: 21, label: 'Pending Approvals', role: 'approver' }
   ];
+  activeRole:string = '';
+
 
   private appService = inject(AppService);
   @Output() roleSelected = new EventEmitter<string>();
@@ -39,6 +41,7 @@ export class UserBannerComponent implements OnInit {
 
   onCardClick(tab: any) {
     this.roleSelected.emit(tab.role);
-    this.appService.setFilter({selectedRole: tab})
+    this.appService.setFilter({selectedRole: tab});
+    this.activeRole = tab.role;
   }
 }
