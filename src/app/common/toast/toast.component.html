@@ -1,0 +1,20 @@
+<div *ngIf="showCreateWorkflow" class="modal-backdrop">
+    <div class="modal" tabindex="-1" role="dialog" style="display:block;">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div>
+            <h5 class="modal-title">Create New Workflow</h5>
+            <label for="workflowName" class="form-label me-2">Please give a name</label>
+            <input type="text" id="workflowName" class="form-control" style="width: 60%;" [(ngModel)]="newWorkflowName"
+              placeholder="Enter workflow name">
+            <span type="button" class="close closepopup" (click)="showCreateWorkflow = false" aria-label="Close">
+              <span aria-hidden="true" class="btn-close"></span>
+            </span>
+          </div>
+          <div class="modal-footer modalfooterClass">
+            <button type="button" class="btn btn-primary" (click)="createNewWorkFlow()">Start</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>

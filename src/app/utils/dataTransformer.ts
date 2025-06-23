@@ -1,7 +1,6 @@
 import { AnyGridOptions } from "ag-grid-community/dist/types/src/propertyKeys";
 
 function toFormData(obj: any): FormData {
-
     const formData = new FormData();
     for (const key in obj) {
         if (key === 'files') {
@@ -43,7 +42,7 @@ function transformData(data: any[], users: any[], userId: number) {
                 approval: item.status.approval || 'waiting approval'
             },
             createdBy: getUniqueUserById(users, userId),
-            assignedTo: 'abc',//getAssignedToUsers(item.assignedTo)//.map((obj: any) => obj.users).map((user: any) => user.name + ' | ' + user.role).join(', '),
+            assignedTo: getAssignedToUsers(item.assignedTo).map((user: any) => user.name + ' | ' + user.role).join(', '),
             assignedToUsers: getAssignedToUsers(item.assignedTo),
             commentary: item.commentary || 'No comments'
         }

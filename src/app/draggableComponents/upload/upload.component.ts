@@ -6,6 +6,7 @@ import { DataService } from '../../services/data.service';
 import getConfig from '../../config';
 import { DropWrapperContainerComponent } from '../../common/drop-wrapper-container/drop-wrapper-container.component';
 import { toFormData } from '../../utils/dataTransformer'
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-upload',
@@ -14,6 +15,7 @@ import { toFormData } from '../../utils/dataTransformer'
   standalone: true,
   styleUrls: ['./upload.component.scss'],
 })
+
 export class UploadComponent implements OnInit {
   fileName: string = '';
   businessName: string = 'Finance Audit of India';
@@ -27,6 +29,7 @@ export class UploadComponent implements OnInit {
 
   private appService = inject(AppService);
   private dataService = inject(DataService);
+  private toastr = inject(ToastrService);
 
 
   fileNames: string[] = [];
@@ -108,6 +111,18 @@ export class UploadComponent implements OnInit {
     const data = toFormData({ files: this.files, metadata: JSON.stringify(jsonformData) })
     this.dataService.postData(getConfig().upload, data).subscribe({
       next: (response) => {
+        this.toastr.success(
+          `<i class="fa fa-check-circle" style="color:rgb(26, 27, 26); margin-right: 12px; border-radius: 1px"></i> Template task attached to workflow ${jsonformData.workflowId} successfully`,
+          '',
+          {
+            enableHtml: true,
+            timeOut: 6000,
+            progressBar: true,
+            // closeButton: true,
+            positionClass: 'toast-top-right',
+            toastClass: 'cust-toast ngx-toastr-transparent-bg'
+          }
+        );
         console.log('Data saved successfully:', response);
       }
       , error: (error) => {

@@ -142,6 +142,14 @@ header a {
   line-height: 40px;
   cursor: pointer;
 }
+.toast-middle-center {
+  top: 50% !important;
+  left: 50% !important;
+  transform: translate(-50%, -50%) !important;
+  position: fixed !important;
+  width: 400px;
+  z-index: 9999 !important;
+}
 
 .menu ul li.selected {
   font-weight: bold;

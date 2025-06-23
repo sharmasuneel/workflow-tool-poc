@@ -67,7 +67,6 @@
       <div class="col-12">
         <select class="w-100 input-height" (change)="updateWorkFlowPayload()" [(ngModel)]="approver" name="approver">
           <option *ngFor="let apr of approvers" [value]="apr.name">{{ apr.name }}</option>
-          <option *ngFor="let user of users" [value]="user">{{ user }}</option>
         </select>
       </div>
     </div>
