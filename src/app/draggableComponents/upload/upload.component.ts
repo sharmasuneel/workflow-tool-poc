@@ -18,11 +18,11 @@ import { ToastrService } from 'ngx-toastr';
 
 export class UploadComponent implements OnInit {
   fileName: string = '';
-  businessName: string = 'Finance Audit of India';
+  businessName: string = '';
   preparator: string = '';
   reviewer: string = '';
   approver: string = '';
-  fileType: string = 'CSV';
+  fileType: string = '';
   file: any = null;
   files: any[] = [];
   autoVersioning: boolean = false;
@@ -58,14 +58,26 @@ export class UploadComponent implements OnInit {
   }
 
   updateWorkFlowPayload() {
-    this.appService.setWorkFlowPayload('task', 'upload', 'update', { businessName: this.businessName,
-      preparator: this.getId(this.preparator, this.preparators) || 1,
-      reviewer: this.getId(this.reviewer, this.reviewers) || 1,
-      approver: this.getId(this.approver, this.approvers) || 1,
+    this.appService.setWorkFlowPayload('workflow', '', '', {
+      approverGroupId: this.getId(this.approver, this.approvers),
+      reviewerGroupId: this.getId(this.reviewer, this.reviewers),
+      preparatorGroupId: this.getId(this.preparator, this.preparators),
+      createdBy: this.appService.getUser().userId,
+      progress: 0,
+      status: "",
+      commentary: "",
+    })
+    this.appService.setWorkFlowPayload('task', 'upload', 'update', {
+      businessName: this.businessName,
+      preparator: this.getId(this.preparator, this.preparators),
+      uploadType: this.uploadType,
+      reviewer: this.getId(this.reviewer, this.reviewers),
+      approver: this.getId(this.approver, this.approvers),
       fileType: this.fileType,
       autoVersioning: this.autoVersioning,
       taskType: 'upload',
-      fileNames: this.fileNames }, this.files)
+      fileNames: this.fileNames
+    }, this.files)
   }
 
   onFileSelected(event: Event): void {
@@ -91,17 +103,12 @@ export class UploadComponent implements OnInit {
 
   onSave() {
     const workflowId = this.appService.getWorkflowId()
-    if(!workflowId) {
-      alert('WorkflowId missing')
-      return
-    }
-
     const jsonformData = {
       workflowId: workflowId,
       businessName: this.businessName,
-      preparator: this.getId(this.preparator, this.preparators) || 1,
-      reviewer: this.getId(this.reviewer, this.reviewers) || 1,
-      approver: this.getId(this.approver, this.approvers) || 1,
+      preparator: this.getId(this.preparator, this.preparators),
+      reviewer: this.getId(this.reviewer, this.reviewers),
+      approver: this.getId(this.approver, this.approvers),
       fileType: this.fileType,
       autoVersioning: this.autoVersioning,
       fileNames: this.fileNames,

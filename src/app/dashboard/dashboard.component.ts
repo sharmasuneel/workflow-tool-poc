@@ -49,18 +49,18 @@ export class DashboardComponent {
   showCreateWorkflowBtn: boolean= true
 
   createNewWorkFlow() {
-    const data: any = {
+    /* const data: any = {
       workflowName: this.newWorkflowName,
       createdBy: this.users[0].users[0].userId
-    }
+    } */
 
-    const formData = toFormData({ 'metadata': JSON.stringify(data) })
+    this.appService.setWorkflowName(this.newWorkflowName)
+    this.router.navigate(['/workflow'], { queryParams: { action: 'create', name: this.newWorkflowName, selectedRole: this.selectedRole} });
+    /* const formData = toFormData({ 'metadata': JSON.stringify(data) })
     this.dataService.postData(getConfig().saveWorkflow, formData).subscribe((response) => {
       console.log('Workflow saved successfully:', response);
-      this.appService.setWorkflowId(response.workflowId)
-      this.appService.setWorkflowName(this.newWorkflowName)
       this.router.navigate(['/workflow'], { queryParams: { id: response.workflowId, action: 'create', name: this.newWorkflowName, selectedRole: this.selectedRole} });
-    })
+    }) */
   }
   newWorkflowName: string
 

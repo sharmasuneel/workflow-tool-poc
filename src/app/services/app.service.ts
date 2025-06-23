@@ -69,13 +69,12 @@ export class AppService {
   }
 
   setWorkFlowPayload(type: string, taskType: string, action: string, data: any, files?: any) {
+    debugger
     let metadata = this.payloadWorkFlow.metadata
     metadata.workflowId = this.workflowId
     metadata.workflow = this.workflowName
     if (type === 'workflow') {
-      metadata.progress = data.progress || 0
-      metadata.commentary = data.commentary || ''
-      metadata.status = data.status || ''
+      metadata = {...metadata, ...data}
     }
     if (type === 'task' && taskType) {
       let tasks = metadata.tasks || []
