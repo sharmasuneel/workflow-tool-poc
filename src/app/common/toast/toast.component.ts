@@ -1,6 +1,8 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { Router } from '@angular/router';
+import { AppService } from '../../services/app.service';
 
 @Component({
   selector: 'app-toast',
@@ -10,10 +12,16 @@ import { FormsModule } from '@angular/forms';
   styleUrl: './toast.component.scss'
 })
 export class ToastComponent {
-  showCreateWorkflow: boolean = true
-  newWorkflowName: string = ''
-  createNewWorkFlow() {
+  showToast: boolean = true
+  toastMsg: string = 'Workflow saved successfully'
 
+  private appService = inject(AppService)
+
+  constructor(private router: Router) {}
+
+  goToDashboard() {
+    this.appService.getUser().userId
+    this.router.navigate(['/dashboard'], {queryParams: {user: this.appService.getUser().userId, reload: true}})
   }
 
 }

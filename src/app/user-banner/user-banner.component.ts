@@ -18,7 +18,7 @@ export class UserBannerComponent implements OnInit {
     { name: 'Reviewer', role: 'reviewer', count: 2, label: 'Pending Tasks' },
     { name: 'Approver', count: 21, label: 'Pending Approvals', role: 'approver' }
   ];
-  activeRole:string = '';
+  activeRole:string = 'owner';
 
 
   private appService = inject(AppService);

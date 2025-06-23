@@ -20,7 +20,7 @@
             </span>
           </div>
           <div class="modal-footer modalfooterClass">
-            <button type="button" class="btn btn-primary" (click)="createNewWorkFlow()">Start</button>
+            <button type="button" class="btn btn-primary" (click)="createNewWorkFlow()" [disabled]="!newWorkflowName">Start</button>
           </div>
         </div>
       </div>

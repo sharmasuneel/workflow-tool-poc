@@ -26,11 +26,17 @@ function getUniqueUserById(userGroups: any, userId: number) {
 }
 
 function getAssignedToUsers(assignedToUsers: any) {
-    return assignedToUsers.flatMap((group: any) => group.users);
+    return assignedToUsers//.flatMap((group: any) => group.users);
+}
+
+
+function getAssignedToUsersById(users: any, userId: number) {
+    return users.filter((group: any) => group.userGroupId === userId)[0].users;
 }
 
 
 function transformData(data: any[], users: any[], userId: number) {
+    const usersByGroupId = getAssignedToUsersById(users, userId)
     const d = data.map(item => {
         const dd = {
             workflow: item.workflow,
@@ -42,8 +48,8 @@ function transformData(data: any[], users: any[], userId: number) {
                 approval: item.status.approval || 'waiting approval'
             },
             createdBy: getUniqueUserById(users, userId),
-            assignedTo: getAssignedToUsers(item.assignedTo).map((user: any) => user.name + ' | ' + user.role).join(', '),
-            assignedToUsers: getAssignedToUsers(item.assignedTo),
+            assignedTo: getAssignedToUsers(usersByGroupId).map((user: any) => user.name + ' | ' + user.role).join(', '),
+            assignedToUsers: getAssignedToUsers(usersByGroupId),
             commentary: item.commentary || 'No comments'
         }
         return dd

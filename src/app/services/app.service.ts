@@ -11,6 +11,22 @@ export class AppService {
   private workflowId: string;
   private workflowName: string;
   private filter: any;
+  private enabledNodes: any;
+
+  setEnabledNodes(value: any) {
+    this.enabledNodes = value;
+  }
+
+  getEnabledNodes(role: string) {
+    if (role === 'preparator') {
+      return ['upload', 'download']
+    } else if (role === 'reviewer') {
+      return ['review']
+    } else if (role === 'approver') {
+      return ['decide', 'attestation']
+    }
+    return ['upload', 'download', 'review', 'decide', 'attestation', 'start']
+  }
 
   setFilter(filter: any) {
     this.filter = { ...this.filter, ...filter };

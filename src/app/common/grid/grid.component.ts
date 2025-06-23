@@ -8,6 +8,8 @@ import { AppService } from '../../services/app.service';
 import { Router } from '@angular/router';
 import { Input } from '@angular/core';
 import { filterDataBySelectedTab, transformData } from '../../utils/dataTransformer'
+import getConfig from '../../config';
+import { DataService } from '../../services/data.service';
 
 ModuleRegistry.registerModules([AllCommunityModule]);
 
@@ -22,13 +24,14 @@ ModuleRegistry.registerModules([AllCommunityModule]);
       style="height: 500px;"
       [rowHeight]="80"
       [rowData]="filteredData"
-      [columnDefs]="columnDefs">
+      [columnDefs]="columnDefs"
+      [localeText]="{ noRowsToShow: 'No workflow to show' }">
     </ag-grid-angular></div>
   `
 })
-
 export class AppGrid implements OnInit, OnChanges {
   private appService = inject(AppService);
+  private dataService = inject(DataService);
   @Input() selectedRole: string = 'owner';
 
   constructor(private router: Router) { }
@@ -44,14 +47,14 @@ export class AppGrid implements OnInit, OnChanges {
       onCellClicked: (params: any) => {
         if (params.event.target.classList.contains('my-action-btn')) {
           this.router.navigate(['/workflow'], {
-            queryParams: { id: params.data.workflowId, action: 'execute', type: 'workflow' }
+            queryParams: { id: params.data.workflowId, action: 'execute', type: 'workflow', selectedRole: this.selectedRole }
           });
         }
       }
     },
     {
       field: 'progress',
-      width: 150 
+      width: 150
     },
     {
       field: 'status',
@@ -72,7 +75,7 @@ export class AppGrid implements OnInit, OnChanges {
     },
     {
       field: 'assignedTo',
-      width: 250, 
+      width: 250,
       cellRenderer: (params: any) => {
         const users = params.data.assignedTo.split(',') || [];
         return `<div class="d-flex align-item-center">
@@ -85,7 +88,7 @@ export class AppGrid implements OnInit, OnChanges {
     },
     {
       field: 'commentary',
-      width: 200, 
+      width: 200,
       cellRenderer: (params: any) => {
         return `<div>
           <img src="/assets/icons/Commentary.png" />
@@ -95,10 +98,14 @@ export class AppGrid implements OnInit, OnChanges {
   ];
 
   filteredData: any[] = []
-
+  workflows: any[] = []
   ngOnInit() {
     setTimeout(() => {
-      this.filteredData = filterDataBySelectedTab(this.selectedRole, this.appService.getUser()?.userId, this.appService.getWorkflows(), this.appService.getUsers())
+      this.dataService.getData(getConfig().workflows).subscribe((data: any) => {
+        this.workflows = data;
+        this.appService.setWorkflows(data);
+        this.filteredData = filterDataBySelectedTab(this.selectedRole, this.appService.getUser()?.userId, data, this.appService.getUsers())
+      });
     }, 1000);
   }
 

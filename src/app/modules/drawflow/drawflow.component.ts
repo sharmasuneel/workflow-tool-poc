@@ -31,7 +31,7 @@ type NodeName = keyof typeof nodesData.nodes;
   selector: 'app-drawflow',
   templateUrl: './drawflow.component.html',
   standalone: true,
-  imports: [FormsModule, CommonModule , ToastComponent],
+  imports: [FormsModule, CommonModule, ToastComponent],
   styleUrls: ['./drawflow.component.css']
 })
 export class DrawflowComponent implements OnInit {
@@ -49,7 +49,7 @@ export class DrawflowComponent implements OnInit {
   @Input()
   showLock: boolean;
   @Input()
-  showNodes: boolean;
+  showNodes: boolean = false;
   @Input()
   otherDetails: any;
 
@@ -71,7 +71,9 @@ export class DrawflowComponent implements OnInit {
   workflowName: string = '';
   private dataService = inject(DataService);
   private appService = inject(AppService);
-  private toastr = inject(ToastrService);
+
+  showToast: boolean = false;
+  toastMsg: string = '';
 
   private workflowId: any = 0;
 
@@ -91,12 +93,23 @@ export class DrawflowComponent implements OnInit {
     this.router.navigate(['']);
   }
 
+  drawflowData: any = null
+  selectedRole: string = ''
+  action: string = 'create'
+
   ngOnInit() {
     this.route.queryParams.subscribe((queryParams: any) => {
       console.log('Query Params:', queryParams);
-      const { id, action, name } = queryParams
-      if (action === 'create' && id && name) {
-        this.toastr.success(
+      const { id, action, name, selectedRole } = queryParams
+      this.selectedRole = selectedRole
+      this.action = action
+      if (action === 'execute' && id) {
+        this.drawflowData = JSON.parse(this.appService.getWorkflows().find((dd: any) => {
+          return dd.workflowId === Number(id)
+        }).drawflow)
+
+        // TODO delete this toaster notification later
+        /* this.toastr.success(
           `<i class="fa fa-check-circle" style="color:rgb(26, 27, 26); margin-right: 12px; border-radius: 1px"></i> Workflow ${name} initiated`,
           '',
           {
@@ -107,7 +120,7 @@ export class DrawflowComponent implements OnInit {
             positionClass: 'toast-top-right',
             toastClass: 'cust-toast ngx-toastr-transparent-bg'
           }
-        );
+        ); */
       }
     });
   }
@@ -120,6 +133,15 @@ export class DrawflowComponent implements OnInit {
 
   ngAfterViewInit(): void {
     this.initDrawingBoard();
+    if (this.drawflowData) {
+      if (this.action === 'execute') {
+        this.editor.editor_mode = 'fixed'
+        this.isDraggable = true
+      }
+      this.editor.clear()
+      this.editor.drawflow = this.drawflowData
+      this.editor.load();
+    }
   }
 
 
@@ -134,8 +156,11 @@ export class DrawflowComponent implements OnInit {
     }
   }
 
+  isDraggable: boolean = true
+
   private addComponents<T>(nodeData: any, id: string, innerHTML: string, nodeId: string, customComponent: { new(...args: any[]): T }): void {
-    if (nodeData && nodeData.class === id) {
+    const isNodeEnabled = this.appService.getEnabledNodes(this.selectedRole).includes(id)
+    if (nodeData && nodeData.class === id && isNodeEnabled) {
       // Dynamically render UploadComponent inside the node
       const nodeContent = document.querySelector(`#node-${nodeId} .drawflow_content_node`);
       const container = nodeContent?.children[1];
@@ -309,14 +334,12 @@ export class DrawflowComponent implements OnInit {
 
   private dragEvent() {
     var elements = Array.from(document.getElementsByClassName('drag-drawflow'));
-
     elements.forEach(element => {
       element.addEventListener('touchend', this.drop.bind(this), false);
       element.addEventListener('touchmove', this.positionMobile.bind(this), false);
       element.addEventListener('touchstart', this.drag.bind(this), false);
       element.addEventListener("dblclick", (event) => { });
     });
-
   }
 
   private positionMobile(ev: any) {
@@ -388,6 +411,8 @@ export class DrawflowComponent implements OnInit {
       console.log('Workflow saved successfully:', response);
 
       //TODO show alert message
+      this.showToast = true
+      this.toastMsg = 'Workflow saved successfully'
     })
   }
 
@@ -396,6 +421,7 @@ export class DrawflowComponent implements OnInit {
   }
 
   changeMode() {
+    debugger
     this.locked = !this.locked;
     this.editor.editor_mode = this.locked != null && this.locked == false ? 'edit' : 'fixed';
   }

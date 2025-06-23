@@ -59,7 +59,7 @@ export class DashboardComponent {
       console.log('Workflow saved successfully:', response);
       this.appService.setWorkflowId(response.workflowId)
       this.appService.setWorkflowName(this.newWorkflowName)
-      this.router.navigate(['/workflow'], { queryParams: { id: response.workflowId, action: 'create', name: this.newWorkflowName} });
+      this.router.navigate(['/workflow'], { queryParams: { id: response.workflowId, action: 'create', name: this.newWorkflowName, selectedRole: this.selectedRole} });
     })
   }
   newWorkflowName: string
