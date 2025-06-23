@@ -74,14 +74,14 @@ export class AppGrid implements OnInit, OnChanges {
 
   ngOnInit() {
     setTimeout(() => {
-      this.filteredData = filterDataBySelectedTab(this.selectedRole, this.appService.getUser()?.userId, this.appService.getWorkflows())
+      this.filteredData = filterDataBySelectedTab(this.selectedRole, this.appService.getUser()?.userId, this.appService.getWorkflows(), this.appService.getUsers())
     }, 1000);
   }
 
   ngOnChanges(changes: any): void {
     const selectedRole = changes.selectedRole
     if (selectedRole && !selectedRole.firstChange) {
-      this.filteredData = filterDataBySelectedTab(selectedRole.currentValue, this.appService.getUser().userId, this.appService.getWorkflows())
+      this.filteredData = filterDataBySelectedTab(selectedRole.currentValue, this.appService.getUser().userId, this.appService.getWorkflows(), this.appService.getUsers())
     }
   }
 

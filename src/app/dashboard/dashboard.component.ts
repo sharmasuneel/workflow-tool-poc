@@ -51,7 +51,7 @@ export class DashboardComponent {
   createNewWorkFlow() {
     const data: any = {
       worflowName: this.newWorkflowName,
-      user: this.users[0].users[0]
+      createdBy: this.users[0].users[0].userId
     }
 
     const formData = toFormData({ 'metadata': JSON.stringify(data) })

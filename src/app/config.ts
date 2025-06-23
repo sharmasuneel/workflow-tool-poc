@@ -1,5 +1,4 @@
 const node = true
-const st = true
 const baseUrl = node ? 'http://localhost:3020/data/' : 'http://localhost:8081/api/'
 const config = {
     nodeApiEndpoints: {
@@ -8,7 +7,7 @@ const config = {
         users: baseUrl + 'users',
         workflows: baseUrl + 'workflows',
         upload: baseUrl + 'upload',
-        st: true
+        st: false
     },
     javaApiEndpoints: {
         saveWorkflow: baseUrl + 'workflows/create',

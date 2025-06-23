@@ -27,7 +27,7 @@ export class UserBannerComponent implements OnInit {
   }
   
   getCount(role: string) {
-    const filteredData = filterDataBySelectedTab(role, this.appService.getUser()?.userId, this.appService.getWorkflows())
+    const filteredData = filterDataBySelectedTab(role, this.appService.getUser()?.userId, this.appService.getWorkflows(), this.appService.getUsers())
     return filteredData.filter((workflow: any) => workflow.myRole === role).length
   }
 
