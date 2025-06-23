@@ -1,5 +1,6 @@
 <div class="user-banner">
   <div class="user-role-card" *ngFor="let role of roles" (click)="onCardClick(role)">
+    <img [src]="'assets/icons/Dashboard Cards.png'" alt="{{ role.name }} icon" class="role-icon" />
     <h3>{{ role.name }}</h3>
     <p class="count">{{ role.count }}</p>
     <p class="label">{{ role.label }}</p>

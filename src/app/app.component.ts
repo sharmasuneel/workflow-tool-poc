@@ -7,6 +7,7 @@ import { AppService } from './services/app.service';
 import getConfig from './config';
 import { HeaderComponent } from './header/header.component';
 import { LoginComponent } from './common/login/login.component';
+import { usersData, workflowsData } from './stub/staticdata'
 
 @Component({
   selector: 'app-root',
@@ -20,19 +21,25 @@ export class AppComponent implements OnInit {
   users: any[] = [];
   workflows: any[] = [];
 
+
   private dataService = inject(DataService);
   private appService = inject(AppService);
 
   private urls = getConfig()
-   ngOnInit() {
-    this.dataService.getData(this.urls.users).subscribe((data) => {
-      this.users = data;
-      this.appService.setUsers(data );
-    });
-    this.dataService.getData(this.urls.workflows).subscribe((data) => {
-      this.workflows = data;
-      this.appService.setWorkflows(data );
-    });
+  ngOnInit() {
+    if (this.urls.st) {
+      this.users = usersData
+      this.workflows = workflowsData;
+    } else {
+      this.dataService.getData(this.urls.users).subscribe((data) => {
+        this.users = data;
+        this.appService.setUsers(data);
+      });
+      this.dataService.getData(this.urls.workflows).subscribe((data) => {
+        this.workflows = data;
+        this.appService.setWorkflows(data);
+      });
+    }
   }
 }
 
