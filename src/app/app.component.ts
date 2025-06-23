@@ -30,6 +30,8 @@ export class AppComponent implements OnInit {
     if (this.urls.st) {
       this.users = usersData
       this.workflows = workflowsData;
+      this.appService.setUsers(usersData);
+      this.appService.setWorkflows(workflowsData);
     } else {
       this.dataService.getData(this.urls.users).subscribe((data) => {
         this.users = data;
