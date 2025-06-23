@@ -1,10 +1,11 @@
 <div class="dashboard">
   <app-user-banner (roleSelected)="filterWorkFlows($event)"></app-user-banner>
   <button *ngIf="showCreateWorkflowBtn" type="button" (click)="showCreateWorkflow= true"
-    style="background-color: #FFF8E7; border: none; color: #0e5ba3" class="btn btn-primary" data-toggle="modal"
+    style="background-color: #FFF8E7; border: none; color: #0e5ba3;margin-bottom: 10px;" class="btn btn-primary" data-toggle="modal"
     data-target="#exampleModal">
     + Create new Workflow
   </button>
+  
   <div *ngIf="showCreateWorkflow" class="modal-backdrop">
     <div class="modal" tabindex="-1" role="dialog" style="display:block;">
       <div class="modal-dialog" role="document">

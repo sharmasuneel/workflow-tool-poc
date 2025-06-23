@@ -1,7 +1,9 @@
 <div class="user-banner">
-  <div class="user-role-card" *ngFor="let role of roles" (click)="onCardClick(role)">
+  <div class="user-role-card" [ngClass]="{ 'active': activeRole == role.role }" *ngFor="let role of roles" (click)="onCardClick(role)">
+   <div class="d-flex align-items-center">
     <img [src]="'assets/icons/Dashboard Cards.png'" alt="{{ role.name }} icon" class="role-icon" />
     <h3>{{ role.name }}</h3>
+   </div>
     <p class="count">{{ role.count }}</p>
     <p class="label">{{ role.label }}</p>
   </div>

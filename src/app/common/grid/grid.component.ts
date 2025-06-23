@@ -16,14 +16,14 @@ ModuleRegistry.registerModules([AllCommunityModule]);
   selector: 'app-grid',
   standalone: true,
   imports: [CommonModule, AgGridAngular],
-  template: `
+  styleUrls: ['./grid.component.scss'],
+  template: `<div  class="ag-theme-alpine">
     <ag-grid-angular
       style="height: 500px;"
-      class="ag-theme-alpine"
       [rowHeight]="80"
       [rowData]="filteredData"
       [columnDefs]="columnDefs">
-    </ag-grid-angular>
+    </ag-grid-angular></div>
   `
 })
 
@@ -34,7 +34,9 @@ export class AppGrid implements OnInit, OnChanges {
   constructor(private router: Router) { }
   columnDefs: ColDef[] = [
     {
-      field: 'workflow', cellRenderer: (params: any) => {
+      field: 'workflow',
+      width: 200,
+      cellRenderer: (params: any) => {
         return `<div>
           <a class="my-action-btn">${params.getValue()}</a>
         </div>`;
@@ -47,27 +49,49 @@ export class AppGrid implements OnInit, OnChanges {
         }
       }
     },
-    { field: 'progress' },
     {
-      field: 'status', cellRenderer: (params: any) => {
+      field: 'progress',
+      width: 150 
+    },
+    {
+      field: 'status',
+      width: 450,
+      cellRenderer: (params: any) => {
         const { task, review, approval } = params.getValue();
-        return `<div>
-          <div><strong>Task:</strong> ${task}</div>
-          <div><strong>Review:</strong> ${review}</div>
-          <div><strong>Approval:</strong> ${approval}</div>
+        return `<div class="status-container">
+          <div class="status-icon">
+            <img src="/assets/icons/Status.png" alt="Status Icon" />
+          </div>
+          <div class="status-details">
+            <p><span>Task:</span> <span class="status-text in-progress">${task}</span></p>
+            <p><span>Review:</span> <span class="status-text ">${review}</span></p>
+            <p><span>Approval:</span> <span class="status-text ">${approval}</span></p>
+          </div>
         </div>`;
-      },
+      }
     },
     {
       field: 'assignedTo',
+      width: 250, 
       cellRenderer: (params: any) => {
         const users = params.data.assignedTo.split(',') || [];
-        return `<ul style="margin:0;padding-left:16px;">
-          ${users.map((user: any) => `<div>${user}</div>`).join('')}
-        </ul>`;
+        return `<div class="d-flex align-item-center">
+          <img src="/assets/icons/User Profile.png" />
+          <ul class="status-details" style="margin:0;padding-left:16px;">
+            ${users.map((user: any) => `<p>${user}</p>`).join('')}
+          </ul>
+        </div>`;
       }
     },
-    { field: 'commentary' }
+    {
+      field: 'commentary',
+      width: 200, 
+      cellRenderer: (params: any) => {
+        return `<div>
+          <img src="/assets/icons/Commentary.png" />
+        </div>`;
+      }
+    }
   ];
 
   filteredData: any[] = []
