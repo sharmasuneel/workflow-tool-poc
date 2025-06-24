@@ -58,7 +58,8 @@ export class UploadComponent implements OnInit {
   }
 
   getId(key: string, arr: any) {
-    return arr.filter((item: any) => item.name === key).map((item: any) => item.userGroupId)[0]
+    const dd =  arr.filter((item: any) => item.name === key).map((item: any) => item.userGroupId)[0]
+    return dd || null;
   }
 
   removeFile(fileIndex: number) {
@@ -104,7 +105,7 @@ export class UploadComponent implements OnInit {
       autoVersioning: this.taskData.autoVersioning,
       fileNames: this.taskData.fileNames,
     }
-    this.appService.updateTaskById(this.uiTaskId, this.taskData)
+    this.appService.updateTaskById(this.uiTaskId, payload)
     console.log('Upload Task data updated:', this.taskData);
   }
 
