@@ -40,6 +40,8 @@ export class DownloadComponent {
 
   onComplete() {
     const workflowId = this.appService.getWorkflowId()
+    const workFlow =  this.appService.getWorkflowById(Number(workflowId))
+    const tasks = workFlow.metadata.tasks.filter((task: any) => task.taskId === 'download')
     this.appService.setWorkFlowPayload('task', 'download', 'update', {
       workflowId,
       acknowledged: this.acknowledged,

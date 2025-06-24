@@ -172,9 +172,14 @@ export class DrawflowComponent implements OnInit {
         const componentRef: ComponentRef<T> = createComponent(customComponent, {
           environmentInjector: this.appRef.injector,
         });
+        (componentRef.location.nativeElement as HTMLElement).id = nodeData.data.uiTaskId; // Set the unique ID for the component
+        /* const componentRef: ComponentRef<T> = createComponent(customComponent, {
+          environmentInjector: this.appRef.injector,
+        }); */
 
         this.appRef.attachView(componentRef.hostView);
-        container.innerHTML = ''; // Optional: clear existing content
+        container.innerHTML = '';
+         // Optional: clear existing content
         container.appendChild((componentRef.hostView as any).rootNodes[0]);
       }
     }
@@ -380,9 +385,9 @@ export class DrawflowComponent implements OnInit {
     pos_x = pos_x * (this.editor.precanvas.clientWidth / (this.editor.precanvas.clientWidth * this.editor.zoom)) - (this.editor.precanvas.getBoundingClientRect().x * (this.editor.precanvas.clientWidth / (this.editor.precanvas.clientWidth * this.editor.zoom)));
     pos_y = pos_y * (this.editor.precanvas.clientHeight / (this.editor.precanvas.clientHeight * this.editor.zoom)) - (this.editor.precanvas.getBoundingClientRect().y * (this.editor.precanvas.clientHeight / (this.editor.precanvas.clientHeight * this.editor.zoom)));
     const node = nodesData.nodes.filter(node => node.id === id)[0] as { class: string, inputs: any, outputs: any, data: any, html: string };
-    // debugger
     // TODO Left nav icons when dropped.. node.json html -->
-    if (node) {
+    node.data = { ...node.data, uiTaskId: uuidv4() }; // Generate a unique ID for the node
+    if (node) { 
       this.editor.addNode(
         node.class,
         node.inputs,
@@ -405,12 +410,12 @@ export class DrawflowComponent implements OnInit {
   // TODO save workflow
   saveWorkflow() {
     const payload = this.appService.getWorkFlowPayload()
-    
+    const drawFlowData = this.editor.export();
+  debugger
     payload.metadata = { ...payload.metadata, drawflow: JSON.stringify(this.editor.export(), null, 4) }
     const data = toFormData({ files: payload.files, metadata: JSON.stringify(payload.metadata) })
     this.dataService.postData(getConfig().saveWorkflowWithId, data).subscribe((response) => {
       console.log('Workflow saved successfully:', response);
-
       //TODO show alert message
       this.showToast = true
       this.toastMsg = 'Workflow saved successfully'

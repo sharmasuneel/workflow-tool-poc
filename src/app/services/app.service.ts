@@ -69,6 +69,10 @@ export class AppService {
     return this.users;
   }
 
+  getWorkflowById(id: number) {
+    return this.workflows.find(workflow => workflow.workflowId === id);
+  }
+
   setWorkflows(workflows: any[]) {
     this.workflows = workflows;
   }
