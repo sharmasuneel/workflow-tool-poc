@@ -10,7 +10,7 @@
     <label class="mb-1 text-muted">Upload Type</label>
     <div class="col-12">
       <select class="w-100 input-height" [(ngModel)]="taskData.uploadType" name="taskData.uploadType">
-        <option value="templateFile">Set Template</option>
+        <option value="withTemplateFile">Set Template</option>
         <option value="withDataFile">With Data</option>
       </select>
     </div>
@@ -38,7 +38,7 @@
 
   <!-- Display list of selected file names -->
   <div>
-    <ul *ngIf="taskData.fileNames.length > 0" class="file-name-list">
+    <ul *ngIf="taskData?.fileNames?.length > 0" class="file-name-list">
       <label class="mt-1 text-muted"> Uploaded File</label>
       <li *ngFor="let name of taskData.fileNames; let i = index" style="font-size: 14px;"
         class="d-flex align-items-center justify-content-between">
@@ -54,7 +54,7 @@
 
   <form *ngIf="phase === 'creation'">
     <div class="form-check mb-2">
-      <input class="form-check-input" type="checkbox" (change)="updateWorkFlowPayload()" [(ngModel)]="taskData.autoVersioning"
+      <input class="form-check-input" type="checkbox" [(ngModel)]="taskData.autoVersioning"
         name="autoVersioning" />
       <label class="form-check-label text-muted" for="flexCheckDefault">
         Set auto file versioning
@@ -65,7 +65,7 @@
     <div class="mb-2">
       <label class="text-muted">Business Name</label>
       <div class="col-12">
-        <input type="text" class="w-100 input-height" (change)="updateWorkFlowPayload()" [(ngModel)]="taskData.businessName"
+        <input type="text" class="w-100 input-height" [(ngModel)]="taskData.businessName"
           name="businessName" />
       </div>
     </div>
@@ -73,7 +73,7 @@
     <div class="mb-2">
       <label class="text-muted">Preparator</label>
       <div class="col-12">
-        <select class="w-100 input-height" [(ngModel)]="taskData.preparator" (change)="updateWorkFlowPayload()"
+        <select class="w-100 input-height" [(ngModel)]="taskData.preparator"
           name="preparator">
           <option *ngFor="let prep of preparators" [value]="prep.name">{{ prep.name }}</option>
         </select>
@@ -83,7 +83,7 @@
     <div class="mb-2">
       <label class="text-muted">Reviewer</label>
       <div class="col-12">
-        <select class="w-100 input-height" (change)="updateWorkFlowPayload()" [(ngModel)]="taskData.reviewer" name="reviewer">
+        <select class="w-100 input-height" [(ngModel)]="taskData.reviewer" name="reviewer">
           <option *ngFor="let rev of reviewers" [value]="rev.name">{{ rev.name }}</option>
         </select>
       </div>
@@ -92,7 +92,7 @@
     <div class="mb-2">
       <label class="text-muted">Approver</label>
       <div class="col-12">
-        <select class="w-100 input-height" (change)="updateWorkFlowPayload()" [(ngModel)]="taskData.approver" name="approver">
+        <select class="w-100 input-height"  [(ngModel)]="taskData.approver" name="approver">
           <option *ngFor="let apr of approvers" [value]="apr.name">{{ apr.name }}</option>
         </select>
       </div>
@@ -101,7 +101,7 @@
     <div class="mb-2">
       <label class="text-muted">File Type</label>
       <div class="col-12">
-        <select class="w-100 input-height" (change)="updateWorkFlowPayload()" [(ngModel)]="taskData.fileType" name="fileType">
+        <select class="w-100 input-height" [(ngModel)]="taskData.fileType" name="fileType">
           <option value="CSV">CSV</option>
           <option value="DOC">DOC</option>
           <option value="PDF">PDF</option>

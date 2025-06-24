@@ -10,12 +10,12 @@
       <ul *ngIf="taskData?.files?.length > 0" class="file-name-list">
         <label class="mt-1 text-muted">Uploaded File</label>
         <li *ngFor="let taskfile of taskData.files; let i = index" style="font-size: 14px;"
-          class="d-flex align-items-center justify-content-between">
-          <a class="text-primary" href=""> {{ taskfile.name }}</a>
+            class="d-flex align-items-center justify-content-between">
+            <a class="text-primary" [href]="downloadUrl + taskfile.fileId" target="_blank" download> {{ taskfile.name }}</a>
           <div>
             <span>
               <img src="../../../assets/icons/View File.png" alt="View Icon"
-                style="width: 16px; height: 16px; cursor: pointer;" (click)="openFile()" />
+                style="width: 16px; height: 16px; cursor: pointer;" (click)="openFile($event, taskfile)" />
             </span>
             <!-- <span>
               <img src="../../../assets/icons/Bin.png" alt="Delete Icon"
@@ -26,8 +26,9 @@
       </ul>
     </div>
     <div>
-      Add files list here TODO files here
-      <input type="text" class="form-control mt-2" placeholder="Add comments" [(ngModel)]="taskData.commentry" />
+      <mat-form-field appearance="outline" class="w-100">
+        <input matInput type="text" placeholder="Add comments" [(ngModel)]="taskData.commentry" />
+      </mat-form-field>
     </div>
   </div>
   <div *ngIf="phase == 'creation'">

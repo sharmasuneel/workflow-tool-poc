@@ -25,27 +25,11 @@ export class UploadComponent implements OnInit {
   showToast: boolean = false;
   phase: string;
 
-  /* fileName: string = '';
-  businessName: string = '';
-  preparator: string = '';
-  reviewer: string = '';
-  approver: string = '';
-  fileType: string = '';
-  file: any = null;
-  files: any[] = [];
-  autoVersioning: boolean = false; */
-
   private appService = inject(AppService);
   private dataService = inject(DataService);
   private toastr = inject(ToastrService);
 
-
-
-  //fileNames: string[] = [];
-
-
   users: string[] = [];
-
   preparators: any[] = []
   approvers: any[] = []
   reviewers: any[] = []
@@ -71,13 +55,6 @@ export class UploadComponent implements OnInit {
       task = (workflow.tasks || []).filter((task: any) => task.uiTaskId === this.uiTaskId)[0] || {};
       this.taskData = task || {};
     }
-    /* setTimeout(() => {
-      console.log('Upload component initialized', this.uiTaskId);
-      this.users = this.appService.getUsers();
-      this.preparators = this.users.filter((item: any) => item.type === "preparator");
-      this.approvers = this.users.filter((item: any) => item.type === "approver");
-      this.reviewers = this.users.filter((item: any) => item.type === "reviewer");
-    }, 100); */
   }
 
   getId(key: string, arr: any) {
@@ -88,36 +65,12 @@ export class UploadComponent implements OnInit {
     this.taskData.fileNames.splice(fileIndex, 1);
   }
 
-  updateWorkFlowPayload() {
-    this.appService.setWorkFlowPayload('workflow', '', '', {
-      approverGroupId: this.getId(this.approver, this.approvers),
-      reviewerGroupId: this.getId(this.reviewer, this.reviewers),
-      preparatorGroupId: this.getId(this.preparator, this.preparators),
-      createdBy: this.appService.getUser().userId,
-      progress: 0,
-      status: "",
-      commentary: "",
-    })
-    this.appService.setWorkFlowPayload('task', 'upload', 'update', {
-      businessName: this.businessName,
-      // preparator: this.getId(this.preparator, this.preparators),
-      uploadType: this.uploadType,
-      // reviewer: this.getId(this.reviewer, this.reviewers),
-      // approver: this.getId(this.approver, this.approvers),
-      taskUpdatedByUserId: this.appService.getUser().userId,
-      fileType: this.fileType,
-      autoVersioning: this.autoVersioning,
-      taskType: 'upload',
-      fileNames: this.fileNames
-    }, this.files)
-  }
 
   onFileSelected(event: Event): void {
     const input = event.target as HTMLInputElement;
     if (input.files) {
       this.taskData.fileNames = Array.from(input.files).map(file => file.name);
       this.taskData.files = Array.from(input.files);
-      this.updateWorkFlowPayload()
     }
   }
 
@@ -125,7 +78,6 @@ export class UploadComponent implements OnInit {
     event.preventDefault();
     if (event.dataTransfer?.files) {
       this.taskData.fileNames = Array.from(event.dataTransfer.files).map(file => file.name);
-      this.updateWorkFlowPayload()
     }
   }
 
@@ -143,13 +95,13 @@ export class UploadComponent implements OnInit {
       userCommentary: this.taskData.userCommentary || false,
       commentry: this.taskData.commentry || '',
       taskUpdatedByUserId: null,
-      businessName: this.businessName,
-      preparator: this.getId(this.preparator, this.preparators),
-      reviewer: this.getId(this.reviewer, this.reviewers),
-      approver: this.getId(this.approver, this.approvers),
-      fileType: this.fileType,
-      autoVersioning: this.autoVersioning,
-      fileNames: this.fileNames,
+      businessName: this.taskData.businessName,
+      preparator: this.getId(this.taskData.preparator, this.preparators),
+      reviewer: this.getId(this.taskData.reviewer, this.reviewers),
+      approver: this.getId(this.taskData.approver, this.approvers),
+      fileType: this.taskData.fileType,
+      autoVersioning: this.taskData.autoVersioning,
+      fileNames: this.taskData.fileNames,
     }
     this.appService.updateTaskById(this.uiTaskId, this.taskData)
     console.log('Upload Task data updated:', this.taskData);
@@ -166,44 +118,4 @@ export class UploadComponent implements OnInit {
       this.toastMsg = 'Workflow saved successfully'
     })
   }
-
-
-  /*  const workflowId = this.appService.getWorkflowId()
-   const jsonformData = {
-     workflowId: workflowId,
-     businessName: this.businessName,
-     preparator: this.getId(this.preparator, this.preparators),
-     reviewer: this.getId(this.reviewer, this.reviewers),
-     approver: this.getId(this.approver, this.approvers),
-     fileType: this.fileType,
-     autoVersioning: this.autoVersioning,
-     fileNames: this.fileNames,
-     taskType: 'upload'
-   };
-
-   const data = toFormData({ files: this.files, metadata: JSON.stringify(jsonformData) }, this.uploadType)
-   this.dataService.postData(getConfig().upload, data).subscribe({
-     next: (response) => {
-       this.toastr.success(
-         `<i class="fa fa-check-circle" style="color:rgb(26, 27, 26); margin-right: 12px; border-radius: 1px"></i> Template task attached to workflow ${jsonformData.workflowId} successfully`,
-         '',
-         {
-           enableHtml: true,
-           timeOut: 6000,
-           progressBar: true,
-           // closeButton: true,
-           positionClass: 'toast-top-right',
-           toastClass: 'cust-toast ngx-toastr-transparent-bg'
-         }
-       );
-       console.log('Data saved successfully:', response);
-     }
-     , error: (error) => {
-       console.error('Error saving data:', error);
-     }
-   });
-   console.log('Saved Data:', data);
- } */
-
-
 }

@@ -6,12 +6,13 @@ import { AppService } from '../../services/app.service';
 import { DataService } from '../../services/data.service';
 import getConfig from '../../config';
 import { toFormData } from '../../utils/dataTransformer';
+import {MatInputModule} from '@angular/material/input';
 
 @Component({
   selector: 'app-download',
   templateUrl: './download.component.html',
   styleUrls: ['./download.component.scss'],
-  imports: [CommonModule, FormsModule, DropWrapperContainerComponent],
+  imports: [CommonModule, FormsModule, DropWrapperContainerComponent, MatInputModule],
   standalone: true,
 })
 export class DownloadComponent implements OnInit {
@@ -22,17 +23,7 @@ export class DownloadComponent implements OnInit {
   toastMsg: string;
   showToast:boolean = false;
   phase: string;
-  /* 
-  taskType = 'download';
-  acknowledged = false;
-  notifyEmail = false;
-  notifyDashboard = false;
-  userCommentary = false;
-  commentry: string;
-  acknowledgeTask: string;
-  files: any = []; */
-
-  // workflow related variables
+  downloadUrl: string = getConfig().downlodFile;
 
   //services 
   private appService = inject(AppService);
@@ -84,7 +75,15 @@ export class DownloadComponent implements OnInit {
     })
   }
 
-  openFile() {
+  openFile(evt: MouseEvent, taskfile: any) {
+    evt.preventDefault();
+    evt.stopPropagation();
+    const fileUrl = this.taskData.fileUrl;
+    if (fileUrl) {
+      window.open(fileUrl, '_blank');
+    } else {
+      console.error('No file URL provided');
+    }
 
   }
 

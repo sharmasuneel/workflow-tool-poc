@@ -398,9 +398,17 @@ export class DrawflowComponent implements OnInit {
   }
   // TODO save workflow
   saveWorkflow() {
-    const payload = this.appService.getWorkFlowPayload()
+    const payload = this.appService.getNewWorkflow()
+    debugger
+    const data = toFormData({ files: payload.files, metadata: JSON.stringify(payload) }, 'withTemplateFile')
+    this.dataService.postData(getConfig().saveWorkflowWithId, data).subscribe((response) => {
+      console.log('Workflow saved successfully:', response);
+      //TODO show alert message
+      this.showToast = true
+      this.toastMsg = 'Workflow saved successfully'
+    })
+    /* const payload = this.appService.getWorkFlowPayload()
     const drawFlowData = this.editor.export();
-  debugger
     payload.metadata = { ...payload.metadata, drawflow: JSON.stringify(this.editor.export(), null, 4) }
     const data = toFormData({ files: payload.files, metadata: JSON.stringify(payload.metadata) }, '')
     this.dataService.postData(getConfig().saveWorkflowWithId, data).subscribe((response) => {
@@ -408,7 +416,7 @@ export class DrawflowComponent implements OnInit {
       //TODO show alert message
       this.showToast = true
       this.toastMsg = 'Workflow saved successfully'
-    })
+    }) */
   }
 
   onClear() {

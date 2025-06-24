@@ -7,6 +7,7 @@ const config = {
         users: baseUrl + 'users',
         workflows: baseUrl + 'workflows',
         upload: baseUrl + 'upload',
+        downlodFile: baseUrl + 'files/download/',
         st: false
     },
     javaApiEndpoints: {
@@ -15,6 +16,7 @@ const config = {
         users: baseUrl + 'groups',
         workflows: baseUrl + 'workflows',
         upload: baseUrl + 'files/upload',
+        downlodFile: baseUrl + 'files/download/',
         st: false
     }
 };
