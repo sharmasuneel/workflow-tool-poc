@@ -86,9 +86,10 @@ export class UploadComponent implements OnInit {
   }
 
   onSave() {
-    this.taskData = {
+    const payload= {
       ...this.taskData,
       taskType: 'upload',
+      uiTaskId: this.uiTaskId,
       acknowledgeTask: this.taskData.acknowledgeTask || false,
       dashboardNotification: this.taskData.dashboardNotification || false,
       notifyEmail: this.taskData.notifyEmail || false,
