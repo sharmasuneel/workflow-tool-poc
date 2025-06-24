@@ -52,6 +52,7 @@ export class DownloadComponent implements OnInit {
     this.taskData = {
       ...this.taskData,
       taskType: 'download',
+      uiTaskId: this.uiTaskId,
       acknowledgeTask: this.taskData.acknowledgeTask || false,
       dashboardNotification: this.taskData.dashboardNotification || false,
       notifyEmail: this.taskData.notifyEmail || false,
@@ -68,7 +69,7 @@ export class DownloadComponent implements OnInit {
     const payload = this.appService.updateTaskById(this.uiTaskId, { ...this.taskData, taskUpdatedByUserId })
     const drawFlow = JSON.stringify(payload.drawflow, null, 4)
     payload.drawflow = drawFlow
-    
+
     delete payload.files // Remove files from payload to avoid circular reference
     delete payload.uploadType // Remove uploadType from payload to avoid circular reference
 
