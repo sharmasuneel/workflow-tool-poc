@@ -74,7 +74,7 @@ export class AppService {
     } else if (role === 'approver') {
       return ['decide', 'attestation']
     }
-    return []
+    return ['upload', 'download', 'review', 'decide', 'attestation', 'start']
   }
 
   setFilter(filter: any) {
