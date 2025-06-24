@@ -12,6 +12,7 @@ export class AppService {
   private workflowName: string;
   private filter: any;
   private enabledNodes: any;
+  private phase: string;
 
   setEnabledNodes(value: any) {
     this.enabledNodes = value;
@@ -38,6 +39,14 @@ export class AppService {
 
   setWorkflowName(name: string) {
     this.workflowName = name;
+  }
+
+  setPhase(name: string) {
+    this.phase = name;
+  }
+
+  getPhase() {
+    return this.phase;
   }
 
   getWorkflowName(): string {

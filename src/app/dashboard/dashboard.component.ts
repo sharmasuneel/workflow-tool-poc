@@ -55,6 +55,7 @@ export class DashboardComponent {
     } */
 
     this.appService.setWorkflowName(this.newWorkflowName)
+    this.appService.setPhase('creation')
     this.router.navigate(['/workflow'], { queryParams: { action: 'create', name: this.newWorkflowName, selectedRole: this.selectedRole} });
     /* const formData = toFormData({ 'metadata': JSON.stringify(data) })
     this.dataService.postData(getConfig().saveWorkflow, formData).subscribe((response) => {

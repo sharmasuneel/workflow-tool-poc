@@ -90,8 +90,7 @@ const workflowsData = [
                 "fileNames": []
             }
         ],
-        "commentary": "",
-        "createdBy": 1
+        "commentary": ""
     }
 ];
 

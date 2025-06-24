@@ -135,7 +135,7 @@ export class DrawflowComponent implements OnInit {
     this.initDrawingBoard();
     if (this.drawflowData) {
       if (this.action === 'execute') {
-        this.editor.editor_mode = 'fixed'
+        // this.editor.editor_mode = 'fixed'
         this.isDraggable = true
       }
       this.editor.clear()
@@ -412,7 +412,7 @@ export class DrawflowComponent implements OnInit {
       console.log('Workflow saved successfully:', response);
 
       //TODO show alert message
-      //this.showToast = true
+      this.showToast = true
       this.toastMsg = 'Workflow saved successfully'
     })
   }

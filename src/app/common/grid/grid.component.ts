@@ -46,6 +46,7 @@ export class AppGrid implements OnInit, OnChanges {
       },
       onCellClicked: (params: any) => {
         if (params.event.target.classList.contains('my-action-btn')) {
+          this.appService.setPhase('execution')
           this.router.navigate(['/workflow'], {
             queryParams: { id: params.data.workflowId, action: 'execute', type: 'workflow', selectedRole: this.selectedRole }
           });

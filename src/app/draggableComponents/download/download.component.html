@@ -1,6 +1,18 @@
 <app-drop-wrapper-container>
   <div class="text-primary font-16">Download</div>
-  <div class="mt-2">
+  <div *ngIf="phase === 'execution'">
+    <label  class="text-muted">
+      <input type="checkbox" [(ngModel)]="acknowledgeTask" />
+      Acknowledge Task
+    </label>
+    <label class="text-muted">Uploaded Template</label>
+    <div>
+      Add files list here TODO files here
+      <input type="text" class="form-control mt-2" placeholder="Add comments" [(ngModel)]="comments" />
+    </div>
+  </div>
+  <div *ngIf="phase !== 'execution'">
+    <div class="mt-2">
     <label class="text-muted">
       <input type="checkbox" [(ngModel)]="acknowledged" />
       Required user Acknowledgement
@@ -34,8 +46,11 @@
       </label>
     </div>
   </div>
+  </div>
+  
  
   <div class="mb-5">
-    <button (click)="onSave()" class="btn btn-primary w-25 pull-right">Save</button>
+    <button *ngIf="phase !== 'execution'" (click)="onSave()" class="btn btn-primary w-25 pull-right">Save</button>
+    <button *ngIf="phase === 'execution'" (click)="onComplete()" class="btn btn-primary w-80 pull-right">Mark as Complete</button>
   </div>
 </app-drop-wrapper-container>

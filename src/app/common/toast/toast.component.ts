@@ -12,7 +12,7 @@ import { AppService } from '../../services/app.service';
   styleUrl: './toast.component.scss'
 })
 export class ToastComponent {
-  showToast: boolean = false
+  showToast: boolean = true
   toastMsg: string = 'Workflow saved successfully'
 
   private appService = inject(AppService)
