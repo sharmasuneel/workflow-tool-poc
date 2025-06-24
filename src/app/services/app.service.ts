@@ -74,7 +74,7 @@ export class AppService {
     } else if (role === 'approver') {
       return ['decide', 'attestation']
     }
-    return ['upload', 'download', 'review', 'decide', 'attestation', 'start']
+    return []
   }
 
   setFilter(filter: any) {
@@ -104,7 +104,6 @@ export class AppService {
         workflow.files = data.files || null;
         workflow.uploadType =  data.uploadType
         if (!workflow.tasks.some((task: any) => task.uiTaskId === data.uiTaskId)) {
-           delete data.files
           workflow.tasks = [...workflow.tasks, data];
         }
       } else {

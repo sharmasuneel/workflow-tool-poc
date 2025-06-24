@@ -70,6 +70,12 @@ export class DownloadComponent implements OnInit {
     const drawFlow = JSON.stringify(payload.drawflow, null, 4)
     payload.drawflow = drawFlow
 
+    if (payload && Array.isArray(payload.tasks)) {
+      payload.tasks.forEach((task: any) => {
+        delete task.files;
+      });
+    }
+
     delete payload.files // Remove files from payload to avoid circular reference
     delete payload.uploadType // Remove uploadType from payload to avoid circular reference
 
