@@ -124,7 +124,7 @@ export class DrawflowComponent implements OnInit {
     this.initDrawingBoard();
     if (this.drawflowData) {
       if (this.action === 'execute') {
-        // this.editor.editor_mode = 'fixed'
+        this.editor.editor_mode = 'fixed'
         this.isDraggable = true
       }
       this.editor.clear()

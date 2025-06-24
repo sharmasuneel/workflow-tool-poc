@@ -53,6 +53,13 @@ export class AppService {
     this.filter = { ...this.filter, ...filter };
   }
 
+  getTaskById(id: string) {
+    const workflow = this.workflows.filter((workflow: any ) => workflow.workflowId === this.workflowId)[0];
+    if (workflow) {
+      return workflow.tasks.find((task: any) => task.uiTaskId === id);
+    }
+    return null;
+  }
   getFilter() {
     return this.filter;
   }

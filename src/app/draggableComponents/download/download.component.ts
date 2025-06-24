@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, inject, Input } from '@angular/core';
+import { Component, inject, Input, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { DropWrapperContainerComponent } from '../../common/drop-wrapper-container/drop-wrapper-container.component';
 import { AppService } from '../../services/app.service';
@@ -14,7 +14,7 @@ import { toFormData } from '../../utils/dataTransformer';
   imports: [CommonModule, FormsModule, DropWrapperContainerComponent],
   standalone: true,
 })
-export class DownloadComponent {
+export class DownloadComponent implements OnInit {
   acknowledged = false;
   notifyEmail = false;
   notifyDashboard = false;
@@ -23,6 +23,7 @@ export class DownloadComponent {
   commentry: string;
   acknowledgeTask: string;
   toastMsg: string;
+  files: any = [];
   private appService = inject(AppService);
   private dataService = inject(DataService);
 
@@ -65,6 +66,12 @@ export class DownloadComponent {
   }
 
   ngOnInit() {
-    this.phase = this.appService.getPhase()
+    this.phase = this.appService.getPhase();
+    const task = this.appService.getTaskById(this.uiTaskId)
+    this.files = task.files || [];
+
+  }
+  removeFile(fileIndex: number) {
+    this.files.splice(fileIndex, 1);
   }
 }
