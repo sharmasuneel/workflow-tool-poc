@@ -114,9 +114,15 @@ export class UploadComponent implements OnInit {
     const payload = this.appService.updateTaskById(this.uiTaskId, { ...this.taskData, taskUpdatedByUserId })
     const drawFlow = JSON.stringify(payload.drawflow, null, 4)
     payload.drawflow = drawFlow
-    
+
     delete payload.files // Remove files from payload to avoid circular reference
     delete payload.uploadType // Remove uploadType from payload to avoid circular reference
+
+    if (payload && Array.isArray(payload.tasks)) {
+      payload.tasks.forEach((task: any) => {
+        delete task.files;
+      });
+    }
 
     const data = toFormData({ metadata: JSON.stringify(payload) }, '')
     this.dataService.postData(getConfig().saveWorkflowWithId, data).subscribe((response) => {
