@@ -44,18 +44,20 @@ export class AppService {
   setWorkflows(workflows: any[]) {
     let files: any[] = []
     workflows.forEach(workflow => {
-      if(workflow.taskType== 'upload' && workflow.files) {
-        files = workflow.files
-      }
+      const uploadTask =  workflow.tasks.find((task: any) => task.taskType === 'upload');
+      files = uploadTask?.files || [];
       if (workflow.drawflow) {
         workflow.drawflow = JSON.parse(workflow.drawflow);
       } else {
         workflow.drawflow = {}
       }
     });
-    const newWorkflowWithFiles: any = this.workflows.map((workflow: any) => {
-      workflow.files = files;
-    })
+    const newWorkflowWithFiles: any = workflows.map((workflow: any) => {
+      workflow.tasks = workflow.tasks.map((task: any) => {
+        return { ...task, files: files };
+      });
+      return workflow;
+    });
 
     this.workflows = newWorkflowWithFiles;
   }
