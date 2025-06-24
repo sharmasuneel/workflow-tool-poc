@@ -91,11 +91,12 @@ export class AppService {
         workflow.preparatorGroupId = data.preparator || null;
         workflow.reviewerGroupId = data.reviewer || null;
         workflow.workflowName = this.workflowName || null;
-        if (!workflow.tasks.some((task: any) => task.uiTaskId === data.uiTaskId)) {
-          workflow.tasks = [...workflow.tasks, data];
-        }
         workflow.files = data.files || null;
         workflow.uploadType =  data.uploadType
+        if (!workflow.tasks.some((task: any) => task.uiTaskId === data.uiTaskId)) {
+           delete data.files
+          workflow.tasks = [...workflow.tasks, data];
+        }
       } else {
         if (!workflow.tasks.some((task: any) => task.uiTaskId === data.uiTaskId)) {
           workflow.tasks = [...workflow.tasks, data];
