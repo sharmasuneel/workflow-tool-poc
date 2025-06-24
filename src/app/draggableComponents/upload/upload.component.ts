@@ -57,8 +57,8 @@ export class UploadComponent implements OnInit {
 
   }
 
-  removeFile(fileName: any) {
-    //TODO delete file here
+  removeFile(fileIndex: number) {
+   this.fileNames.splice(fileIndex, 1);
   }
 
   updateWorkFlowPayload() {

@@ -1,6 +1,6 @@
 <app-drop-wrapper-container>
   <div class="upload-type-select mb-3">
-    <label class="mb-1">Upload Type</label>
+    <label class="mb-1 text-muted">Upload Type</label>
     <div class="col-12">
       <select class="w-100 input-height" [(ngModel)]="uploadType" name="uploadType">
         <option value="template">Set Template</option>
@@ -9,7 +9,7 @@
     </div>
   </div>
 
-  <label class="mb-1">Upload Template</label>
+  <label class="mb-1 text-muted">Upload Template</label>
 
   <!-- File drop -->
   <div class="upload-box mb-3" (drop)="onFileDrop($event)" (dragover)="onDragOver($event)">
@@ -21,13 +21,14 @@
   </div>
 
   <!-- Display list of selected file names -->
-  <div style="width: 85%; font-size: 8px; margin: 0; padding: 0">
+  <div>
     <ul *ngIf="fileNames.length > 0" class="file-name-list">
-      <li *ngFor="let name of fileNames; let i = index" class="d-flex align-items-center">
-        {{ name }}
-        <button type="button" class="btn btn-link btn-sm ms-2 p-0" (click)="removeFile(i)" title="Delete file">
-          <span class="material-icons" style="font-size: 14px; color: #dc3545;">delete</span>
-        </button>
+      <label class="mt-1 text-muted"> Uploaded File</label>
+      <li *ngFor="let name of fileNames; let i = index" style="font-size: 14px;" class="d-flex align-items-center justify-content-between">
+        <a class="text-primary" href=""> {{ name }}</a>
+        <span>
+          <img src="../../../assets/icons/Bin.png" alt="Delete Icon" style="width: 16px; height: 16px; cursor: pointer;" (click)="removeFile(i)" />
+        </span>
       </li>
     </ul>
   </div>
@@ -36,21 +37,21 @@
   <form>
     <div class="form-check mb-2">
       <input class="form-check-input" type="checkbox" (change)="updateWorkFlowPayload()" [(ngModel)]="autoVersioning" name="autoVersioning" />
-      <label class="form-check-label" for="flexCheckDefault">
+      <label class="form-check-label text-muted" for="flexCheckDefault">
         Set auto file versioning
       </label>
     </div>
 
-    <h5>Section 1</h5>
+    <h5 class="text-muted">Section 1</h5>
     <div class="mb-2">
-      <label>Business Name</label>
+      <label class="text-muted">Business Name</label>
       <div class="col-12">
         <input type="text" class="w-100 input-height" (change)="updateWorkFlowPayload()" [(ngModel)]="businessName" name="businessName" />
       </div>
     </div>
 
     <div class="mb-2">
-      <label>Preparator</label>
+      <label class="text-muted">Preparator</label>
       <div class="col-12">
         <select class="w-100 input-height" [(ngModel)]="preparator" (change)="updateWorkFlowPayload()" name="preparator">
           <option *ngFor="let prep of preparators" [value]="prep.name">{{ prep.name }}</option>
@@ -59,7 +60,7 @@
     </div>
 
     <div class="mb-2">
-      <label>Reviewer</label>
+      <label class="text-muted">Reviewer</label>
       <div class="col-12">
         <select class="w-100 input-height" (change)="updateWorkFlowPayload()" [(ngModel)]="reviewer" name="reviewer">
           <option *ngFor="let rev of reviewers" [value]="rev.name">{{ rev.name }}</option>
@@ -68,7 +69,7 @@
     </div>
 
     <div class="mb-2">
-      <label>Approver</label>
+      <label class="text-muted">Approver</label>
       <div class="col-12">
         <select class="w-100 input-height" (change)="updateWorkFlowPayload()" [(ngModel)]="approver" name="approver">
           <option *ngFor="let apr of approvers" [value]="apr.name">{{ apr.name }}</option>
@@ -77,7 +78,7 @@
     </div>
 
     <div class="mb-2">
-      <label>File Type</label>
+      <label class="text-muted">File Type</label>
       <div class="col-12">
         <select class="w-100 input-height" (change)="updateWorkFlowPayload()" [(ngModel)]="fileType" name="fileType">
           <option value="CSV">CSV</option>
@@ -88,6 +89,8 @@
     </div>
 
 
-    <button type="button" (click)="onSave()">Save</button>
+    <div class="pull-right mb-3">
+      <button type="button" class="btn btn-primary" (click)="onSave()">Save</button>
+    </div>
   </form>
 </app-drop-wrapper-container>
