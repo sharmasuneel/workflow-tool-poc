@@ -23,7 +23,12 @@
   <!-- Display list of selected file names -->
   <div style="width: 85%; font-size: 8px; margin: 0; padding: 0">
     <ul *ngIf="fileNames.length > 0" class="file-name-list">
-      <li *ngFor="let name of fileNames">{{ name }}</li>
+      <li *ngFor="let name of fileNames; let i = index" class="d-flex align-items-center">
+        {{ name }}
+        <button type="button" class="btn btn-link btn-sm ms-2 p-0" (click)="removeFile(i)" title="Delete file">
+          <span class="material-icons" style="font-size: 14px; color: #dc3545;">delete</span>
+        </button>
+      </li>
     </ul>
   </div>
 

@@ -57,6 +57,10 @@ export class UploadComponent implements OnInit {
 
   }
 
+  removeFile(fileName: any) {
+    //TODO delete file here
+  }
+
   updateWorkFlowPayload() {
     this.appService.setWorkFlowPayload('workflow', '', '', {
       approverGroupId: this.getId(this.approver, this.approvers),
