@@ -5,9 +5,25 @@
       <input type="checkbox" [(ngModel)]="acknowledgeTask" />
       Acknowledge Task
     </label>
-    <label class="text-muted">Uploaded Template</label>
+
+  <div>
+    <ul *ngIf="files !=null && files.length > 0" class="file-name-list">
+      <label class="mt-1 text-muted"> Uploaded File</label>
+      <li *ngFor="let file of files; let i = index" style="font-size: 14px;" class="d-flex align-items-center justify-content-between">
+        <a class="text-primary" href=""> {{ file.name }}</a>
+        <div>
+          <span>
+            <img src="../../../assets/icons/View File.png" alt="View Icon" style="width: 16px; height: 16px; cursor: pointer;" (click)="removeFile(i)" />
+          </span>
+          <span>
+            <img src="../../../assets/icons/Bin.png" alt="Delete Icon" style="width: 16px; height: 16px; cursor: pointer;" (click)="removeFile(i)" />
+          </span>
+        </div>
+      </li>
+    </ul>
+  </div>
     <div>
-      Add files list here TODO files here
+     
       <input type="text" class="form-control mt-2" placeholder="Add comments" [(ngModel)]="comments" />
     </div>
   </div>
@@ -51,6 +67,6 @@
  
   <div class="mb-5">
     <button *ngIf="phase !== 'execution'" (click)="onSave()" class="btn btn-primary w-25 pull-right">Save</button>
-    <button *ngIf="phase === 'execution'" (click)="onComplete()" class="btn btn-primary w-80 pull-right">Mark as Complete</button>
+    <button *ngIf="phase === 'execution'" (click)="onComplete()" class="btn btn-primary w-80 mt-3 pull-right">Mark as Complete</button>
   </div>
 </app-drop-wrapper-container>
