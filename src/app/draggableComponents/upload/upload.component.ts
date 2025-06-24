@@ -112,6 +112,8 @@ export class UploadComponent implements OnInit {
   onComplete() {
     const taskUpdatedByUserId: any = this.appService.getUser().userId;
     const payload = this.appService.updateTaskById(this.uiTaskId, { ...this.taskData, taskUpdatedByUserId })
+    const drawFlow = JSON.stringify(payload.drawflow, null, 4)
+    payload.drawflow = drawFlow
     const data = toFormData({ metadata: JSON.stringify(payload) }, '')
     this.dataService.postData(getConfig().saveWorkflowWithId, data).subscribe((response) => {
       console.log('Workflow saved successfully:', response);
