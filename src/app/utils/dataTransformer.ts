@@ -1,12 +1,12 @@
 import { AnyGridOptions } from "ag-grid-community/dist/types/src/propertyKeys";
 
-function toFormData(obj: any): FormData {
+function toFormData(obj: any, fileNameKey: string): FormData {
     const formData = new FormData();
     for (const key in obj) {
         if (key === 'files') {
             if (Array.isArray(obj.files)) {
                 obj.files.forEach((file: File, index: number) => {
-                    formData.append('file', file);
+                    formData.append(fileNameKey, file);
                 });
             }
             continue;

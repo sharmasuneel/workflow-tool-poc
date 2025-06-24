@@ -22,20 +22,38 @@ export class AppService {
 
   initiateWorkFlow(data?: any, uiWorkflowId?: string) {
     const workflow = {
-        uiWorkflowId: data?.uiWorkflowId || uuidv4(),
-        workflowName: data.workflowName,
-        progress: data.progress || 0,
-        commentary: data?.commentary || '',
-        status: data?.status || 'Not Started',
-        createdBy: data?.createdBy || this.user?.userId,
-        preparatorGroupId: data?.preparatorGroupId || null,
-        reviewerGroupId: data?.reviewerGroupId || null,
-        approverGroupId: data?.approverGroupId || null,
-        tasks: data?.tasks || [],
+      uiWorkflowId: data?.uiWorkflowId || uuidv4(),
+      workflowName: data?.workflowName,
+      progress: data?.progress || 0,
+      commentary: data?.commentary || '',
+      status: data?.status || 'Not Started',
+      createdBy: data?.createdBy || this.user?.userId,
+      preparatorGroupId: data?.preparatorGroupId || null,
+      reviewerGroupId: data?.reviewerGroupId || null,
+      approverGroupId: data?.approverGroupId || null,
+      tasks: data?.tasks || [],
+    }
+
+    this.newWorkflow = workflow
+  }
+
+  getNewWorkflow() {
+    return this.newWorkflow;
+  }
+
+  setWorkflows(workflows: any[]) {
+    workflows.forEach(workflow => {
+      if (workflow.drawflow) {
+        workflow.drawflow = JSON.parse(workflow.drawflow);
+      } else {
+        workflow.drawflow = {}
       }
+    });
+    this.workflows = workflows;
+  }
 
-      this.newWorkflow = workflow
-
+  getWorkflows() {
+    return this.workflows
   }
 
   getEnabledNodes(role: string) {
@@ -54,14 +72,26 @@ export class AppService {
   }
 
   getTaskById(id: string) {
-    const workflow = this.workflows.filter((workflow: any ) => workflow.workflowId === this.workflowId)[0];
+    const workflow = this.workflows.filter((workflow: any) => workflow.workflowId === this.workflowId)[0];
     if (workflow) {
       return workflow.tasks.find((task: any) => task.uiTaskId === id);
     }
     return null;
   }
+
   getFilter() {
     return this.filter;
+  }
+  updateTaskById(uiTaskId: string, data: any) {
+    const workflow = this.workflows.find((w: any) => w.workflowId === this.workflowId);
+    if (workflow && Array.isArray(workflow.tasks)) {
+      const idx = workflow.tasks.findIndex((task: any) => task.uiTaskId === uiTaskId);
+      if (idx !== -1) {
+        workflow.tasks[idx] = { ...workflow.tasks[idx], ...data };
+      }
+    }
+    this.newWorkflow = workflow
+    return workflow;
   }
 
   setWorkflowName(name: string) {
@@ -100,13 +130,7 @@ export class AppService {
     return this.workflows.find(workflow => workflow.workflowId === id);
   }
 
-  setWorkflows(workflows: any[]) {
-    this.workflows = workflows;
-  }
 
-  getWorkflows() {
-    return this.workflows
-  }
 
   setWorkFlowPayload(type: string, taskType: string, action: string, data: any, files?: any) {
 
@@ -114,7 +138,7 @@ export class AppService {
     metadata.workflowId = this.workflowId
     metadata.workflowName = this.workflowName
     if (type === 'workflow') {
-      metadata = {...metadata, ...data}
+      metadata = { ...metadata, ...data }
     }
     if (type === 'task' && taskType) {
       let tasks = metadata.tasks || []

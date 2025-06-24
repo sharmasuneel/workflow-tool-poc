@@ -15,63 +15,80 @@ import { toFormData } from '../../utils/dataTransformer';
   standalone: true,
 })
 export class DownloadComponent implements OnInit {
+
+  // task related variables
+  @Input() uiTaskId: string;
+  taskData: any = {};
+  toastMsg: string;
+  showToast:boolean = false;
+  phase: string;
+  /* 
+  taskType = 'download';
   acknowledged = false;
   notifyEmail = false;
   notifyDashboard = false;
   userCommentary = false;
-  phase: string;
   commentry: string;
   acknowledgeTask: string;
-  toastMsg: string;
-  files: any = [];
+  files: any = []; */
+
+  // workflow related variables
+
+  //services 
   private appService = inject(AppService);
   private dataService = inject(DataService);
 
-  @Input() uiTaskId: string;
+
   @Input() workflowType: string;
 
+  ngOnInit() {
+    this.phase = this.appService.getPhase();
+    let task = {};
+    if (this.phase === 'creation') {
+      const workflow = this.appService.getNewWorkflow();
+      task = (workflow.tasks || []).filter((task: any) => task.uiTaskId === this.uiTaskId)[0] || {};
+      task = { ...task, ...this.taskData };
+      this.taskData = task || {};
+    } else {
+      const workflowId = this.appService.getWorkflowId();
+      const workflow = this.appService.getWorkflowById(Number(workflowId));
+      task = (workflow.tasks || []).filter((task: any) => task.uiTaskId === this.uiTaskId)[0] || {};
+      this.taskData = task || {};
+    }
+  }
+
   onSave() {
-    const workflowId = this.appService.getWorkflowId()
-    this.appService.setWorkFlowPayload('task', 'download', 'update', {
-      workflowId,
-      acknowledged: this.acknowledged,
-      notifyEmail: this.notifyEmail,
-      notifyDashboard: this.notifyDashboard,
-      userCommentary: this.userCommentary,
-      taskType: 'download'
-    });
+    this.taskData = {
+      ...this.taskData,
+      taskType: 'download',
+      acknowledgeTask: this.taskData.acknowledgeTask || false,
+      dashboardNotification: this.taskData.dashboardNotification || false,
+      notifyEmail: this.taskData.notifyEmail || false,
+      userCommentary: this.taskData.userCommentary || false,
+      commentry: this.taskData.commentry || '',
+      taskUpdatedByUserId: null,
+    }
+    this.appService.updateTaskById(this.uiTaskId, this.taskData)
+    console.log('Task data updated:', this.taskData);
   }
 
   onComplete() {
-    const workflowId = this.appService.getWorkflowId()
-    const workFlow = this.appService.getWorkflowById(Number(workflowId))
-    const tasks = workFlow.tasks.map((task: any) => {
-      if (task.uiTaskId === this.uiTaskId) {
-        task = { ...task, commentry: this.commentry, acknowledged: this.acknowledged }
-      }
-      return task
-    })
-    workFlow.tasks = tasks
-    const payload = this.appService.getWorkFlowPayload()
-    debugger
-    payload.metadata = { ...payload.metadata, drawflow: payload.metadata.drawflow }
-    const data = toFormData({ files: payload.files, metadata: JSON.stringify(payload.metadata) })
+    const taskUpdatedByUserId: any = this.appService.getUser().userId;
+    const payload = this.appService.updateTaskById(this.uiTaskId, { ...this.taskData, taskUpdatedByUserId })
+    const data = toFormData({ metadata: JSON.stringify(payload) }, '')
     this.dataService.postData(getConfig().saveWorkflowWithId, data).subscribe((response) => {
       console.log('Workflow saved successfully:', response);
-
       //TODO show alert message
-      //this.showToast = true
+      this.showToast = true
       this.toastMsg = 'Workflow saved successfully'
     })
   }
 
-  ngOnInit() {
-    this.phase = this.appService.getPhase();
-    const task = this.appService.getTaskById(this.uiTaskId)
-    this.files = task.files || [];
+  openFile() {
 
   }
+
   removeFile(fileIndex: number) {
-    this.files.splice(fileIndex, 1);
+    this.taskData.files.splice(fileIndex, 1);
   }
 }

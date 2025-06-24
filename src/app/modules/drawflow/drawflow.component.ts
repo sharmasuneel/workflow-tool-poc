@@ -106,9 +106,9 @@ export class DrawflowComponent implements OnInit {
       this.action = action
       if (action === 'execute' && id) {
         this.workflowType = workflowType
-        this.drawflowData = JSON.parse(this.appService.getWorkflows().find((dd: any) => {
+        this.drawflowData = this.appService.getWorkflows().find((dd: any) => {
           return dd.workflowId === Number(id)
-        }).drawflow)
+        }).drawflow
 
       }
     });
@@ -402,7 +402,7 @@ export class DrawflowComponent implements OnInit {
     const drawFlowData = this.editor.export();
   debugger
     payload.metadata = { ...payload.metadata, drawflow: JSON.stringify(this.editor.export(), null, 4) }
-    const data = toFormData({ files: payload.files, metadata: JSON.stringify(payload.metadata) })
+    const data = toFormData({ files: payload.files, metadata: JSON.stringify(payload.metadata) }, '')
     this.dataService.postData(getConfig().saveWorkflowWithId, data).subscribe((response) => {
       console.log('Workflow saved successfully:', response);
       //TODO show alert message

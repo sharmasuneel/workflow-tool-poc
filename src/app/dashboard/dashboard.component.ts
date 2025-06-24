@@ -30,13 +30,13 @@ export class DashboardComponent {
   }
 
   @Output() selectedRoleChange = new EventEmitter<string>();
-  selectedRole: string ='owner'
-  loggedInUser: any 
+  selectedRole: string = 'owner'
+  loggedInUser: any
   users: any[] = [];
   ngOnInit() {
     this.loggedInUser = this.appService.getUser()
 
-    if(!this.loggedInUser) {
+    if (!this.loggedInUser) {
       this.router.navigate([''])
     }
     setTimeout(() => {
@@ -46,14 +46,14 @@ export class DashboardComponent {
   }
 
   showCreateWorkflow: boolean = false
-  showCreateWorkflowBtn: boolean= true
+  showCreateWorkflowBtn: boolean = true
 
   createNewWorkFlow() {
-    this.appService.initiateWorkFlow()
+    this.appService.initiateWorkFlow({ workflowName: this.newWorkflowName })
 
     this.appService.setWorkflowName(this.newWorkflowName)
     this.appService.setPhase('creation')
-    this.router.navigate(['/workflow'], { queryParams: { action: 'create', name: this.newWorkflowName, selectedRole: this.selectedRole, workflowType: 'new'} });
+    this.router.navigate(['/workflow'], { queryParams: { action: 'create', name: this.newWorkflowName, selectedRole: this.selectedRole, workflowType: 'new' } });
     /* const formData = toFormData({ 'metadata': JSON.stringify(data) })
     this.dataService.postData(getConfig().saveWorkflow, formData).subscribe((response) => {
       console.log('Workflow saved successfully:', response);
@@ -68,6 +68,6 @@ export class DashboardComponent {
 
   filterWorkFlows(evt: any): void {
     this.selectedRole = evt
-    this.showCreateWorkflowBtn =  evt === 'owner'
+    this.showCreateWorkflowBtn = evt === 'owner'
   }
 }
