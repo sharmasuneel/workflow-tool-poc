@@ -52,6 +52,7 @@ export class DownloadComponent implements OnInit {
     this.taskData = {
       ...this.taskData,
       taskType: 'download',
+      uiTaskId: this.uiTaskId,
       acknowledgeTask: this.taskData.acknowledgeTask || false,
       dashboardNotification: this.taskData.dashboardNotification || false,
       notifyEmail: this.taskData.notifyEmail || false,
