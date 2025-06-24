@@ -73,10 +73,11 @@ export class UploadComponent implements OnInit {
     })
     this.appService.setWorkFlowPayload('task', 'upload', 'update', {
       businessName: this.businessName,
-      preparator: this.getId(this.preparator, this.preparators),
+      // preparator: this.getId(this.preparator, this.preparators),
       uploadType: this.uploadType,
-      reviewer: this.getId(this.reviewer, this.reviewers),
-      approver: this.getId(this.approver, this.approvers),
+      // reviewer: this.getId(this.reviewer, this.reviewers),
+      // approver: this.getId(this.approver, this.approvers),
+      taskUpdatedByUserId: this.appService.getUser().userId,
       fileType: this.fileType,
       autoVersioning: this.autoVersioning,
       taskType: 'upload',
