@@ -96,31 +96,20 @@ export class DrawflowComponent implements OnInit {
   drawflowData: any = null
   selectedRole: string = ''
   action: string = 'create'
+  workflowType: string
 
   ngOnInit() {
     this.route.queryParams.subscribe((queryParams: any) => {
       console.log('Query Params:', queryParams);
-      const { id, action, name, selectedRole } = queryParams
+      const { id, action, name, selectedRole, workflowType } = queryParams
       this.selectedRole = selectedRole
       this.action = action
       if (action === 'execute' && id) {
+        this.workflowType = workflowType
         this.drawflowData = JSON.parse(this.appService.getWorkflows().find((dd: any) => {
           return dd.workflowId === Number(id)
         }).drawflow)
 
-        // TODO delete this toaster notification later
-        /* this.toastr.success(
-          `<i class="fa fa-check-circle" style="color:rgb(26, 27, 26); margin-right: 12px; border-radius: 1px"></i> Workflow ${name} initiated`,
-          '',
-          {
-            enableHtml: true,
-            timeOut: 6000,
-            progressBar: true,
-            // closeButton: true,
-            positionClass: 'toast-top-right',
-            toastClass: 'cust-toast ngx-toastr-transparent-bg'
-          }
-        ); */
       }
     });
   }
@@ -143,7 +132,6 @@ export class DrawflowComponent implements OnInit {
       this.editor.load();
     }
   }
-
 
   // this.editor.editor_mode = this.locked != null && this.locked == false ? 'edit' : 'fixed';
 
@@ -172,10 +160,9 @@ export class DrawflowComponent implements OnInit {
         const componentRef: ComponentRef<T> = createComponent(customComponent, {
           environmentInjector: this.appRef.injector,
         });
-        (componentRef.location.nativeElement as HTMLElement).id = nodeData.data.uiTaskId; // Set the unique ID for the component
-        /* const componentRef: ComponentRef<T> = createComponent(customComponent, {
-          environmentInjector: this.appRef.injector,
-        }); */
+    (componentRef.instance as any).uiTaskId = nodeData.data.uiTaskId; // Pass the unique ID to the component instance
+    (componentRef.instance as any).workflowType = this.workflowType; // Pass the unique ID to the component instance
+
 
         this.appRef.attachView(componentRef.hostView);
         container.innerHTML = '';
@@ -386,7 +373,9 @@ export class DrawflowComponent implements OnInit {
     pos_y = pos_y * (this.editor.precanvas.clientHeight / (this.editor.precanvas.clientHeight * this.editor.zoom)) - (this.editor.precanvas.getBoundingClientRect().y * (this.editor.precanvas.clientHeight / (this.editor.precanvas.clientHeight * this.editor.zoom)));
     const node = nodesData.nodes.filter(node => node.id === id)[0] as { class: string, inputs: any, outputs: any, data: any, html: string };
     // TODO Left nav icons when dropped.. node.json html -->
-    node.data = { ...node.data, uiTaskId: uuidv4() }; // Generate a unique ID for the node
+    if(!node.data.uiTaskId) {
+      node.data = { ...node.data, uiTaskId: uuidv4() }; // Generate a unique ID for the node
+    }
     if (node) { 
       this.editor.addNode(
         node.class,

@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { v4 as uuidv4 } from 'uuid';
 
 @Injectable({
   providedIn: 'root'
@@ -13,9 +14,28 @@ export class AppService {
   private filter: any;
   private enabledNodes: any;
   private phase: string;
+  private newWorkflow: any = {}
 
   setEnabledNodes(value: any) {
     this.enabledNodes = value;
+  }
+
+  initiateWorkFlow(data?: any, uiWorkflowId?: string) {
+    const workflow = {
+        uiWorkflowId: data?.uiWorkflowId || uuidv4(),
+        workflowName: data.workflowName,
+        progress: data.progress || 0,
+        commentary: data?.commentary || '',
+        status: data?.status || 'Not Started',
+        createdBy: data?.createdBy || this.user?.userId,
+        preparatorGroupId: data?.preparatorGroupId || null,
+        reviewerGroupId: data?.reviewerGroupId || null,
+        approverGroupId: data?.approverGroupId || null,
+        tasks: data?.tasks || [],
+      }
+
+      this.newWorkflow = workflow
+
   }
 
   getEnabledNodes(role: string) {

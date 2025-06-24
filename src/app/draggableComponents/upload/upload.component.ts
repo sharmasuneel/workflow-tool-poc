@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, inject, Input, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { AppService } from '../../services/app.service';
 import { DataService } from '../../services/data.service';
@@ -32,6 +32,8 @@ export class UploadComponent implements OnInit {
   private toastr = inject(ToastrService);
 
 
+  @Input() uiTaskId: string;
+
   fileNames: string[] = [];
 
 
@@ -45,6 +47,7 @@ export class UploadComponent implements OnInit {
 
   ngOnInit() {
     setTimeout(() => {
+      console.log('Upload component initialized', this.uiTaskId);
       this.users = this.appService.getUsers();
       this.preparators = this.users.filter((item: any) => item.type === "preparator");
       this.approvers = this.users.filter((item: any) => item.type === "approver");
