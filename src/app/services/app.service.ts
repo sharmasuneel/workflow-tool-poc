@@ -83,15 +83,33 @@ export class AppService {
     return this.filter;
   }
   updateTaskById(uiTaskId: string, data: any) {
-    const workflow = this.workflows.find((w: any) => w.workflowId === this.workflowId);
-    if (workflow && Array.isArray(workflow.tasks)) {
-      const idx = workflow.tasks.findIndex((task: any) => task.uiTaskId === uiTaskId);
-      if (idx !== -1) {
-        workflow.tasks[idx] = { ...workflow.tasks[idx], ...data };
+    if(this.phase === 'creation') {
+      const workflow = this.newWorkflow;
+      if (data.taskType === 'upload') {
+        workflow.uiWorkflowId = workflow.uiWorkflowId || uuidv4();
+        workflow.approverGroupId = data.approver || null;
+        workflow.preparatorGroupId = data.preparator || null;
+        workflow.reviewerGroupId = data.reviewer || null;
+        workflow.workflowName = this.workflowName || null;
+        workflow.tasks = [...workflow.tasks, data];
+        workflow.files = data.files || null;
+        workflow.uploadType =  data.uploadType
+      } else {
+        workflow.tasks = [...workflow.tasks, data];
       }
+      this.newWorkflow = workflow;
+      return workflow;
+    } else if (this.phase === 'execution') {
+      const workflow = this.workflows.find((w: any) => w.workflowId === this.workflowId);
+      if (workflow && Array.isArray(workflow.tasks)) {
+        const idx = workflow.tasks.findIndex((task: any) => task.uiTaskId === uiTaskId);
+        if (idx !== -1) {
+          workflow.tasks[idx] = { ...workflow.tasks[idx], ...data };
+        }
+      }
+      this.newWorkflow = workflow
+      return workflow;
     }
-    this.newWorkflow = workflow
-    return workflow;
   }
 
   setWorkflowName(name: string) {
