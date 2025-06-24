@@ -92,6 +92,7 @@ export class AppService {
         workflow.reviewerGroupId = data.reviewer || null;
         workflow.workflowName = this.workflowName || null;
         workflow.files = data.files || null;
+        workflow.uploadType =  data.uploadType
         if (!workflow.tasks.some((task: any) => task.uiTaskId === data.uiTaskId)) {
            delete data.files
           workflow.tasks = [...workflow.tasks, data];

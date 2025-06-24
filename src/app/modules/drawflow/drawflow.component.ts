@@ -400,8 +400,10 @@ export class DrawflowComponent implements OnInit {
   saveWorkflow() {
     const payload = this.appService.getNewWorkflow()
     const files = payload.files
+    const uploadType = payload.uploadType
     payload.drawflow = JSON.stringify(this.editor.export(), null, 4)
     delete payload.files // Remove files from payload to avoid circular reference
+    delete payload.uploadType // Remove uploadType from payload to avoid circular reference
     const data = toFormData({ files, metadata: JSON.stringify(payload) }, payload.uploadType);
     this.dataService.postData(getConfig().saveWorkflowWithId, data).subscribe((response) => {
       console.log('Workflow saved successfully:', response);
