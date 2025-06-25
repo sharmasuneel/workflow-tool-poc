@@ -7,12 +7,13 @@ import { DataService } from '../../services/data.service';
 import getConfig from '../../config';
 import { toFormData } from '../../utils/dataTransformer';
 import {MatInputModule} from '@angular/material/input';
+import { ToastComponent } from '../../common/toast/toast.component';
 
 @Component({
   selector: 'app-download',
   templateUrl: './download.component.html',
   styleUrls: ['./download.component.scss'],
-  imports: [CommonModule, FormsModule, DropWrapperContainerComponent, MatInputModule],
+  imports: [CommonModule, FormsModule, DropWrapperContainerComponent, MatInputModule, ToastComponent],
   standalone: true,
 })
 export class DownloadComponent implements OnInit {

@@ -73,4 +73,7 @@
     <button *ngIf="phase === 'execution'" (click)="onComplete()" class="btn btn-primary w-80 mt-3 mb-2 pull-right">Mark as
       Complete</button>
   </div>
+  <div *ngIf="showToast">
+    <app-toast></app-toast>
+  </div>
 </app-drop-wrapper-container>

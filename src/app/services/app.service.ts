@@ -22,7 +22,6 @@ export class AppService {
 
   initiateWorkFlow(data?: any, uiWorkflowId?: string) {
     const workflow = {
-      uiWorkflowId: data?.uiWorkflowId || uuidv4(),
       workflowName: data?.workflowName,
       progress: data?.progress || 0,
       commentary: data?.commentary || '',
@@ -96,7 +95,6 @@ export class AppService {
     if(this.phase === 'creation') {
       const workflow = this.newWorkflow;
       if (data.taskType === 'upload') {
-        workflow.uiWorkflowId = workflow.uiWorkflowId || uuidv4();
         workflow.approverGroupId = data.approver || null;
         workflow.preparatorGroupId = data.preparator || null;
         workflow.reviewerGroupId = data.reviewer || null;

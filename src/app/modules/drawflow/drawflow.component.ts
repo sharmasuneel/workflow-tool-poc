@@ -136,7 +136,7 @@ export class DrawflowComponent implements OnInit {
         if (!isNodeEnabled) {
           if (Object.prototype.hasOwnProperty.call(this.editor.drawflow.drawflow.Home.data, nodeId)) {
             const node = this.editor.drawflow.drawflow.Home.data[nodeId];
-            if (node && typeof node.html === 'string') {
+            if (node && typeof node.html === 'string' && node.class === nodeName) {
               if (node.html.includes('class="')) {
                 node.html = node.html.replace(
                   /class="([^"]*)"/,
@@ -433,7 +433,7 @@ export class DrawflowComponent implements OnInit {
       });
     }
     const data = toFormData({ files, metadata: JSON.stringify(payload) }, uploadType);
-    this.dataService.putData(getConfig().saveWorkflowWithId, data).subscribe((response) => {
+    this.dataService.postData(getConfig().saveWorkflow, data).subscribe((response) => {
       console.log('Workflow saved successfully:', response);
       //TODO show alert message
       this.toastMsg = 'Workflow saved successfully'
