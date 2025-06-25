@@ -433,7 +433,7 @@ export class DrawflowComponent implements OnInit {
       });
     }
     const data = toFormData({ files, metadata: JSON.stringify(payload) }, uploadType);
-    this.dataService.putData(getConfig().saveWorkflowWithId, data).subscribe((response) => {
+    this.dataService.postData(getConfig().saveWorkflow, data).subscribe((response) => {
       console.log('Workflow saved successfully:', response);
       //TODO show alert message
       this.toastMsg = 'Workflow saved successfully'

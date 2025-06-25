@@ -5,30 +5,30 @@ import { DropWrapperContainerComponent } from '../../common/drop-wrapper-contain
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { NgbTimepickerConfig, NgbTimepickerModule } from '@ng-bootstrap/ng-bootstrap';
 import { NgbTimeStruct } from '@ng-bootstrap/ng-bootstrap';
-import {provideNativeDateAdapter} from '@angular/material/core';
-import {MatDatepickerModule} from '@angular/material/datepicker';
+import { provideNativeDateAdapter } from '@angular/material/core';
+import { MatDatepickerModule } from '@angular/material/datepicker';
 import { AppService } from '../../services/app.service';
 import { DataService } from '../../services/data.service';
 @Component({
   selector: 'app-start',
   standalone: true,
-  imports: [FormsModule,MatDatepickerModule, CommonModule,NgbTimepickerModule, DropWrapperContainerComponent,NgbModule],
+  imports: [FormsModule, MatDatepickerModule, CommonModule, NgbTimepickerModule, DropWrapperContainerComponent, NgbModule],
   templateUrl: './start.component.html',
   styleUrl: './start.component.scss',
   providers: [provideNativeDateAdapter()],
 })
 export class StartComponent {
-  uploadType:string='Auto Trigger';
-  frequency:string='Daily';
+  uploadType: string = 'Auto Trigger';
+  frequency: string = 'Daily';
   time: NgbTimeStruct = { hour: 13, minute: 30, second: 30 };
-  startDate:Date=new Date();
+  startDate: Date = new Date();
   date: Date = new Date();
 
   // task related variables
   @Input() uiTaskId: string;
   taskData: any = {};
   toastMsg: string;
-  showToast:boolean = false;
+  showToast: boolean = false;
   phase: string;
 
   //services 
@@ -37,7 +37,7 @@ export class StartComponent {
   constructor(timepickerConfig: NgbTimepickerConfig) {
     timepickerConfig.seconds = true;
     timepickerConfig.spinners = false;
-  } 
+  }
 
   ngOnInit() {
     this.phase = this.appService.getPhase();
@@ -47,7 +47,7 @@ export class StartComponent {
       task = (workflow.tasks || []).filter((task: any) => task.uiTaskId === this.uiTaskId)[0] || {};
       task = { ...task, ...this.taskData };
       this.taskData = task || {};
-    } 
+    }
   }
 
   onSave() {
@@ -57,8 +57,12 @@ export class StartComponent {
       uiTaskId: this.uiTaskId,
       uploadType: this.taskData.uploadType || 'Auto Trigger',
       frequency: this.taskData.frequency || 'Daily',
-      time: this.taskData.time || { hour: 0, minute: 0, second: 0 },
-      startDate: this.taskData.startDate || new Date(),
+      time: this.taskData.time
+      ? `${this.taskData.time.hour.toString().padStart(2, '0')}:${this.taskData.time.minute.toString().padStart(2, '0')}:${this.taskData.time.second.toString().padStart(2, '0')}`
+      : '00:00:00',
+      startDate: this.taskData.startDate
+      ? new Date(this.taskData.startDate).toISOString().split('T')[0]
+      : new Date().toISOString().split('T')[0],
       taskUpdatedByUserId: null,
     }
     this.appService.updateTaskById(this.uiTaskId, this.taskData)
