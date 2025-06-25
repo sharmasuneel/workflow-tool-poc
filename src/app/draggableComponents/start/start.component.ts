@@ -9,10 +9,11 @@ import { provideNativeDateAdapter } from '@angular/material/core';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { AppService } from '../../services/app.service';
 import { DataService } from '../../services/data.service';
+import { ToastComponent } from '../../common/toast/toast.component';
 @Component({
   selector: 'app-start',
   standalone: true,
-  imports: [FormsModule, MatDatepickerModule, CommonModule, NgbTimepickerModule, DropWrapperContainerComponent, NgbModule],
+  imports: [FormsModule, MatDatepickerModule, CommonModule, NgbTimepickerModule, DropWrapperContainerComponent, NgbModule, ToastComponent],
   templateUrl: './start.component.html',
   styleUrl: './start.component.scss',
   providers: [provideNativeDateAdapter()],
