@@ -136,7 +136,7 @@ export class DrawflowComponent implements OnInit {
         if (!isNodeEnabled) {
           if (Object.prototype.hasOwnProperty.call(this.editor.drawflow.drawflow.Home.data, nodeId)) {
             const node = this.editor.drawflow.drawflow.Home.data[nodeId];
-            if (node && typeof node.html === 'string') {
+            if (node && typeof node.html === 'string' && node.class === nodeName) {
               if (node.html.includes('class="')) {
                 node.html = node.html.replace(
                   /class="([^"]*)"/,
