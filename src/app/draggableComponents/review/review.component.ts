@@ -70,7 +70,7 @@ export class ReviewComponent {
     delete payload.uploadType // Remove uploadType from payload to avoid circular reference
 
     const data = toFormData({ metadata: JSON.stringify(payload) }, '')
-    this.dataService.postData(getConfig().saveWorkflowWithId, data).subscribe((response: any) => {
+    this.dataService.putData(getConfig().saveWorkflow, data).subscribe((response: any) => {
       console.log('Workflow saved successfully:', response);
       //TODO show alert message
       this.showToast = true
