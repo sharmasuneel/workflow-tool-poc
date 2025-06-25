@@ -80,7 +80,7 @@ export class DownloadComponent implements OnInit {
     delete payload.uploadType // Remove uploadType from payload to avoid circular reference
 
     const data = toFormData({ metadata: JSON.stringify(payload) }, '')
-    this.dataService.postData(getConfig().saveWorkflowWithId, data).subscribe((response) => {
+    this.dataService.putData(getConfig().saveWorkflowWithId, data).subscribe((response) => {
       console.log('Workflow saved successfully:', response);
       //TODO show alert message
       this.showToast = true
