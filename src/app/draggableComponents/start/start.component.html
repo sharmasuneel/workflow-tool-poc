@@ -2,14 +2,14 @@
     <div class="text-primary font-16">Start</div>
     <div>
         <label class="text-muted">Upload Type</label>
-        <select class="w-100" [(ngModel)]="uploadType">
+        <select class="w-100" [(ngModel)]="taskData.uploadType">
             <option>Auto Trigger</option>
         </select>
     </div>
 
     <div class="mt-2">
         <label class="text-muted">Frequency</label>
-        <select class="w-100" [(ngModel)]="frequency">
+        <select class="w-100" [(ngModel)]="taskData.frequency">
             <option>Daily</option>
             <option>Weekly</option>
             <option>Monthly</option>
@@ -19,15 +19,15 @@
     <div class="d-flex mt-2">
         <label class="text-muted">Set Time</label>
         <div class="margin-64">
-            <ngb-timepicker [(ngModel)]="time" />
+            <ngb-timepicker [(ngModel)]="taskData.time" />
         </div>
     </div>
     <div class="mt-2">
         <label class="text-muted">Select Date</label>
-        <mat-calendar [(selected)]="startDate"></mat-calendar>
+        <mat-calendar [(selected)]="taskData.startDate"></mat-calendar>
     </div>
     <div>
-        <button class="btn btn-primary btn-sm mt-2 mb-3 pull-right w-25">Save</button>
+    <button class="btn btn-primary btn-sm mt-2 mb-2 pull-right w-25" (click)="onSave()">Save</button>
     </div>
 
 </app-drop-wrapper-container>

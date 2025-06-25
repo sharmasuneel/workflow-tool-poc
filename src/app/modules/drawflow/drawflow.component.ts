@@ -125,10 +125,33 @@ export class DrawflowComponent implements OnInit {
     if (this.drawflowData) {
       if (this.action === 'execute') {
         this.editor.editor_mode = 'fixed'
-        this.isDraggable = true
+        this.isDraggable = false
       }
       this.editor.clear()
       this.editor.drawflow = this.drawflowData
+      for (const nodeId in this.editor.drawflow.drawflow.Home.data) {
+        const nodeName = this.editor.drawflow.drawflow.Home.data[nodeId].name;
+        const isNodeEnabled = this.appService.getEnabledNodes(this.selectedRole).includes(nodeName)
+        debugger
+        if (!isNodeEnabled) {
+          if (Object.prototype.hasOwnProperty.call(this.editor.drawflow.drawflow.Home.data, nodeId)) {
+            const node = this.editor.drawflow.drawflow.Home.data[nodeId];
+            if (node && typeof node.html === 'string') {
+              if (node.html.includes('class="')) {
+                node.html = node.html.replace(
+                  /class="([^"]*)"/,
+                  (match: any, classNames: any) => `class="${classNames} disableNode"`
+                );
+              } else {
+                node.html = node.html.replace(
+                  /(<[a-zA-Z0-9]+)/,
+                  (match: any) => `${match} style="background-color: #dadada; opacity: 0.5; pointer-events: none;"`
+                );
+              }
+            }
+          }
+        }
+      }
       this.editor.load();
     }
   }
@@ -151,7 +174,7 @@ export class DrawflowComponent implements OnInit {
     if (nodeData && nodeData.class === id && isNodeEnabled) {
       // Dynamically render UploadComponent inside the node
       const nodeContent = document.querySelector(`#node-${nodeId} .drawflow_content_node`);
-      const container = nodeContent?.children[1];
+      const container = nodeContent?.children[0].children[1];
       if (nodeContent && !nodeContent.querySelector('app-upload') && container?.innerHTML === innerHTML) {
         if (!container) {
           console.error('Element not found:' + id);
@@ -160,13 +183,13 @@ export class DrawflowComponent implements OnInit {
         const componentRef: ComponentRef<T> = createComponent(customComponent, {
           environmentInjector: this.appRef.injector,
         });
-    (componentRef.instance as any).uiTaskId = nodeData.data.uiTaskId; // Pass the unique ID to the component instance
-    (componentRef.instance as any).workflowType = this.workflowType; // Pass the unique ID to the component instance
+        (componentRef.instance as any).uiTaskId = nodeData.data.uiTaskId; // Pass the unique ID to the component instance
+        (componentRef.instance as any).workflowType = this.workflowType; // Pass the unique ID to the component instance
 
 
         this.appRef.attachView(componentRef.hostView);
         container.innerHTML = '';
-         // Optional: clear existing content
+        // Optional: clear existing content
         container.appendChild((componentRef.hostView as any).rootNodes[0]);
       }
     }
@@ -373,10 +396,10 @@ export class DrawflowComponent implements OnInit {
     pos_y = pos_y * (this.editor.precanvas.clientHeight / (this.editor.precanvas.clientHeight * this.editor.zoom)) - (this.editor.precanvas.getBoundingClientRect().y * (this.editor.precanvas.clientHeight / (this.editor.precanvas.clientHeight * this.editor.zoom)));
     const node = nodesData.nodes.filter(node => node.id === id)[0] as { class: string, inputs: any, outputs: any, data: any, html: string };
     // TODO Left nav icons when dropped.. node.json html -->
-    if(!node.data.uiTaskId) {
+    if (!node.data.uiTaskId) {
       node.data = { ...node.data, uiTaskId: uuidv4() }; // Generate a unique ID for the node
     }
-    if (node) { 
+    if (node) {
       this.editor.addNode(
         node.class,
         node.inputs,
@@ -393,9 +416,9 @@ export class DrawflowComponent implements OnInit {
   }
 
   export() {
-    // debugger
     const html = JSON.stringify(this.editor.export(), null, 4)
   }
+
   // TODO save workflow
   saveWorkflow() {
     const payload = this.appService.getNewWorkflow()
@@ -405,22 +428,12 @@ export class DrawflowComponent implements OnInit {
     delete payload.files // Remove files from payload to avoid circular reference
     delete payload.uploadType // Remove uploadType from payload to avoid circular reference
     const data = toFormData({ files, metadata: JSON.stringify(payload) }, uploadType);
-    this.dataService.postData(getConfig().saveWorkflowWithId, data).subscribe((response) => {
+    this.dataService.putData(getConfig().saveWorkflowWithId, data).subscribe((response) => {
       console.log('Workflow saved successfully:', response);
       //TODO show alert message
-      this.showToast = true
       this.toastMsg = 'Workflow saved successfully'
+      this.showToast = true
     })
-    /* const payload = this.appService.getWorkFlowPayload()
-    const drawFlowData = this.editor.export();
-    payload.metadata = { ...payload.metadata, drawflow: JSON.stringify(this.editor.export(), null, 4) }
-    const data = toFormData({ files: payload.files, metadata: JSON.stringify(payload.metadata) }, '')
-    this.dataService.postData(getConfig().saveWorkflowWithId, data).subscribe((response) => {
-      console.log('Workflow saved successfully:', response);
-      //TODO show alert message
-      this.showToast = true
-      this.toastMsg = 'Workflow saved successfully'
-    }) */
   }
 
   onClear() {
@@ -428,7 +441,6 @@ export class DrawflowComponent implements OnInit {
   }
 
   changeMode() {
-    debugger
     this.locked = !this.locked;
     this.editor.editor_mode = this.locked != null && this.locked == false ? 'edit' : 'fixed';
   }

@@ -1,5 +1,44 @@
 <app-drop-wrapper-container>
-    <div class="text-primary font-16">Decide</div>
+  <div class="text-primary font-16">Decide</div>
+  <div *ngIf="phase === 'execution'">
+    <label class="text-muted">
+      <input type="checkbox" [(ngModel)]="taskData.acknowledgeTask" />
+      Acknowledge Task
+    </label>
+    <div>
+      <ul *ngIf="taskData?.files?.length > 0" class="file-name-list">
+        <label class="mt-1 text-muted">Uploaded File</label>
+        <li *ngFor="let taskfile of taskData.files; let i = index" style="font-size: 14px;"
+          class="d-flex align-items-center justify-content-between">
+          <a class="text-primary" [href]="downloadUrl + taskfile.fileId" target="_blank" download> {{ taskfile.name
+            }}</a>
+          <div>
+            <span>
+              <img src="../../../assets/icons/View File.png" alt="View Icon"
+                style="width: 16px; height: 16px; cursor: pointer;" (click)="openFile($event, taskfile)" />
+            </span>
+            <!-- <span>
+              <img src="../../../assets/icons/Bin.png" alt="Delete Icon"
+                style="width: 16px; height: 16px; cursor: pointer;" (click)="removeFile(i)" />
+            </span> -->
+          </div>
+        </li>
+      </ul>
+    </div>
+    <div class="card section">
+      <div class="file-placeholder">
+        Files will be here
+      </div>
+    </div>
+  </div>
+  <div *ngIf="phase == 'creation'">
+    <div class="mt-2">
+      <label class="text-muted">
+        <input type="checkbox" [(ngModel)]="taskData.acknowledgeTask" />
+        Required user Acknowledgement
+      </label>
+    </div>
+
     <div class="card section">
       <div class="file-placeholder">
         Files will be here
@@ -8,29 +47,30 @@
     <div class="card section">
       <div>Notification Management:</div>
       <div>
-        <label  class="text-muted">
-          <input type="checkbox" [(ngModel)]="notifyEmail" />
+        <label class="text-muted">
+          <input type="checkbox" [(ngModel)]="taskData.notifyEmail" />
           Email
         </label>
       </div>
       <div>
-        <label  class="text-muted">
-          <input type="checkbox" [(ngModel)]="notifyDashboard" />
+        <label class="text-muted">
+          <input type="checkbox" [(ngModel)]="taskData.dashboardNotification" />
           Dashboard Notification
         </label>
       </div>
       <div>
         <div>Miscellaneous:</div>
-        <label class="text-muted">
-        <input type="checkbox" [(ngModel)]="userCommentary" />
-            User Commentary:
-           
+        <label class="text-muted ">
+          <input type="checkbox" [(ngModel)]="taskData.userCommentary" />
+          User Commentary:
         </label>
       </div>
     </div>
-   
-    <div class="mb-5">
-      <button (click)="onSave()" class="btn btn-primary w-25 pull-right">Save</button>
-    </div>
-  </app-drop-wrapper-container>
+  </div>
 
+  <div class="mb-5">
+    <button *ngIf="phase !== 'execution'" (click)="onSave()" class="btn btn-primary w-25 pull-right mb-2">Save</button>
+    <button *ngIf="phase === 'execution'" (click)="onComplete()" class="btn btn-primary w-80 mt-3 mb-2 pull-right">Mark as
+      Complete</button>
+  </div>
+</app-drop-wrapper-container>

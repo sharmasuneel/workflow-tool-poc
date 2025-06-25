@@ -9,7 +9,7 @@
             "data": {},
             "component": "database",
             "icon": "Database",
-            "html": "<img src=\"assets/icons/Database.png\" alt=\"database\" style=\"width: 60px; height: 60px; vertical-align: middle; margin: 12px;\"><span>Database</span>"
+            "html": "<div><img src=\"assets/icons/Database.png\" alt=\"database\" style=\"width: 60px; height: 60px; vertical-align: middle; margin: 12px;\"><span>Database</span></div>"
         },
         {
             "id": "titanEngine",
@@ -20,7 +20,7 @@
             "data": {},
             "component": "titanEngine",
             "icon": "TitanEngine",
-            "html": "<img src=\"assets/icons/TitanEngine.png\" alt=\"Titan Engine\" style=\"width: 60px; height: 60px; vertical-align: middle; margin: 12px;\"><span>Titan Engine</span>"
+            "html": "<div><img src=\"assets/icons/TitanEngine.png\" alt=\"Titan Engine\" style=\"width: 60px; height: 60px; vertical-align: middle; margin: 12px;\"><span>Titan Engine</span></div>"
         },
         {
             "id": "upload",
@@ -31,7 +31,7 @@
             "data": {},
             "component": "upload",
             "icon": "Upload",
-            "html": "<img src=\"assets/icons/Upload.png\" alt=\"Upload\" style=\"width: 60px; height: 60px; vertical-align: middle; margin: 12px;\"><span>Upload</span>"
+            "html": "<div><img src=\"assets/icons/Upload.png\" alt=\"Upload\" style=\"width: 60px; height: 60px; vertical-align: middle; margin: 12px;\"><span>Upload</span></div>"
         },
         {
             "id": "download",
@@ -41,7 +41,7 @@
             "class": "download",
             "data": {},
             "icon": "Download",
-            "html": "<img src=\"assets/icons/Download.png\" alt=\"Download\" style=\"width: 60px; height: 60px; vertical-align: middle; margin: 12px;\"><span>Download</span>"
+            "html": "<div><img src=\"assets/icons/Download.png\" alt=\"Download\" style=\"width: 60px; height: 60px; vertical-align: middle; margin: 12px;\"><span>Download</span></div>"
         },
          {
             "id": "app",
@@ -51,7 +51,7 @@
             "class": "app",
             "data": {},
             "icon": "App",
-            "html": "<img src=\"assets/icons/App.png\" alt=\"App\" style=\"width: 60px; height: 60px; vertical-align: middle; margin: 12px;\"><span>App</span>"
+            "html": "<div><img src=\"assets/icons/App.png\" alt=\"App\" style=\"width: 60px; height: 60px; vertical-align: middle; margin: 12px;\"><span>App</span></div>"
         },
         {
             "id": "attestation",
@@ -61,7 +61,7 @@
             "class": "attestation",
             "data": {},
             "icon": "Attest",
-            "html": "<img src=\"assets/icons/Attest.png\" alt=\"Attestation\" style=\"width: 60px; height: 60px; vertical-align: middle; margin: 12px;\"><span>Attestation</span>"
+            "html": "<div><img src=\"assets/icons/Attest.png\" alt=\"Attestation\" style=\"width: 60px; height: 60px; vertical-align: middle; margin: 12px;\"><span>Attestation</span></div>"
         },
         {
             "id": "arrow",
@@ -71,7 +71,7 @@
             "class": "Arrow",
             "data": {},
             "icon": "Arrow2",
-            "html": "<img src=\"assets/icons/Arrow2.png\" alt=\"Attestation\" style=\"width: 60px; height: 60px; vertical-align: middle; margin: 12px;\"><span>Attestation</span>"
+            "html": "<div><img src=\"assets/icons/Arrow2.png\" alt=\"Attestation\" style=\"width: 60px; height: 60px; vertical-align: middle; margin: 12px;\"><span>Attestation</span></div>"
         },
         {
             "id": "dependency",
@@ -81,7 +81,7 @@
             "class": "dependency",
             "data": {},
             "icon": "Dependency",
-            "html": "<img src=\"assets/icons/Arrow2.png\" alt=\"Attestation\" style=\"width: 60px; height: 60px; vertical-align: middle; margin: 12px;\"><span>Attestation</span>"
+            "html": "<div><img src=\"assets/icons/Arrow2.png\" alt=\"Attestation\" style=\"width: 60px; height: 60px; vertical-align: middle; margin: 12px;\"><span>Attestation</span></div>"
         },
         {
             "id": "review",
@@ -91,7 +91,7 @@
             "class": "review",
             "icon": "Decision",
             "data": {},
-            "html": "<img src=\"assets/icons/Decision.png\" alt=\"Review\" style=\"width: 60px; height: 60px; vertical-align: middle; margin: 12px;\"><span>Review</span>"
+            "html": "<div><img src=\"assets/icons/Decision.png\" alt=\"Review\" style=\"width: 60px; height: 60px; vertical-align: middle; margin: 12px;\"><span>Review</span></div>"
         },
         
         {
@@ -102,7 +102,7 @@
             "class": "start",
             "data": {},
             "icon": "Start",
-            "html": "<img src=\"assets/icons/Start.png\" alt=\"Start\" style=\"width: 60px; height: 60px; vertical-align: middle; margin: 12px;\"><span>Start</span>"
+            "html": "<div><img src=\"assets/icons/Start.png\" alt=\"Start\" style=\"width: 60px; height: 60px; vertical-align: middle; margin: 12px;\"><span>Start</span></div>"
         }
     ]
 }

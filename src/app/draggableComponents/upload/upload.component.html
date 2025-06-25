@@ -111,7 +111,7 @@
 
 
     <div class="pull-right mb-3">
-      <button type="button" class="btn btn-primary" (click)="onSave()">Save</button>
+      <button type="button" class="btn btn-primary mb-2" (click)="onSave()">Save</button>
     </div>
   </form>
   <div *ngIf="phase == 'execution'">
@@ -139,7 +139,7 @@
       </div>
     </div>
     <div class="mb-5">
-    <button *ngIf="phase === 'execution'" (click)="onComplete()" class="btn btn-primary w-80 mt-3 pull-right">Mark as
+    <button *ngIf="phase === 'execution'" (click)="onComplete()" class="btn btn-primary w-80 mt-3 pull-right mb-2">Mark as
       Complete</button>
   </div>
   </div>

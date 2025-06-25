@@ -48,12 +48,10 @@ export class UploadComponent implements OnInit {
       task = { ...task, ...this.taskData };
       this.taskData = task || {};
     } else {
-      this.taskData.uploadType = 'withDataFile' 
-      this.taskData.assignedTo = 'rahul' 
       const workflowId = this.appService.getWorkflowId();
       const workflow = this.appService.getWorkflowById(Number(workflowId));
       task = (workflow.tasks || []).filter((task: any) => task.uiTaskId === this.uiTaskId)[0] || {};
-      this.taskData = task || {};
+      this.taskData = { ...task, uploadType: 'withDataFile', assignedTo: 'rahul' };
     }
   }
 

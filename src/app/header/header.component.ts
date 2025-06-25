@@ -27,6 +27,10 @@ export class HeaderComponent implements OnInit {
     this.today = new Date().toLocaleDateString();
   }
 
+  logout() {
+    this.router.navigate([''])
+  }
+
   private getGreeting(): string {
     const hour = new Date().getHours();
     if (hour >= 5 && hour < 12) {
