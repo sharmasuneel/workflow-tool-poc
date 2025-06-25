@@ -4,7 +4,7 @@
     <img [src]="'assets/icons/Dashboard Cards.png'" alt="{{ role.name }} icon" class="role-icon" />
     <h3>{{ role.name }}</h3>
    </div>
-    <p class="count">{{ role.count }}</p>
+    <p class="count">{{ role.count || '' }}</p>
     <p class="label">{{ role.label }}</p>
   </div>
 </div>

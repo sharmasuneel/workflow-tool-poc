@@ -8,11 +8,12 @@ import { DataService } from "../services/data.service";
 import getConfig from "../config";
 import { toFormData } from '../utils/dataTransformer'
 import { Router } from '@angular/router';
+import { HeaderComponent } from "app/header/header.component";
 
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
-  imports: [AppGrid, UserBannerComponent, CommonModule, FormsModule],
+  imports: [AppGrid, UserBannerComponent, CommonModule, FormsModule, HeaderComponent],
   styleUrls: ['./dashboard.component.scss'],
   standalone: true
 })
@@ -21,8 +22,10 @@ import { Router } from '@angular/router';
 export class DashboardComponent {
   title: string;
   data: any[];
+  profileSelected: any
   private appService = inject(AppService);
   private dataService = inject(DataService);
+
 
   constructor(private router: Router) {
     this.title = 'Dashboard';
@@ -30,9 +33,11 @@ export class DashboardComponent {
   }
 
   @Output() selectedRoleChange = new EventEmitter<string>();
+
   selectedRole: string = 'owner'
   loggedInUser: any
   users: any[] = [];
+
   ngOnInit() {
     this.loggedInUser = this.appService.getUser()
 
@@ -47,6 +52,7 @@ export class DashboardComponent {
 
   showCreateWorkflow: boolean = false
   showCreateWorkflowBtn: boolean = true
+  newWorkflowName: string
 
   createNewWorkFlow() {
     this.appService.initiateWorkFlow({ workflowName: this.newWorkflowName })
@@ -54,20 +60,12 @@ export class DashboardComponent {
     this.appService.setWorkflowName(this.newWorkflowName)
     this.appService.setPhase('creation')
     this.router.navigate(['/workflow'], { queryParams: { action: 'create', name: this.newWorkflowName, selectedRole: this.selectedRole, workflowType: 'new' } });
-    /* const formData = toFormData({ 'metadata': JSON.stringify(data) })
-    this.dataService.postData(getConfig().saveWorkflow, formData).subscribe((response) => {
-      console.log('Workflow saved successfully:', response);
-      this.router.navigate(['/workflow'], { queryParams: { id: response.workflowId, action: 'create', name: this.newWorkflowName, selectedRole: this.selectedRole} });
-    }) */
-  }
-  newWorkflowName: string
-
-  onUserInteraction(event: any) {
-    console.log('User interacted with:', event);
   }
 
   filterWorkFlows(evt: any): void {
     this.selectedRole = evt
     this.showCreateWorkflowBtn = evt === 'owner'
+    this.profileSelected = evt
   }
+  
 }

@@ -4,7 +4,7 @@
     <label class="text-muted">
       <input type="checkbox" [(ngModel)]="taskData.acknowledgeTask" />
       Acknowledge Task
-    </label>    
+    </label>
     <div>
       <ul *ngIf="taskData?.files?.length > 0" class="file-name-list">
         <label class="mt-1 text-muted">Uploaded File</label>
@@ -70,8 +70,7 @@
 
   <div class="mb-5">
     <button *ngIf="phase !== 'execution'" (click)="onSave()" class="btn btn-primary w-25 pull-right mb-2">Save</button>
-    <button *ngIf="phase === 'execution'" (click)="onComplete()" class="btn btn-primary w-80 mt-3 mb-2 pull-right">Mark as
-      Complete</button>
+    <button *ngIf="phase === 'execution'" (click)="onComplete()" class="btn btn-primary w-80 mt-3 mb-2 pull-right">Mark as Complete</button>
   </div>
   <div *ngIf="showToast">
     <app-toast></app-toast>

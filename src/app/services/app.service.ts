@@ -5,7 +5,7 @@ import { v4 as uuidv4 } from 'uuid';
   providedIn: 'root'
 })
 export class AppService {
-  private user: any = null;
+  private user: any = { "userId": 1, "name": "Owner", "role": "owner" };
   private users: any[] = [];
   private workflows: any[] = [];
   private payloadWorkFlow: any = { metadata: {}, files: null };

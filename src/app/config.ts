@@ -1,4 +1,4 @@
-const node = false
+const node = true
 const baseUrl = node ? 'http://localhost:3020/data/' : 'http://localhost:8080/api/'
 const config = {
     nodeApiEndpoints: {

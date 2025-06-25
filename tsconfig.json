@@ -2,6 +2,12 @@
 {
   "compileOnSave": false,
   "compilerOptions": {
+    "baseUrl": "src",
+    "paths": {
+      "@icons/*": [
+        "assets/icons/*"
+      ]
+    },
     "outDir": "./dist/out-tsc",
     "strict": true,
     "resolveJsonModule": true,

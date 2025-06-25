@@ -21,9 +21,9 @@ import { FormsModule } from '@angular/forms';
 import getConfig from '../../config';
 import { AppService } from '../../services/app.service';
 import { toFormData } from '../../utils/dataTransformer'
-import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
 import { ToastComponent } from '../../common/toast/toast.component';
+import { HeaderComponent } from 'app/header/header.component';
 
 type NodeName = keyof typeof nodesData.nodes;
 
@@ -31,7 +31,7 @@ type NodeName = keyof typeof nodesData.nodes;
   selector: 'app-drawflow',
   templateUrl: './drawflow.component.html',
   standalone: true,
-  imports: [FormsModule, CommonModule, ToastComponent],
+  imports: [FormsModule, CommonModule, ToastComponent, HeaderComponent],
   styleUrls: ['./drawflow.component.css']
 })
 export class DrawflowComponent implements OnInit {
@@ -60,6 +60,7 @@ export class DrawflowComponent implements OnInit {
   drawnNodes: any[] = [];
   selectedNodeId: string;
   selectedNode: any = {};
+  phase: string = '';
 
   lastMousePositionEv: any;
 
@@ -99,6 +100,7 @@ export class DrawflowComponent implements OnInit {
   workflowType: string
 
   ngOnInit() {
+    this.phase = this.appService.getPhase();
     this.route.queryParams.subscribe((queryParams: any) => {
       console.log('Query Params:', queryParams);
       const { id, action, name, selectedRole, workflowType } = queryParams
@@ -132,25 +134,31 @@ export class DrawflowComponent implements OnInit {
       for (const nodeId in this.editor.drawflow.drawflow.Home.data) {
         const nodeName = this.editor.drawflow.drawflow.Home.data[nodeId].name;
         const isNodeEnabled = this.appService.getEnabledNodes(this.selectedRole).includes(nodeName)
-        debugger
-        if (!isNodeEnabled) {
-          if (Object.prototype.hasOwnProperty.call(this.editor.drawflow.drawflow.Home.data, nodeId)) {
-            const node = this.editor.drawflow.drawflow.Home.data[nodeId];
-            if (node && typeof node.html === 'string' && node.class === nodeName) {
-              if (node.html.includes('class="')) {
-                node.html = node.html.replace(
-                  /class="([^"]*)"/,
-                  (match: any, classNames: any) => `class="${classNames} disableNode"`
-                );
-              } else {
-                node.html = node.html.replace(
-                  /(<[a-zA-Z0-9]+)/,
-                  (match: any) => `${match} style="background-color: #dadada; opacity: 0.5; pointer-events: none;"`
-                );
-              }
-            }
+        //
+        const nodeData = this.editor.drawflow.drawflow.Home.data[nodeId];
+
+        if (
+          Object.prototype.hasOwnProperty.call(this.editor.drawflow.drawflow.Home.data, nodeId) &&
+          nodeData &&
+          typeof nodeData.html === 'string' &&
+          nodeData.class === nodeName
+        ) {
+          if (isNodeEnabled) {
+            // Clean up styles and classes when enabling the node
+            nodeData.html = nodeData.html
+              .replace(/background-color:\s*[^;"]*;?/g, '')
+              .replace(/\bdisableNode\b/g, '')
+              .replace(/opacity:\s*0\.5;?/g, '')
+              .replace(/pointer-events:\s*none;?/g, '');
+          } else {
+            // Add disable styles and class when disabling the node
+            nodeData.html = nodeData.html.replace(
+              /(<[a-zA-Z0-9]+)/,
+              (match: any) => `${match} style="background-color: #dadada; opacity: 0.5; pointer-events: none;"`
+            );
           }
         }
+
       }
       this.editor.load();
     }
@@ -171,6 +179,7 @@ export class DrawflowComponent implements OnInit {
 
   private addComponents<T>(nodeData: any, id: string, innerHTML: string, nodeId: string, customComponent: { new(...args: any[]): T }): void {
     const isNodeEnabled = this.appService.getEnabledNodes(this.selectedRole).includes(id)
+    debugger
     if (nodeData && nodeData.class === id && isNodeEnabled) {
       // Dynamically render UploadComponent inside the node
       const nodeContent = document.querySelector(`#node-${nodeId} .drawflow_content_node`);
@@ -255,19 +264,27 @@ export class DrawflowComponent implements OnInit {
         const nodeData = this.editor.drawflow.drawflow.Home.data[nodeId];
         //TODO add dragabble components here
         if (nodeData) {
-          if (nodeData.class === 'upload') {
-            this.addComponents<UploadComponent>(nodeData, 'upload', 'Upload', nodeId, UploadComponent);
-          } else if (nodeData.class === 'download') {
-            this.addComponents<DownloadComponent>(nodeData, 'download', 'Download', nodeId, DownloadComponent);
+          if (this.phase === 'execution') {
+            debugger
+
+            // TODO  Added only requied components for execution phase
+          } else if (this.phase === 'creation') {
+            // TODO: Suneel  Added only requied components for creation phase
+            if (nodeData.class === 'upload') {
+              this.addComponents<UploadComponent>(nodeData, 'upload', 'Upload', nodeId, UploadComponent);
+            } else if (nodeData.class === 'download') {
+              this.addComponents<DownloadComponent>(nodeData, 'download', 'Download', nodeId, DownloadComponent);
+            }
+            else if (nodeData.class === 'review') {
+              this.addComponents<ReviewComponent>(nodeData, 'review', 'Review', nodeId, ReviewComponent);
+            } else if (nodeData.class === 'attestation') {
+              this.addComponents<AttestComponent>(nodeData, 'attestation', 'Attestation', nodeId, AttestComponent);
+            }
+            else if (nodeData.class === 'start') {
+              this.addComponents<StartComponent>(nodeData, 'start', 'Start', nodeId, StartComponent);
+            }
           }
-          else if (nodeData.class === 'review') {
-            this.addComponents<ReviewComponent>(nodeData, 'review', 'Review', nodeId, ReviewComponent);
-          } else if (nodeData.class === 'attestation') {
-            this.addComponents<AttestComponent>(nodeData, 'attestation', 'Attestation', nodeId, AttestComponent);
-          }
-          else if (nodeData.class === 'start') {
-            this.addComponents<StartComponent>(nodeData, 'start', 'Start', nodeId, StartComponent);
-          }
+
         }
       }
       if (e.target.closest('.drawflow_content_node') != null || e.target.classList[0] === 'drawflow-node') {
@@ -399,6 +416,8 @@ export class DrawflowComponent implements OnInit {
     if (!node.data.uiTaskId) {
       node.data = { ...node.data, uiTaskId: uuidv4() }; // Generate a unique ID for the node
     }
+    debugger
+
     if (node) {
       this.editor.addNode(
         node.class,

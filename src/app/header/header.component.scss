@@ -6,6 +6,7 @@
   border-radius: 8px;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
 }
+
 .vrbar {
   width: 2px;
   background-color: #ccc;
@@ -53,8 +54,9 @@
   padding: 5px 10px;
   border-radius: 5px;
   margin: 10px;
-  
+
 }
+
 .dateIcon {
   margin-right: 5px;
   margin-left: 15px;
@@ -100,4 +102,25 @@
 .dashboard-footer {
   margin-top: 20px;
   text-align: right;
+}
+
+.profileMenu {
+  position: absolute;
+  top: 60px;
+  right: 30px;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  gap: 8px;
+  z-index: 232323;
+}
+
+.profileMenuItem {
+  border: 1px solid #ccc;
+  font-size: 16px;
+  border-radius: 4px;
+  padding: 0px 17px;
+  padding: 0px 16px;
+  cursor: pointer;
+  background: #fff;
 }

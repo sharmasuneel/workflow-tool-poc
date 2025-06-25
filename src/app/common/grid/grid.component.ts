@@ -101,6 +101,7 @@ export class AppGrid implements OnInit, OnChanges {
 
   filteredData: any[] = []
   workflows: any[] = []
+
   ngOnInit() {
     setTimeout(() => {
       this.dataService.getData(getConfig().workflows).subscribe((data: any) => {
@@ -114,6 +115,7 @@ export class AppGrid implements OnInit, OnChanges {
   ngOnChanges(changes: any): void {
     const selectedRole = changes.selectedRole
     if (selectedRole && !selectedRole.firstChange) {
+      debugger
       this.filteredData = filterDataBySelectedTab(selectedRole.currentValue, this.appService.getUser().userId, this.appService.getWorkflows(), this.appService.getUsers())
     }
   }

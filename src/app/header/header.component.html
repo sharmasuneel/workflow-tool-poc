@@ -1,26 +1,42 @@
 <header class="dashboard-header">
-    <img src="assets/icons/logo.png" alt="Company Logo" class="dashboard-logo" />
-    <div>
-      <h1 class="dashboard-title">
-        {{ greetMsg + (appService.getUser() ? ', ' + appService.getUser().name : '') }}
-      </h1>
-      <div class="subtitle">Risk, Finance & Treasury</div>
-    </div>
-    <span class="vrbar"></span>
-    <nav class="dashboard-nav">
-      <ul class="horizontal-nav">
-        <li><a href="#" (click)="onNavClick($event, 'dashboard')">Dashboard</a></li>
-        <li><a href="#" (click)="onNavClick($event, 'userManagement')">User Management</a></li>
-        <li><a href="#" (click)="onNavClick($event, 'settings')">Settings</a></li>
-        <li><a href="#" (click)="onNavClick($event, 'help')">Help</a></li>
-      </ul>
-    </nav>
-    <div class="dashboard-date">
-      {{ today }}
-      <i class="fa fa-calendar dateIcon" aria-hidden="true"></i>
-    </div>
-  
-    <div (click)="logout()" class="pull-right" style="cursor: pointer; margin-right: 15px;">
-      <img src="assets/icons/User Profile.png" /></div>
+  <img src="assets/icons/logo.png" alt="Company Logo" class="dashboard-logo" />
+  <div>
+    <h1 class="dashboard-title">
+      {{ greetMsg + (appService.getUser() ? ', ' + appService.getUser().name : '') }}
+    </h1>
+    <div class="subtitle">Risk, Finance & Treasury</div>
+  </div>
+  <span class="vrbar"></span>
+  <nav class="dashboard-nav">
+    <ul class="horizontal-nav">
+      <li><a href="#" (click)="onNavClick($event, '')">Dashboard</a></li>
+      <li><a href="#" (click)="onNavClick($event, 'userManagement')">User Management</a></li>
+      <li><a href="#" (click)="onNavClick($event, 'settings')">Settings</a></li>
+      <li><a href="#" (click)="onNavClick($event, 'help')">Help</a></li>
+    </ul>
+  </nav>
+  <div class="dashboard-date">
+    {{ today }}
+    <i class="fa fa-calendar dateIcon" aria-hidden="true"></i>
+  </div>
 
-    </header>
+  <div (click)="toggleMenu()" class="pull-right" style="cursor: pointer; margin-right: 15px;">
+    <span style="font-size: 16px;">Change Profile</span>
+    <img src="assets/icons/User Profile.png" />
+  </div>
+  <ul class="profile-menu" *ngIf="menuOpen"
+    class="profileMenu">
+    <li (click)="selectRole(users.owner)" class="profileMenuItem">
+      Owner
+    </li>
+    <li (click)="selectRole(users.preparator)" class="profileMenuItem">
+      Preparator
+    </li>
+    <li (click)="selectRole(users.reviewer)" class="profileMenuItem">
+      Reviewer
+    </li>
+    <li (click)="selectRole(users.approver)" class="profileMenuItem">
+      Approver
+    </li>
+  </ul>
+</header>

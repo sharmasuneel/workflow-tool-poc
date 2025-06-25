@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, EventEmitter, inject, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, inject, Input, OnInit, Output } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { AppService } from '../services/app.service';
 import { filterDataBySelectedTab, transformData } from '../utils/dataTransformer';
@@ -13,19 +13,33 @@ import { filterDataBySelectedTab, transformData } from '../utils/dataTransformer
 })
 export class UserBannerComponent implements OnInit {
   roles = [
-    { name: 'Owner', count: 12, label: 'Created Workflows', role: 'owner' },
-    { name: 'Preparator', count: 2, label: 'Pending Tasks', role: 'preparator' },
-    { name: 'Reviewer', role: 'reviewer', count: 2, label: 'Pending Tasks' },
-    { name: 'Approver', count: 21, label: 'Pending Approvals', role: 'approver' }
+    { name: 'Owner', count: '', label: 'Created Workflows', role: 'owner' },
+    { name: 'Preparator', count: '', label: 'Pending Tasks', role: 'preparator' },
+    { name: 'Reviewer', role: 'reviewer', count: '', label: 'Pending Tasks' },
+    { name: 'Approver', count: '', label: 'Pending Approvals', role: 'approver' }
   ];
-  activeRole:string = 'owner';
 
+  activeRole:string = 'owner';
 
   private appService = inject(AppService);
   @Output() roleSelected = new EventEmitter<string>();
+  @Input() profileSelected: string = 'owner'
+
+  ngOnChanges(changes: any) {
+    if (changes.profileSelected && changes.profileSelected.currentValue !== changes.profileSelected.previousValue) {
+      const selectedRole = this.roles.find(role => role.role === changes.profileSelected.currentValue.role);
+      if (selectedRole) {
+        // TODO: in case change profile set tab 
+        // this.onCardClick(selectedRole);
+        this.setWorflowCountByRole()
+      }
+    }
+  }
 
   ngOnInit() {
-    this.setWorflowCountByRole()
+    setTimeout(() => {
+      this.setWorflowCountByRole()
+    }, 1000);
   }
   
   getCount(role: string) {
@@ -35,7 +49,7 @@ export class UserBannerComponent implements OnInit {
 
   setWorflowCountByRole() {
     this.roles = this.roles.map((item) => {
-      return {...item, count: this.getCount(item.role)}
+      return {...item, count: this.getCount(item.role).toString()}
     })
   }
 
@@ -44,4 +58,5 @@ export class UserBannerComponent implements OnInit {
     this.appService.setFilter({selectedRole: tab});
     this.activeRole = tab.role;
   }
+
 }

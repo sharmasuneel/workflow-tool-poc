@@ -3,6 +3,8 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { AppService } from '../services/app.service';
 import { Router } from '@angular/router';
+import { CommonModule } from '@angular/common';
+import { Output, EventEmitter } from '@angular/core';
 
 
 
@@ -12,17 +14,20 @@ import { Router } from '@angular/router';
   standalone: true,
   imports: [
     MatButtonModule,
-    MatIconModule
+    MatIconModule,
+    CommonModule
   ],
   templateUrl: './header.component.html',
   styleUrl: './header.component.scss'
 })
-export class HeaderComponent implements OnInit {  
+export class HeaderComponent implements OnInit {
 
   public appService = inject(AppService);
+  @Output() profileSelected = new EventEmitter<any>();
 
   greetMsg: string;
   today: string
+
   constructor(private router: Router) {
     this.today = new Date().toLocaleDateString();
   }
@@ -42,6 +47,28 @@ export class HeaderComponent implements OnInit {
     }
   }
 
+  menuOpen = false;
+
+  users: any = {
+    owner: { "userId": 1, "name": "Owner", "role": "owner" },
+    preparator: { "userId": 2, "name": "Preparator", "role": "preparator" },
+    reviewer: { "userId": 3, "name": "Reviewer", "role": "reviewer" },
+    approver: { "userId": 4, "name": "Approver", "role": "approver" }
+  }
+
+  toggleMenu() {
+    this.menuOpen = !this.menuOpen;
+  }
+
+  selectRole(role: any) {
+    console.log('Selected Role:', role);
+    this.profileSelected.emit(role);
+    this.appService.setUser(role);
+    this.menuOpen = false;
+    // You can emit this role or handle it as needed
+  }
+
+
   ngOnInit(): void {
     this.greetMsg = this.getGreeting()
   }
@@ -50,7 +77,4 @@ export class HeaderComponent implements OnInit {
     this.router.navigate([route])
     ev.preventDefault()
   }
-
-
-
 }

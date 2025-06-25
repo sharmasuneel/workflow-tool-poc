@@ -298,7 +298,9 @@ header a {
   -webkit-box-shadow: 0 2px 15px 2px var(--border-color);
   box-shadow: 0 2px 15px 2px var(--border-color);
   padding: 0px;
-  width: 300px;
+  width: 100px;
+  background: none;
+  background-color: none;
 }
 
 .drawflow .drawflow-node.selected {
