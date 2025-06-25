@@ -6,12 +6,13 @@ import { AppService } from '../../services/app.service';
 import getConfig from '../../config';
 import { toFormData } from '../../utils/dataTransformer';
 import { DataService } from '../../services/data.service';
+import { ToastComponent } from '../../common/toast/toast.component';
 
 @Component({
   selector: 'app-review',
   templateUrl: './attest.component.html',
   styleUrls: ['./attest.component.scss'],
-  imports: [CommonModule, FormsModule, DropWrapperContainerComponent],
+  imports: [CommonModule, FormsModule, DropWrapperContainerComponent, ToastComponent],
   standalone: true,
 })
 export class AttestComponent {

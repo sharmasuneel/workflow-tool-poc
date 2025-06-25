@@ -7,11 +7,12 @@ import getConfig from '../../config';
 import { DropWrapperContainerComponent } from '../../common/drop-wrapper-container/drop-wrapper-container.component';
 import { toFormData } from '../../utils/dataTransformer'
 import { ToastrService } from 'ngx-toastr';
+import { ToastComponent } from '../../common/toast/toast.component';
 
 @Component({
   selector: 'app-upload',
   templateUrl: './upload.component.html',
-  imports: [CommonModule, FormsModule, DropWrapperContainerComponent],
+  imports: [CommonModule, FormsModule, DropWrapperContainerComponent, ToastComponent ],
   standalone: true,
   styleUrls: ['./upload.component.scss'],
 })

@@ -55,13 +55,11 @@ export class StartComponent {
       ...this.taskData,
       taskType: 'start',
       uiTaskId: this.uiTaskId,
-      uploadType: this.taskData.uploadType || 'Auto Trigger',
-      frequency: this.taskData.frequency || 'Daily',
-      time: this.taskData.time
-      ? `${this.taskData.time.hour.toString().padStart(2, '0')}:${this.taskData.time.minute.toString().padStart(2, '0')}:${this.taskData.time.second.toString().padStart(2, '0')}`
-      : '00:00:00',
-      startDate: this.taskData.startDate
-      ? new Date(this.taskData.startDate).toISOString().split('T')[0]
+      uploadType: this.taskData?.uploadType || 'Auto Trigger',
+      frequency: this.taskData?.frequency || 'Daily',
+      time: '01:01:01',
+      startDate: this.taskData?.startDate
+      ? new Date(this.taskData?.startDate).toISOString().split('T')[0]
       : new Date().toISOString().split('T')[0],
       taskUpdatedByUserId: null,
     }
