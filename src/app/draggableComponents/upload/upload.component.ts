@@ -12,7 +12,7 @@ import { ToastComponent } from '../../common/toast/toast.component';
 @Component({
   selector: 'app-upload',
   templateUrl: './upload.component.html',
-  imports: [CommonModule, FormsModule, DropWrapperContainerComponent, ToastComponent ],
+  imports: [CommonModule, FormsModule, DropWrapperContainerComponent, ToastComponent],
   standalone: true,
   styleUrls: ['./upload.component.scss'],
 })
@@ -51,10 +51,11 @@ export class UploadComponent implements OnInit {
     this.reviewers = this.users.filter((item: any) => item.type === "reviewer");
     let task = {};
     if (this.phase === 'creation') {
-      const workflow = this.appService.getNewWorkflow();
+      this.getLatestTaskData()
+      /* const workflow = this.appService.getNewWorkflow();
       task = (workflow.tasks || []).filter((task: any) => task.uiTaskId === this.uiTaskId)[0] || {};
       task = { ...task, ...this.taskData };
-      this.taskData = task || {};
+      this.taskData = task || {}; */
     } else {
       const workflowId = this.appService.getWorkflowId();
       const workflow = this.appService.getWorkflowById(Number(workflowId));
@@ -63,13 +64,32 @@ export class UploadComponent implements OnInit {
     }
   }
 
+  getLatestTaskData() {
+    let task = {}
+    const workflow = this.appService.getNewWorkflow();
+      task = (workflow.tasks || []).filter((task: any) => task.uiTaskId === this.uiTaskId)[0] || {};
+      task = { ...task, ...this.taskData };
+      this.taskData = task || {};
+  }
+
   getId(key: string, arr: any) {
-    const dd =  arr.filter((item: any) => item.name === key).map((item: any) => item.userGroupId)[0]
+    const dd = arr.filter((item: any) => item.name === key).map((item: any) => item.userGroupId)[0]
     return dd || null;
   }
 
   removeFile(fileIndex: number) {
     this.taskData.fileNames.splice(fileIndex, 1);
+  }
+
+  addSection() {
+    if (!this.taskData.sections) {
+      this.taskData.sections = [];
+    }
+    const newSection = {
+      sectionName: '',
+      sectionDescription: '',
+    };
+    this.taskData.sections.push(newSection);
   }
 
 
@@ -93,7 +113,8 @@ export class UploadComponent implements OnInit {
   }
 
   onSave() {
-    const payload= {
+    this.getLatestTaskData()
+    const payload = {
       ...this.taskData,
       taskType: 'upload',
       uiTaskId: this.uiTaskId,
@@ -103,11 +124,6 @@ export class UploadComponent implements OnInit {
       userCommentary: this.taskData.userCommentary || false,
       commentry: this.taskData.commentry || '',
       taskUpdatedByUserId: null,
-      businessName: this.taskData.businessName,
-      preparator: this.getId(this.taskData.preparator, this.preparators),
-      reviewer: this.getId(this.taskData.reviewer, this.reviewers),
-      approver: this.getId(this.taskData.approver, this.approvers),
-      fileType: this.taskData.fileType,
       autoVersioning: this.taskData.autoVersioning,
       fileNames: this.taskData.fileNames,
     }

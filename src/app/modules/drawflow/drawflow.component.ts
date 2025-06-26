@@ -403,14 +403,14 @@ export class DrawflowComponent implements OnInit {
 
   drop(ev: any) {
     if (ev.type === "touchend" && this.mobile_last_move) {
-      var parentdrawflow = document.elementFromPoint(this.mobile_last_move.touches[0].clientX, this.mobile_last_move.touches[0].clientY)?.closest("#drawflow");
+      const parentdrawflow = document.elementFromPoint(this.mobile_last_move.touches[0].clientX, this.mobile_last_move.touches[0].clientY)?.closest("#drawflow");
       if (parentdrawflow != null) {
         this.addNodeToDrawFlow(this.mobile_item_selec, this.mobile_last_move.touches[0].clientX, this.mobile_last_move.touches[0].clientY);
       }
       this.mobile_item_selec = '';
     } else {
       ev.preventDefault();
-      var data = ev.dataTransfer.getData("node");
+      const data = ev.dataTransfer.getData("node");
       this.addNodeToDrawFlow(data, ev.clientX, ev.clientY);
 
     }

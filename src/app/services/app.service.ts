@@ -94,19 +94,24 @@ export class AppService {
   updateTaskById(uiTaskId: string, data: any) {
     if(this.phase === 'creation') {
       const workflow = this.newWorkflow;
+      workflow.workflowName = this.workflowName || null;
       if (data.taskType === 'upload') {
-        workflow.approverGroupId = data.approver || null;
-        workflow.preparatorGroupId = data.preparator || null;
-        workflow.reviewerGroupId = data.reviewer || null;
-        workflow.workflowName = this.workflowName || null;
         workflow.files = data.files || null;
         workflow.uploadType =  data.uploadType
-        if (!workflow.tasks.some((task: any) => task.uiTaskId === data.uiTaskId)) {
-          workflow.tasks = [...workflow.tasks, data];
+        // check id upload task exits in the tasks array
+        const taskExists = workflow.tasks.find((task: any) => task.uiTaskId === data.uiTaskId) === undefined
+        if(!taskExists) {
+          workflow.tasks.push(taskExists)
+        } else {
+          // Update the existing task
+          const existingTaskIndex = workflow.tasks.findIndex((task: any) => task.uiTaskId === data.uiTaskId);
+          if (existingTaskIndex !== -1) {
+            workflow.tasks[existingTaskIndex] = { ...workflow.tasks[existingTaskIndex], ...data };
+          }
         }
       } else {
         if (!workflow.tasks.some((task: any) => task.uiTaskId === data.uiTaskId)) {
-          workflow.tasks = [...workflow.tasks, data];
+          workflow.tasks = [...workflow.tasks, ...data];
         }
       }
       this.newWorkflow = workflow;
