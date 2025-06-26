@@ -1,4 +1,4 @@
-<app-drop-wrapper-container>
+<app-drop-wrapper-container (complete)="onComplete()" (save)="onSave()">
   <div *ngIf="phase === 'execution'">
     <label class="text-muted">
       <input type="checkbox" [(ngModel)]="taskData.acknowledgeTask" />
@@ -110,9 +110,9 @@
     </div>
 
 
-    <div class="pull-right mb-3">
+    <!-- <div class="pull-right mb-3">
       <button type="button" class="btn btn-primary mb-2" (click)="onSave()">Save</button>
-    </div>
+    </div> -->
   </form>
   <div *ngIf="phase == 'execution'">
 
@@ -138,10 +138,10 @@
         </label>
       </div>
     </div>
-    <div class="mb-5">
+    <!-- <div class="mb-5">
     <button *ngIf="phase === 'execution'" (click)="onComplete()" class="btn btn-primary w-80 mt-3 pull-right mb-2">Mark as
       Complete</button>
-  </div>
+  </div> -->
   </div>
   <div *ngIf="showToast">
     <app-toast></app-toast>

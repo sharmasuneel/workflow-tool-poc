@@ -1,4 +1,4 @@
-<app-drop-wrapper-container>
+<app-drop-wrapper-container (complete)="onComplete()" (save)="onSave()">
   <div class="text-primary font-16">Download</div>
   <div *ngIf="phase === 'execution'">
     <label class="text-muted">
@@ -69,11 +69,11 @@
   </div>
 
 
-  <div class="mb-5">
+  <!-- <div class="mb-5">
     <button *ngIf="phase !== 'execution'" (click)="onSave()" class="btn btn-primary w-25 pull-right mb-2">Save</button>
     <button *ngIf="phase === 'execution'" (click)="onComplete()" class="btn btn-primary w-80 mt-3 pull-right mb-2">Mark as
       Complete</button>
-  </div>
+  </div> -->
   <div *ngIf="showToast">
     <app-toast></app-toast>
   </div>

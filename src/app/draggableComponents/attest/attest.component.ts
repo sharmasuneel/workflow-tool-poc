@@ -27,6 +27,12 @@ export class AttestComponent {
   private appService = inject(AppService);
   private dataService = inject(DataService);
 
+  @Input () save: any= () => {
+    this.onSave();  
+  }
+  @Input () complete: any= () => {
+    this.onComplete();  
+  }
 
   ngOnInit() {
     this.phase = this.appService.getPhase();

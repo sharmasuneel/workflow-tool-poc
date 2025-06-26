@@ -32,6 +32,13 @@ export class DownloadComponent implements OnInit {
 
 
   @Input() workflowType: string;
+  
+  @Input () save: any= () => {
+    this.onSave();  
+  }
+  @Input () complete: any= () => {
+    this.onComplete();  
+  }
 
   ngOnInit() {
     this.phase = this.appService.getPhase();

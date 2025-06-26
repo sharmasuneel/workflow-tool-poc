@@ -34,7 +34,14 @@ export class UploadComponent implements OnInit {
   preparators: any[] = []
   approvers: any[] = []
   reviewers: any[] = []
-  containerClass: "st1"
+  containerClass: "st1";
+
+  @Input () save: any= () => {
+    this.onSave();  
+  }
+  @Input () complete: any= () => {
+    this.onComplete();  
+  }
 
   ngOnInit() {
     this.phase = this.appService.getPhase();

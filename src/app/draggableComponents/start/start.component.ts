@@ -35,6 +35,11 @@ export class StartComponent {
   //services 
   private appService = inject(AppService);
 
+  @Input () save: any= () => {
+    this.onSave();  
+  }
+  
+
   constructor(timepickerConfig: NgbTimepickerConfig) {
     timepickerConfig.seconds = true;
     timepickerConfig.spinners = false;

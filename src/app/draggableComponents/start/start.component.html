@@ -1,4 +1,4 @@
-<app-drop-wrapper-container>
+<app-drop-wrapper-container  (save)="onSave()">
     <div class="text-primary font-16">Start</div>
     <div>
         <label class="text-muted">Upload Type</label>
@@ -26,9 +26,9 @@
         <label class="text-muted">Select Date</label>
         <mat-calendar [(selected)]="taskData.startDate"></mat-calendar>
     </div>
-    <div>
+    <!-- <div>
     <button class="btn btn-primary btn-sm mt-2 mb-2 pull-right w-25" (click)="onSave()">Save</button>
-    </div>
+    </div> -->
     <div *ngIf="showToast">
     <app-toast></app-toast>
   </div>

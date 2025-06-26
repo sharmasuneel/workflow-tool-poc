@@ -299,7 +299,7 @@ header a {
   box-shadow: 0 2px 15px 2px var(--border-color);
   padding: 0px;
   border-radius: 20px;
-  width: 140px;
+  width: 147px;
 }
 
 .drawflow .drawflow-node.selected {
@@ -600,5 +600,8 @@ background-color: #f3f3f3 ;
   position: absolute; left: 150px; top: 20px; background-color: #fff; width: 300px;  border-radius: 20px;
 }
 .dragNodeImg {
-  width: 60px; height: 60px; vertical-align: middle;;
+  width: 50px; height: 50px; vertical-align: middle;;
+}
+.drawflow .drawflow-node .drawflow_content_node{
+  padding: 5px
 }
