@@ -1,4 +1,4 @@
-<app-drop-wrapper-container (complete)="onComplete()" (save)="onSave()">
+<app-drop-wrapper-container [taskType]="'review'" (approve)="approveFile()" (reject)="rejectFile()">
   <div class="text-primary font-16">Decide</div>
   <div *ngIf="phase === 'execution'">
     <label class="text-muted">
@@ -75,5 +75,45 @@
   </div> -->
   <div *ngIf="showToast">
     <app-toast></app-toast>
+  </div>
+  <!---Approve file popup-->
+
+  <div class="modal" tabindex="-1">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Approve File</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <p>Are you want to approve this file.</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary"  (click)="approveFile()" data-bs-dismiss="modal">Approve</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+   <!---Reject file popup-->
+
+   <div class="modal" tabindex="-1">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Reject File</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <p>Are you sure you want to reject this file. Please add a comment to justify your action.</p>
+        <div>
+          <input type="text" class="form-control" placeholder="Add comment" [(ngModel)]="rejectComment">
+        </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Reject</button>
+        </div>
+      </div>
+    </div>
   </div>
 </app-drop-wrapper-container>

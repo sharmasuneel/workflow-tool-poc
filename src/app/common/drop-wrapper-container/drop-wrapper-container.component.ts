@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, EventEmitter, OnInit, Output,inject} from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output,inject, input} from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { AppService } from '../../services/app.service';
 @Component({
@@ -14,6 +14,9 @@ export class DropWrapperContainerComponent implements OnInit{
   isExpanded: boolean = true;
   @Output() save = new EventEmitter<string>();
   @Output() complete = new EventEmitter<string>();
+  @Output() approve = new EventEmitter<string>();
+  @Output() reject = new EventEmitter<string>();
+  @Input() taskType: string="";
   phase:string;
 
    //services 
@@ -28,8 +31,15 @@ export class DropWrapperContainerComponent implements OnInit{
   onComplete(){
     this.complete.emit();
   }
+  onApprove(){
+    this.approve.emit();
+  }
+  onReject(){
+    this.reject.emit();
+  }
   ngOnInit(): void {
-    this.phase = this.appService.getPhase();
+    //this.phase = this.appService.getPhase();
+    this.phase='execution';
   }
 
 }

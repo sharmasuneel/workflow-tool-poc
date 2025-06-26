@@ -46,6 +46,8 @@
         <span>
           <img src="../../../assets/icons/Bin.png" alt="Delete Icon" style="width: 16px; height: 16px; cursor: pointer;"
             (click)="removeFile(i)" />
+            <img src="../../../assets/icons/Versions.png" alt="Version Icon" style="width: 16px; height: 16px; cursor: pointer;"
+            (click)="openFileHistoryPopup()" />
         </span>
       </li>
     </ul>
@@ -151,5 +153,39 @@
   </div>
   <div *ngIf="showToast">
     <app-toast></app-toast>
+  </div>
+
+  <div class="modal" tabindex="-1">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">File History</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+         <table class="table table-striped">
+            <thead>
+              <tr>
+                <th>Business Date</th>
+                <th>File Details</th>
+                <th>Uploaded By</th>
+                <th>Version</th>
+                <th>Upload Date</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let file of taskData.fileHistory">
+                <td>{{file.businessDate}}</td>
+                <td>{{ file.fileName }}</td>
+                <td>{{ file.uploadedBy }}</td>
+                <td>{{ file.version }}</td>
+                <td>{{ file.uploadDate | date:'short' }}</td>
+              </tr>
+            </tbody>
+
+         </table>
+        </div>
+      </div>
+    </div>
   </div>
 </app-drop-wrapper-container>

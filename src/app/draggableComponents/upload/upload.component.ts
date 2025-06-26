@@ -154,4 +154,7 @@ export class UploadComponent implements OnInit {
       this.toastMsg = 'Workflow saved successfully'
     })
   }
+  openFileHistoryPopup(){
+    
+  }
 }

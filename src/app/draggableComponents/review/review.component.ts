@@ -23,15 +23,24 @@ export class ReviewComponent {
   showToast: boolean = false;
   phase: string;
   downloadUrl: string = getConfig().downlodFile;
-
+  rejectComment: string;
   private appService = inject(AppService);
   private dataService = inject(DataService);
 
-  @Input () save: any= () => {
-    this.onSave();  
+  // @Input() save: any = () => {
+  //   this.onSave();
+  // }
+  // @Input() complete: any = () => {
+  //   this.onComplete();
+  // }
+  
+  
+
+  @Input() approve: any = () => {
+    this.approveFile();
   }
-  @Input () complete: any= () => {
-    this.onComplete();  
+  @Input() reject: any = () => {
+    this.rejectFile();
   }
 
   ngOnInit() {
@@ -95,4 +104,22 @@ export class ReviewComponent {
     }
 
   }
+  openApproveFilePopup() {
+
+  }
+
+
+  approveFile() {
+
+  }
+
+  openRejectFilePopup() {
+
+  }
+
+
+  rejectFile() {
+
+  }
+
 }
