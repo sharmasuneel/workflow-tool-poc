@@ -20,23 +20,20 @@
     <i class="fa fa-calendar dateIcon" aria-hidden="true"></i>
   </div>
 
-  <div (click)="toggleMenu()" class="pull-right" style="cursor: pointer; margin-right: 15px;">
-    <span style="font-size: 16px;">Change Profile</span>
-    <img src="assets/icons/User Profile.png" />
-  </div>
-  <ul class="profile-menu" *ngIf="menuOpen"
-    class="profileMenu">
-    <li (click)="selectRole(users.owner)" class="profileMenuItem">
-      Owner
-    </li>
-    <li (click)="selectRole(users.preparator)" class="profileMenuItem">
-      Preparator
-    </li>
-    <li (click)="selectRole(users.reviewer)" class="profileMenuItem">
-      Reviewer
-    </li>
-    <li (click)="selectRole(users.approver)" class="profileMenuItem">
-      Approver
-    </li>
-  </ul>
+
+  <div class="dropdown">
+    <button (click)="toggleMenu()" style="border: none;" class="btn" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+      Change Profile
+      <img src="assets/icons/User Profile.png" />
+    </button>
+    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+      <li><a class="dropdown-item" (click)="selectRole(users.owner)">Owner</a></li>
+      <li><a class="dropdown-item" (click)="selectRole(users.preparator)">Preparator</a></li>
+      <li><a class="dropdown-item" (click)="selectRole(users.reviewer)">Reviewer</a></li>
+      <li><a class="dropdown-item" (click)="selectRole(users.approver)">Approver</a></li>
+    </ul>
+    </div>
+
+ 
+
 </header>
