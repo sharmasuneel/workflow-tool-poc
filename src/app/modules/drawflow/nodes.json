@@ -9,7 +9,7 @@
             "data": {},
             "component": "database",
             "icon": "Database",
-            "html": "<div><img src=\"assets/icons/Database.png\" alt=\"database\" style=\"width: 60px; height: 60px; vertical-align: middle; margin: 12px;\"><span>Database</span></div>"
+            "selectedColor": "#56c3ec"
         },
         {
             "id": "titanEngine",
@@ -20,7 +20,7 @@
             "data": {},
             "component": "titanEngine",
             "icon": "TitanEngine",
-            "html": "<div><img src=\"assets/icons/TitanEngine.png\" alt=\"Titan Engine\" style=\"width: 60px; height: 60px; vertical-align: middle; margin: 12px;\"><span>Titan Engine</span></div>"
+            "selectedColor": "#56c3ec"
         },
         {
             "id": "upload",
@@ -31,7 +31,7 @@
             "data": {},
             "component": "upload",
             "icon": "Upload",
-            "html": "<div><img src=\"assets/icons/Upload.png\" alt=\"Upload\" style=\"width: 60px; height: 60px; vertical-align: middle; margin: 12px;\"><span>Upload</span></div>"
+            "selectedColor": "#56c3ec"
         },
         {
             "id": "download",
@@ -41,9 +41,9 @@
             "class": "download",
             "data": {},
             "icon": "Download",
-            "html": "<div><img src=\"assets/icons/Download.png\" alt=\"Download\" style=\"width: 60px; height: 60px; vertical-align: middle; margin: 12px;\"><span>Download</span></div>"
+            "selectedColor": "#e68cff"
         },
-         {
+        {
             "id": "app",
             "name": "App",
             "inputs": 1,
@@ -51,7 +51,7 @@
             "class": "app",
             "data": {},
             "icon": "App",
-            "html": "<div><img src=\"assets/icons/App.png\" alt=\"App\" style=\"width: 60px; height: 60px; vertical-align: middle; margin: 12px;\"><span>App</span></div>"
+            "selectedColor": "#56c3ec"
         },
         {
             "id": "attestation",
@@ -61,7 +61,7 @@
             "class": "attestation",
             "data": {},
             "icon": "Attest",
-            "html": "<div><img src=\"assets/icons/Attest.png\" alt=\"Attestation\" style=\"width: 60px; height: 60px; vertical-align: middle; margin: 12px;\"><span>Attestation</span></div>"
+            "selectedColor": "#56c3ec"
         },
         {
             "id": "arrow",
@@ -71,7 +71,7 @@
             "class": "Arrow",
             "data": {},
             "icon": "Arrow2",
-            "html": "<div><img src=\"assets/icons/Arrow2.png\" alt=\"Attestation\" style=\"width: 60px; height: 60px; vertical-align: middle; margin: 12px;\"><span>Attestation</span></div>"
+            "selectedColor": "#56c3ec"
         },
         {
             "id": "dependency",
@@ -81,7 +81,7 @@
             "class": "dependency",
             "data": {},
             "icon": "Dependency",
-            "html": "<div><img src=\"assets/icons/Arrow2.png\" alt=\"Attestation\" style=\"width: 60px; height: 60px; vertical-align: middle; margin: 12px;\"><span>Attestation</span></div>"
+            "selectedColor": "#56c3ec"
         },
         {
             "id": "review",
@@ -91,9 +91,8 @@
             "class": "review",
             "icon": "Decision",
             "data": {},
-            "html": "<div><img src=\"assets/icons/Decision.png\" alt=\"Review\" style=\"width: 60px; height: 60px; vertical-align: middle; margin: 12px;\"><span>Review</span></div>"
+            "selectedColor": "#56c3ec"
         },
-        
         {
             "id": "start",
             "name": "Start",
@@ -102,7 +101,7 @@
             "class": "start",
             "data": {},
             "icon": "Start",
-            "html": "<div><img src=\"assets/icons/Start.png\" alt=\"Start\" style=\"width: 60px; height: 60px; vertical-align: middle; margin: 12px;\"><span>Start</span></div>"
+            "selectedColor": "#56c3ec"
         }
     ]
 }

@@ -32,7 +32,7 @@
           <div class="drag-drawflow" *ngFor="let node of draggableNodes.slice(i*2, i*2+2); let j = index"
             draggable={isDraggable} (dragstart)="drag($event)" [attr.data-node]="node.id"
             style="display: inline-block;">
-            <img [attr.data-node]="node.id" [src]="'assets/icons/' + node.icon + '.png'" alt="{{node.name}} icon"
+            <img [attr.data-node]="node.id" [src]="'assets/icons/' + node.name + '.png'" alt="{{node.name}} icon"
               style="width: 50px; height: 50px; vertical-align: middle; margin: 0 20px;">
           </div>
         </div>
@@ -66,6 +66,7 @@
     </div>
 
     <div class="col-right bgColorLightgrey">
+     
       <div id="drawflow" (drop)="drop($event)" (dragover)="allowDrop($event)">
         <!-- TODO save workflow -->
         <div class="btn-save" *ngIf="this.action==='create'" (click)="saveWorkflow()">Save Workflow</div>

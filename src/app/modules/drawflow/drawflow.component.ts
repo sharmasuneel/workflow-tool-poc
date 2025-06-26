@@ -24,6 +24,7 @@ import { toFormData } from '../../utils/dataTransformer'
 import { Router } from '@angular/router';
 import { ToastComponent } from '../../common/toast/toast.component';
 import { HeaderComponent } from 'app/header/header.component';
+import { ContainerComponent } from 'app/draggableComponents/container/container.component';
 
 type NodeName = keyof typeof nodesData.nodes;
 
@@ -31,7 +32,7 @@ type NodeName = keyof typeof nodesData.nodes;
   selector: 'app-drawflow',
   templateUrl: './drawflow.component.html',
   standalone: true,
-  imports: [FormsModule, CommonModule, ToastComponent, HeaderComponent],
+  imports: [FormsModule, CommonModule, ToastComponent, HeaderComponent, ContainerComponent, UploadComponent],
   styleUrls: ['./drawflow.component.css']
 })
 export class DrawflowComponent implements OnInit {
@@ -52,6 +53,7 @@ export class DrawflowComponent implements OnInit {
   showNodes: boolean = false;
   @Input()
   otherDetails: any;
+  childComponent: string
 
   editor!: any;
   editDivHtml: HTMLElement;
@@ -179,12 +181,14 @@ export class DrawflowComponent implements OnInit {
 
   private addComponents<T>(nodeData: any, id: string, innerHTML: string, nodeId: string, customComponent: { new(...args: any[]): T }): void {
     const isNodeEnabled = this.appService.getEnabledNodes(this.selectedRole).includes(id)
-    debugger
     if (nodeData && nodeData.class === id && isNodeEnabled) {
       // Dynamically render UploadComponent inside the node
-      const nodeContent = document.querySelector(`#node-${nodeId} .drawflow_content_node`);
+      const nodeContent: any = document.querySelector(`#node-${nodeId} .drawflow_content_node`);
+
+      this.setNodeTheme(id, nodeData.data.selectedColor, nodeData.data.selectedColor); // Set theme for the node
+
       const container = nodeContent?.children[0].children[1];
-      if (nodeContent && !nodeContent.querySelector('app-upload') && container?.innerHTML === innerHTML) {
+      if (nodeContent && !nodeContent.querySelector('app-upload') && nodeContent?.innerText === innerHTML) {
         if (!container) {
           console.error('Element not found:' + id);
           return;
@@ -257,33 +261,35 @@ export class DrawflowComponent implements OnInit {
     });
 
     this.editor.on('click', (e: any) => {
-      // debugger
       console.log('Editor Event :>> Click :>> ', e);
       if (e.target.closest('.drawflow_content_node') != null) {
         const nodeId = e.target.closest('.drawflow_content_node').parentElement.id.slice(5);
         const nodeData = this.editor.drawflow.drawflow.Home.data[nodeId];
         //TODO add dragabble components here
         if (nodeData) {
-          if (this.phase === 'execution') {
-            debugger
+          //if (this.phase === 'execution') {
 
-            // TODO  Added only requied components for execution phase
-          } else if (this.phase === 'creation') {
-            // TODO: Suneel  Added only requied components for creation phase
-            if (nodeData.class === 'upload') {
-              this.addComponents<UploadComponent>(nodeData, 'upload', 'Upload', nodeId, UploadComponent);
-            } else if (nodeData.class === 'download') {
-              this.addComponents<DownloadComponent>(nodeData, 'download', 'Download', nodeId, DownloadComponent);
-            }
-            else if (nodeData.class === 'review') {
-              this.addComponents<ReviewComponent>(nodeData, 'review', 'Review', nodeId, ReviewComponent);
-            } else if (nodeData.class === 'attestation') {
-              this.addComponents<AttestComponent>(nodeData, 'attestation', 'Attestation', nodeId, AttestComponent);
-            }
-            else if (nodeData.class === 'start') {
-              this.addComponents<StartComponent>(nodeData, 'start', 'Start', nodeId, StartComponent);
-            }
+          // TODO  Added only requied components for execution phase
+          //} else if (this.phase === 'creation') {
+          /* if (nodeData.class === 'upload') {
+            this.childComponent = 'upload'
+          } */
+
+          // TODO: Suneel  Added only requied components for creation phase
+          if (nodeData.class.includes('upload')) {
+            this.addComponents<UploadComponent>(nodeData, 'upload', 'Upload', nodeId, UploadComponent);
+          } else if (nodeData.class.includes('download')) {
+            this.addComponents<DownloadComponent>(nodeData, 'download', 'Download', nodeId, DownloadComponent);
           }
+          else if (nodeData.class.includes('review')) {
+            this.addComponents<ReviewComponent>(nodeData, 'review', 'Review', nodeId, ReviewComponent);
+          } else if (nodeData.class.includes('attestation')) {
+            this.addComponents<AttestComponent>(nodeData, 'attestation', 'Attestation', nodeId, AttestComponent);
+          }
+          else if (nodeData.class.includes('start')) {
+            this.addComponents<StartComponent>(nodeData, 'start', 'Start', nodeId, StartComponent);
+          }
+          //}
 
         }
       }
@@ -401,6 +407,16 @@ export class DrawflowComponent implements OnInit {
       ev.preventDefault();
       var data = ev.dataTransfer.getData("node");
       this.addNodeToDrawFlow(data, ev.clientX, ev.clientY);
+
+    }
+  }
+
+  private setNodeTheme(cls: string, borderColor: string, backgroundColor: string = 'transparent') {
+    const nodeContent = document.querySelector(`.${cls}`);
+    if (nodeContent) {
+      (nodeContent as HTMLElement).style.backgroundColor = backgroundColor;
+      (nodeContent as HTMLElement).style.borderRadius = '10px';
+      (nodeContent as HTMLElement).style.borderColor = borderColor;
     }
   }
 
@@ -408,16 +424,15 @@ export class DrawflowComponent implements OnInit {
     if (this.editor.editor_mode === 'fixed') {
       return false;
     }
-
     pos_x = pos_x * (this.editor.precanvas.clientWidth / (this.editor.precanvas.clientWidth * this.editor.zoom)) - (this.editor.precanvas.getBoundingClientRect().x * (this.editor.precanvas.clientWidth / (this.editor.precanvas.clientWidth * this.editor.zoom)));
     pos_y = pos_y * (this.editor.precanvas.clientHeight / (this.editor.precanvas.clientHeight * this.editor.zoom)) - (this.editor.precanvas.getBoundingClientRect().y * (this.editor.precanvas.clientHeight / (this.editor.precanvas.clientHeight * this.editor.zoom)));
-    const node = nodesData.nodes.filter(node => node.id === id)[0] as { class: string, inputs: any, outputs: any, data: any, html: string };
+    const node = nodesData.nodes.filter(node => node.id === id)[0] as { name: String, class: string, inputs: any, outputs: any, data: any, selectedColor: string };
     // TODO Left nav icons when dropped.. node.json html -->
     if (!node.data.uiTaskId) {
       node.data = { ...node.data, uiTaskId: uuidv4() }; // Generate a unique ID for the node
     }
-    debugger
 
+    const nodeHtml = `<div><img src="assets/icons/${node.name}.png" alt="${node.name}"class="dragNodeImg"><div class="dragNodeContainer"></div>${node.name}</div>`
     if (node) {
       this.editor.addNode(
         node.class,
@@ -427,10 +442,14 @@ export class DrawflowComponent implements OnInit {
         pos_y,
         node.class,
         node.data,
-        node.html
+        nodeHtml
       );
     }
 
+    const nodeContent = document.querySelector(`.${node.data.uiTaskId}`);
+    if (nodeContent) {
+      this.setNodeTheme(node.class, node.selectedColor, 'transparent');
+    }
     return true;
   }
 

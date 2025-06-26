@@ -298,13 +298,13 @@ header a {
   -webkit-box-shadow: 0 2px 15px 2px var(--border-color);
   box-shadow: 0 2px 15px 2px var(--border-color);
   padding: 0px;
-  width: 100px;
-  background: none;
-  background-color: none;
+  border-radius: 20px;
+  width: 140px;
 }
 
 .drawflow .drawflow-node.selected {
-  background: white;
+  background: #4ea9ff;
+  color: white;
   border: 1px solid #4ea9ff;
   -webkit-box-shadow: 0 2px 20px 2px #4ea9ff;
   box-shadow: 0 2px 20px 2px #4ea9ff;
@@ -592,4 +592,13 @@ background-color: #f3f3f3 ;
 }
 .text-muted{
   font-size: 15px
+}
+
+
+/* Draggable node styles */
+.dragNodeContainer {
+  position: absolute; left: 150px; top: 20px; background-color: #fff; width: 300px;  border-radius: 20px;
+}
+.dragNodeImg {
+  width: 60px; height: 60px; vertical-align: middle;;
 }
