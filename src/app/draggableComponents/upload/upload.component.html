@@ -52,62 +52,68 @@
   </div>
   <!-- End file drop -->
 
-  <form *ngIf="phase === 'creation'">
+  <form>
     <div class="form-check mb-2">
-      <input class="form-check-input" type="checkbox" [(ngModel)]="taskData.autoVersioning"
-        name="autoVersioning" />
+      <input class="form-check-input" type="checkbox" [(ngModel)]="taskData.autoVersioning" name="autoVersioning" />
       <label class="form-check-label text-muted" for="flexCheckDefault">
         Set auto file versioning
       </label>
     </div>
 
-    <h5 class="text-muted">Section 1</h5>
-    <div class="mb-2">
-      <label class="text-muted">Business Name</label>
-      <div class="col-12">
-        <input type="text" class="w-100 input-height" [(ngModel)]="taskData.businessName"
-          name="businessName" />
+    <div *ngFor="let section of taskData.sections; let idx = index">
+      <div class="d-flex align-items-center justify-content-between mb-2">
+        <h5 class="text-muted mb-0">Section {{ idx + 1 }}</h5>
+        <button type="button" class="btn btn-link p-0" (click)="section.collapsed = !section.collapsed">
+          <span *ngIf="section.collapsed">Expand</span>
+          <span *ngIf="!section.collapsed">Collapse</span>
+        </button>
       </div>
-    </div>
-
-    <div class="mb-2">
-      <label class="text-muted">Preparator</label>
-      <div class="col-12">
-        <select class="w-100 input-height" [(ngModel)]="taskData.preparator"
-          name="preparator">
-          <option *ngFor="let prep of preparators" [value]="prep.name">{{ prep.name }}</option>
-        </select>
+      <div [hidden]="section.collapsed">
+        <div class="mb-2">
+          <label class="text-muted">Business Name</label>
+          <div class="col-12">
+            <input type="text" class="w-100 input-height" [(ngModel)]="section.businessName" name="businessName{{idx}}" />
+          </div>
+        </div>
+        <div class="mb-2">
+          <label class="text-muted">Preparator</label>
+          <div class="col-12">
+            <select class="w-100 input-height" [(ngModel)]="section.preparatorGroupId" name="preparator{{idx}}">
+              <option *ngFor="let prep of preparators" [value]="prep.userGroupId">{{ prep.name }}</option>
+            </select>
+          </div>
+        </div>
+        <div class="mb-2">
+          <label class="text-muted">Reviewer</label>
+          <div class="col-12">
+            <select class="w-100 input-height" [(ngModel)]="section.reviewerGroupId" name="reviewer{{idx}}">
+              <option *ngFor="let rev of reviewers" [value]="rev.userGroupId">{{ rev.name }}</option>
+            </select>
+          </div>
+        </div>
+        <div class="mb-2">
+          <label class="text-muted">Approver</label>
+          <div class="col-12">
+            <select class="w-100 input-height" [(ngModel)]="section.approverGroupId" name="approver{{idx}}">
+              <option *ngFor="let apr of approvers" [value]="apr.userGroupId">{{ apr.name }}</option>
+            </select>
+          </div>
+        </div>
+        <div class="mb-2">
+          <label class="text-muted">File Type</label>
+          <div class="col-12">
+            <select class="w-100 input-height" [(ngModel)]="section.fileType" name="fileType{{idx}}">
+              <option value="CSV">CSV</option>
+              <option value="DOC">DOC</option>
+              <option value="PDF">PDF</option>
+            </select>
+          </div>
+        </div>
       </div>
+      <hr />
     </div>
-
-    <div class="mb-2">
-      <label class="text-muted">Reviewer</label>
-      <div class="col-12">
-        <select class="w-100 input-height" [(ngModel)]="taskData.reviewer" name="reviewer">
-          <option *ngFor="let rev of reviewers" [value]="rev.name">{{ rev.name }}</option>
-        </select>
-      </div>
-    </div>
-
-    <div class="mb-2">
-      <label class="text-muted">Approver</label>
-      <div class="col-12">
-        <select class="w-100 input-height"  [(ngModel)]="taskData.approver" name="approver">
-          <option *ngFor="let apr of approvers" [value]="apr.name">{{ apr.name }}</option>
-        </select>
-      </div>
-    </div>
-
-    <div class="mb-2">
-      <label class="text-muted">File Type</label>
-      <div class="col-12">
-        <select class="w-100 input-height" [(ngModel)]="taskData.fileType" name="fileType">
-          <option value="CSV">CSV</option>
-          <option value="DOC">DOC</option>
-          <option value="PDF">PDF</option>
-        </select>
-      </div>
-    </div>
+    <button type="button" class="btn btn-outline-primary mb-3" (click)="addSection()">Add Section</button>
+    <!-- Section 1 -->
 
 
     <div class="pull-right mb-3">
@@ -139,9 +145,10 @@
       </div>
     </div>
     <div class="mb-5">
-    <button *ngIf="phase === 'execution'" (click)="onComplete()" class="btn btn-primary w-80 mt-3 pull-right mb-2">Mark as
-      Complete</button>
-  </div>
+      <button *ngIf="phase === 'execution'" (click)="onComplete()"
+        class="btn btn-primary w-80 mt-3 pull-right mb-2">Mark as
+        Complete</button>
+    </div>
   </div>
   <div *ngIf="showToast">
     <app-toast></app-toast>

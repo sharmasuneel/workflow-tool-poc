@@ -65,6 +65,17 @@ export class UploadComponent implements OnInit {
     this.taskData.fileNames.splice(fileIndex, 1);
   }
 
+  addSection() {
+    if (!this.taskData.sections) {
+      this.taskData.sections = [];
+    }
+    const newSection = {
+      sectionName: '',
+      sectionDescription: '',
+    };
+    this.taskData.sections.push(newSection);
+  }
+
 
   onFileSelected(event: Event): void {
     const input = event.target as HTMLInputElement;
@@ -96,11 +107,6 @@ export class UploadComponent implements OnInit {
       userCommentary: this.taskData.userCommentary || false,
       commentry: this.taskData.commentry || '',
       taskUpdatedByUserId: null,
-      businessName: this.taskData.businessName,
-      preparator: this.getId(this.taskData.preparator, this.preparators),
-      reviewer: this.getId(this.taskData.reviewer, this.reviewers),
-      approver: this.getId(this.taskData.approver, this.approvers),
-      fileType: this.taskData.fileType,
       autoVersioning: this.taskData.autoVersioning,
       fileNames: this.taskData.fileNames,
     }

@@ -95,9 +95,6 @@ export class AppService {
     if(this.phase === 'creation') {
       const workflow = this.newWorkflow;
       if (data.taskType === 'upload') {
-        workflow.approverGroupId = data.approver || null;
-        workflow.preparatorGroupId = data.preparator || null;
-        workflow.reviewerGroupId = data.reviewer || null;
         workflow.workflowName = this.workflowName || null;
         workflow.files = data.files || null;
         workflow.uploadType =  data.uploadType
