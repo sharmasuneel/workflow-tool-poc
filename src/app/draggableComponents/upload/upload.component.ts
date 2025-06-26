@@ -12,7 +12,7 @@ import { ToastComponent } from '../../common/toast/toast.component';
 @Component({
   selector: 'app-upload',
   templateUrl: './upload.component.html',
-  imports: [CommonModule, FormsModule, DropWrapperContainerComponent, ToastComponent ],
+  imports: [CommonModule, FormsModule, DropWrapperContainerComponent, ToastComponent],
   standalone: true,
   styleUrls: ['./upload.component.scss'],
 })
@@ -44,10 +44,11 @@ export class UploadComponent implements OnInit {
     this.reviewers = this.users.filter((item: any) => item.type === "reviewer");
     let task = {};
     if (this.phase === 'creation') {
-      const workflow = this.appService.getNewWorkflow();
+      this.getLatestTaskData()
+      /* const workflow = this.appService.getNewWorkflow();
       task = (workflow.tasks || []).filter((task: any) => task.uiTaskId === this.uiTaskId)[0] || {};
       task = { ...task, ...this.taskData };
-      this.taskData = task || {};
+      this.taskData = task || {}; */
     } else {
       const workflowId = this.appService.getWorkflowId();
       const workflow = this.appService.getWorkflowById(Number(workflowId));
@@ -56,8 +57,16 @@ export class UploadComponent implements OnInit {
     }
   }
 
+  getLatestTaskData() {
+    let task = {}
+    const workflow = this.appService.getNewWorkflow();
+      task = (workflow.tasks || []).filter((task: any) => task.uiTaskId === this.uiTaskId)[0] || {};
+      task = { ...task, ...this.taskData };
+      this.taskData = task || {};
+  }
+
   getId(key: string, arr: any) {
-    const dd =  arr.filter((item: any) => item.name === key).map((item: any) => item.userGroupId)[0]
+    const dd = arr.filter((item: any) => item.name === key).map((item: any) => item.userGroupId)[0]
     return dd || null;
   }
 
@@ -97,7 +106,8 @@ export class UploadComponent implements OnInit {
   }
 
   onSave() {
-    const payload= {
+    this.getLatestTaskData()
+    const payload = {
       ...this.taskData,
       taskType: 'upload',
       uiTaskId: this.uiTaskId,

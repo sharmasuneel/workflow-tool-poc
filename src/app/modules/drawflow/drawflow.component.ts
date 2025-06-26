@@ -398,14 +398,14 @@ export class DrawflowComponent implements OnInit {
 
   drop(ev: any) {
     if (ev.type === "touchend" && this.mobile_last_move) {
-      var parentdrawflow = document.elementFromPoint(this.mobile_last_move.touches[0].clientX, this.mobile_last_move.touches[0].clientY)?.closest("#drawflow");
+      const parentdrawflow = document.elementFromPoint(this.mobile_last_move.touches[0].clientX, this.mobile_last_move.touches[0].clientY)?.closest("#drawflow");
       if (parentdrawflow != null) {
         this.addNodeToDrawFlow(this.mobile_item_selec, this.mobile_last_move.touches[0].clientX, this.mobile_last_move.touches[0].clientY);
       }
       this.mobile_item_selec = '';
     } else {
       ev.preventDefault();
-      var data = ev.dataTransfer.getData("node");
+      const data = ev.dataTransfer.getData("node");
       this.addNodeToDrawFlow(data, ev.clientX, ev.clientY);
 
     }
@@ -428,9 +428,13 @@ export class DrawflowComponent implements OnInit {
     pos_y = pos_y * (this.editor.precanvas.clientHeight / (this.editor.precanvas.clientHeight * this.editor.zoom)) - (this.editor.precanvas.getBoundingClientRect().y * (this.editor.precanvas.clientHeight / (this.editor.precanvas.clientHeight * this.editor.zoom)));
     const node = nodesData.nodes.filter(node => node.id === id)[0] as { name: String, class: string, inputs: any, outputs: any, data: any, selectedColor: string };
     // TODO Left nav icons when dropped.. node.json html -->
-    if (!node.data.uiTaskId) {
+
+    const existingNode = Object.values(this.editor.drawflow.drawflow.Home.data).find((n: any) => n.name === id);
+
+    //if (existingNode) {
       node.data = { ...node.data, uiTaskId: uuidv4() }; // Generate a unique ID for the node
-    }
+      console.log('uiTaskId', node.data);
+    //}
 
     const nodeHtml = `<div><img src="assets/icons/${node.name}.png" alt="${node.name}"class="dragNodeImg"><div class="dragNodeContainer"></div>${node.name}</div>`
     if (node) {
