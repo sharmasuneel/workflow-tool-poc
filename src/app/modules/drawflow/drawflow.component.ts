@@ -187,6 +187,7 @@ export class DrawflowComponent implements OnInit {
       // Dynamically render UploadComponent inside the node
       const nodeContent: any = document.querySelector(`#node-${nodeId} .drawflow_content_node`);
 
+      console.log('new node added with transparent: ', nodeData.data.selectedColor);
       this.setNodeTheme(id, nodeData.data.selectedColor, nodeData.data.selectedColor); // Set theme for the node
 
       const container = nodeContent?.children[0].children[1];
@@ -200,6 +201,9 @@ export class DrawflowComponent implements OnInit {
         });
         (componentRef.instance as any).uiTaskId = nodeData.data.uiTaskId; // Pass the unique ID to the component instance
         (componentRef.instance as any).workflowType = this.workflowType; // Pass the unique ID to the component instance
+        (componentRef.location.nativeElement as HTMLElement).id = nodeData.data.uiTaskId;
+
+        console.log('uiTaskId on', nodeData.data.uiTaskId)
 
 
         this.appRef.attachView(componentRef.hostView);
@@ -276,7 +280,8 @@ export class DrawflowComponent implements OnInit {
         if (nodeData) {
 
           if(this.phase === 'creation') {
-            this.setNodeTheme(nodeData.class, nodeData.data.selectedColor, nodeData.data.selectedColor,true);
+            console.log('new node added with transparent on click: ', nodeData.data.selectedColor);
+            this.setNodeTheme(nodeData.data.uiTaskId, nodeData.data.selectedColor, nodeData.data.selectedColor,true);
           }
           //if (this.phase === 'execution') {
 
@@ -422,23 +427,12 @@ export class DrawflowComponent implements OnInit {
   }
 
   private setNodeTheme(cls: string, borderColor: string, backgroundColor: string = 'transparent', isDrag: boolean = false) {
-    if(isDrag){
-      const parentContainer = document.getElementById(`${cls}`)?.parentElement?.parentElement;
+    const parentContainer = document.getElementById(`${cls}`)?.parentElement?.parentElement;
       if (parentContainer) {
         (parentContainer as HTMLElement).style.backgroundColor = backgroundColor;
         (parentContainer as HTMLElement).style.borderRadius = '10px';
         (parentContainer as HTMLElement).style.borderColor = borderColor;
       }
-  }else{
-    const nodeContent = document.querySelector(`.${cls}`);
-    if (nodeContent) {
-      (nodeContent as HTMLElement).style.backgroundColor = backgroundColor;
-      (nodeContent as HTMLElement).style.borderRadius = '10px';
-      (nodeContent as HTMLElement).style.borderColor = borderColor;
-    }
-  }
-  
-    
   }
 
 
@@ -470,7 +464,8 @@ export class DrawflowComponent implements OnInit {
 
     const nodeContent = document.getElementById(`${node.data.uiTaskId}`);
     if (nodeContent) {
-      this.setNodeTheme(node.data.uiTaskId, node.selectedColor, 'transparent',true);
+      console.log('new node added with transparent');
+      this.setNodeTheme(node.data.uiTaskId, node.selectedColor, 'transparent', true);
     }
     return true;
   }
