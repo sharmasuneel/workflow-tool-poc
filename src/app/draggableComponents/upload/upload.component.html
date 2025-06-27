@@ -70,6 +70,7 @@
       </label>
     </div>
     <div *ngIf="phase === 'creation' && taskData.uploadType === 'withTemplateFile'">
+      <button type="button" class="btn btn-outline-primary mb-3" (click)="addSection()">Add Section</button>
       <div *ngFor="let section of taskData.sections; let idx = index">
         <div class="d-flex align-items-center justify-content-between mb-2">
           <h5 class="text-muted mb-0">Section {{ idx + 1 }}</h5>
@@ -77,7 +78,6 @@
             <span  *ngIf="section.collapsed">+</span>
             <span *ngIf="!section.collapsed">-</span>
           </button>
-          <button type="button" class="btn btn-outline-primary mb-3" (click)="addSection()">Add Section</button>
         </div>
         <div [hidden]="section.collapsed">
           <div class="mb-2">
@@ -124,6 +124,7 @@
         </div>
         <hr />
       </div>
+     
     </div>
     <!-- Section 1 -->
 
