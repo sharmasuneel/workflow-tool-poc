@@ -1,4 +1,5 @@
 <app-drop-wrapper-container [taskType]="'upload'" (complete)="onComplete()" (save)="onSave()">
+  <div class="text-primary font-16">Upload</div>
   <div *ngIf="phase === 'execution'">
     <label class="text-muted">
       <input type="checkbox" [(ngModel)]="taskData.acknowledgeTask" />
@@ -25,7 +26,14 @@
     </div>
   </div>
 
-  <label class="mb-1 text-muted">Upload Template</label>
+  <div class="d-flex align-items-center justify-content-between">
+    <label class="mb-1 text-muted">
+      {{ 'Upload ' + (taskData.uploadType === 'withDataFile' ? 'Data files' : 'Template') }}
+    </label>
+    <span class="text-primary">
+      {{ (taskData?.fileNames?.length || 0) + ' File(s), ' + (taskData?.sections?.length || 0) + ' Section(s)' }}
+    </span>
+  </div>
 
   <!-- File drop -->
   <div class="upload-box mb-3" (drop)="onFileDrop($event)" (dragover)="onDragOver($event)">
@@ -61,14 +69,15 @@
         Set auto file versioning
       </label>
     </div>
-    <div *ngIf="phase === 'creation'">
+    <div *ngIf="phase === 'creation' && taskData.uploadType === 'withTemplateFile'">
       <div *ngFor="let section of taskData.sections; let idx = index">
         <div class="d-flex align-items-center justify-content-between mb-2">
           <h5 class="text-muted mb-0">Section {{ idx + 1 }}</h5>
           <button type="button" class="btn btn-link p-0" (click)="section.collapsed = !section.collapsed">
-            <span *ngIf="section.collapsed">Expand</span>
-            <span *ngIf="!section.collapsed">Collapse</span>
+            <span  *ngIf="section.collapsed">+</span>
+            <span *ngIf="!section.collapsed">-</span>
           </button>
+          <button type="button" class="btn btn-outline-primary mb-3" (click)="addSection()">Add Section</button>
         </div>
         <div [hidden]="section.collapsed">
           <div class="mb-2">
@@ -115,7 +124,6 @@
         </div>
         <hr />
       </div>
-      <button type="button" class="btn btn-outline-primary mb-3" (click)="addSection()">Add Section</button>
     </div>
     <!-- Section 1 -->
 

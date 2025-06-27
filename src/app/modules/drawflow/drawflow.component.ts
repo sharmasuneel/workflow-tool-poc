@@ -190,7 +190,7 @@ export class DrawflowComponent implements OnInit {
       this.setNodeTheme(id, nodeData.data.selectedColor, nodeData.data.selectedColor); // Set theme for the node
 
       const container = nodeContent?.children[0].children[1];
-      if (nodeContent && !nodeContent.querySelector('app-upload') && nodeContent?.innerText === innerHTML) {
+      if (nodeContent && nodeContent?.innerText === innerHTML) {
         if (!container) {
           console.error('Element not found:' + id);
           return;
@@ -291,13 +291,11 @@ export class DrawflowComponent implements OnInit {
             this.addComponents<UploadComponent>(nodeData, 'upload', 'Upload', nodeId, UploadComponent);
           } else if (nodeData.class.includes('download')) {
             this.addComponents<DownloadComponent>(nodeData, 'download', 'Download', nodeId, DownloadComponent);
-          }
-          else if (nodeData.class.includes('review')) {
+          } else if (nodeData.class.includes('review')) {
             this.addComponents<ReviewComponent>(nodeData, 'review', 'Review', nodeId, ReviewComponent);
           } else if (nodeData.class.includes('attestation')) {
             this.addComponents<AttestComponent>(nodeData, 'attestation', 'Attestation', nodeId, AttestComponent);
-          }
-          else if (nodeData.class.includes('start')) {
+          } else if (nodeData.class.includes('start')) {
             this.addComponents<StartComponent>(nodeData, 'start', 'Start', nodeId, StartComponent);
           }
           //}

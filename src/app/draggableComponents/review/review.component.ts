@@ -29,15 +29,9 @@ export class ReviewComponent {
 
   @ViewChild('approveModal') approveModal:any
 
-  // @Input() save: any = () => {
-  //   this.onSave();
-  // }
-  // @Input() complete: any = () => {
-  //   this.onComplete();
-  // }
-  
-  
-
+  @Input() save: any = () => {
+     this.onSave();
+  }
   @Input() approve: any = () => {
     this.openApproveFilePopup();
   }
