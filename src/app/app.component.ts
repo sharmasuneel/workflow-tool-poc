@@ -8,11 +8,12 @@ import getConfig from './config';
 import { HeaderComponent } from './header/header.component';
 import { LoginComponent } from './common/login/login.component';
 import { usersData, workflowsData } from './stub/staticdata'
+import { PopupComponent } from './common/popup/popup.component';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, CommonModule, HeaderComponent, LoginComponent],
+  imports: [RouterOutlet, CommonModule, HeaderComponent, LoginComponent, PopupComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
 })

@@ -53,6 +53,11 @@ export class StartComponent {
       task = (workflow.tasks || []).filter((task: any) => task.uiTaskId === this.uiTaskId)[0] || {};
       task = { ...task, ...this.taskData };
       this.taskData = task || {};
+    } else {
+      const workflowId = this.appService.getWorkflowId();
+      const workflow = this.appService.getWorkflowById(Number(workflowId));
+      task = (workflow.tasks || []).filter((task: any) => task.uiTaskId === this.uiTaskId)[0] || {};
+      this.taskData = task
     }
   }
 
@@ -70,6 +75,5 @@ export class StartComponent {
       taskUpdatedByUserId: null,
     }
     this.appService.updateTaskById(this.uiTaskId, this.taskData)
-    console.log('Start Task data updated:', this.taskData);
   }
 }

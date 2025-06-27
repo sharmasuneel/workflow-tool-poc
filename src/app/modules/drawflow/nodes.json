@@ -9,7 +9,7 @@
             "data": {},
             "component": "database",
             "icon": "Database",
-            "selectedColor": "#56c3ec"
+            "selectedColor": "#EBBF57"
         },
         {
             "id": "titanEngine",
@@ -20,7 +20,7 @@
             "data": {},
             "component": "titanEngine",
             "icon": "TitanEngine",
-            "selectedColor": "#56c3ec"
+            "selectedColor": "#88EB57"
         },
         {
             "id": "upload",
@@ -31,7 +31,7 @@
             "data": {},
             "component": "upload",
             "icon": "Upload",
-            "selectedColor": "#56c3ec"
+            "selectedColor": "#57C6EB"
         },
         {
             "id": "download",
@@ -41,7 +41,7 @@
             "class": "download",
             "data": {},
             "icon": "Download",
-            "selectedColor": "#e68cff"
+            "selectedColor": "#E78FFF"
         },
         {
             "id": "app",
@@ -51,7 +51,7 @@
             "class": "app",
             "data": {},
             "icon": "App",
-            "selectedColor": "#56c3ec"
+            "selectedColor": "#57EBBA"
         },
         {
             "id": "attestation",
@@ -61,7 +61,7 @@
             "class": "attestation",
             "data": {},
             "icon": "Attest",
-            "selectedColor": "#56c3ec"
+            "selectedColor": "#D9D9D9"
         },
         {
             "id": "arrow",
@@ -71,7 +71,7 @@
             "class": "Arrow",
             "data": {},
             "icon": "Arrow2",
-            "selectedColor": "#56c3ec"
+            "selectedColor": "#6308A9"
         },
         {
             "id": "dependency",
@@ -81,7 +81,7 @@
             "class": "dependency",
             "data": {},
             "icon": "Dependency",
-            "selectedColor": "#56c3ec"
+            "selectedColor": "#A91508"
         },
         {
             "id": "review",
@@ -91,7 +91,7 @@
             "class": "review",
             "icon": "Decision",
             "data": {},
-            "selectedColor": "#56c3ec"
+            "selectedColor": "#5757EB"
         },
         {
             "id": "start",
@@ -101,7 +101,7 @@
             "class": "start",
             "data": {},
             "icon": "Start",
-            "selectedColor": "#56c3ec"
+            "selectedColor": "#EB8857"
         }
     ]
 }

@@ -46,7 +46,6 @@ export class DashboardComponent {
     }
     setTimeout(() => {
       this.users = this.appService.getUsers();
-      console.log('Users loaded:', this.users);
     }, 1000);
   }
 

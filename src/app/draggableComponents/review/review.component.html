@@ -1,121 +1,16 @@
-<app-drop-wrapper-container [taskType]="'review'" 
-(save)="onSave()" (approve)="openApproveFilePopup()" 
-(reject)="openRejectFilePopup()">
-  <div class="text-primary font-16">Decide</div>
-  <div *ngIf="phase === 'execution'">
+<app-drop-wrapper-container (complete)="onComplete()" (save)="onSave()">
+  <div class="text-primary font-16">Review</div>
+  <div class="mt-2">
     <label class="text-muted">
       <input type="checkbox" [(ngModel)]="taskData.acknowledgeTask" />
-      Acknowledge Task
+      Required user Acknowledgement
     </label>
-    <div>
-      <ul *ngIf="taskData?.files?.length > 0" class="file-name-list">
-        <label class="mt-1 text-muted">Uploaded File</label>
-        <li *ngFor="let taskfile of taskData.files; let i = index" style="font-size: 14px;"
-          class="d-flex align-items-center justify-content-between">
-          <a class="text-primary" [href]="downloadUrl + taskfile.fileId" target="_blank" download> {{ taskfile.name
-            }}</a>
-          <div>
-            <span>
-              <img src="../../../assets/icons/View File.png" alt="View Icon"
-                style="width: 16px; height: 16px; cursor: pointer;" (click)="openFile($event, taskfile)" />
-            </span>
-            <!-- <span>
-              <img src="../../../assets/icons/Bin.png" alt="Delete Icon"
-                style="width: 16px; height: 16px; cursor: pointer;" (click)="removeFile(i)" />
-            </span> -->
-          </div>
-        </li>
-      </ul>
-    </div>
-    <div class="card section">
-      <div class="file-placeholder">
-        Files will be here
-      </div>
-    </div>
   </div>
-  <div *ngIf="phase == 'creation'">
-    <div class="mt-2">
-      <label class="text-muted">
-        <input type="checkbox" [(ngModel)]="taskData.acknowledgeTask" />
-        Required user Acknowledgement
-      </label>
-    </div>
-
-    <div class="card section">
-      <div class="file-placeholder">
-        Files will be here
-      </div>
-    </div>
-    <div class="card section">
-      <div>Notification Management:</div>
-      <div>
-        <label class="text-muted">
-          <input type="checkbox" [(ngModel)]="taskData.notifyEmail" />
-          Email
-        </label>
-      </div>
-      <div>
-        <label class="text-muted">
-          <input type="checkbox" [(ngModel)]="taskData.dashboardNotification" />
-          Dashboard Notification
-        </label>
-      </div>
-      <div>
-        <div>Miscellaneous:</div>
-        <label class="text-muted ">
-          <input type="checkbox" [(ngModel)]="taskData.userCommentary" />
-          User Commentary:
-        </label>
-      </div>
-    </div>
+  <div>
+    <label class="mt-1 text-muted">Files to review</label>
+    <files-section [taskData]="taskData"></files-section>
   </div>
-
-  <!-- <div class="mb-5">
-    <button *ngIf="phase !== 'execution'" (click)="onSave()" class="btn btn-primary w-25 pull-right mb-2">Save</button>
-    <button *ngIf="phase === 'execution'" (click)="onComplete()" class="btn btn-primary w-80 mt-3 mb-2 pull-right">Mark as
-      Complete</button>
-  </div> -->
-  <div *ngIf="showToast">
-    <app-toast></app-toast>
-  </div>
-  <!---Approve file popup-->
-
-  <div class="modal"  data-bs-backdrop="static" data-bs-keyboard="false"  id="aprroveModalPopup" tabindex="-1" aria-labelledby="approveModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered ">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="approveModalLabel">Approve File</h5>
-          <button type="button" class="btn-close" (click)="closeApproveFilePopup()" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="modal-body">
-          <p>Are you sure you want to approve this file.</p>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-success" (click)="approveFile()">Approve</button>
-        </div>
-      </div>
-    </div>
-  </div>
-
-   <!---Reject file popup-->
-
-   <div class="modal" data-bs-backdrop="static" data-bs-keyboard="false"  id="rejectModalPopup" tabindex="-1">
-    <div class="modal-dialog modal-dialog-centered ">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title">Reject File?</h5>
-          <button type="button" class="btn-close" (click)="closeRejectFilePopup()" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="modal-body">
-          <p>Are you sure you want to reject this file. Please add a comment to justify your action.</p>
-        <div>
-          <input type="text" class="form-control" placeholder="Add comment" [(ngModel)]="rejectComment">
-        </div>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Reject</button>
-        </div>
-      </div>
-    </div>
+  <div>
+    <notification-management [taskData]="taskData"></notification-management>
   </div>
 </app-drop-wrapper-container>

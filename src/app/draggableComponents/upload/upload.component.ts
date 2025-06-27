@@ -8,6 +8,7 @@ import { DropWrapperContainerComponent } from '../../common/drop-wrapper-contain
 import { toFormData } from '../../utils/dataTransformer'
 import { ToastrService } from 'ngx-toastr';
 import { ToastComponent } from '../../common/toast/toast.component';
+import { PopupService } from 'app/services/popup.service';
 
 @Component({
   selector: 'app-upload',
@@ -28,36 +29,14 @@ export class UploadComponent implements OnInit {
 
   private appService = inject(AppService);
   private dataService = inject(DataService);
-  private toastr = inject(ToastrService);
+  private popupService = inject(PopupService);
+  // private toastr = inject(ToastrService);
 
   users: any = {};
   preparators: any[] = []
   approvers: any[] = []
   reviewers: any[] = []
   containerClass: "st1";
-  filehistory = [
-    {
-      businessDate: '2025-06-25',
-      name: 'Quarterly_Report_Q2_2025.xlsx',
-      uploadedBy: 'Ravi Mehta',
-      version: 'v1.0',
-      uploadDate: '2025-06-26'
-    },
-    {
-      businessDate: '2025-06-26',
-      name: 'Transaction_Log_June.csv',
-      uploadedBy: 'Anjali Rao',
-      version: 'v2.1',
-      uploadDate: '2025-06-27'
-    },
-    {
-      businessDate: '2025-06-27',
-      name: 'Revenue_Summary_2025.pdf',
-      uploadedBy: 'Devansh Iyer',
-      version: 'v1.3',
-      uploadDate: '2025-06-28'
-    }
-  ];
 
   @Input () save: any= () => {
     this.onSave();  
@@ -151,7 +130,6 @@ export class UploadComponent implements OnInit {
       fileNames: this.taskData.fileNames,
     }
     this.appService.updateTaskById(this.uiTaskId, payload)
-    console.log('Upload Task data updated:', this.taskData);
   }
 
   onComplete() {
@@ -172,17 +150,10 @@ export class UploadComponent implements OnInit {
 
     const data = toFormData({ files, metadata: JSON.stringify(payload) }, '')
     this.dataService.putData(getConfig().saveWorkflowWithId, data).subscribe((response) => {
-      console.log('Workflow saved successfully:', response);
-      //TODO show alert message
-      this.showToast = true
-      this.toastMsg = 'Workflow saved successfully'
     })
   }
   openFileHistoryPopup(){
-    const element = document.getElementById('fileHistory');
-    if (element) {  
-      element.style.display = 'block';
-    }
+    this.popupService.open({isVisible: true, title: 'File History?', type: 'history' });
   }
   closeFileHistoryPopup(){
     const element = document.getElementById('fileHistory');

@@ -23,10 +23,10 @@ import getConfig from '../../config';
 import { AppService } from '../../services/app.service';
 import { toFormData } from '../../utils/dataTransformer'
 import { Router } from '@angular/router';
-import { ToastComponent } from '../../common/toast/toast.component';
 import { HeaderComponent } from 'app/header/header.component';
 import { ContainerComponent } from 'app/draggableComponents/container/container.component';
 import { EventEmitter } from '@angular/core';
+import { PopupService } from 'app/services/popup.service';
 
 type NodeName = keyof typeof nodesData.nodes;
 
@@ -34,7 +34,7 @@ type NodeName = keyof typeof nodesData.nodes;
   selector: 'app-drawflow',
   templateUrl: './drawflow.component.html',
   standalone: true,
-  imports: [FormsModule, CommonModule, ToastComponent, HeaderComponent, ContainerComponent, UploadComponent],
+  imports: [FormsModule, CommonModule, HeaderComponent, ContainerComponent, UploadComponent],
   styleUrls: ['./drawflow.component.css']
 })
 export class DrawflowComponent implements OnInit {
@@ -76,6 +76,7 @@ export class DrawflowComponent implements OnInit {
   workflowName: string = '';
   private dataService = inject(DataService);
   private appService = inject(AppService);
+  private popupService = inject(PopupService);
 
   showToast: boolean = false;
   toastMsg: string = '';
@@ -87,7 +88,7 @@ export class DrawflowComponent implements OnInit {
   onWorkflowNameChange(event: any) {
     this.workflowName = event.target.value;
     this.workflowId = uuidv4(); // Generate a unique ID for the workflow
-    console.log('Workflow Name Changed:', this.workflowName, this.workflowId);
+    // console.log('Workflow Name Changed:', this.workflowName, this.workflowId);
   }
 
   toDashboard() {
@@ -106,7 +107,7 @@ export class DrawflowComponent implements OnInit {
   ngOnInit() {
     this.phase = this.appService.getPhase();
     this.route.queryParams.subscribe((queryParams: any) => {
-      console.log('Query Params:', queryParams);
+      // console.log('Query Params:', queryParams);
       const { id, action, name, selectedRole, workflowType } = queryParams
       this.selectedRole = selectedRole
       this.action = action
@@ -123,7 +124,7 @@ export class DrawflowComponent implements OnInit {
   onUploadClick() {
     // Handle upload click
     alert('Upload clicked');
-    console.log('Upload clicked');
+    // console.log('Upload clicked');
   }
 
   ngAfterViewInit(): void {
@@ -187,7 +188,7 @@ export class DrawflowComponent implements OnInit {
       // Dynamically render UploadComponent inside the node
       const nodeContent: any = document.querySelector(`#node-${nodeId} .drawflow_content_node`);
 
-      console.log('new node added with transparent: ', nodeData.data.selectedColor);
+      // console.log('new node added with transparent: ', nodeData.data.selectedColor);
       this.setNodeTheme(id, nodeData.data.selectedColor, nodeData.data.selectedColor); // Set theme for the node
 
       const container = nodeContent?.children[0].children[1];
@@ -203,7 +204,7 @@ export class DrawflowComponent implements OnInit {
         (componentRef.instance as any).workflowType = this.workflowType; // Pass the unique ID to the component instance
         (componentRef.location.nativeElement as HTMLElement).id = nodeData.data.uiTaskId;
 
-        console.log('uiTaskId on', nodeData.data.uiTaskId)
+        // console.log('uiTaskId on', nodeData.data.uiTaskId)
 
 
         this.appRef.attachView(componentRef.hostView);
@@ -254,33 +255,33 @@ export class DrawflowComponent implements OnInit {
   private addEditorEvents() {
     // Events!
     this.editor.on('nodeCreated', (id: any) => {
-      console.log('Editor Event :>> Node created ' + id, this.editor.getNodeFromId(id));
+      // console.log('Editor Event :>> Node created ' + id, this.editor.getNodeFromId(id));
     });
 
     this.editor.on('nodeRemoved', (id: any) => {
-      console.log('Editor Event :>> Node removed ' + id);
+      // console.log('Editor Event :>> Node removed ' + id);
     });
 
     this.editor.on('nodeSelected', (id: any) => {
-      console.log('Editor Event :>> Node selected ' + id, this.editor.getNodeFromId(id));
+      // console.log('Editor Event :>> Node selected ' + id, this.editor.getNodeFromId(id));
       this.selectedNode = this.editor.drawflow.drawflow.Home.data[`${id}`];
-      console.log('Editor Event :>> Node selected :>> this.selectedNode :>> ', this.selectedNode);
-      console.log('Editor Event :>> Node selected :>> this.selectedNode :>> ', this.selectedNode.data);
+      // console.log('Editor Event :>> Node selected :>> this.selectedNode :>> ', this.selectedNode);
+      // console.log('Editor Event :>> Node selected :>> this.selectedNode :>> ', this.selectedNode.data);
     });
 
     this.editor.on('click', (e: any) => {
-      console.log('Editor Event :>> Click :>> ', e);
+      // console.log('Editor Event :>> Click :>> ', e);
       if (e.target.closest('.drawflow_content_node') != null) {
         const nodeId = e.target.closest('.drawflow_content_node').parentElement.id.slice(5);
         const nodeData = this.editor.drawflow.drawflow.Home.data[nodeId];
-        console.log('Editor Event :>> Clicked Node Data :>> ', nodeData, nodeId);
+        // console.log('Editor Event :>> Clicked Node Data :>> ', nodeData, nodeId);
         this.toggleComponentEvent.emit(nodeData);
         //TODO add dragabble components here
         
         if (nodeData) {
 
           if(this.phase === 'creation') {
-            console.log('new node added with transparent on click: ', nodeData.data.selectedColor);
+            // console.log('new node added with transparent on click: ', nodeData.data.selectedColor);
             this.setNodeTheme(nodeData.data.uiTaskId, nodeData.data.selectedColor, nodeData.data.selectedColor,true);
           }
           //if (this.phase === 'execution') {
@@ -327,23 +328,23 @@ export class DrawflowComponent implements OnInit {
     });
 
     this.editor.on('moduleCreated', (name: any) => {
-      console.log('Editor Event :>> Module Created ' + name);
+      // console.log('Editor Event :>> Module Created ' + name);
     });
 
     this.editor.on('moduleChanged', (name: any) => {
-      console.log('Editor Event :>> Module Changed ' + name);
+      // console.log('Editor Event :>> Module Changed ' + name);
     });
 
     this.editor.on('connectionCreated', (connection: any) => {
-      console.log('Editor Event :>> Connection created ', connection);
+      // console.log('Editor Event :>> Connection created ', connection);
     });
 
     this.editor.on('connectionRemoved', (connection: any) => {
-      console.log('Editor Event :>> Connection removed ', connection);
+      // console.log('Editor Event :>> Connection removed ', connection);
     });
 
     // this.editor.on('contextmenu', (e: any) => {
-    //   console.log('Editor Event :>> Context Menu :>> ', e);
+    //   // console.log('Editor Event :>> Context Menu :>> ', e);
 
     //   if (e.target.closest('.drawflow_content_node') != null || e.target.classList[0] === 'drawflow-node') {
     //     if (e.target.closest('.drawflow_content_node') != null) {
@@ -358,29 +359,27 @@ export class DrawflowComponent implements OnInit {
     // });
 
     this.editor.on('zoom', (zoom: any) => {
-      console.log('Editor Event :>> Zoom level ' + zoom);
+      // console.log('Editor Event :>> Zoom level ' + zoom);
     });
 
     this.editor.on('addReroute', (id: any) => {
-      console.log('Editor Event :>> Reroute added ' + id);
+      // console.log('Editor Event :>> Reroute added ' + id);
     });
 
     this.editor.on('removeReroute', (id: any) => {
-      console.log('Editor Event :>> Reroute removed ' + id);
+      // console.log('Editor Event :>> Reroute removed ' + id);
     });
 
     this.editor.on('mouseMove', (position: any) => {
-      //console.log('Editor Event :>> Position mouse x:' + position.x + ' y:' + position.y);
+      //// console.log('Editor Event :>> Position mouse x:' + position.x + ' y:' + position.y);
     });
 
     this.editor.on('nodeMoved', (id: any) => {
-      console.log('Editor Event :>> Node moved ' + id);
+      // console.log('Editor Event :>> Node moved ' + id);
     });
 
     this.editor.on('translate', (position: any) => {
-      console.log(
-        'Editor Event :>> Translate x:' + position.x + ' y:' + position.y
-      );
+      // console.log('Editor Event :>> Translate x:' + position.x + ' y:' + position.y);
     });
   }
 
@@ -464,7 +463,7 @@ export class DrawflowComponent implements OnInit {
 
     const nodeContent = document.getElementById(`${node.data.uiTaskId}`);
     if (nodeContent) {
-      console.log('new node added with transparent');
+      // console.log('new node added with transparent');
       this.setNodeTheme(node.data.uiTaskId, node.selectedColor, 'transparent', true);
     }
     return true;
@@ -489,10 +488,9 @@ export class DrawflowComponent implements OnInit {
     }
     const data = toFormData({ files, metadata: JSON.stringify(payload) }, uploadType);
     this.dataService.postData(getConfig().saveWorkflow, data).subscribe((response) => {
-      console.log('Workflow saved successfully:', response);
+      // // console.log('Workflow saved successfully:', response);
       //TODO show alert message
-      this.toastMsg = 'Workflow saved successfully'
-      this.showToast = true
+      this.popupService.open({isVisible: true, type: 'save', msg: 'Workflow saved successfully', btns: [{label: 'Go to Dashboard', click: 'navigate', navigateTo: '', primary: true}]});
     })
   }
 

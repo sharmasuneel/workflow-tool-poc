@@ -8,12 +8,14 @@ import getConfig from '../../config';
 import { toFormData } from '../../utils/dataTransformer';
 import {MatInputModule} from '@angular/material/input';
 import { ToastComponent } from '../../common/toast/toast.component';
+import { FilesSectionComponent } from 'app/common/files-section/files-section.component';
+import { NotificationManagementComponent } from 'app/common/notification-management/notification-management.component';
 
 @Component({
   selector: 'app-download',
   templateUrl: './download.component.html',
   styleUrls: ['./download.component.scss'],
-  imports: [CommonModule, FormsModule, DropWrapperContainerComponent, MatInputModule, ToastComponent],
+  imports: [CommonModule, FormsModule, DropWrapperContainerComponent, FilesSectionComponent, NotificationManagementComponent],
   standalone: true,
 })
 export class DownloadComponent implements OnInit {
@@ -69,7 +71,6 @@ export class DownloadComponent implements OnInit {
       taskUpdatedByUserId: null,
     }
     this.appService.updateTaskById(this.uiTaskId, this.taskData)
-    console.log('Task data updated:', this.taskData);
   }
 
   onComplete() {
@@ -90,8 +91,6 @@ export class DownloadComponent implements OnInit {
 
     const data = toFormData({ files, metadata: JSON.stringify(payload) }, '')
     this.dataService.putData(getConfig().saveWorkflowWithId, data).subscribe((response) => {
-      console.log('Workflow saved successfully:', response);
-      //TODO show alert message
       this.showToast = true
       this.toastMsg = 'Workflow saved successfully'
     })

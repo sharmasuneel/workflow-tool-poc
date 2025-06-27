@@ -7,12 +7,14 @@ import getConfig from '../../config';
 import { toFormData } from '../../utils/dataTransformer';
 import { DataService } from '../../services/data.service';
 import { ToastComponent } from '../../common/toast/toast.component';
+import { FilesSectionComponent } from 'app/common/files-section/files-section.component';
+import { NotificationManagementComponent } from 'app/common/notification-management/notification-management.component';
 
 @Component({
   selector: 'app-review',
   templateUrl: './attest.component.html',
   styleUrls: ['./attest.component.scss'],
-  imports: [CommonModule, FormsModule, DropWrapperContainerComponent, ToastComponent],
+  imports: [CommonModule, FormsModule, DropWrapperContainerComponent, FilesSectionComponent, NotificationManagementComponent],
   standalone: true,
 })
 export class AttestComponent {
@@ -42,6 +44,11 @@ export class AttestComponent {
       task = (workflow.tasks || []).filter((task: any) => task.uiTaskId === this.uiTaskId)[0] || {};
       task = { ...task, ...this.taskData };
       this.taskData = task || {};
+    } else {
+      const workflowId = this.appService.getWorkflowId();
+      const workflow = this.appService.getWorkflowById(Number(workflowId));
+      task = (workflow.tasks || []).filter((task: any) => task.uiTaskId === this.uiTaskId)[0] || {};
+      this.taskData = task || {}
     }
   }
 
@@ -57,13 +64,7 @@ export class AttestComponent {
       taskUpdatedByUserId: null,
     }
     this.appService.updateTaskById(this.uiTaskId, this.taskData)
-    console.log('Attest Task data updated:', this.taskData);
   }
-
- /*  toggleComponentEvent(event: any) {
-    debugger
-    console.log('Toggle component event:', event);
-  } */
 
   onComplete() {
     const taskUpdatedByUserId: any = this.appService.getUser().userId;
@@ -83,8 +84,6 @@ export class AttestComponent {
 
     const data = toFormData({ files, metadata: JSON.stringify(payload) }, '')
     this.dataService.putData(getConfig().saveWorkflow, data).subscribe((response: any) => {
-      console.log('Workflow saved successfully:', response);
-      //TODO show alert message
       this.showToast = true
       this.toastMsg = 'Workflow saved successfully'
     })

@@ -6,9 +6,6 @@ import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { Output, EventEmitter } from '@angular/core';
 
-
-
-
 @Component({
   selector: 'app-header',
   standalone: true,
@@ -61,7 +58,6 @@ export class HeaderComponent implements OnInit {
   }
 
   selectRole(role: any) {
-    console.log('Selected Role:', role);
     this.profileSelected.emit(role);
     this.appService.setUser(role);
     this.menuOpen = false;

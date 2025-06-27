@@ -1,0 +1,22 @@
+<div class="card section">
+    <div>Notification Management:</div>
+    <div>
+        <label class="text-muted">
+            <input type="checkbox" [(ngModel)]="taskData.notifyEmail" />
+            Email
+        </label>
+    </div>
+    <div>
+        <label class="text-muted">
+            <input type="checkbox" [(ngModel)]="taskData.dashboardNotification" />
+            Dashboard Notification
+        </label>
+    </div>
+    <div>
+        <div>Miscellaneous:</div>
+        <label class="text-muted ">
+            <input type="checkbox" [(ngModel)]="taskData.userCommentary" />
+            User Commentary:
+        </label>
+    </div>
+</div>

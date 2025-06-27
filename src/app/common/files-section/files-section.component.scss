@@ -1,0 +1,43 @@
+.download-container {
+  border: 1px solid #ccc;
+  padding: 16px;
+  width: 300px;
+  font-family: Arial, sans-serif;
+}
+.download-icon {
+  font-family: "Font Awesome 5 Free";
+  font-weight: 900;
+  margin-right: 8px;
+  font-size: 18px;
+  color: #007bff;
+  vertical-align: middle;
+}
+
+
+.section {
+  // margin-top: 16px;
+  padding: 10px;
+  background: #ececec;
+  margin: 10px 0 10px 0;
+  border-radius: 0px;
+}
+
+.file-placeholder {
+  margin: 12px 0;
+  padding: 8px;
+  background-color: #f2f2f2;
+  text-align: center;
+  border: 1px dashed #aaa;
+}
+
+
+.font-16{
+  font-size: 16px;
+}  
+.btn-primary{
+  background-color: #085da8;
+  border: #085da8;
+}
+.text-primary{
+  color: #085da8;
+}
