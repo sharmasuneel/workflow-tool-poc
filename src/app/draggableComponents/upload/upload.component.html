@@ -69,62 +69,67 @@
         Set auto file versioning
       </label>
     </div>
+
     <div *ngIf="phase === 'creation' && taskData.uploadType === 'withTemplateFile'">
       <button type="button" class="btn btn-outline-primary mb-3" (click)="addSection()">Add Section</button>
-      <div *ngFor="let section of taskData.sections; let idx = index">
-        <div class="d-flex align-items-center justify-content-between mb-2">
-          <h5 class="text-muted mb-0">Section {{ idx + 1 }}</h5>
-          <button type="button" class="btn btn-link p-0" (click)="section.collapsed = !section.collapsed">
-            <span  *ngIf="section.collapsed">+</span>
-            <span *ngIf="!section.collapsed">-</span>
-          </button>
-        </div>
-        <div [hidden]="section.collapsed">
-          <div class="mb-2">
-            <label class="text-muted">Business Name</label>
-            <div class="col-12">
-              <input type="text" class="w-100 input-height" [(ngModel)]="section.businessName"
+      
+        <div class="accordion" id="accordionExample">
+          <div class="accordion-item" style="border: none;" *ngFor="let section of taskData.sections; let idx = index">
+            <h2 class="accordion-header">
+                <button class="accordion-button" type="button" data-bs-toggle="collapse" [attr.data-bs-target]="'#collapse' + idx" aria-expanded="true" [attr.aria-controls]="'collapse' + idx">
+                Section {{ idx + 1 }}
+                </button>
+            </h2>
+            <div [id]="'collapse' + idx" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+              <div class="accordion-body">
+              <div>
+                <div class="mb-2">
+                <label class="text-muted">Business Name</label>
+                <div class="col-12">
+                  <input type="text" class="w-100 input-height" [(ngModel)]="section.businessName"
                 name="businessName{{idx}}" />
-            </div>
-          </div>
-          <div class="mb-2">
-            <label class="text-muted">Preparator</label>
-            <div class="col-12">
+                </div>
+                </div>
+                <div class="mb-2">
+                <label class="text-muted">Preparator</label>
+                <div class="col-12">
               <select class="w-100 input-height" [(ngModel)]="section.preparatorGroupId" name="preparator{{idx}}">
-                <option *ngFor="let prep of preparators" [value]="prep.userGroupId">{{ prep.name }}</option>
-              </select>
-            </div>
-          </div>
-          <div class="mb-2">
-            <label class="text-muted">Reviewer</label>
-            <div class="col-12">
+                  <option *ngFor="let prep of preparators" [value]="prep.userGroupId">{{ prep.name }}</option>
+                  </select>
+                </div>
+                </div>
+                <div class="mb-2">
+                <label class="text-muted">Reviewer</label>
+                <div class="col-12">
               <select class="w-100 input-height" [(ngModel)]="section.reviewerGroupId" name="reviewer{{idx}}">
-                <option *ngFor="let rev of reviewers" [value]="rev.userGroupId">{{ rev.name }}</option>
-              </select>
-            </div>
-          </div>
-          <div class="mb-2">
-            <label class="text-muted">Approver</label>
-            <div class="col-12">
+                  <option *ngFor="let rev of reviewers" [value]="rev.userGroupId">{{ rev.name }}</option>
+                  </select>
+                </div>
+                </div>
+                <div class="mb-2">
+                <label class="text-muted">Approver</label>
+                <div class="col-12">
               <select class="w-100 input-height" [(ngModel)]="section.approverGroupId" name="approver{{idx}}">
-                <option *ngFor="let apr of approvers" [value]="apr.userGroupId">{{ apr.name }}</option>
-              </select>
-            </div>
-          </div>
-          <div class="mb-2">
-            <label class="text-muted">File Type</label>
-            <div class="col-12">
+                  <option *ngFor="let apr of approvers" [value]="apr.userGroupId">{{ apr.name }}</option>
+                  </select>
+                </div>
+                </div>
+                <div class="mb-2">
+                <label class="text-muted">File Type</label>
+                <div class="col-12">
               <select class="w-100 input-height" [(ngModel)]="section.fileType" name="fileType{{idx}}">
-                <option value="CSV">CSV</option>
-                <option value="DOC">DOC</option>
-                <option value="PDF">PDF</option>
-              </select>
+                  <option value="CSV">CSV</option>
+                  <option value="DOC">DOC</option>
+                  <option value="PDF">PDF</option>
+                  </select>
+                </div>
+                </div>
+              </div>
+              </div>
             </div>
           </div>
+         
         </div>
-        <hr />
-      </div>
-     
     </div>
     <!-- Section 1 -->
 
