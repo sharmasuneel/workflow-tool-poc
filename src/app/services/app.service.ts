@@ -96,11 +96,14 @@ export class AppService {
       workflow.workflowName = this.workflowName || null;
       if (data.taskType === 'upload') {
         // data.files is object add files to workflow.files
-        if(!workflow.files || workflow.files.length === 0) {
+        if(!workflow.files) {
           workflow.files = [];
         }
         if(data.files && Array.isArray(data.files)) {
-          workflow.files = [...workflow.files, ...data.files];
+          workflow.files = {
+            ...workflow.files,
+            [data.uploadType]: data.files
+          };
         }
 
         workflow.uploadType = data.uploadType
