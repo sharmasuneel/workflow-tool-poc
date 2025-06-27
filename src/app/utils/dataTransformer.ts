@@ -2,13 +2,28 @@ import { AnyGridOptions } from "ag-grid-community/dist/types/src/propertyKeys";
 
 function toFormData(obj: any, fileNameKey: string): FormData {
     const formData = new FormData();
+    const filesUploadType =['withTemplateFile', 'withDataFile']
     for (const key in obj) {
         if (key === 'files') {
-            if (Array.isArray(obj.files)) {
-                obj.files.forEach((file: File, index: number) => {
-                    formData.append(fileNameKey, file);
-                });
-            }
+            // iterrate through obj.files as object with keys like withTemplateFile, withDataFile
+            if (typeof obj.files === 'object') {
+                const filesWithTemplate = obj.files['withTemplateFile']
+                if(filesWithTemplate) {
+                    if (Array.isArray(filesWithTemplate)) {
+                            filesWithTemplate.forEach((file: File) => {
+                                formData.append('withTemplateFile', file);
+                            });
+                        }
+                } 
+                const filesWithData = obj.files['withDataFile']
+                if(filesWithData) {
+                    if (Array.isArray(filesWithData)) {
+                            filesWithData.forEach((file: File) => {
+                                formData.append('withDataFile', file);
+                            });
+                        }
+                } 
+            } 
             continue;
         }
         if (obj.hasOwnProperty(key)) {
