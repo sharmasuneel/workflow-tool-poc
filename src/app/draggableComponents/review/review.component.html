@@ -1,4 +1,4 @@
-<app-drop-wrapper-container [taskType]="'review'" (approve)="approveFile()" (reject)="rejectFile()">
+<app-drop-wrapper-container [taskType]="'review'" (approve)="openApproveFilePopup()" (reject)="openRejectFilePopup()">
   <div class="text-primary font-16">Decide</div>
   <div *ngIf="phase === 'execution'">
     <label class="text-muted">
@@ -78,18 +78,18 @@
   </div>
   <!---Approve file popup-->
 
-  <div class="modal" tabindex="-1">
+  <div class="modal"  data-bs-backdrop="static" data-bs-keyboard="false"  id="aprroveModalPopup" tabindex="-1" aria-labelledby="approveModalLabel" aria-hidden="true">
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title">Approve File</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          <h5 class="modal-title" id="approveModalLabel">Approve File</h5>
+          <button type="button" class="btn-close" (click)="closeApproveFilePopup()" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
-          <p>Are you want to approve this file.</p>
+          <p>Are you sure you want to approve this file.</p>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-secondary"  (click)="approveFile()" data-bs-dismiss="modal">Approve</button>
+          <button type="button" class="btn btn-success" (click)="approveFile()">Approve</button>
         </div>
       </div>
     </div>
@@ -97,12 +97,12 @@
 
    <!---Reject file popup-->
 
-   <div class="modal" tabindex="-1">
+   <div class="modal" data-bs-backdrop="static" data-bs-keyboard="false"  id="rejectModalPopup" tabindex="-1">
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title">Reject File</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          <h5 class="modal-title">Reject File?</h5>
+          <button type="button" class="btn-close" (click)="closeRejectFilePopup()" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
           <p>Are you sure you want to reject this file. Please add a comment to justify your action.</p>
@@ -111,7 +111,7 @@
         </div>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Reject</button>
+          <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Reject</button>
         </div>
       </div>
     </div>
