@@ -27,9 +27,6 @@ export class AppService {
       commentary: data?.commentary || '',
       status: data?.status || 'Not Started',
       createdBy: data?.createdBy || this.user?.userId,
-      preparatorGroupId: data?.preparatorGroupId || null,
-      reviewerGroupId: data?.reviewerGroupId || null,
-      approverGroupId: data?.approverGroupId || null,
       tasks: data?.tasks || [],
     }
 

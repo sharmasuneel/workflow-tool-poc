@@ -1,4 +1,4 @@
-<app-drop-wrapper-container (complete)="onComplete()" (save)="onSave()">
+<app-drop-wrapper-container [taskType]="'upload'" (complete)="onComplete()" (save)="onSave()">
   <div *ngIf="phase === 'execution'">
     <label class="text-muted">
       <input type="checkbox" [(ngModel)]="taskData.acknowledgeTask" />

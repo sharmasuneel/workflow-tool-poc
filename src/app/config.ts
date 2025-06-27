@@ -8,7 +8,7 @@ const config = {
         workflows: baseUrl + 'workflows',
         upload: baseUrl + 'upload',
         downlodFile: baseUrl + 'files/download/',
-        st: false
+        st: true
     },
     javaApiEndpoints: {
         saveWorkflow: baseUrl + 'workflows/create',
