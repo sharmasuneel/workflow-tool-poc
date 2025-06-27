@@ -60,6 +60,11 @@ export class AttestComponent {
     console.log('Attest Task data updated:', this.taskData);
   }
 
+ /*  toggleComponentEvent(event: any) {
+    debugger
+    console.log('Toggle component event:', event);
+  } */
+
   onComplete() {
     const taskUpdatedByUserId: any = this.appService.getUser().userId;
     const payload = this.appService.updateTaskById(this.uiTaskId, { ...this.taskData, taskUpdatedByUserId })

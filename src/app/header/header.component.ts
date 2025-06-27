@@ -65,6 +65,9 @@ export class HeaderComponent implements OnInit {
     this.profileSelected.emit(role);
     this.appService.setUser(role);
     this.menuOpen = false;
+    this.router.navigate([''], {
+      queryParams: { selectedRole: role.role }
+    });
     // You can emit this role or handle it as needed
   }
 

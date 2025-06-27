@@ -34,6 +34,6 @@ export class LoginComponent implements OnInit {
 
   login() {
     this.appService.setUser(this.selectedUser)
-    this.router.navigate(['/dashboard'], {queryParams: {user: this.selectedUser.userId}});
+    this.router.navigate([''], {queryParams: {user: this.selectedUser.userId}});
   }
 }

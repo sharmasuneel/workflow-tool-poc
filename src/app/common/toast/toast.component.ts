@@ -21,7 +21,7 @@ export class ToastComponent {
 
   goToDashboard() {
     this.appService.getUser().userId
-    this.router.navigate(['/dashboard'], {queryParams: {user: this.appService.getUser().userId, reload: true}})
+    this.router.navigate([''], {queryParams: {user: this.appService.getUser().userId, reload: true}})
   }
 
 }

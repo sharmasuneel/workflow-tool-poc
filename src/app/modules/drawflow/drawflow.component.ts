@@ -6,6 +6,7 @@ import {
   Injector,
   ApplicationRef,
   inject,
+  Output,
 } from '@angular/core';
 import Drawflow from 'drawflow';
 import nodesData from './nodes.json'; // Assuming you have a JSON file with node data
@@ -25,6 +26,7 @@ import { Router } from '@angular/router';
 import { ToastComponent } from '../../common/toast/toast.component';
 import { HeaderComponent } from 'app/header/header.component';
 import { ContainerComponent } from 'app/draggableComponents/container/container.component';
+import { EventEmitter } from '@angular/core';
 
 type NodeName = keyof typeof nodesData.nodes;
 
@@ -243,6 +245,8 @@ export class DrawflowComponent implements OnInit {
     }
   }
 
+  @Output() toggleComponentEvent = new EventEmitter<string>();
+
   private addEditorEvents() {
     // Events!
     this.editor.on('nodeCreated', (id: any) => {
@@ -265,6 +269,8 @@ export class DrawflowComponent implements OnInit {
       if (e.target.closest('.drawflow_content_node') != null) {
         const nodeId = e.target.closest('.drawflow_content_node').parentElement.id.slice(5);
         const nodeData = this.editor.drawflow.drawflow.Home.data[nodeId];
+        console.log('Editor Event :>> Clicked Node Data :>> ', nodeData, nodeId);
+        this.toggleComponentEvent.emit(nodeData);
         //TODO add dragabble components here
         
         if (nodeData) {

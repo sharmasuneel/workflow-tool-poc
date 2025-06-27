@@ -1,8 +1,8 @@
 <div class="upload-container" [ngClass]="{'expanded': isExpanded, 'collapsed': !isExpanded}">
     <div class="upload-wrapper">
-        <span class="expand-icon" (click)="toggleChildren()" style="position:absolute; top:10px; right: 10px; cursor:pointer; height: 20px;
+        <span class="expand-icon" (click)="toggleChildren()" style="color:blue; position:absolute; top:10px; right: 10px; cursor:pointer; height: 20px;
     float:right; margin: 10px;">
-            <i class="fa" [ngClass]="isExpanded ? 'fa-chevron-up' : 'fa-chevron-down'" aria-hidden="true"></i>
+            <!-- <i class="fa" [ngClass]="isExpanded ? 'fa-chevron-up' : 'fa-chevron-down'" aria-hidden="true"></i> -->
         </span>
 
         <div *ngIf="isExpanded" class="containerBox">
@@ -10,8 +10,8 @@
             <div class="mb-5">
                 <button *ngIf="phase ==='execution' && taskType === 'review'" (click)="onApprove()" class="btn btn-success  w-25  mb-2"><i class="fa fa-check"></i></button>
                 <button *ngIf="phase ==='execution' && taskType === 'review'" (click)="onReject()" class="btn btn-danger w-25  mb-2"><i class="fa fa-close"></i></button>
-                <button *ngIf="phase ==='creation' && taskType !== 'review'" (click)="onSave()" class="btn btn-primary w-25 pull-right mb-2">Save</button>
-                <button  *ngIf="phase ==='execution' && taskType !== 'review'" (click)="onComplete()" class="btn btn-primary w-80 mt-3 pull-right mb-2">Mark as 
+                <button *ngIf="phase ==='creation'" (click)="onSave()" class="btn btn-primary w-60 pull-right mb-2">Link to Workflow</button>
+                <button  *ngIf="phase ==='execution' && taskType !== 'review' && taskType !== 'start'" (click)="onComplete()" class="btn btn-primary w-80 mt-3 pull-right mb-2">Mark as 
                     Complete</button>
         </div>
     </div>

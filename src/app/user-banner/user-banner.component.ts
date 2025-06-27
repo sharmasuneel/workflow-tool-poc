@@ -19,7 +19,7 @@ export class UserBannerComponent implements OnInit {
     { name: 'Approver', count: '', label: 'Pending Approvals', role: 'approver' }
   ];
 
-  activeRole:string = 'owner';
+  activeRole: string = 'owner';
 
   private appService = inject(AppService);
   @Output() roleSelected = new EventEmitter<string>();
@@ -31,6 +31,7 @@ export class UserBannerComponent implements OnInit {
       if (selectedRole) {
         // TODO: in case change profile set tab 
         // this.onCardClick(selectedRole);
+        this.activeRole = selectedRole.role;
         this.setWorflowCountByRole()
       }
     }
@@ -41,7 +42,7 @@ export class UserBannerComponent implements OnInit {
       this.setWorflowCountByRole()
     }, 1000);
   }
-  
+
   getCount(role: string) {
     const filteredData = filterDataBySelectedTab(role, this.appService.getUser()?.role, this.appService.getWorkflows(), this.appService.getUsers())
     return filteredData.filter((workflow: any) => workflow.myRole === role).length
@@ -49,13 +50,13 @@ export class UserBannerComponent implements OnInit {
 
   setWorflowCountByRole() {
     this.roles = this.roles.map((item) => {
-      return {...item, count: this.getCount(item.role).toString()}
+      return { ...item, count: this.getCount(item.role).toString() }
     })
   }
 
   onCardClick(tab: any) {
     this.roleSelected.emit(tab.role);
-    this.appService.setFilter({selectedRole: tab});
+    this.appService.setFilter({ selectedRole: tab });
     this.activeRole = tab.role;
   }
 

@@ -1,4 +1,4 @@
-<app-drop-wrapper-container (complete)="onComplete()" (save)="onSave()">
+<app-drop-wrapper-container (complete)="onComplete()" (save)="onSave()" (taskType)="'attest'">
   <div class="text-primary font-16">Approve </div>
   <div *ngIf="phase === 'execution'">
     <label class="text-muted">

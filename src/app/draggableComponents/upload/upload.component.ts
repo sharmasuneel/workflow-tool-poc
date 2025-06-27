@@ -30,7 +30,7 @@ export class UploadComponent implements OnInit {
   private dataService = inject(DataService);
   private toastr = inject(ToastrService);
 
-  users: string[] = [];
+  users: any = {};
   preparators: any[] = []
   approvers: any[] = []
   reviewers: any[] = []
@@ -69,9 +69,9 @@ export class UploadComponent implements OnInit {
   ngOnInit() {
     this.phase = this.appService.getPhase();
     this.users = this.appService.getUsers();
-    this.preparators = this.users.filter((item: any) => item.type === "preparator");
-    this.approvers = this.users.filter((item: any) => item.type === "approver");
-    this.reviewers = this.users.filter((item: any) => item.type === "reviewer");
+    this.preparators = [this.users.preparator];
+    this.approvers = [this.users.approver];
+    this.reviewers = [this.users.reviewer];
     let task = {};
     if (this.phase === 'creation') {
       this.getLatestTaskData()

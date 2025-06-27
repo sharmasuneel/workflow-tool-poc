@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, EventEmitter, Input, OnInit, Output,inject, input} from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, inject, input } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { AppService } from '../../services/app.service';
 @Component({
@@ -9,37 +9,43 @@ import { AppService } from '../../services/app.service';
   templateUrl: './drop-wrapper-container.component.html',
   styleUrl: './drop-wrapper-container.component.scss'
 })
-export class DropWrapperContainerComponent implements OnInit{
+export class DropWrapperContainerComponent implements OnInit {
 
   isExpanded: boolean = true;
   @Output() save = new EventEmitter<string>();
   @Output() complete = new EventEmitter<string>();
   @Output() approve = new EventEmitter<string>();
   @Output() reject = new EventEmitter<string>();
-  @Input() taskType: string="";
-  phase:string;
+  @Input() taskType: string = "";
+  phase: string;
 
-   //services 
-    private appService = inject(AppService);
+  
+  
+  
+  //services 
+  private appService = inject(AppService);
   
   toggleChildren() {
     this.isExpanded = !this.isExpanded;
   }
-  onSave(){
+  
+  onSave() {
     this.save.emit();
+    this.toggleChildren();
   }
-  onComplete(){
+  onComplete() {
     this.complete.emit();
   }
-  onApprove(){
+  onApprove() {
     this.approve.emit();
   }
-  onReject(){
+  onReject() {
     this.reject.emit();
   }
   ngOnInit(): void {
-    //this.phase = this.appService.getPhase();
-    this.phase='execution';
+    this.phase = this.appService.getPhase();
+    console.log('data on load', this.taskType, this.phase);
+    // this.taskType = this.appService.getTaskType();
   }
 
 }
