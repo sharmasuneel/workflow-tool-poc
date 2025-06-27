@@ -154,16 +154,16 @@
   <div *ngIf="showToast">
     <app-toast></app-toast>
   </div>
-
-  <div class="modal" tabindex="-1">
-    <div class="modal-dialog">
-      <div class="modal-content">
+<!-- File History Modal -->
+  <div class="modal" data-bs-backdrop="static" data-bs-keyboard="false"  id="fileHistory" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content" style="width: 750px;">
         <div class="modal-header">
           <h5 class="modal-title">File History</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          <span (click)="closeFileHistoryPopup()" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></span>
         </div>
         <div class="modal-body">
-         <table class="table table-striped">
+         <table class="table table-striped table-bordered">
             <thead>
               <tr>
                 <th>Business Date</th>
@@ -174,9 +174,9 @@
               </tr>
             </thead>
             <tbody>
-              <tr *ngFor="let file of taskData.fileHistory">
-                <td>{{file.businessDate}}</td>
-                <td>{{ file.fileName }}</td>
+              <tr *ngFor="let file of filehistory">
+                <td>{{file.businessDate | date:'short'}}</td>
+                <td>{{ file.name }}</td>
                 <td>{{ file.uploadedBy }}</td>
                 <td>{{ file.version }}</td>
                 <td>{{ file.uploadDate | date:'short' }}</td>

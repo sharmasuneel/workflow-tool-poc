@@ -35,6 +35,29 @@ export class UploadComponent implements OnInit {
   approvers: any[] = []
   reviewers: any[] = []
   containerClass: "st1";
+  filehistory = [
+    {
+      businessDate: '2025-06-25',
+      name: 'Quarterly_Report_Q2_2025.xlsx',
+      uploadedBy: 'Ravi Mehta',
+      version: 'v1.0',
+      uploadDate: '2025-06-26'
+    },
+    {
+      businessDate: '2025-06-26',
+      name: 'Transaction_Log_June.csv',
+      uploadedBy: 'Anjali Rao',
+      version: 'v2.1',
+      uploadDate: '2025-06-27'
+    },
+    {
+      businessDate: '2025-06-27',
+      name: 'Revenue_Summary_2025.pdf',
+      uploadedBy: 'Devansh Iyer',
+      version: 'v1.3',
+      uploadDate: '2025-06-28'
+    }
+  ];
 
   @Input () save: any= () => {
     this.onSave();  
@@ -155,6 +178,15 @@ export class UploadComponent implements OnInit {
     })
   }
   openFileHistoryPopup(){
-    
+    const element = document.getElementById('fileHistory');
+    if (element) {  
+      element.style.display = 'block';
+    }
+  }
+  closeFileHistoryPopup(){
+    const element = document.getElementById('fileHistory');
+    if (element) {  
+      element.style.display = 'none';
+    }
   }
 }
