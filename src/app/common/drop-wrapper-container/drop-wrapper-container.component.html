@@ -8,8 +8,8 @@
         <div *ngIf="isExpanded" class="containerBox">
             <ng-content></ng-content>
             <div class="mb-5">
-                <button *ngIf="phase ==='execution' && taskType === 'review'" (click)="onApprove()" class="btn btn-secondary w-25  mb-2">Approve</button>
-                <button *ngIf="phase ==='execution' && taskType === 'review'" (click)="onReject()" class="btn btn-danger w-25  mb-2">Rejected</button>
+                <button *ngIf="phase ==='execution' && taskType === 'review'" (click)="onApprove()" class="btn btn-success  w-25  mb-2"><i class="fa fa-check"></i></button>
+                <button *ngIf="phase ==='execution' && taskType === 'review'" (click)="onReject()" class="btn btn-danger w-25  mb-2"><i class="fa fa-close"></i></button>
                 <button *ngIf="phase ==='creation' && taskType !== 'review'" (click)="onSave()" class="btn btn-primary w-25 pull-right mb-2">Save</button>
                 <button  *ngIf="phase ==='execution' && taskType !== 'review'" (click)="onComplete()" class="btn btn-primary w-80 mt-3 pull-right mb-2">Mark as 
                     Complete</button>

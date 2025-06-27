@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, inject, Input } from '@angular/core';
+import { Component,ViewChild, inject, Input } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { DropWrapperContainerComponent } from '../../common/drop-wrapper-container/drop-wrapper-container.component';
 import { AppService } from '../../services/app.service';
@@ -7,7 +7,7 @@ import getConfig from '../../config';
 import { toFormData } from '../../utils/dataTransformer';
 import { DataService } from '../../services/data.service';
 import { ToastComponent } from '../../common/toast/toast.component';
-
+declare var bootstrap:any;
 @Component({
   selector: 'app-review',
   templateUrl: './review.component.html',
@@ -27,6 +27,8 @@ export class ReviewComponent {
   private appService = inject(AppService);
   private dataService = inject(DataService);
 
+  @ViewChild('approveModal') approveModal:any
+
   // @Input() save: any = () => {
   //   this.onSave();
   // }
@@ -37,10 +39,10 @@ export class ReviewComponent {
   
 
   @Input() approve: any = () => {
-    this.approveFile();
+    this.openApproveFilePopup();
   }
   @Input() reject: any = () => {
-    this.rejectFile();
+    this.openRejectFilePopup();
   }
 
   ngOnInit() {
@@ -105,7 +107,17 @@ export class ReviewComponent {
 
   }
   openApproveFilePopup() {
-
+    const modalPopup = document.getElementById('aprroveModalPopup');
+    if (modalPopup) {
+      modalPopup.style.display = 'block';
+    }
+}
+closeApproveFilePopup() {
+    const modalPopup = document.getElementById('aprroveModalPopup');
+    if (modalPopup) { 
+    
+    modalPopup.style.display = 'none';
+    }
   }
 
 
@@ -114,7 +126,17 @@ export class ReviewComponent {
   }
 
   openRejectFilePopup() {
-
+    const modalPopup = document.getElementById('rejectModalPopup');
+    if (modalPopup) {
+      modalPopup.style.display = 'block';
+    }
+}
+closeRejectFilePopup() {
+    const modalPopup = document.getElementById('rejectModalPopup');
+    if (modalPopup) { 
+    
+    modalPopup.style.display = 'none';
+    }
   }
 
 
