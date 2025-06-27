@@ -48,7 +48,7 @@ export class AttestComponent {
   onSave() {
     this.taskData = {
       ...this.taskData,
-      taskType: 'review',
+      taskType: 'attest',
       uiTaskId: this.uiTaskId,
       acknowledgeTask: this.taskData.acknowledgeTask || false,
       notifyEmail: this.taskData.notifyEmail || false,
