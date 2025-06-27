@@ -98,9 +98,9 @@ export class AppService {
         workflow.files = data.files || null;
         workflow.uploadType = data.uploadType
         // check id upload task exits in the tasks array
-        const taskExists = workflow.tasks.find((task: any) => task.uiTaskId === data.uiTaskId) === undefined
+        const taskExists = workflow.tasks.length > 0 ? workflow.tasks.find((task: any) => task.uiTaskId === data.uiTaskId) === undefined : false
         if (!taskExists) {
-          workflow.tasks.push(taskExists)
+          workflow.tasks.push(data)
         } else {
           // Update the existing task
           const existingTaskIndex = workflow.tasks.findIndex((task: any) => task.uiTaskId === data.uiTaskId);
