@@ -10,6 +10,7 @@ import { Input } from '@angular/core';
 import { filterDataBySelectedTab, transformData } from '../../utils/dataTransformer'
 import getConfig from '../../config';
 import { DataService } from '../../services/data.service';
+import { workflowsData } from '../../stub/staticdata'
 
 ModuleRegistry.registerModules([AllCommunityModule]);
 
@@ -103,20 +104,25 @@ export class AppGrid implements OnInit, OnChanges {
   workflows: any[] = []
 
   ngOnInit() {
-    setTimeout(() => {
-      this.dataService.getData(getConfig().workflows).subscribe((data: any) => {
-        this.workflows = data;
-        this.appService.setWorkflows(data);
-        this.filteredData = filterDataBySelectedTab(this.selectedRole, this.appService.getUser()?.userId, data, this.appService.getUsers())
-      });
-    }, 1000);
+    if (getConfig().st) {
+      this.workflows = workflowsData;
+      this.appService.setWorkflows(workflowsData);
+      this.filteredData = filterDataBySelectedTab(this.selectedRole, this.appService.getUser()?.role, workflowsData, this.appService.getUsers())
+    } else {
+      setTimeout(() => {
+        this.dataService.getData(getConfig().workflows).subscribe((data: any) => {
+          this.workflows = data;
+          this.appService.setWorkflows(data);
+          this.filteredData = filterDataBySelectedTab(this.selectedRole, this.appService.getUser()?.role, data, this.appService.getUsers())
+        });
+      }, 1000);
+    }
   }
 
   ngOnChanges(changes: any): void {
     const selectedRole = changes.selectedRole
     if (selectedRole && !selectedRole.firstChange) {
-      debugger
-      this.filteredData = filterDataBySelectedTab(selectedRole.currentValue, this.appService.getUser().userId, this.appService.getWorkflows(), this.appService.getUsers())
+      this.filteredData = filterDataBySelectedTab(selectedRole.currentValue, this.appService.getUser().role, this.appService.getWorkflows(), this.appService.getUsers())
     }
   }
 

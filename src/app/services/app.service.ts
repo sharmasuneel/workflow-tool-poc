@@ -46,7 +46,7 @@ export class AppService {
       const uploadTask =  workflow.tasks.find((task: any) => task.taskType === 'upload');
       files = uploadTask?.files || [];
       if (workflow.drawflow) {
-        workflow.drawflow = JSON.parse(workflow.drawflow);
+        workflow.drawflow = typeof workflow.drawflow === 'string' ? JSON.parse(workflow.drawflow) : workflow.drawflow;
       } else {
         workflow.drawflow = {}
       }

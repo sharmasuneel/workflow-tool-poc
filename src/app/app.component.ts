@@ -18,25 +18,26 @@ import { usersData, workflowsData } from './stub/staticdata'
 })
 export class AppComponent implements OnInit {
   title = 'drawflowangular';
-  users: any[] = [];
   workflows: any[] = [];
 
 
   private dataService = inject(DataService);
   private appService = inject(AppService);
 
+  users: any = {
+    owner: { "userId": 1, "name": "Owner", "role": "owner" },
+    preparator: { "userId": 2, "name": "Preparator", "role": "preparator" },
+    reviewer: { "userId": 3, "name": "Reviewer", "role": "reviewer" },
+    approver: { "userId": 4, "name": "Approver", "role": "approver" }
+  }
+
   private urls = getConfig()
   ngOnInit() {
+    this.appService.setUsers(this.users);
     if (this.urls.st) {
-      this.users = usersData
       this.workflows = workflowsData;
-      this.appService.setUsers(usersData);
       this.appService.setWorkflows(workflowsData);
     } else {
-      this.dataService.getData(this.urls.users).subscribe((data) => {
-        this.users = data;
-        this.appService.setUsers(data);
-      });
       this.dataService.getData(this.urls.workflows).subscribe((data) => {
         this.workflows = data;
         this.appService.setWorkflows(data);

@@ -1,88 +1,53 @@
-[{
-    "workflowName": "Updated Workflow Name",
-    "progress": 80,
-    "commentary": "Updated workflow commentary",
-    "status": "COMPLETED",
-    "tasks": [
-        {
-            "name": "Updated Task 1",
-            "autoVersioning": "v2",
-            "fileNames": [
-                "existing_file1.txt",
-                "new_file2.txt"
-            ],
-            "taskType": "TYPE_B",
-            "acknowledgeType": "MANUAL",
-            "commentary": "Updated task commentary",
-            "status": "IN_PROGRESS",
-            "uploadType": "withTemplateFile",
-            "uiTaskId": "UI_TASK_1",
-            "acknowledgeTask": false,
-            "commentry": "Updated comment",
-            "dashboardNotification": true,
-            "notifyEmail": false,
-            "userCommentary": true,
-            "time": "12:30",
-            "frequency": "WEEKLY",
-            "startDate": "2024-07-10",
-            "sections": [
-                {
-                    "businessName": "Business1",
-                    "taskUpdatedByUserId": 301,
-                    "reviewer": 401,
-                    "approver": 501,
-                    "preparator": 601,
-                    "commentary": "Updated section commentary",
-                    "fileType": "DOCX"
-                },
-                {
-                    "businessName": "Business2",
-                    "taskUpdatedByUserId": 302,
-                    "reviewer": 402,
-                    "approver": 502,
-                    "preparator": 602,
-                    "commentary": "New section for update",
-                    "fileType": "XLSX"
-                }
-            ]
-        },
-        {
-            "name": "New Task 2",
-            "autoVersioning": "v1",
-            "fileNames": [
-                "new_file3.txt"
-            ],
-            "taskType": "TYPE_C",
-            "acknowledgeType": "AUTO",
-            "commentary": "New task commentary",
-            "status": "NEW",
-            "uploadType": "withDataFile",
-            "uiTaskId": "UI_TASK_2",
-            "acknowledgeTask": true,
-            "commentry": "New task comment",
-            "dashboardNotification": false,
-            "notifyEmail": true,
-            "userCommentary": false,
-            "time": "09:00",
-            "frequency": "MONTHLY",
-            "startDate": "2024-08-01",
-            "sections": [
-                {
-                    "businessName": "Business3",
-                    "taskUpdatedByUserId": 303,
-                    "reviewer": 403,
-                    "approver": 503,
-                    "preparator": 603,
-                    "commentary": "Section for new task",
-                    "fileType": "PDF"
-                }
-            ]
-        }
-    ],
-    "createdBy": 1001,
-    "drawflow": "updated_drawflow_data",
-    "preparatorGroupId": 2002,
-    "reviewerGroupId": 3002,
-    "approverGroupId": 4002,
-    "uiWorkflowId": "UI_WORKFLOW_1"
-}]
+[
+    {
+        "workflowId": 13,
+        "workflowName": "Jai Ganesh",
+        "progress": 0,
+        "commentary": "",
+        "status": "Not Started",
+        "createdBy": 1,
+        "drawflow": "{\n    \"drawflow\": {\n        \"Home\": {\n            \"data\": {\n                \"1\": {\n                    \"id\": 1,\n                    \"name\": \"upload\",\n                    \"data\": {\n                        \"uiTaskId\": \"78a58913-cf64-49fc-9464-b0a150d81e34\"\n                    },\n                    \"class\": \"upload\",\n                    \"html\": \"<div><img src=\\\"assets/icons/Upload.png\\\" alt=\\\"Upload\\\"class=\\\"dragNodeImg\\\"><div class=\\\"dragNodeContainer\\\"></div>Upload</div>\",\n                    \"typenode\": false,\n                    \"inputs\": {\n                        \"input_1\": {\n                            \"connections\": []\n                        }\n                    },\n                    \"outputs\": {\n                        \"output_1\": {\n                            \"connections\": []\n                        }\n                    },\n                    \"pos_x\": 113,\n                    \"pos_y\": 29\n                }\n            }\n        }\n    }\n}",
+        "uiWorkflowId": null,
+        "tasks": [
+            {
+                "taskId": 13,
+                "name": null,
+                "businessName": null,
+                "taskUpdatedByUserId": null,
+                "reviewer": null,
+                "approver": null,
+                "fileType": null,
+                "autoVersioning": "true",
+                "taskType": "upload",
+                "acknowledgeType": null,
+                "commentary": null,
+                "status": null,
+                "uploadType": null,
+                "uiTaskId": "78a58913-cf64-49fc-9464-b0a150d81e34",
+                "acknowledgeTask": false,
+                "commentry": "",
+                "dashboardNotification": false,
+                "notifyEmail": false,
+                "userCommentary": false,
+                "time": null,
+                "frequency": null,
+                "startDate": null,
+                "sections": [
+                    {
+                        "sectionId": 13,
+                        "sectionName": "",
+                        "businessName": null,
+                        "taskUpdatedByUserId": null,
+                        "preparatorGroupId": null,
+                        "reviewerGroupId": null,
+                        "approverGroupId": null,
+                        "fileType": null,
+                        "sectionDescription": "",
+                        "collapsed": null
+                    }
+                ],
+                "files": []
+            }
+        ]
+    }
+]

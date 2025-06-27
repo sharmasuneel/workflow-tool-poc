@@ -19,9 +19,9 @@ function toFormData(obj: any, fileNameKey: string): FormData {
 }
 
 
-function getUniqueUserById(userGroups: any, userId: number) {
+function getUniqueUserById(userGroups: any, role: string) {
     const allUsers = userGroups.flatMap((group: any) => group.users);
-    const filteredUsers = allUsers.filter((user: any) => user.userId === userId);
+    const filteredUsers = allUsers.filter((user: any) => user.role === role);
     return filteredUsers.length > 0 ? filteredUsers[0] : null;
 }
 
@@ -30,13 +30,14 @@ function getAssignedToUsers(assignedToUsers: any) {
 }
 
 
-function getAssignedToUsersById(users: any, userId: number) {
-    return users.filter((group: any) => group.userGroupId === userId)[0].users;
+function getAssignedToUsersById(users: any, role: string) {
+    return users[role]
+    //.filter((group: any) => group.userGroupId === userId)[0].users;
 }
 
 
-function transformData(data: any[], users: any[], userId: number) {
-    const usersByGroupId = getAssignedToUsersById(users, userId)
+function transformData(data: any[], users: any, role: string) {
+    const usersByGroupId = getAssignedToUsersById(users, role)
     const d = data.map(item => {
         const dd = {
             workflowName: item.workflowName,
@@ -47,9 +48,9 @@ function transformData(data: any[], users: any[], userId: number) {
                 review: item.status.review || 'waiting approval',
                 approval: item.status.approval || 'waiting approval'
             },
-            createdBy: getUniqueUserById(users, userId),
-            assignedTo: getAssignedToUsers(usersByGroupId).map((user: any) => user.name + ' | ' + user.role).join(', '),
-            assignedToUsers: getAssignedToUsers(usersByGroupId),
+            assignedToUsers: [users.preparator, users.reviewer, users.approver, users.owner],
+            assignedTo: [users.preparator, users.reviewer, users.approver, users.owner].map((user: any) => user.name + ' | ' + user.role).join(', '),
+            createdBy: usersByGroupId,
             commentary: item.commentary || 'No comments'
         }
         return dd
@@ -57,12 +58,12 @@ function transformData(data: any[], users: any[], userId: number) {
     return d
 }
 
-function filterDataBySelectedTab(selectedTab: string, userId: number, data: any, users: any[]) {
-    const tData = transformData(data, users, userId)
+function filterDataBySelectedTab(selectedTab: string, role: string, data: any, users: any[]) {
+    const tData = transformData(data, users, role)
     const dd =  tData
         .map((item: any) => {
             const user = item.assignedToUsers.find((u: any) => {
-                return u.userId === userId
+                return u.role === role
             } 
         );
             return user ? { ...item, myRole: user.role } : null;
