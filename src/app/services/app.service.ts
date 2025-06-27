@@ -95,7 +95,14 @@ export class AppService {
       const workflow = this.newWorkflow;
       workflow.workflowName = this.workflowName || null;
       if (data.taskType === 'upload') {
-        workflow.files = data.files || null;
+        // data.files is object add files to workflow.files
+        if(!workflow.files || workflow.files.length === 0) {
+          workflow.files = [];
+        }
+        if(data.files && Array.isArray(data.files)) {
+          workflow.files = [...workflow.files, ...data.files];
+        }
+
         workflow.uploadType = data.uploadType
         // check id upload task exits in the tasks array
         const taskExists = workflow.tasks.length > 0 ? workflow.tasks.find((task: any) => task.uiTaskId === data.uiTaskId) : false
