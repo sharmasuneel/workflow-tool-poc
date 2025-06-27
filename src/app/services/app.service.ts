@@ -43,7 +43,7 @@ export class AppService {
   setWorkflows(workflows: any[]) {
     let files: any[] = []
     workflows.forEach(workflow => {
-      const uploadTask =  workflow.tasks.find((task: any) => task.taskType === 'upload');
+      const uploadTask = workflow.tasks.find((task: any) => task.taskType === 'upload');
       files = uploadTask?.files || [];
       if (workflow.drawflow) {
         workflow.drawflow = typeof workflow.drawflow === 'string' ? JSON.parse(workflow.drawflow) : workflow.drawflow;
@@ -91,16 +91,18 @@ export class AppService {
   getFilter() {
     return this.filter;
   }
+
+  // link task to a new workflow
   updateTaskById(uiTaskId: string, data: any) {
-    if(this.phase === 'creation') {
+    if (this.phase === 'creation') {
       const workflow = this.newWorkflow;
       workflow.workflowName = this.workflowName || null;
       if (data.taskType === 'upload') {
         workflow.files = data.files || null;
-        workflow.uploadType =  data.uploadType
+        workflow.uploadType = data.uploadType
         // check id upload task exits in the tasks array
         const taskExists = workflow.tasks.find((task: any) => task.uiTaskId === data.uiTaskId) === undefined
-        if(!taskExists) {
+        if (!taskExists) {
           workflow.tasks.push(taskExists)
         } else {
           // Update the existing task
@@ -110,8 +112,11 @@ export class AppService {
           }
         }
       } else {
-        if (!workflow.tasks.some((task: any) => task.uiTaskId === data.uiTaskId)) {
-          workflow.tasks = [...workflow.tasks, ...data];
+        const existingTaskIndex = workflow.tasks.findIndex((task: any) => task.uiTaskId === data.uiTaskId);
+        if (existingTaskIndex !== -1) {
+          workflow.tasks[existingTaskIndex] = { ...workflow.tasks[existingTaskIndex], ...data };
+        } else {
+          workflow.tasks.push(data)
         }
       }
       this.newWorkflow = workflow;
