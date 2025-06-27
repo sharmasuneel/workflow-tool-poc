@@ -52,3 +52,9 @@ color: #0e5ba3;
 .modal-header,.modal-footer{
 border: none;
 }
+.modal-dialog-centered {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  right: 10%;
+}

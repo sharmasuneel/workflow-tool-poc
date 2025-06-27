@@ -77,3 +77,19 @@ button {
   margin: 10px 0 10px 0;
   border-radius: 0px;
 }
+.modal-content{
+    color: #000;
+  }
+  .modal-title{
+  color: #0e5ba3;
+  }
+  .modal-header,.modal-footer{
+  border: none;
+  }
+
+  .modal-dialog-centered {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    right: 10%;
+  }
