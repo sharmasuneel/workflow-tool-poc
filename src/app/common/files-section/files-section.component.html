@@ -7,14 +7,14 @@
       <ul *ngIf="taskData?.files?.length > 0" class="file-name-list">
         <li *ngFor="let taskfile of taskData.files; let i = index" style="font-size: 14px;"
           class="d-flex align-items-center justify-content-between">
-          // TODO: Priyanka Add CSV Icon here
+          <!-- // TODO: Priyanka Add CSV Icon here -->
           <a class="text-primary" [href]="downloadUrl + taskfile.fileId" target="_blank" download> {{ taskfile.name
             }}</a>
           <div>
             <span>
               <img src="../../../assets/icons/View File.png" alt="View Icon"
                 style="width: 16px; height: 16px; cursor: pointer;" (click)="openFile($event, taskfile)" />
-                // TODO: Priyanka update download icon here
+                <!-- // TODO: Priyanka update download icon here -->
                 <img src="../../../assets/icons/View File.png" alt="View Icon"
                 style="width: 16px; height: 16px; cursor: pointer;" (click)="openFile($event, taskfile)" />
             </span>
