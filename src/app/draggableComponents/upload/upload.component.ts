@@ -159,6 +159,7 @@ export class UploadComponent implements OnInit {
     const payload = this.appService.updateTaskById(this.uiTaskId, { ...this.taskData, taskUpdatedByUserId })
     const drawFlow = JSON.stringify(payload.drawflow, null, 4)
     payload.drawflow = drawFlow
+    const files = payload.files
 
     delete payload.files // Remove files from payload to avoid circular reference
     delete payload.uploadType // Remove uploadType from payload to avoid circular reference
@@ -169,7 +170,7 @@ export class UploadComponent implements OnInit {
       });
     }
 
-    const data = toFormData({ metadata: JSON.stringify(payload) }, '')
+    const data = toFormData({ files, metadata: JSON.stringify(payload) }, '')
     this.dataService.putData(getConfig().saveWorkflowWithId, data).subscribe((response) => {
       console.log('Workflow saved successfully:', response);
       //TODO show alert message

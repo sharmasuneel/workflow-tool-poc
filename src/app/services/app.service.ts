@@ -96,10 +96,10 @@ export class AppService {
       workflow.workflowName = this.workflowName || null;
       if (data.taskType === 'upload') {
         // data.files is object add files to workflow.files
-        if(!workflow.files) {
+        if (!workflow.files) {
           workflow.files = [];
         }
-        if(data.files && Array.isArray(data.files)) {
+        if (data.files && Array.isArray(data.files)) {
           workflow.files = {
             ...workflow.files,
             [data.uploadType]: data.files
@@ -130,6 +130,15 @@ export class AppService {
       return workflow;
     } else if (this.phase === 'execution') {
       const workflow = this.workflows.find((w: any) => w.workflowId === this.workflowId);
+      if (!workflow.files) {
+        workflow.files = [];
+      }
+      if (data.files && Array.isArray(data.files)) {
+        workflow.files = {
+          ...workflow.files,
+          [data.uploadType]: data.files
+        };
+      }
       if (workflow && Array.isArray(workflow.tasks)) {
         const idx = workflow.tasks.findIndex((task: any) => task.uiTaskId === uiTaskId);
         if (idx !== -1) {
@@ -137,6 +146,7 @@ export class AppService {
         }
       }
       this.newWorkflow = workflow
+      console.log("returning workflow:", workflow )
       return workflow;
     }
   }
