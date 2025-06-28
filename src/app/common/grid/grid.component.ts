@@ -11,6 +11,7 @@ import { filterDataBySelectedTab, transformData } from '../../utils/dataTransfor
 import getConfig from '../../config';
 import { DataService } from '../../services/data.service';
 import { workflowsData } from '../../stub/staticdata'
+import { PopupService } from "../../services/popup.service";
 
 ModuleRegistry.registerModules([AllCommunityModule]);
 
@@ -33,6 +34,7 @@ ModuleRegistry.registerModules([AllCommunityModule]);
 export class AppGrid implements OnInit, OnChanges {
   private appService = inject(AppService);
   private dataService = inject(DataService);
+  private popupService = inject(PopupService);
   @Input() selectedRole: string = 'owner';
 
   constructor(private router: Router) { }
@@ -94,8 +96,17 @@ export class AppGrid implements OnInit, OnChanges {
       width: 200,
       cellRenderer: (params: any) => {
         return `<div>
-          <img src="/assets/icons/Commentary.png" />
+        <img class="commentry" src="/assets/icons/Commentary.png" />
+        <img src="/assets/icons/Audit Trial.png" />
         </div>`;
+      },
+      onCellClicked: (params: any) => {
+        if (params.event.target.classList.contains('commentry')) {
+          this.popupService.open({
+            title: 'Conversation', msg: 'Are you sure you want to reject this file. Please add a comment to justify your action.',
+            type: 'commentry',
+          });
+        }
       }
     }
   ];

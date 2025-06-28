@@ -50,7 +50,6 @@ export class DropWrapperContainerComponent implements OnInit {
       type: 'reject',
       isVisible: true
     });
-    // this.reject.emit();
   }
   ngOnInit(): void {
     this.phase = this.appService.getPhase();
