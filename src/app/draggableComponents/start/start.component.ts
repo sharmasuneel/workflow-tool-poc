@@ -10,6 +10,7 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { AppService } from '../../services/app.service';
 import { DataService } from '../../services/data.service';
 import { ToastComponent } from '../../common/toast/toast.component';
+import { linkTaskToWorkflow } from 'app/utils/dataSubmission';
 @Component({
   selector: 'app-start',
   standalone: true,
@@ -35,10 +36,10 @@ export class StartComponent {
   //services 
   private appService = inject(AppService);
 
-  @Input () save: any= () => {
-    this.onSave();  
+  @Input() save: any = () => {
+    this.onSave();
   }
-  
+
 
   constructor(timepickerConfig: NgbTimepickerConfig) {
     timepickerConfig.seconds = true;
@@ -64,16 +65,14 @@ export class StartComponent {
   onSave() {
     this.taskData = {
       ...this.taskData,
-      taskType: 'start',
-      uiTaskId: this.uiTaskId,
       uploadType: this.taskData?.uploadType || 'Auto Trigger',
       frequency: this.taskData?.frequency || 'Daily',
       time: '01:01:01',
       startDate: this.taskData?.startDate
-      ? new Date(this.taskData?.startDate).toISOString().split('T')[0]
-      : new Date().toISOString().split('T')[0],
-      taskUpdatedByUserId: null,
+        ? new Date(this.taskData?.startDate).toISOString().split('T')[0]
+        : new Date().toISOString().split('T')[0],
     }
-    this.appService.updateTaskById(this.uiTaskId, this.taskData)
+    linkTaskToWorkflow(this.taskData, this.uiTaskId, this.appService, 'start')
   }
+
 }

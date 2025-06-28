@@ -51,14 +51,14 @@
           (click)="onReject()">Reject</button>
         <button *ngIf="type === 'approve'" type="button" (click)="onApprove()" class="btn btn-success"
           data-bs-dismiss="modal">Approve</button>
-        <button *ngIf="type === 'save'" type="button" class="btn btn-primary" (click)="goToDashboard()">Go to
+        <button *ngIf="type === 'save' || type === 'update'" type="button" class="btn btn-primary" (click)="goToDashboard()">Go to
           Dashboard</button>
       </div>
     </div>
   </div>
 </div>
 
-<div style="display: block" *ngIf="isVisible && type==='commentry'" class="modal" data-bs-backdrop="static"
+<div style="display: block" *ngIf="isVisible && type==='commentary'" class="modal" data-bs-backdrop="static"
   data-bs-keyboard="false" tabindex="-1">
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content" style="width: 750px;">

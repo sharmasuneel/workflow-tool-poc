@@ -9,6 +9,7 @@ import { DataService } from '../../services/data.service';
 import { ToastComponent } from '../../common/toast/toast.component';
 import { FilesSectionComponent } from 'app/common/files-section/files-section.component';
 import { NotificationManagementComponent } from 'app/common/notification-management/notification-management.component';
+import { linkTaskToWorkflow, updateWorkflow } from 'app/utils/dataSubmission';
 
 @Component({
   selector: 'app-review',
@@ -29,11 +30,11 @@ export class AttestComponent {
   private appService = inject(AppService);
   private dataService = inject(DataService);
 
-  @Input () save: any= () => {
-    this.onSave();  
+  @Input() save: any = () => {
+    this.onSave();
   }
-  @Input () complete: any= () => {
-    this.onComplete();  
+  @Input() complete: any = () => {
+    this.onComplete();
   }
 
   ngOnInit() {
@@ -53,40 +54,11 @@ export class AttestComponent {
   }
 
   onSave() {
-    this.taskData = {
-      ...this.taskData,
-      taskType: 'attest',
-      uiTaskId: this.uiTaskId,
-      acknowledgeTask: this.taskData.acknowledgeTask || false,
-      notifyEmail: this.taskData.notifyEmail || false,
-      dashboardNotification: this.taskData.dashboardNotification || false,
-      userCommentary: this.taskData.userCommentary || false,
-      taskUpdatedByUserId: null,
-    }
-    this.appService.updateTaskById(this.uiTaskId, this.taskData)
+    linkTaskToWorkflow(this.taskData, this.uiTaskId, this.appService, 'attest')
   }
 
   onComplete() {
-    const taskUpdatedByUserId: any = this.appService.getUser().userId;
-    const payload = this.appService.updateTaskById(this.uiTaskId, { ...this.taskData, taskUpdatedByUserId })
-    const drawFlow = JSON.stringify(payload.drawflow, null, 4)
-    payload.drawflow = drawFlow
-    const files = payload.files
-
-    if (payload && Array.isArray(payload.tasks)) {
-      payload.tasks.forEach((task: any) => {
-        delete task.files;
-      });
-    }
-
-    delete payload.files // Remove files from payload to avoid circular reference
-    delete payload.uploadType // Remove uploadType from payload to avoid circular reference
-
-    const data = toFormData({ files, metadata: JSON.stringify(payload) }, '')
-    this.dataService.putData(getConfig().saveWorkflow, data).subscribe((response: any) => {
-      this.showToast = true
-      this.toastMsg = 'Workflow saved successfully'
-    })
+    updateWorkflow(this.appService, this.dataService, this.uiTaskId, this.taskData, this.popupService)
   }
 
   openFile(evt: MouseEvent, taskfile: any) {

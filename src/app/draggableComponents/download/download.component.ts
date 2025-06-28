@@ -6,10 +6,11 @@ import { AppService } from '../../services/app.service';
 import { DataService } from '../../services/data.service';
 import getConfig from '../../config';
 import { toFormData } from '../../utils/dataTransformer';
-import {MatInputModule} from '@angular/material/input';
+import { MatInputModule } from '@angular/material/input';
 import { ToastComponent } from '../../common/toast/toast.component';
 import { FilesSectionComponent } from 'app/common/files-section/files-section.component';
 import { NotificationManagementComponent } from 'app/common/notification-management/notification-management.component';
+import { linkTaskToWorkflow, updateWorkflow } from 'app/utils/dataSubmission';
 
 @Component({
   selector: 'app-download',
@@ -24,7 +25,7 @@ export class DownloadComponent implements OnInit {
   @Input() uiTaskId: string;
   taskData: any = {};
   toastMsg: string;
-  showToast:boolean = false;
+  showToast: boolean = false;
   phase: string;
   downloadUrl: string = getConfig().downlodFile;
 
@@ -34,12 +35,12 @@ export class DownloadComponent implements OnInit {
 
 
   @Input() workflowType: string;
-  
-  @Input () save: any= () => {
-    this.onSave();  
+
+  @Input() save: any = () => {
+    this.onSave();
   }
-  @Input () complete: any= () => {
-    this.onComplete();  
+  @Input() complete: any = () => {
+    this.onComplete();
   }
 
   ngOnInit() {
@@ -57,43 +58,13 @@ export class DownloadComponent implements OnInit {
       this.taskData = task || {};
     }
   }
-
+  
   onSave() {
-    this.taskData = {
-      ...this.taskData,
-      taskType: 'download',
-      uiTaskId: this.uiTaskId,
-      acknowledgeTask: this.taskData.acknowledgeTask || false,
-      dashboardNotification: this.taskData.dashboardNotification || false,
-      notifyEmail: this.taskData.notifyEmail || false,
-      userCommentary: this.taskData.userCommentary || false,
-      commentry: this.taskData.commentry || '',
-      taskUpdatedByUserId: null,
-    }
-    this.appService.updateTaskById(this.uiTaskId, this.taskData)
+    linkTaskToWorkflow(this.taskData, this.uiTaskId, this.appService, 'download')
   }
 
   onComplete() {
-    const taskUpdatedByUserId: any = this.appService.getUser().userId;
-    const payload = this.appService.updateTaskById(this.uiTaskId, { ...this.taskData, taskUpdatedByUserId })
-    const drawFlow = JSON.stringify(payload.drawflow, null, 4)
-    payload.drawflow = drawFlow
-    const files =  payload.files
-
-    if (payload && Array.isArray(payload.tasks)) {
-      payload.tasks.forEach((task: any) => {
-        delete task.files;
-      });
-    }
-
-    delete payload.files // Remove files from payload to avoid circular reference
-    delete payload.uploadType // Remove uploadType from payload to avoid circular reference
-
-    const data = toFormData({ files, metadata: JSON.stringify(payload) }, '')
-    this.dataService.putData(getConfig().saveWorkflowWithId, data).subscribe((response) => {
-      this.showToast = true
-      this.toastMsg = 'Workflow saved successfully'
-    })
+    updateWorkflow(this.appService, this.dataService, this.uiTaskId, this.taskData, this.popupService)
   }
 
   openFile(evt: MouseEvent, taskfile: any) {

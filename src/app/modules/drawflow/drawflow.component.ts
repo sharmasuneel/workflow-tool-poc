@@ -27,6 +27,7 @@ import { HeaderComponent } from 'app/header/header.component';
 import { ContainerComponent } from 'app/draggableComponents/container/container.component';
 import { EventEmitter } from '@angular/core';
 import { PopupService } from 'app/services/popup.service';
+import { createWorkflow } from 'app/utils/dataSubmission';
 
 type NodeName = keyof typeof nodesData.nodes;
 
@@ -479,23 +480,7 @@ export class DrawflowComponent implements OnInit {
 
   // TODO save workflow
   saveWorkflow() {
-    const payload = this.appService.getNewWorkflow()
-    const files = payload.files
-    const uploadType = payload.uploadType
-    payload.drawflow = JSON.stringify(this.editor.export(), null, 4)
-    delete payload.files // Remove files from payload to avoid circular reference
-    delete payload.uploadType // Remove uploadType from payload to avoid circular reference
-    if (payload && Array.isArray(payload.tasks)) {
-      payload.tasks.forEach((task: any) => {
-        delete task.files;
-      });
-    }
-    const data = toFormData({ files, metadata: JSON.stringify(payload) }, uploadType);
-    this.dataService.postData(getConfig().saveWorkflow, data).subscribe((response) => {
-      // // console.log('Workflow saved successfully:', response);
-      //TODO show alert message
-      this.popupService.open({ isVisible: true, type: 'save', msg: 'Workflow saved successfully', btns: [{ label: 'Go to Dashboard', click: 'navigate', navigateTo: '', primary: true }] });
-    })
+    createWorkflow(this.appService,this.dataService, this.popupService, JSON.stringify(this.editor.export(), null, 4))
   }
 
   onClear() {

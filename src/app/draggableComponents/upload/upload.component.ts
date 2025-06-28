@@ -8,6 +8,7 @@ import { DropWrapperContainerComponent } from '../../common/drop-wrapper-contain
 import { toFormData } from '../../utils/dataTransformer'
 import { PopupService } from 'app/services/popup.service';
 import { NotificationManagementComponent } from 'app/common/notification-management/notification-management.component';
+import { linkTaskToWorkflow, updateWorkflow } from 'app/utils/dataSubmission';
 
 @Component({
   selector: 'app-upload',
@@ -37,11 +38,11 @@ export class UploadComponent implements OnInit {
   reviewers: any[] = []
   containerClass: "st1";
 
-  @Input () save: any= () => {
-    this.onSave();  
+  @Input() save: any = () => {
+    this.onSave();
   }
-  @Input () complete: any= () => {
-    this.onComplete();  
+  @Input() complete: any = () => {
+    this.onComplete();
   }
 
   ngOnInit() {
@@ -68,9 +69,9 @@ export class UploadComponent implements OnInit {
   getLatestTaskData() {
     let task = {}
     const workflow = this.appService.getNewWorkflow();
-      task = (workflow.tasks || []).filter((task: any) => task.uiTaskId === this.uiTaskId)[0] || {};
-      task = { ...task, ...this.taskData };
-      this.taskData = task || {};
+    task = (workflow.tasks || []).filter((task: any) => task.uiTaskId === this.uiTaskId)[0] || {};
+    task = { ...task, ...this.taskData };
+    this.taskData = task || {};
   }
 
   getId(key: string, arr: any) {
@@ -114,49 +115,18 @@ export class UploadComponent implements OnInit {
   }
 
   onSave() {
-    this.getLatestTaskData()
-    const payload = {
-      ...this.taskData,
-      taskType: 'upload',
-      uiTaskId: this.uiTaskId,
-      acknowledgeTask: this.taskData.acknowledgeTask || false,
-      dashboardNotification: this.taskData.dashboardNotification || false,
-      notifyEmail: this.taskData.notifyEmail || false,
-      userCommentary: this.taskData.userCommentary || false,
-      commentry: this.taskData.commentry || '',
-      taskUpdatedByUserId: null,
-      autoVersioning: this.taskData.autoVersioning,
-      fileNames: this.taskData.fileNames,
-    }
-    this.appService.updateTaskById(this.uiTaskId, payload)
+    linkTaskToWorkflow(this.taskData, this.uiTaskId, this.appService, 'upload')
   }
 
   onComplete() {
-    const taskUpdatedByUserId: any = this.appService.getUser().userId;
-    const payload = this.appService.updateTaskById(this.uiTaskId, { ...this.taskData, taskUpdatedByUserId })
-    const drawFlow = JSON.stringify(payload.drawflow, null, 4)
-    payload.drawflow = drawFlow
-    const files = payload.files
-
-    delete payload.files // Remove files from payload to avoid circular reference
-    delete payload.uploadType // Remove uploadType from payload to avoid circular reference
-
-    if (payload && Array.isArray(payload.tasks)) {
-      payload.tasks.forEach((task: any) => {
-        delete task.files;
-      });
-    }
-
-    const data = toFormData({ files, metadata: JSON.stringify(payload) }, '')
-    this.dataService.putData(getConfig().saveWorkflowWithId, data).subscribe((response) => {
-    })
+    updateWorkflow(this.appService,this.dataService, this.uiTaskId, this.taskData, this.popupService)
   }
-  openFileHistoryPopup(){
-    this.popupService.open({isVisible: true, title: 'File History?', type: 'history' });
+  openFileHistoryPopup() {
+    this.popupService.open({ isVisible: true, title: 'File History?', type: 'history' });
   }
-  closeFileHistoryPopup(){
+  closeFileHistoryPopup() {
     const element = document.getElementById('fileHistory');
-    if (element) {  
+    if (element) {
       element.style.display = 'none';
     }
   }
