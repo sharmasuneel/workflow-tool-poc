@@ -189,7 +189,7 @@ export class DrawflowComponent implements OnInit {
       const nodeContent: any = document.querySelector(`#node-${nodeId} .drawflow_content_node`);
 
       // console.log('new node added with transparent: ', nodeData.data.selectedColor);
-      this.setNodeTheme(id, nodeData.data.selectedColor, nodeData.data.selectedColor); // Set theme for the node
+      this.setNodeTheme(id, nodeData.data.selectedColor, nodeData.data.selectedColor, nodeData.name, false); // Set theme for the node
 
       const container = nodeContent?.children[0].children[1];
       if (nodeContent && nodeContent?.innerText === innerHTML) {
@@ -274,15 +274,16 @@ export class DrawflowComponent implements OnInit {
       if (e.target.closest('.drawflow_content_node') != null) {
         const nodeId = e.target.closest('.drawflow_content_node').parentElement.id.slice(5);
         const nodeData = this.editor.drawflow.drawflow.Home.data[nodeId];
+        nodeData.html = nodeData.html.replace('Upload.png', 'Upload_s.png')
         // console.log('Editor Event :>> Clicked Node Data :>> ', nodeData, nodeId);
-        this.toggleComponentEvent.emit(nodeData);
+        // this.toggleComponentEvent.emit(nodeData);
         //TODO add dragabble components here
-        
+
         if (nodeData) {
 
-          if(this.phase === 'creation') {
+          if (this.phase === 'creation') {
             // console.log('new node added with transparent on click: ', nodeData.data.selectedColor);
-            this.setNodeTheme(nodeData.data.uiTaskId, nodeData.data.selectedColor, nodeData.data.selectedColor,true);
+            this.setNodeTheme(nodeData.data.uiTaskId, nodeData.data.selectedColor, nodeData.data.selectedColor, nodeData.data.name, true);
           }
           //if (this.phase === 'execution') {
 
@@ -422,16 +423,20 @@ export class DrawflowComponent implements OnInit {
       this.addNodeToDrawFlow(data, ev.clientX, ev.clientY);
 
     }
-    
+
   }
 
-  private setNodeTheme(cls: string, borderColor: string, backgroundColor: string = 'transparent', isDrag: boolean = false) {
-    const parentContainer = document.getElementById(`${cls}`)?.parentElement?.parentElement;
-      if (parentContainer) {
-        (parentContainer as HTMLElement).style.backgroundColor = backgroundColor;
-        (parentContainer as HTMLElement).style.borderRadius = '10px';
-        (parentContainer as HTMLElement).style.borderColor = borderColor;
-      }
+  private setNodeTheme(clildId: string, borderColor: string, backgroundColor: string = 'transparent', nodeName: String, isClicked: boolean = false) {
+    const parentContainer = document.getElementById(`${clildId}`)?.parentElement?.parentElement;
+    const imagePath = document.getElementById(`${clildId}`)?.children[0]
+    if (imagePath && imagePath instanceof HTMLImageElement && isClicked) {
+      (imagePath as HTMLImageElement).src = `assets/icons/component/${nodeName}_s.png`;
+    }
+    if (parentContainer) {
+      (parentContainer as HTMLElement).style.backgroundColor = backgroundColor;
+      (parentContainer as HTMLElement).style.borderRadius = '10px';
+      (parentContainer as HTMLElement).style.borderColor = borderColor;
+    }
   }
 
 
@@ -442,12 +447,11 @@ export class DrawflowComponent implements OnInit {
     pos_x = pos_x * (this.editor.precanvas.clientWidth / (this.editor.precanvas.clientWidth * this.editor.zoom)) - (this.editor.precanvas.getBoundingClientRect().x * (this.editor.precanvas.clientWidth / (this.editor.precanvas.clientWidth * this.editor.zoom)));
     pos_y = pos_y * (this.editor.precanvas.clientHeight / (this.editor.precanvas.clientHeight * this.editor.zoom)) - (this.editor.precanvas.getBoundingClientRect().y * (this.editor.precanvas.clientHeight / (this.editor.precanvas.clientHeight * this.editor.zoom)));
     const node = nodesData.nodes.filter(node => node.id === id)[0] as { name: String, class: string, inputs: any, outputs: any, data: any, selectedColor: string };
-    // TODO Left nav icons when dropped.. node.json html -->
-   // if (!node.data.uiTaskId) {
-      node.data = { ...node.data, uiTaskId: uuidv4(), selectedColor:node.selectedColor}; // Generate a unique ID for the node
+    //ICONS ON drop area
+    node.data = { ...node.data, uiTaskId: uuidv4(), selectedColor: node.selectedColor, name: node.name }; // Generate a unique ID for the node
     //}
 
-    const nodeHtml = `<div id=${node.data.uiTaskId} class="align-item-center d-flex  justify-content-sm-evenly "><img src="assets/icons/${node.name}.png" alt="${node.name}"class="dragNodeImg"><div class="dragNodeContainer"></div>${node.name}</div>`
+    const nodeHtml = `<div id=${node.data.uiTaskId} class="align-item-center d-flex  justify-content-sm-evenly "><img src="assets/icons/component/${node.name}.png" alt="${node.name}"class="dragNodeImg"><div class="dragNodeContainer"></div>${node.name}</div>`
     if (node) {
       this.editor.addNode(
         node.class,
@@ -456,7 +460,7 @@ export class DrawflowComponent implements OnInit {
         pos_x,
         pos_y,
         node.class,
-        node.data ,
+        node.data,
         nodeHtml
       );
     }
@@ -464,7 +468,7 @@ export class DrawflowComponent implements OnInit {
     const nodeContent = document.getElementById(`${node.data.uiTaskId}`);
     if (nodeContent) {
       // console.log('new node added with transparent');
-      this.setNodeTheme(node.data.uiTaskId, node.selectedColor, 'transparent', true);
+      this.setNodeTheme(node.data.uiTaskId, node.selectedColor, 'transparent', node.name, false);
     }
     return true;
   }
@@ -490,7 +494,7 @@ export class DrawflowComponent implements OnInit {
     this.dataService.postData(getConfig().saveWorkflow, data).subscribe((response) => {
       // // console.log('Workflow saved successfully:', response);
       //TODO show alert message
-      this.popupService.open({isVisible: true, type: 'save', msg: 'Workflow saved successfully', btns: [{label: 'Go to Dashboard', click: 'navigate', navigateTo: '', primary: true}]});
+      this.popupService.open({ isVisible: true, type: 'save', msg: 'Workflow saved successfully', btns: [{ label: 'Go to Dashboard', click: 'navigate', navigateTo: '', primary: true }] });
     })
   }
 
