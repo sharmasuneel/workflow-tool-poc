@@ -15,3 +15,24 @@
 }
 
 /* Popup box */
+
+.conversation-item {
+    padding: 10px;
+    
+  }
+  
+  .modal-body {
+    font-size: 14px;
+  }
+  
+  .input-group {
+    width: 100%;
+  }
+  
+  .input-group .form-control {
+    border-right: none;
+  }
+  
+  .input-group .btn {
+    border-left: none;
+  }
