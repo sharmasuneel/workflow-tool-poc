@@ -96,8 +96,8 @@ export class AppGrid implements OnInit, OnChanges {
       width: 200,
       cellRenderer: (params: any) => {
         return `<div>
-        <img class="commentary" src="/assets/icons/Commentary.png" />
-        <img src="/assets/icons/Audit Trial.png" />
+        <img class="commentry" src="/assets/icons/Commentary.png" />
+        <img src="/assets/icons/Audit Trail.png" />
         </div>`;
       },
       onCellClicked: (params: any) => {
