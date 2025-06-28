@@ -1,4 +1,4 @@
-<div class="card section">
+<div *ngIf="phase == 'creation'" class="card section">
     <div>Notification Management:</div>
     <div>
         <label class="text-muted">
@@ -19,4 +19,9 @@
             User Commentary:
         </label>
     </div>
+</div>
+<div *ngIf="phase == 'execution'">
+    <mat-form-field appearance="outline" class="w-100">
+        <textarea rows="4" matInput type="text" placeholder="Add comments" [(ngModel)]="taskData.commentry"></textarea>
+    </mat-form-field>
 </div>

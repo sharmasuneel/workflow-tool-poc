@@ -1,13 +1,14 @@
 import { CommonModule } from '@angular/common';
 import { Component, inject, Input, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { MatInputModule } from '@angular/material/input';
 import getConfig from 'app/config';
 import { AppService } from 'app/services/app.service';
 
 @Component({
   selector: 'files-section',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, MatInputModule],
   templateUrl: './files-section.component.html',
   styleUrl: './files-section.component.scss'
 })
