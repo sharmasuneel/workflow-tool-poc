@@ -36,12 +36,15 @@
   </div>
 
   <!-- File drop -->
-  <div class="upload-box mb-3" (drop)="onFileDrop($event)" (dragover)="onDragOver($event)">
+  <div [ngStyle]="taskData?.uploadType === 'withDataFile' && phase === 'creation'? {'background-color': 'lightGrey'} : {}" class="upload-box mb-3" 
+    (drop)="taskData?.uploadType !== 'withDataFile' && onFileDrop($event)" 
+    (dragover)="taskData?.uploadType !== 'withDataFile' && onDragOver($event)">
     <p>
       Drag & drop file(s) or
-      <label for="fileInput" class="browse-label">Browse</label>
+      <label for="fileInput" class="browse-label" [class.disabled]="taskData?.uploadType === 'withDataFile' && phase === 'creation'">Browse</label>
     </p>
-    <input type="file" id="fileInput" (change)="onFileSelected($event)" accept=".csv" multiple hidden />
+    <input type="file" id="fileInput" (change)="onFileSelected($event)" accept=".csv" multiple hidden 
+      [disabled]="taskData?.uploadType === 'withDataFile' && phase === 'creation'" />
   </div>
 
   <!-- Display list of selected file names -->

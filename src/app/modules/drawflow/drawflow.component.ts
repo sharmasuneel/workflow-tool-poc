@@ -114,6 +114,7 @@ export class DrawflowComponent implements OnInit {
       this.action = action
       if (action === 'execute' && id) {
         this.workflowType = workflowType
+        this.workflowId = Number(id)
         this.drawflowData = this.appService.getWorkflows().find((dd: any) => {
           return dd.workflowId === Number(id)
         }).drawflow
@@ -272,29 +273,25 @@ export class DrawflowComponent implements OnInit {
 
     this.editor.on('click', (e: any) => {
       // console.log('Editor Event :>> Click :>> ', e);
+
       if (e.target.closest('.drawflow_content_node') != null) {
         const nodeId = e.target.closest('.drawflow_content_node').parentElement.id.slice(5);
         const nodeData = this.editor.drawflow.drawflow.Home.data[nodeId];
         nodeData.html = nodeData.html.replace('Upload.png', 'Upload_s.png')
+        if (this.phase === 'execution' && nodeData.name === 'upload'){
+          const workflow = this.appService.getWorkflowById(this.workflowId)
+          const task = workflow.tasks.filter((t: any) => t.uiTaskId === nodeData.data.uiTaskId)[0]
+          if(task.uploadType === 'withTemplateFile') {
+            return
+          }
+        }
+      
         // console.log('Editor Event :>> Clicked Node Data :>> ', nodeData, nodeId);
         // this.toggleComponentEvent.emit(nodeData);
         //TODO add dragabble components here
 
         if (nodeData) {
-
-          if (this.phase === 'creation') {
-            // console.log('new node added with transparent on click: ', nodeData.data.selectedColor);
-            this.setNodeTheme(nodeData.data.uiTaskId, nodeData.data.selectedColor, nodeData.data.selectedColor, nodeData.data.name, true);
-          }
-          //if (this.phase === 'execution') {
-
-          // TODO  Added only requied components for execution phase
-          //} else if (this.phase === 'creation') {
-          /* if (nodeData.class === 'upload') {
-            this.childComponent = 'upload'
-          } */
-
-          // TODO: Suneel  Added only requied components for creation phase
+          this.setNodeTheme(nodeData.data.uiTaskId, nodeData.data.selectedColor, nodeData.data.selectedColor, nodeData.data.name, true);
           if (nodeData.class.includes('upload')) {
             this.addComponents<UploadComponent>(nodeData, 'upload', 'Upload', nodeId, UploadComponent);
           } else if (nodeData.class.includes('download')) {
@@ -306,8 +303,6 @@ export class DrawflowComponent implements OnInit {
           } else if (nodeData.class.includes('start')) {
             this.addComponents<StartComponent>(nodeData, 'start', 'Start', nodeId, StartComponent);
           }
-          //}
-
         }
       }
       if (e.target.closest('.drawflow_content_node') != null || e.target.classList[0] === 'drawflow-node') {
@@ -480,7 +475,7 @@ export class DrawflowComponent implements OnInit {
 
   // TODO save workflow
   saveWorkflow() {
-    createWorkflow(this.appService,this.dataService, this.popupService, JSON.stringify(this.editor.export(), null, 4))
+    createWorkflow(this.appService, this.dataService, this.popupService, JSON.stringify(this.editor.export(), null, 4))
   }
 
   onClear() {

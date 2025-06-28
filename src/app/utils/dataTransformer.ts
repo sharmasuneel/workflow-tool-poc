@@ -54,24 +54,26 @@ function getAssignedToUsersById(users: any, role: string) {
 
 function transformData(data: any[], users: any, role: string) {
     const usersByGroupId = getAssignedToUsersById(users, role)
-    const d = data.map(item => {
-        const dd = {
+    return data.map(item => {
+        const transformedStatus = parseCommentary(item.commentary)
+        const totalTasks = Array.isArray(item.tasks) ? item.tasks.length : 0;
+        const completedTasks = Array.isArray(item.tasks) ? item.tasks.filter((t: any) => t.status === 'completed').length : 0;
+        const progressPercent = totalTasks > 0 ? Math.round((completedTasks / totalTasks) * 100) : 0;
+        return {
             workflowName: item.workflowName,
             workflowId: item.workflowId,
-            progress: item.progress + '%',
+            progress: progressPercent + '%',
             status: {
-                task: item.status.task || 'in-progress',
-                review: item.status.review || 'waiting approval',
-                approval: item.status.approval || 'waiting approval'
+                task: transformedStatus.taskStatus,
+                approval: transformedStatus.approveStatus,
+                review: transformedStatus.reviewStatus
             },
             assignedToUsers: [users.preparator, users.reviewer, users.approver, users.owner],
             assignedTo: [users.preparator, users.reviewer, users.approver, users.owner].map((user: any) => user.name + ' | ' + user.role).join(', '),
             createdBy: usersByGroupId,
             commentary: item.commentary
         }
-        return dd
     });
-    return d
 }
 
 function filterDataBySelectedTab(selectedTab: string, role: string, data: any, users: any[]) {

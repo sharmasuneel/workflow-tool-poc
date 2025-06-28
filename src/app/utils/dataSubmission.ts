@@ -20,7 +20,7 @@ export function linkTaskToWorkflow(taskData: any, uiTaskId: string, appService: 
   appService.updateTaskById(uiTaskId, payload)
 }
 
-export function parseCommentary(commentary: any[]): string {
+export function parseCommentary(commentary: any[]): any {
   let reviewStatus = "waiting for review";
   let approveStatus = "waiting for approval";
   let taskStatus = "completed";
@@ -52,7 +52,7 @@ export function parseCommentary(commentary: any[]): string {
     }
   }
 
-  return `Task: ${taskStatus} | Review: ${reviewStatus} | Approve: ${approveStatus}`;
+  return { taskStatus, reviewStatus, approveStatus };
 }
 
 

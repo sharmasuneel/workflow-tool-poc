@@ -37,6 +37,7 @@ export class UploadComponent implements OnInit {
   approvers: any[] = []
   reviewers: any[] = []
   containerClass: "st1";
+  dd: any
 
   @Input() save: any = () => {
     this.onSave();
@@ -51,27 +52,25 @@ export class UploadComponent implements OnInit {
     this.preparators = [this.users.preparator];
     this.approvers = [this.users.approver];
     this.reviewers = [this.users.reviewer];
-    let task = {};
+    let task: any = {};
     if (this.phase === 'creation') {
       this.getLatestTaskData()
-      /* const workflow = this.appService.getNewWorkflow();
-      task = (workflow.tasks || []).filter((task: any) => task.uiTaskId === this.uiTaskId)[0] || {};
-      task = { ...task, ...this.taskData };
-      this.taskData = task || {}; */
     } else {
       const workflowId = this.appService.getWorkflowId();
       const workflow = this.appService.getWorkflowById(Number(workflowId));
       task = (workflow.tasks || []).filter((task: any) => task.uiTaskId === this.uiTaskId)[0] || {};
-      this.taskData = { ...task, uploadType: 'withDataFile', assignedTo: 'rahul' };
+      this.taskData = { ...task, uploadType: task.uploadType, assignedTo:  task.uploadType === 'withDataFile' ? 'rahul' : '' };
     }
   }
-
+  
   getLatestTaskData() {
     let task = {}
     const workflow = this.appService.getNewWorkflow();
     task = (workflow.tasks || []).filter((task: any) => task.uiTaskId === this.uiTaskId)[0] || {};
-    task = { ...task, ...this.taskData };
+    task = { ...task, ...this.taskData};
     this.taskData = task || {};
+    console.log(this.taskData)
+    this.dd = JSON.stringify(this.taskData)
   }
 
   getId(key: string, arr: any) {
