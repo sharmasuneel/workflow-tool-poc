@@ -126,7 +126,7 @@ export class AppGrid implements OnInit, OnChanges {
           this.appService.setWorkflows(data);
           this.filteredData = filterDataBySelectedTab(this.selectedRole, this.appService.getUser()?.role, data, this.appService.getUsers())
         });
-      }, 1000);
+      }, 100);
     }
   }
 

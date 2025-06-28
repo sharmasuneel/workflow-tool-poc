@@ -10,6 +10,7 @@ import { ToastComponent } from '../../common/toast/toast.component';
 import { FilesSectionComponent } from 'app/common/files-section/files-section.component';
 import { NotificationManagementComponent } from 'app/common/notification-management/notification-management.component';
 import { linkTaskToWorkflow, updateWorkflow } from 'app/utils/dataSubmission';
+import { PopupService } from 'app/services/popup.service';
 declare var bootstrap: any;
 @Component({
   selector: 'app-review',
@@ -29,6 +30,7 @@ export class ReviewComponent {
   rejectComment: string;
   private appService = inject(AppService);
   private dataService = inject(DataService);
+  private popupService = inject(PopupService);
 
   @ViewChild('approveModal') approveModal: any
 

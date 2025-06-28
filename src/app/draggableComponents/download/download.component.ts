@@ -5,12 +5,10 @@ import { DropWrapperContainerComponent } from '../../common/drop-wrapper-contain
 import { AppService } from '../../services/app.service';
 import { DataService } from '../../services/data.service';
 import getConfig from '../../config';
-import { toFormData } from '../../utils/dataTransformer';
-import { MatInputModule } from '@angular/material/input';
-import { ToastComponent } from '../../common/toast/toast.component';
 import { FilesSectionComponent } from 'app/common/files-section/files-section.component';
 import { NotificationManagementComponent } from 'app/common/notification-management/notification-management.component';
 import { linkTaskToWorkflow, updateWorkflow } from 'app/utils/dataSubmission';
+import { PopupService } from 'app/services/popup.service';
 
 @Component({
   selector: 'app-download',
@@ -32,6 +30,7 @@ export class DownloadComponent implements OnInit {
   //services 
   private appService = inject(AppService);
   private dataService = inject(DataService);
+    private popupService = inject(PopupService);
 
 
   @Input() workflowType: string;
@@ -58,7 +57,7 @@ export class DownloadComponent implements OnInit {
       this.taskData = task || {};
     }
   }
-  
+
   onSave() {
     linkTaskToWorkflow(this.taskData, this.uiTaskId, this.appService, 'download')
   }

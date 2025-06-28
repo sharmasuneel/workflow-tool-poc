@@ -44,9 +44,7 @@ export class DashboardComponent {
     if (!this.loggedInUser) {
       this.router.navigate([''])
     }
-    setTimeout(() => {
-      this.users = this.appService.getUsers();
-    }, 1000);
+    this.users = this.appService.getUsers();
   }
 
   showCreateWorkflow: boolean = false

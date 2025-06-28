@@ -38,9 +38,7 @@ export class UserBannerComponent implements OnInit {
   }
 
   ngOnInit() {
-    setTimeout(() => {
-      this.setWorflowCountByRole()
-    }, 1000);
+    this.setWorflowCountByRole()
   }
 
   getCount(role: string) {

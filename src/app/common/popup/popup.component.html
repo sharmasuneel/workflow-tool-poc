@@ -1,3 +1,4 @@
+<!-- History modal -->
 <div style="display: block" *ngIf="isVisible && type==='history'" class="modal" data-bs-backdrop="static"
   data-bs-keyboard="false" id="fileHistory" tabindex="-1">
   <div class="modal-dialog modal-dialog-centered">
@@ -32,7 +33,8 @@
     </div>
   </div>
 </div>
-<div style="display: block" *ngIf="isVisible && type!=='history'" class="modal" data-bs-backdrop="static"
+<!-- error modal -->
+<div style="display: block" *ngIf="isVisible && type ==='error'" class="modal" data-bs-backdrop="static"
   data-bs-keyboard="false" tabindex="-1">
   <div class="modal-dialog modal-dialog-centered ">
     <div class="modal-content">
@@ -42,22 +44,11 @@
       </div>
       <div class="modal-body">
         <p>{{message}}</p>
-        <div *ngIf="type === 'reject'">
-          <input type="text" class="form-control" placeholder="Add comment" [(ngModel)]="rejectComment">
-        </div>
-      </div>
-      <div class="modal-footer">
-        <button *ngIf="type === 'reject'" type="button" class="btn btn-danger" data-bs-dismiss="modal"
-          (click)="onReject()">Reject</button>
-        <button *ngIf="type === 'approve'" type="button" (click)="onApprove()" class="btn btn-success"
-          data-bs-dismiss="modal">Approve</button>
-        <button *ngIf="type === 'save' || type === 'update'" type="button" class="btn btn-primary" (click)="goToDashboard()">Go to
-          Dashboard</button>
       </div>
     </div>
   </div>
 </div>
-
+<!-- commentary modal -->
 <div style="display: block" *ngIf="isVisible && type==='commentary'" class="modal" data-bs-backdrop="static"
   data-bs-keyboard="false" tabindex="-1">
   <div class="modal-dialog modal-dialog-centered" style="height: 100px;">
@@ -105,6 +96,32 @@
         </div>
       </div>
 
+    </div>
+  </div>
+</div>
+<!-- Other modal -->
+<div style="display: block" *ngIf="isVisible && type ==='save' || type === 'update' || type === 'reject' || type === 'approve'" class="modal" data-bs-backdrop="static"
+  data-bs-keyboard="false" tabindex="-1">
+  <div class="modal-dialog modal-dialog-centered ">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">{{title}}</h5>
+        <button type="button" class="btn-close" (click)="close()" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <p>{{message}}</p>
+        <div *ngIf="type === 'reject'">
+          <input type="text" class="form-control" placeholder="Add comment" [(ngModel)]="rejectComment">
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button *ngIf="type === 'reject'" type="button" class="btn btn-danger" data-bs-dismiss="modal"
+          (click)="onReject()">Reject</button>
+        <button *ngIf="type === 'approve'" type="button" (click)="onApprove()" class="btn btn-success"
+          data-bs-dismiss="modal">Approve</button>
+        <button *ngIf="type === 'save' || type === 'update'" type="button" class="btn btn-primary" (click)="goToDashboard()">Go to
+          Dashboard</button>
+      </div>
     </div>
   </div>
 </div>

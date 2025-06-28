@@ -29,7 +29,7 @@ export class LoginComponent implements OnInit {
           this.allUsers.push(...group.users);
         }
       });
-    }, 1000);
+    }, 100);
   }
 
   login() {

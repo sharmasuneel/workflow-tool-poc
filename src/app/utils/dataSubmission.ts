@@ -56,20 +56,25 @@ export function updateWorkflow(appService: any, dataService: any, uiTaskId: stri
 
 export function createWorkflow(appService: any, dataService: any, popupService: any, drawflow: any) {
   const payload = appService.getNewWorkflow()
-  const files = payload.files
-  const uploadType = payload.uploadType
-  payload.drawflow = drawflow
-  delete payload.files // Remove files from payload to avoid circular reference
-  delete payload.uploadType // Remove uploadType from payload to avoid circular reference
-  if (payload && Array.isArray(payload.tasks)) {
-    payload.tasks.forEach((task: any) => {
-      delete task.files;
-    });
+  if (!payload.tasks || payload.tasks.length === 0) {
+    popupService.open({ isVisible: true, type: 'error', msg: 'No task are added to workflow' });
+  } else {
+
+    const files = payload.files
+    const uploadType = payload.uploadType
+    payload.drawflow = drawflow
+    delete payload.files // Remove files from payload to avoid circular reference
+    delete payload.uploadType // Remove uploadType from payload to avoid circular reference
+    if (payload && Array.isArray(payload.tasks)) {
+      payload.tasks.forEach((task: any) => {
+        delete task.files;
+      });
+    }
+    console.log('on create', payload)
+    const data = toFormData({ files, metadata: JSON.stringify(payload) }, uploadType);
+    dataService.postData(getConfig().saveWorkflow, data).subscribe((response: any) => {
+      console.log('Workflow created successfully')
+      popupService.open({ isVisible: true, type: 'save', msg: 'Workflow saved successfully', btns: [{ label: 'Go to Dashboard', click: 'navigate', navigateTo: '', primary: true }] });
+    })
   }
-  console.log('on create', payload)
-  const data = toFormData({ files, metadata: JSON.stringify(payload) }, uploadType);
-  dataService.postData(getConfig().saveWorkflow, data).subscribe((response: any) => {
-    console.log('Workflow created successfully')
-    popupService.open({ isVisible: true, type: 'save', msg: 'Workflow saved successfully', btns: [{ label: 'Go to Dashboard', click: 'navigate', navigateTo: '', primary: true }] });
-  })
 }
