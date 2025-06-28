@@ -82,7 +82,7 @@
         <div class="mb-3">
           <label class="text-muted">Commentary</label>
           <textarea class="form-control" style="background: #efefef;" rows="3"
-            readonly>Awaiting Final Commentary</textarea>
+            readonly>{{commentary}}</textarea>
         </div>
       </div>
 
@@ -100,7 +100,8 @@
   </div>
 </div>
 <!-- Other modal -->
-<div style="display: block" *ngIf="isVisible && type ==='save' || type === 'update' || type === 'reject' || type === 'approve'" class="modal" data-bs-backdrop="static"
+ <div *ngIf="isVisible">
+  <div style="display: block" *ngIf="type ==='save' || type === 'update' || type === 'reject' || type === 'approve'" class="modal" data-bs-backdrop="static"
   data-bs-keyboard="false" tabindex="-1">
   <div class="modal-dialog modal-dialog-centered ">
     <div class="modal-content">
@@ -125,3 +126,5 @@
     </div>
   </div>
 </div>
+ </div>
+

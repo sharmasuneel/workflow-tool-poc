@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { transformCommentary } from 'app/utils/dataSubmission';
 import { v4 as uuidv4 } from 'uuid';
 
 @Injectable({
@@ -38,7 +39,6 @@ export class AppService {
       createdBy: data?.createdBy || this.user?.userId,
       tasks: data?.tasks || [],
     }
-
     this.newWorkflow = workflow
   }
 
@@ -47,9 +47,10 @@ export class AppService {
   }
 
   setWorkflows(workflows: any[]) {
-    const allFiles: any[] = [];
     workflows.forEach(workflow => {
+      const allFiles: any[] = [];
       const uploadTasks = workflow.tasks.filter((task: any) => task.taskType === 'upload').map((w: any) => w.files);
+      workflow.commentary = transformCommentary(workflow.commentary, null, true)
       uploadTasks.forEach((filesArr: any) => {
         if (Array.isArray(filesArr)) {
           allFiles.push(...filesArr);
@@ -60,11 +61,14 @@ export class AppService {
       } else {
         workflow.drawflow = {}
       }
+      workflow.allFiles = allFiles
+      
     });
     const newWorkflowWithFiles: any = workflows.map((workflow: any) => {
       workflow.tasks = workflow.tasks.map((task: any) => {
-        return { ...task, files: allFiles };
+        return { ...task, files: workflow.allFiles };
       });
+      delete workflow.allFiles
       return workflow;
     });
 

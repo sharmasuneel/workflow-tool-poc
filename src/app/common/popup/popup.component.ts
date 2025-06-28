@@ -23,6 +23,7 @@ export class PopupComponent {
   rejectComment = ''
   btns: any[];
   taskData: any
+  commentary: any
 
   filehistory = [
     {
@@ -54,18 +55,32 @@ export class PopupComponent {
   private appService: AppService = inject(AppService)
 
   constructor() {
-    this.popupService.popupState$.subscribe((data: any) => {
-      if (data) {
-        this.title = data.title;
-        this.message = data.msg;
+    this.popupService.popupState$.subscribe((params: any) => {
+      if (params) {
+        this.title = params.title;
+        this.message = params.msg;
         this.isVisible = true;
-        this.btns = data.btns
-        this.type = data.type
-        this.taskData = data.taskData
+        this.btns = params.btns
+        this.type = params.type
+        this.taskData = params.taskData
+        this.commentary = this.getcommentaryString(params.commentary)
       } else {
         this.isVisible = false;
       }
     });
+  }
+
+  getcommentaryString(commentary: any) {
+    if (Array.isArray(commentary)) {
+      const dd = commentary.map((line: any, idx: number) => {
+       return  `${idx + 1}. ${line?.taskType.toUpperCase()}: Status: ${line.status} ${line.commentary}`
+    }).join('\n');
+      debugger
+      return dd
+    }
+    return '';
+
+
   }
 
   
@@ -88,5 +103,6 @@ export class PopupComponent {
 
   close() {
     this.popupService.close();
+    this.isVisible = false;
   }
 }

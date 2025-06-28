@@ -96,7 +96,7 @@ export class AppGrid implements OnInit, OnChanges {
       width: 200,
       cellRenderer: (params: any) => {
         return `<div>
-        <img class="commentry" src="/assets/icons/Commentary.png" />
+        <img class="commentary" src="/assets/icons/Commentary.png" />
         <img src="/assets/icons/Audit Trail.png" />
         </div>`;
       },
@@ -105,6 +105,7 @@ export class AppGrid implements OnInit, OnChanges {
           this.popupService.open({
             title: 'Conversation', msg: 'Are you sure you want to reject this file. Please add a comment to justify your action.',
             type: 'commentary',
+            commentary: params.data.commentary
           });
         }
       }

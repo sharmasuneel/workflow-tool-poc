@@ -14,7 +14,7 @@
           <div>
             <h5 class="modal-title">Create New Workflow</h5>
             <label for="workflowName" class="form-label me-2">Please give a name</label>
-            <input type="text" id="workflowName" class="form-control" style="width: 60%;" [(ngModel)]="newWorkflowName"
+            <input autocomplete="off" type="text" id="workflowName" class="form-control" style="width: 60%;" [(ngModel)]="newWorkflowName"
               placeholder="Enter workflow name">
             <span type="button" class="close closepopup" (click)="showCreateWorkflow = false" aria-label="Close">
               <span aria-hidden="true" class="btn-close"></span>

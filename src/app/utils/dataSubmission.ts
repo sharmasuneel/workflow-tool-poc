@@ -20,7 +20,43 @@ export function linkTaskToWorkflow(taskData: any, uiTaskId: string, appService: 
   appService.updateTaskById(uiTaskId, payload)
 }
 
-function getCommentry(oldCommentary: any, newCommentary: any) {
+export function parseCommentary(commentary: any[]): string {
+  let reviewStatus = "waiting for review";
+  let approveStatus = "waiting for approval";
+  let taskStatus = "completed";
+
+  if (Array.isArray(commentary)) {
+    for (const task of commentary) {
+      if (task.status !== "completed") {
+        taskStatus = "in progress";
+        break;
+      }
+    }
+
+    const hasApproveApproved = commentary.some(task => task.taskType === "approve" && task.status === "approved");
+    const hasApproveRejected = commentary.some(task => task.taskType === "approve" && task.status === "rejected");
+    const hasReviewApproved = commentary.some(task => task.taskType === "review" && task.status === "approved");
+    const hasReviewRejected = commentary.some(task => task.taskType === "review" && task.status === "rejected");
+
+    if (hasApproveApproved) {
+      approveStatus = "approved";
+    }
+    if (hasApproveRejected) {
+      approveStatus = "rejected";
+    }
+    if (hasReviewApproved) {
+      reviewStatus = "approved";
+    }
+    if (hasReviewRejected) {
+      reviewStatus = "rejected";
+    }
+  }
+
+  return `Task: ${taskStatus} | Review: ${reviewStatus} | Approve: ${approveStatus}`;
+}
+
+
+export function transformCommentary(oldCommentary: any, newCommentary: any, needJSon: boolean = false) {
   let commentaries = []
   if (oldCommentary === '') {
     commentaries = []
@@ -28,9 +64,10 @@ function getCommentry(oldCommentary: any, newCommentary: any) {
   else {
     commentaries = typeof oldCommentary === 'string' ? JSON.parse(oldCommentary) : oldCommentary
   }
-
-  commentaries.push(newCommentary)
-  return JSON.stringify(commentaries)
+  if (newCommentary) {
+    commentaries.push(newCommentary)
+  }
+  return needJSon ? commentaries : JSON.stringify(commentaries)
 }
 
 
@@ -40,7 +77,7 @@ export function updateWorkflow(appService: any, dataService: any, uiTaskId: stri
   const payload = appService.updateTaskById(uiTaskId, { ...taskData, taskUpdatedByUserId })
   // Update commentrary on every update on workflow level
 
-  payload.commentary = getCommentry(payload.commentary, { taskType: taskData.taskType, status: taskData.status, commentry: taskData.commentary })
+  payload.commentary = transformCommentary(payload.commentary, { taskType: taskData.taskType, status: taskData.status, commentary: taskData.commentary })
 
   payload.tasks.forEach((task: any) => {
     if (task.taskType === 'upload' && task.uploadType === 'withDataFile' && isRejected) {
