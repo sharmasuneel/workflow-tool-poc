@@ -16,22 +16,37 @@ export function linkTaskToWorkflow(taskData: any, uiTaskId: string, appService: 
     taskType,
     uiTaskId,
     taskUpdatedByUserId: null,
-    /* acknowledgeTask: taskData.acknowledgeTask || false,
-    dashboardNotification: taskData.dashboardNotification || false,
-    notifyEmail: taskData.notifyEmail || false,
-    userCommentary: taskData.userCommentary || false,
-    commentary: taskData.commentary || '',
-    autoVersioning: taskData.autoVersioning,
-    fileNames: taskData.fileNames, */
   }
   appService.updateTaskById(uiTaskId, payload)
 }
 
+function getCommentry(oldCommentary: any, newCommentary: any) {
+  let commentaries = []
+  if (oldCommentary === '') {
+    commentaries = []
+  }
+  else {
+    commentaries = typeof oldCommentary === 'string' ? JSON.parse(oldCommentary) : oldCommentary
+  }
 
-export function updateWorkflow(appService: any, dataService: any, uiTaskId: string, taskData: any, popupService: any) {
+  commentaries.push(newCommentary)
+  return JSON.stringify(commentaries)
+}
+
+
+export function updateWorkflow(appService: any, dataService: any, uiTaskId: string, taskData: any, popupService: any, isRejected: boolean = false) {
   const taskUpdatedByUserId: any = appService.getUser().userId;
   taskData.status = taskData.status || 'completed'
   const payload = appService.updateTaskById(uiTaskId, { ...taskData, taskUpdatedByUserId })
+  // Update commentrary on every update on workflow level
+
+  payload.commentary = getCommentry(payload.commentary, { taskType: taskData.taskType, status: taskData.status, commentry: taskData.commentary })
+
+  payload.tasks.forEach((task: any) => {
+    if (task.taskType === 'upload' && task.uploadType === 'withDataFile' && isRejected) {
+      task.status = 'rejected'
+    }
+  })
   const drawFlow = JSON.stringify(payload.drawflow, null, 4)
   payload.drawflow = drawFlow
   const files = payload.files

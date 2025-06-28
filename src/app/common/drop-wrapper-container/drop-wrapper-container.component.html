@@ -11,7 +11,7 @@
                 <button *ngIf="phase ==='execution' && taskType === 'review'" (click)="onApprove()" class="btn btn-success  w-25  mb-2  pull-right"><i class="fa fa-check"></i></button>
                 <button *ngIf="phase ==='execution' && taskType === 'review'" (click)="onReject()" class="btn btn-danger w-25  mb-2  pull-right" style="margin-right: 10px;"><i class="fa fa-close"></i></button>
                 <button *ngIf="phase ==='creation'" (click)="onSave()" class="btn btn-primary mt-3 w-60 pull-right mb-2">Link to Workflow</button>
-                <button  *ngIf="phase ==='execution' && taskType !== 'review' && taskType !== 'start'" (click)="onComplete()" class="btn btn-primary w-80 mt-3 pull-right mb-2">Mark as 
+                <button  [disabled] ="taskData.status === 'completed'" *ngIf="phase ==='execution' && taskType !== 'review' && taskType !== 'start'" (click)="onComplete()" class="btn btn-primary w-80 mt-3 pull-right mb-2">Mark as 
                     Complete</button>
         </div>
     </div>
