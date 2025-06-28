@@ -1,4 +1,5 @@
-<app-drop-wrapper-container [taskType]="'review'" (save)="onSave()" (approve)="openApproveFilePopup()" (reject)="openRejectFilePopup()">
+<app-drop-wrapper-container [taskType]="'review'" (save)="onSave()" (approve)="openApproveFilePopup()"
+  (reject)="openRejectFilePopup()">
   <div class="text-primary font-16">Review</div>
   <div class="mt-2">
     <label class="text-muted">
@@ -10,7 +11,5 @@
     <label class="mt-1 text-muted">Files to review</label>
     <files-section [taskData]="taskData"></files-section>
   </div>
-  <div>
-    <notification-management [taskData]="taskData"></notification-management>
-  </div>
+  <notification-management [taskData]="taskData"></notification-management>
 </app-drop-wrapper-container>

@@ -6,14 +6,13 @@ import { DataService } from '../../services/data.service';
 import getConfig from '../../config';
 import { DropWrapperContainerComponent } from '../../common/drop-wrapper-container/drop-wrapper-container.component';
 import { toFormData } from '../../utils/dataTransformer'
-import { ToastrService } from 'ngx-toastr';
-import { ToastComponent } from '../../common/toast/toast.component';
 import { PopupService } from 'app/services/popup.service';
+import { NotificationManagementComponent } from 'app/common/notification-management/notification-management.component';
 
 @Component({
   selector: 'app-upload',
   templateUrl: './upload.component.html',
-  imports: [CommonModule, FormsModule, DropWrapperContainerComponent, ToastComponent],
+  imports: [CommonModule, FormsModule, DropWrapperContainerComponent, NotificationManagementComponent],
   standalone: true,
   styleUrls: ['./upload.component.scss'],
 })
