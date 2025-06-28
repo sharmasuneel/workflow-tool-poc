@@ -100,7 +100,8 @@
   </div>
 </div>
 <!-- Other modal -->
-<div style="display: block" *ngIf="isVisible && type ==='save' || type === 'update' || type === 'reject' || type === 'approve'" class="modal" data-bs-backdrop="static"
+ <div *ngIf="isVisible">
+  <div style="display: block" *ngIf="type ==='save' || type === 'update' || type === 'reject' || type === 'approve'" class="modal" data-bs-backdrop="static"
   data-bs-keyboard="false" tabindex="-1">
   <div class="modal-dialog modal-dialog-centered ">
     <div class="modal-content">
@@ -125,3 +126,5 @@
     </div>
   </div>
 </div>
+ </div>
+

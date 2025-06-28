@@ -75,5 +75,6 @@ export class PopupComponent {
 
     close() {
         this.popupService.close();
+        this.isVisible = false;
     }
 }
