@@ -105,6 +105,7 @@ export class AppGrid implements OnInit, OnChanges {
           this.popupService.open({
             title: 'Conversation', msg: 'Are you sure you want to reject this file. Please add a comment to justify your action.',
             type: 'commentary',
+            commentary: params.data.commentary
           });
         }
       }

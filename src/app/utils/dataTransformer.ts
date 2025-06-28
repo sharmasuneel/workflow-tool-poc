@@ -1,4 +1,5 @@
 import { AnyGridOptions } from "ag-grid-community/dist/types/src/propertyKeys";
+import { parseCommentary } from "./dataSubmission";
 
 function toFormData(obj: any, fileNameKey: string): FormData {
     const formData = new FormData();
@@ -66,7 +67,7 @@ function transformData(data: any[], users: any, role: string) {
             assignedToUsers: [users.preparator, users.reviewer, users.approver, users.owner],
             assignedTo: [users.preparator, users.reviewer, users.approver, users.owner].map((user: any) => user.name + ' | ' + user.role).join(', '),
             createdBy: usersByGroupId,
-            commentary: item.commentary || 'No comments'
+            commentary: item.commentary
         }
         return dd
     });

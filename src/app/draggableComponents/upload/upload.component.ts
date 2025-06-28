@@ -119,7 +119,7 @@ export class UploadComponent implements OnInit {
   }
 
   onComplete() {
-    updateWorkflow(this.appService,this.dataService, this.uiTaskId, this.taskData, this.popupService)
+    updateWorkflow(this.appService,this.dataService, this.uiTaskId, {...this.taskData, status: 'completed'}, this.popupService)
   }
   openFileHistoryPopup() {
     this.popupService.open({ isVisible: true, title: 'File History?', type: 'history' });

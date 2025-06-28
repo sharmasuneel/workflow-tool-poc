@@ -1,4 +1,4 @@
-<app-drop-wrapper-container [taskType]="'upload'" (complete)="onComplete()" (save)="onSave()">
+<app-drop-wrapper-container [taskData]="taskData" [taskType]="'upload'" (complete)="onComplete()" (save)="onSave()">
   <div class="text-primary font-16">Upload</div>
   <div *ngIf="phase === 'execution'">
     <label class="text-muted">

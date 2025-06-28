@@ -1,4 +1,4 @@
-<app-drop-wrapper-container (complete)="onComplete()" (save)="onSave()">
+<app-drop-wrapper-container [taskData]="taskData" (complete)="onComplete()" (save)="onSave()">
   <div class="text-primary font-16">Approve</div>
   <div class="mt-2">
     <label class="text-muted">

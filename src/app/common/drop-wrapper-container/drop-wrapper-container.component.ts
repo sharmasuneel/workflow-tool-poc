@@ -18,6 +18,7 @@ export class DropWrapperContainerComponent implements OnInit {
   @Output() approve = new EventEmitter<string>();
   @Output() reject = new EventEmitter<string>();
   @Input() taskType: string = "";
+  @Input() taskData: any
   phase: string;
 
   
@@ -42,11 +43,12 @@ export class DropWrapperContainerComponent implements OnInit {
     this.popupService.open({
       type: 'approve',
       isVisible: true,
-      title: 'Approve File?', msg: 'Are you sure you want to approve this file.', btns: [{label: 'Approve', click: 'close', primary: true}]});
+      title: 'Approve File?', msg: 'Are you sure you want to approve this file.', taskData: this.taskData, btns: [{label: 'Approve', click: 'close', primary: true}]});
   }
   onReject() {
     this.popupService.open({title: 'Reject File?', msg: 'Are you sure you want to reject this file. Please add a comment to justify your action.', 
       btns: [{label: 'Reject', click: 'close', primary: true}], 
+      taskData: this.taskData,
       type: 'reject',
       isVisible: true
     });
