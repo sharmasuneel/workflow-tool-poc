@@ -88,11 +88,13 @@ export class PopupComponent {
   onApprove() {
     updateWorkflow(this.appService, this.dataService, this.taskData.uiTaskId, {...this.taskData, status: 'approved'}, this.popupService)
     this.close()
+    this.router.navigate([''])
     //TODO  add approve
   }
   onReject() {
     updateWorkflow(this.appService, this.dataService, this.taskData.uiTaskId, {...this.taskData, status: 'rejected'}, this.popupService, true)
     this.close()
+    this.router.navigate([''])
     //TODO  reject
   }
 
