@@ -27,10 +27,10 @@
       <img src="assets/icons/User Profile.png" />
     </button>
     <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-      <li><a class="dropdown-item" (click)="selectRole(users.owner)">Owner</a></li>
-      <li><a class="dropdown-item" (click)="selectRole(users.preparator)">Preparator</a></li>
-      <li><a class="dropdown-item" (click)="selectRole(users.reviewer)">Reviewer</a></li>
-      <li><a class="dropdown-item" (click)="selectRole(users.approver)">Approver</a></li>
+      <li><a class="dropdown-item" [class.active]="role.role === 'owner'" (click)="selectRole(users.owner)">Owner</a></li>
+      <li><a class="dropdown-item" [class.active]="role.role === 'preparator'" (click)="selectRole(users.preparator)">Preparator</a></li>
+      <li><a class="dropdown-item" [class.active]="role.role === 'reviewer'" (click)="selectRole(users.reviewer)">Reviewer</a></li>
+      <li><a class="dropdown-item" [class.active]="role.role === 'approver'" (click)="selectRole(users.approver)">Approver</a></li>
     </ul>
     </div>
 
