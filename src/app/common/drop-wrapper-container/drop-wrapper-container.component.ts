@@ -38,6 +38,7 @@ export class DropWrapperContainerComponent implements OnInit {
   }
   onComplete() {
     this.complete.emit();
+    this.toggleChildren();
   }
   onApprove() {
     this.popupService.open({
