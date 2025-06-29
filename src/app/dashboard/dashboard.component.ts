@@ -1,4 +1,4 @@
-import { Component, EventEmitter, inject, Output } from "@angular/core";
+import { Component, EventEmitter, inject, Input, Output } from "@angular/core";
 import { AppGrid } from "../common/grid/grid.component";
 import { UserBannerComponent } from '../user-banner/user-banner.component';
 import { AppService } from "../services/app.service";
@@ -34,7 +34,7 @@ export class DashboardComponent {
 
   @Output() selectedRoleChange = new EventEmitter<string>();
 
-  selectedRole: string = 'owner'
+  selectedRole: any = 'owner'
   loggedInUser: any
   users: any[] = [];
 
@@ -45,6 +45,13 @@ export class DashboardComponent {
       this.router.navigate([''])
     }
     this.users = this.appService.getUsers();
+  }
+  ngOnChanges(changes: any) {
+    if (changes.selectedRole && !changes.selectedRole.firstChange) {
+      // selectedRole has changed
+      // Add your logic here if needed
+      debugger
+    }
   }
 
   showCreateWorkflow: boolean = false
@@ -61,7 +68,7 @@ export class DashboardComponent {
 
   filterWorkFlows(evt: any): void {
     this.selectedRole = evt
-    this.showCreateWorkflowBtn = evt === 'owner'
+    this.showCreateWorkflowBtn = evt === 'owner' || evt.role === 'owner'
     this.profileSelected = evt
   }
   

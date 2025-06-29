@@ -24,6 +24,7 @@ export class HeaderComponent implements OnInit {
 
   greetMsg: string;
   today: string
+  role: any = { "userId": 1, "name": "Owner", "role": "owner" }
 
   constructor(private router: Router) {
     this.today = new Date().toLocaleDateString();
@@ -60,6 +61,7 @@ export class HeaderComponent implements OnInit {
   selectRole(role: any) {
     this.profileSelected.emit(role);
     this.appService.setUser(role);
+    this.role = role
     this.menuOpen = false;
     this.router.navigate([''], {
       queryParams: { selectedRole: role.role }
