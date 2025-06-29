@@ -35,7 +35,7 @@ export class AppGrid implements OnInit, OnChanges {
   private appService = inject(AppService);
   private dataService = inject(DataService);
   private popupService = inject(PopupService);
-  @Input() selectedRole: string = 'owner';
+  @Input() selectedRole: any = 'owner';
 
   constructor(private router: Router) { }
   columnDefs: ColDef[] = [
@@ -52,7 +52,7 @@ export class AppGrid implements OnInit, OnChanges {
           this.appService.setPhase('execution')
           this.appService.setWorkflowId(params.data.workflowId)
           this.router.navigate(['/workflow'], {
-            queryParams: { id: params.data.workflowId, action: 'execute', type: 'workflow', selectedRole: this.selectedRole }
+            queryParams: { id: params.data.workflowId, action: 'execute', type: 'workflow', selectedRole: this.selectedRole.role }
           });
         }
       }
