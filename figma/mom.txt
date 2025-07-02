@@ -1,0 +1,77 @@
+Minutes of Meeting 
+Date: 07/02/25 
+Participants: 
+•	Pune 
+•	Paresh S 
+•	Speaker 1 
+•	Sapna 
+Key Topics Discussed: 
+1.	Workflow Dashboard: 
+o	The workflow creation dashboard will start at "create new workflow" and include columns for workflow name, status (development or deployed), created by, and description.  
+o	Future columns may include last executed date and other execution-related details.  
+2.	Workflow Categories and Search: 
+o	Introduction of workflow categories and a search box for easier navigation and search by workflow name or commentary.  
+3.	Roles and Permissions: 
+o	Clarification on roles for creating and executing workflows. Roles for creating workflows are not yet defined.  
+o	Discussion on user roles for workflow execution, including preparer, reviewer, approver, and process owner.  
+4.	Workflow Parameters: 
+o	Parameters for start and end, including manually triggered or auto-triggered workflows, start working day, start time, and holiday calendar.  
+o	End parameters include end working day and end time.  
+5.	File Upload and Download: 
+o	File upload will include business names, retain file for future iterations, and view history of documents.  
+o	File download will allow selection of files available up to that stage and view history and versions.  
+6.	Decision Boxes: 
+o	Decision boxes will include outcomes and connections to subsequent steps.  
+7.	Execution Dashboard: 
+o	Execution dashboard for process owners to view workflow status, send reminders, and escalations.  
+o	User dashboard for executors to view pending, in-progress, and future tasks.  
+8.	Query Workflow and Comments: 
+o	Query workflow will allow users to raise queries to process owners or other roles within the workflow.  
+o	Capture comments will be available for all stages.  
+Action Items: 
+1.	Workflow Setup and Execution Screens: 
+o	Nilesh to design execution screens for file upload, file download, and decision tasks.  
+2.	User Experience Prototype: 
+o	Create UX prototype for setup and execution flow.  
+3.	Documentation: 
+o	Document the mockup and user manual for sign-off by users.  
+4.	Holiday Calendar Screen: 
+o	Develop a separate capability for defining holiday calendars.  
+Decisions: 
+1.	Workflow Status: 
+o	Once a workflow is deployed, it cannot be modified. A new workflow can be created by copying the existing one.  
+2.	Task Selection: 
+o	Tasks will be available for selection by multiple users, and once selected, it will move to work in progress.  
+3.	File Versions: 
+o	Retain versions of files for the same quarter and allow viewing history of documents.  
+Next Steps: 
+•	Focus on creating the execution dashboard and task-level screens for the MVP. 
+•	Review the UX prototype with the team and gather feedback. 
+•	Start the build process for file upload functionality and other basic features. 
+
+
+User stories> 
+Task Management Dashboard
+
+Create a user management dashboard with tab-based filtering and a task table.
+
+tasks categorized under different statuses (Pending, Active, Completed, Upcoming),
+
+I can easily track progress, assign tasks, and monitor workflow descriptions in a structured and intuitive interface.
+
+Tab Navigation
+   - The dashboard must display four tabs at the top: Pending, Active, Completed, and Upcoming.
+   - Clicking a tab should filter the table to show only tasks with the corresponding status.
+   - The active tab should be visually highlighted.
+
+Task Table
+   - Below the tabs, a table should be displayed with the following columns:
+     - Workflow Name
+     - Task Name
+     - Status
+     - Assign
+     - Description
+   - The table should dynamically update based on the selected tab.
+   - Each row should represent a task with its associated metadata.
+   - Users should be able to click on a task row to view more details
+
