@@ -58,7 +58,7 @@ export class AppGrid implements OnInit, OnChanges {
       }
     },
     {
-      field: 'progress',
+      field: 'taskName',
       width: 150
     },
     {
@@ -79,7 +79,7 @@ export class AppGrid implements OnInit, OnChanges {
       }
     },
     {
-      field: 'assignedTo',
+      field: 'assign',
       width: 250,
       cellRenderer: (params: any) => {
         const users = params.data.assignedTo.split(',') || [];
@@ -92,7 +92,7 @@ export class AppGrid implements OnInit, OnChanges {
       }
     },
     {
-      field: 'commentary',
+      field: 'description',
       width: 200,
       cellRenderer: (params: any) => {
         return `<div>

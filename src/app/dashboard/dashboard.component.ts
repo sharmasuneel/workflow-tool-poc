@@ -25,7 +25,7 @@ export class DashboardComponent {
   profileSelected: any
   private appService = inject(AppService);
   private dataService = inject(DataService);
-
+  selectedTab: any
 
   constructor(private router: Router) {
     this.title = 'Dashboard';
@@ -71,5 +71,5 @@ export class DashboardComponent {
     this.showCreateWorkflowBtn = evt === 'owner' || evt.role === 'owner'
     this.profileSelected = evt
   }
-  
+
 }
