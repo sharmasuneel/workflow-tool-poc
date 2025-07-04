@@ -14,7 +14,6 @@ export interface TaskFile {
     taskCompletionDate: string;
     taskCompletionTime: string;
     taskType: string;
-    taskBusinessName: string;
     taskAutoVersioning: boolean;
     taskCaptureComments: boolean;
     taskUiId: string;
