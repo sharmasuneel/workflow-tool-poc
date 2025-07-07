@@ -1,0 +1,106 @@
+import { Component, EventEmitter, inject, Input, OnInit, Output } from "@angular/core";
+import { UserBannerComponent } from '../user-banner/user-banner.component';
+import { CommonModule } from "@angular/common";
+import { FormsModule } from "@angular/forms";
+import { HeaderComponent } from "app/header/header.component";
+import { AgGridAngular } from 'ag-grid-angular';
+import { ColDef } from 'ag-grid-community';
+import { AllCommunityModule, ModuleRegistry } from "ag-grid-community";
+import { DataService } from '../services/data.service';
+import { AppService } from "app/services/app.service";
+ModuleRegistry.registerModules([AllCommunityModule]);
+
+
+@Component({
+  selector: 'app-task-dashboard',
+  standalone: true,
+  imports: [UserBannerComponent, CommonModule, FormsModule, HeaderComponent,AgGridAngular],
+  templateUrl: './task-dashboard.component.html',
+  styleUrl: './task-dashboard.component.scss'
+})
+export class TaskDashboardComponent implements OnInit {
+   profileSelected: any;
+   selectedTab: string = 'active';
+   completedCount: number = 0;  
+   upcomingCount: number = 0;
+   activeCount: number = 0;
+   filteredData:any=[];
+   paginationPageSize=5;
+   @Output() selectedRoleChange = new EventEmitter<string>();
+ 
+   selectedRole: any = 'owner'
+   showCreateWorkflowBtn: boolean = true;
+   
+ private appService = inject(AppService);
+
+   columnDefs: ColDef[] = [
+    {
+      headerName: 'Workflow Name',
+      field: 'workflowname',
+      width: 250,
+      cellRenderer: (params: any) => {
+       
+        return `<div>
+        ${params.getValue()}
+       </div>`;
+      }
+    },
+    {
+      headerName: 'Task Name',
+      field: 'taskName',
+      width: 200,
+      cellRenderer: (params: any) => {
+       
+        return `<div>
+         ${params.getValue()}
+        </div>`;
+      }
+    },
+    {
+      headerName: 'Status',
+      field: 'status',
+      width: 150,
+      cellRenderer: (params: any) => {
+       
+        return `<div>
+         ${params.getValue()}
+        </div>`; return ``;
+      }
+    },
+    {
+      headerName: 'Actions',
+      field: 'action',
+      width: 150,
+      cellRenderer: (params: any) => {
+       
+        return `
+        <div class="d-flex align-items-center">	
+          <button class="btn btn-primary">Select</button
+        </div>
+        `;
+      }
+    },
+    {
+      headerName: 'Due By',
+      field: 'dueby',
+      width: 150,
+      cellRenderer: (params: any) => {
+       
+        return `<div>
+         ${params.getValue()}
+        </div>`;
+      }
+    },
+   ];
+
+   ngOnInit(): void {
+    this.filteredData=this.appService.getUserTasks();
+    console.log('filteredData: > ', this.filteredData);
+    
+   };
+   filterWorkFlows(evt: any): void {
+    this.selectedRole = evt
+    this.showCreateWorkflowBtn = evt === 'owner' || evt.role === 'owner'
+    this.profileSelected = evt
+  }
+}

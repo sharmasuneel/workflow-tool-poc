@@ -21,6 +21,7 @@ import { DOCUMENT } from '@angular/common';
 export class AppComponent implements OnInit {
   title = 'drawflowangular';
   workflows: any[] = [];
+  userTasks: any[] = [];
 
 
   private dataService = inject(DataService);
@@ -40,6 +41,12 @@ export class AppComponent implements OnInit {
     this.titleService.setTitle('Document Workflow Management');
     this.changeFavicon('../assets/icons/logo.png');
     this.appService.setUsers(this.users);
+
+    this.dataService.getData(this.urls.userTasks).subscribe((data) => {
+      this.userTasks = data;
+      this.appService.setUserTasks(data);
+    });
+
     if (this.urls.st) {
       this.workflows = workflowsData;
       this.appService.setWorkflows(workflowsData);
@@ -48,6 +55,7 @@ export class AppComponent implements OnInit {
         this.workflows = data;
         this.appService.setWorkflows(data);
       });
+      
     }
   }
   changeFavicon(newFaviconPath: any): void {

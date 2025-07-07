@@ -1,0 +1,19 @@
+{
+    "tasks":[
+        {
+            "headerName": "Workflow Name",
+            "field": "workflowname",
+            "width": 250,
+            "class": "my-action-btn",  
+            "cellRenderer": "<div><a class=\"my-action-btn\">~{params.getValue()}</a> </div>",
+
+            "onClick":{
+                "action": "navigate",
+                "route": "/drawflow",
+                "params": {
+                    "workflowId": "{{data.workflowId}}"
+                }
+            }
+        }
+    ]
+}

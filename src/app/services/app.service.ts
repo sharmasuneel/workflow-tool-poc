@@ -9,6 +9,7 @@ export class AppService {
   private user: any = { "userId": 1, "name": "Owner", "role": "owner" };
   private users: any[] = [];
   private workflows: any[] = [];
+  private userTasks: any[] = [];
   private payloadWorkFlow: any = { metadata: {}, files: null };
   private workflowId: string;
   private workflowName: string;
@@ -77,9 +78,15 @@ export class AppService {
   }
 
   getWorkflows() {
-    return this.workflows
+    return this.workflows;
+  }
+  getUserTasks() {
+    return this.userTasks;
   }
 
+  setUserTasks(userTasks: any[]) {
+    this.userTasks = userTasks;
+  }
   getEnabledNodes(role: string) {
     if (role === 'preparator') {
       return ['upload', 'download']

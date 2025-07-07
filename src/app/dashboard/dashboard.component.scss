@@ -132,3 +132,20 @@ modal.small-popup {
   background: rgba(0,0,0,0.2);
   z-index: 1040;
 }
+.nav-link.active{
+  background-color: #0e5ba3;
+  color: white;
+}
+.nav-link{
+  background-color: #fff;
+  color: #000;
+  border-color: #fff;
+}
+.nav-item{
+  margin-left: 5px;
+  border-radius: none;
+  cursor: pointer;
+}
+.badge{
+  --bs-badge-font-size: 0.60em !important;
+}
