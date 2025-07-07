@@ -27,7 +27,8 @@
          {
             "headerName": "Task Name",
             "field": "taskName",
-            "width": 150
+            "width": 150,
+            "cellRenderer": "<div><a class=\"my-action-btn\">~{params.taskName}</a> </div>"
         }
     ]
 }
