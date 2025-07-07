@@ -1,19 +1,33 @@
 {
-    "tasks":[
+    "tasks": [
         {
             "headerName": "Workflow Name",
             "field": "workflowname",
             "width": 250,
-            "class": "my-action-btn",  
-            "cellRenderer": "<div><a class=\"my-action-btn\">~{params.getValue()}</a> </div>",
-
-            "onClick":{
-                "action": "navigate",
-                "route": "/drawflow",
-                "params": {
-                    "workflowId": "{{data.workflowId}}"
+            "class": "my-action-btn",
+            "cellRenderer": "<div><a class=\"my-action-btn\">~{params.workflowName}</a> </div>",
+            "onClick": {
+                "action": {
+                    "navigate": {
+                        "route": "/workflow",
+                        "queryParams": {
+                            "id": "~{params.workflowId}",
+                            "action": "execute",
+                            "type": "workflow",
+                            "selectedRole": "~{params.selectedRole.role}"
+                        }
+                    },
+                    "appSetters": {
+                        "setPhase": "execution",
+                        "setWorkflowId": "~{params.workflowId}"
+                    }
                 }
             }
+        },
+         {
+            "headerName": "Task Name",
+            "field": "taskName",
+            "width": 150
         }
     ]
 }

@@ -9,11 +9,11 @@ export const routes: Routes = [
         component: DrawflowComponent
     },
     {
-        path: 'tasks',
+        path: '',
         component: TaskDashboardComponent
     },
     {
-        path: '',
+        path: 'dashboard',
         component: DashboardComponent
     }
 ];

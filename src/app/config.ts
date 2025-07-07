@@ -9,7 +9,7 @@ const config = {
         upload: baseUrl + 'upload',
         downlodFile: baseUrl + 'files/download/',
         userTasks: baseUrl + 'user-tasks',
-        st: false
+        st: true
     },
     javaApiEndpoints: {
         saveWorkflow: baseUrl + 'workflows/create',
@@ -19,7 +19,7 @@ const config = {
         upload: baseUrl + 'files/upload',
         downlodFile: baseUrl + 'files/download/',
         userTasks: baseUrl + 'user-tasks',
-        st: false
+        st: true
     }
 };
 ``

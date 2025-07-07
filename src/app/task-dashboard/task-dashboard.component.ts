@@ -8,97 +8,104 @@ import { ColDef } from 'ag-grid-community';
 import { AllCommunityModule, ModuleRegistry } from "ag-grid-community";
 import { DataService } from '../services/data.service';
 import { AppService } from "app/services/app.service";
+import { gridColumns } from "app/utils/gridProperties";
+import { Router } from "@angular/router";
 ModuleRegistry.registerModules([AllCommunityModule]);
 
 
 @Component({
   selector: 'app-task-dashboard',
   standalone: true,
-  imports: [UserBannerComponent, CommonModule, FormsModule, HeaderComponent,AgGridAngular],
+  imports: [UserBannerComponent, CommonModule, FormsModule, HeaderComponent, AgGridAngular],
   templateUrl: './task-dashboard.component.html',
   styleUrl: './task-dashboard.component.scss'
 })
 export class TaskDashboardComponent implements OnInit {
-   profileSelected: any;
-   selectedTab: string = 'active';
-   completedCount: number = 0;  
-   upcomingCount: number = 0;
-   activeCount: number = 0;
-   filteredData:any=[];
-   paginationPageSize=5;
-   @Output() selectedRoleChange = new EventEmitter<string>();
- 
-   selectedRole: any = 'owner'
-   showCreateWorkflowBtn: boolean = true;
-   
- private appService = inject(AppService);
+  profileSelected: any;
+  selectedTab: string = 'active';
+  completedCount: number = 0;
+  upcomingCount: number = 0;
+  activeCount: number = 0;
+  filteredData: any = [];
+  paginationPageSize = 5;
+  @Output() selectedRoleChange = new EventEmitter<string>();
 
-   columnDefs: ColDef[] = [
-    {
-      headerName: 'Workflow Name',
-      field: 'workflowname',
-      width: 250,
-      cellRenderer: (params: any) => {
-       
-        return `<div>
+  selectedRole: any = 'owner'
+  showCreateWorkflowBtn: boolean = true;
+
+  private appService = inject(AppService);
+
+  columnDefs: ColDef[];
+  columnDefs1: ColDef[] =
+    [
+      {
+        headerName: 'Workflow Name',
+        field: 'workflowname',
+        width: 250,
+        cellRenderer: (params: any) => {
+
+          return `<div>
         ${params.getValue()}
        </div>`;
-      }
-    },
-    {
-      headerName: 'Task Name',
-      field: 'taskName',
-      width: 200,
-      cellRenderer: (params: any) => {
-       
-        return `<div>
+        }
+      },
+      {
+        headerName: 'Task Name',
+        field: 'taskName',
+        width: 200,
+        cellRenderer: (params: any) => {
+
+          return `<div>
          ${params.getValue()}
         </div>`;
-      }
-    },
-    {
-      headerName: 'Status',
-      field: 'status',
-      width: 150,
-      cellRenderer: (params: any) => {
-       
-        return `<div>
+        }
+      },
+      {
+        headerName: 'Status',
+        field: 'status',
+        width: 150,
+        cellRenderer: (params: any) => {
+
+          return `<div>
          ${params.getValue()}
         </div>`; return ``;
-      }
-    },
-    {
-      headerName: 'Actions',
-      field: 'action',
-      width: 150,
-      cellRenderer: (params: any) => {
-       
-        return `
+        }
+      },
+      {
+        headerName: 'Actions',
+        field: 'action',
+        width: 150,
+        cellRenderer: (params: any) => {
+
+          return `
         <div class="d-flex align-items-center">	
           <button class="btn btn-primary">Select</button
         </div>
         `;
-      }
-    },
-    {
-      headerName: 'Due By',
-      field: 'dueby',
-      width: 150,
-      cellRenderer: (params: any) => {
-       
-        return `<div>
+        }
+      },
+      {
+        headerName: 'Due By',
+        field: 'dueby',
+        width: 150,
+        cellRenderer: (params: any) => {
+
+          return `<div>
          ${params.getValue()}
         </div>`;
-      }
-    },
-   ];
+        }
+      },
+    ];
 
-   ngOnInit(): void {
-    this.filteredData=this.appService.getUserTasks();
+  constructor(private router: Router) { }
+
+  ngOnInit(): void {
+    this.filteredData = this.appService.getUserTasks();
+    this.columnDefs = gridColumns('tasks', this.filteredData, { router: this.router, setPhase: this.appService.setPhase, setWorkflowId: this.appService.setWorkflowId })
     console.log('filteredData: > ', this.filteredData);
-    
-   };
-   filterWorkFlows(evt: any): void {
+
+  };
+  filterWorkFlows(evt: any): void {
     this.selectedRole = evt
     this.showCreateWorkflowBtn = evt === 'owner' || evt.role === 'owner'
     this.profileSelected = evt
