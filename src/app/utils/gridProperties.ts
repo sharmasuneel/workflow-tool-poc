@@ -15,6 +15,21 @@ export function parseCell(str: any, params: any) {
     console.log('parseCell > ', retStr)
     return retStr
 }
+function addSignalClass(date: string): string {
+    const currentDate = new Date();
+    const taskEndDate = new Date(date); // 
+    const diffInMs = Math.abs(currentDate.getTime() - taskEndDate.getTime());
+    const diffInDays = Math.ceil(diffInMs / (1000 * 60 * 60 * 24));
+    if (diffInDays <= 5) {
+        return 'red-signal';
+    } else if (diffInDays <= 10) {
+        return 'yellow-signal';
+    } else {
+        return 'green-signal';
+    }
+
+
+}
 
 function evaluate(qp: any, data: any) {
     const result: any = {};
@@ -27,20 +42,29 @@ function evaluate(qp: any, data: any) {
             result[key] = value;
         }
     }
-    console.log('parseQueryParams > ', result)
+    console.log('parseQueryParams > ', result);
     return result;
 }
 
 function parseColumns(columns: any, data: any, props: any) {
     const columnsDefs = columns.map((col: any) => {
-        const { field, headerName, width } = col
+        const { field, headerName, width, headerComponent, headerComponentTemplate } = col;
+
         return {
             field,
             headerName,
             width,
+            headerComponentParams: headerComponent ? {
+                template: headerComponentTemplate
+            } : null,
             cellRenderer: (params: any) => {
+                if (col.field == 'taskEndDate') {
+                    const dynamicClass = addSignalClass(params.value);
+                    col.cellRenderer= `<span>${params.value}</span><span class="signals  ${dynamicClass}"></span>`;
+                }
                 return parseCell(col.cellRenderer, params.data)
             },
+
             onCellClicked: (params: any) => {
                 const htmlElement = params.event.target.classList.contains(col.class)
                 console.log('parseColumns > htmlElement', htmlElement)

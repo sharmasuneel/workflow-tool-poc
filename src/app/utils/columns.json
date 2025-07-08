@@ -27,8 +27,30 @@
          {
             "headerName": "Task Name",
             "field": "taskName",
-            "width": 150,
+            "width": 200,
             "cellRenderer": "<div><a class=\"my-action-btn\">~{params.taskName}</a> </div>"
+        },
+        {
+            "headerName": "Status",
+            "field": "taskStatus",
+            "width": 150,
+            "cellRenderer": "<div><span class=\"task-status\">~{params.taskStatus}</span> </div>"
+        },
+        {
+            "headerName": "Action",
+            "field": "",
+            "width": 215,
+            "cellRenderer": "<div><button class='btn btn-outline-danger reject-btn'>Reject</button>  <button class='btn btn-primary select-btn'>Select</button></div>"
+        },
+        {
+            "headerName": "Due By",
+            "headerComponent":true,
+            "headerComponentTemplate":"<div class='d-flex align-items-center'> <span class='text-white'>Due By</span> <span class='red-signal signals'></span> <span class='yellow-signal signals'></span> <span class='green-signal signals'></span></div>",
+            "field": "taskEndDate",
+            "width": 300,
+            "cellRenderer": "<div><span class=\"task-end-date \">~{params.taskEndDate}</span> </div>"
+           
         }
+
     ]
 }

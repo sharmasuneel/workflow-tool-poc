@@ -10,13 +10,14 @@ import { DataService } from '../services/data.service';
 import { AppService } from "app/services/app.service";
 import { gridColumns } from "app/utils/gridProperties";
 import { Router } from "@angular/router";
+import { GridHeaderComponent } from "app/common/grid/grid-header/grid-header.component";
 ModuleRegistry.registerModules([AllCommunityModule]);
 
 
 @Component({
   selector: 'app-task-dashboard',
   standalone: true,
-  imports: [UserBannerComponent, CommonModule, FormsModule, HeaderComponent, AgGridAngular],
+  imports: [UserBannerComponent, CommonModule, FormsModule, HeaderComponent, AgGridAngular,GridHeaderComponent],
   templateUrl: './task-dashboard.component.html',
   styleUrl: './task-dashboard.component.scss'
 })
@@ -101,7 +102,7 @@ export class TaskDashboardComponent implements OnInit {
 
   ngOnInit(): void {
     this.filteredData = this.appService.getUserTasks();
-    this.columnDefs = gridColumns('tasks', this.filteredData, { router: this.router, setPhase: this.appService.setPhase, setWorkflowId: this.appService.setWorkflowId })
+    this.columnDefs = gridColumns('tasks', this.filteredData, { router: this.router, setPhase: this.appService.setPhase, setWorkflowId: this.appService.setWorkflowId,gridHeaderComponent:'app-grid-header' })
     console.log('filteredData: > ', this.filteredData);
 
   };

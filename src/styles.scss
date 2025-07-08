@@ -142,6 +142,7 @@ header a {
   line-height: 40px;
   cursor: pointer;
 }
+
 .toast-middle-center {
   top: 50% !important;
   left: 50% !important;
@@ -242,6 +243,7 @@ header a {
   right: 0px;
   width: 500px;
 }
+
 // Example: Stylish success toast
 .toast-success {
   background-color: #28a745 !important;
@@ -401,8 +403,9 @@ header a {
   // width: 158px;
   color: #555555;
 }
-.input-height{
-  height:30px
+
+.input-height {
+  height: 30px
 }
 
 .drawflow-node textarea {
@@ -496,62 +499,77 @@ body {
 
 
 //Written by sushil
-.d-flex{
+.d-flex {
   display: flex;
 }
-.row{
+
+.row {
   flex-direction: row;
 }
-.column{
+
+.column {
   flex-direction: column;
 }
-.align-item-center{
+
+.align-item-center {
   align-items: center;
 }
-.justify-content-center{
+
+.justify-content-center {
   justify-content: center;
 }
-.justify-content-right{
+
+.justify-content-right {
   justify-content: right;
 }
-.justify-content-left{
+
+.justify-content-left {
   justify-content: left;
 }
+
 .width-100 {
   width: 100%;
 }
-.height-100{
-  height:100%
+
+.height-100 {
+  height: 100%
 }
-.m-5{
-  margin:5px
+
+.m-5 {
+  margin: 5px
 }
-.m-l-5{
-  margin-left:5px
+
+.m-l-5 {
+  margin-left: 5px
 }
-.m-r-5{
-  margin-right:5px
+
+.m-r-5 {
+  margin-right: 5px
 }
-.m-b-5{
-  margin-bottom:5px
+
+.m-b-5 {
+  margin-bottom: 5px
 }
-.p-5{
-  padding:5px
+
+.p-5 {
+  padding: 5px
 }
-.p-l-5{
-  padding-left:5px
+
+.p-l-5 {
+  padding-left: 5px
 }
-.p-r-5{
-  padding-right:5px
+
+.p-r-5 {
+  padding-right: 5px
 }
-.p-b-5{
-  padding-bottom:5px
+
+.p-b-5 {
+  padding-bottom: 5px
 }
 
 .status-container {
   display: flex;
   align-items: center;
- 
 }
 
 .status-icon {
@@ -567,51 +585,118 @@ body {
   font-size: 14px;
   color: #333;
 }
-.status-details p{
+
+.status-details p {
   display: block;
   margin-bottom: -16px;
 }
 
 
 .status-text.in-progress {
-  color: #0e5ba3 !important; 
-}
-.my-action-btn{
-   color: #0e5ba3 !important; 
+  color: #0e5ba3 !important;
 }
 
-.ag-theme-alpine .ag-body-viewport,.ag-row {
-  background-color: #e8e8e8;
-  border: none;
+.my-action-btn {
+  color: #0e5ba3 !important;
 }
-.ag-header-container{
-background-color: #f3f3f3 ;
+
+
+
+.ag-header-viewport {
+  background-color: #075da8;
 }
-.ag-header-cell-resize{
+
+.ag-header-cell-text {
+  color: #fff;
+}
+
+.ag-header-cell-resize {
   display: none !important;
 }
-.text-muted{
+
+.text-muted {
   font-size: 15px
 }
 
 
 /* Draggable node styles */
 .dragNodeContainer {
-  position: absolute; left: 150px; top: 20px; background-color: #fff; width: 300px;  border-radius: 20px;
+  position: absolute;
+  left: 150px;
+  top: 20px;
+  background-color: #fff;
+  width: 300px;
+  border-radius: 20px;
 }
+
 .dragNodeImg {
-  width: 50px; height: 50px; vertical-align: middle;;
+  width: 50px;
+  height: 50px;
+  vertical-align: middle;
+  ;
 }
-.drawflow .drawflow-node .drawflow_content_node{
+
+.drawflow .drawflow-node .drawflow_content_node {
   padding: 5px
 }
+
 .accordion-button::after {
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='currentColor' class='bi bi-plus' viewBox='0 0 16 16'%3E%3Cpath d='M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z'/%3E%3C/svg%3E");
   transition: all 0.5s;
 }
+
 .accordion-button:not(.collapsed)::after {
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='currentColor' class='bi bi-dash' viewBox='0 0 16 16'%3E%3Cpath d='M4 8a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7A.5.5 0 0 1 4 8z'/%3E%3C/svg%3E");
 }
+
 .accordion-button::after {
   transition: all 0.5s;
+}
+
+/* Style for the signals container */
+
+
+.signals {
+  display: inline-block;
+  width: 15px;
+  height: 15px;
+  border-radius: 50%;
+  margin-left: 5px;
+}
+.red-signal {
+  background-color: #ff0101;
+}
+
+.yellow-signal {
+  background-color: #ffcc01;
+}
+
+.signals span {
+  color: #fff;
+}
+
+.green-signal {
+  background-color: #00e00f;
+}
+
+.select-btn,
+.select-btn:hover {
+  margin-top: 5px;
+  background-color: #075da8;
+  border-radius: 0%
+}
+
+.reject-btn {
+  margin-top: 5px;
+  border-radius: 0%;
+  border-color: #ff0101;
+}
+
+.reject-btn:hover {
+  background-color: none;
+}
+
+.task-status {
+  cursor: none;
+  border-color: #ffcc01;
 }
