@@ -1,8 +1,8 @@
 import { Routes } from '@angular/router';
-import { TaskComponent } from './page/task/task.component';
-import { CanvasComponent } from './page/canvas/canvas.component';
-import { DashboardComponent } from './page/dashboard/dashboard.component';
-import { TaskDashboardComponent } from './page/taskDashboard/taskDashboard.component';
+import { TaskComponent } from './pages/task/task.component';
+import { CanvasComponent } from './pages/canvas/canvas.component';
+import { DashboardComponent } from './pages/dashboard/dashboard.component';
+import { TaskDashboardComponent } from './pages/taskDashboard/taskDashboard.component';
 
 export const routes: Routes = [
     {
