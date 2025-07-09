@@ -102,6 +102,7 @@ export class TaskDashboardComponent implements OnInit {
 
   ngOnInit(): void {
     this.filteredData = this.appService.getUserTasks();
+    
     this.columnDefs = gridColumns('tasks', this.filteredData, { router: this.router, setPhase: this.appService.setPhase, setWorkflowId: this.appService.setWorkflowId,gridHeaderComponent:'app-grid-header' })
     console.log('filteredData: > ', this.filteredData);
 

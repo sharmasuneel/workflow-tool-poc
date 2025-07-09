@@ -11,6 +11,7 @@ import { usersData, workflowsData } from './stub/staticdata'
 import { PopupComponent } from './common/popup/popup.component';
 import { Title } from '@angular/platform-browser';
 import { DOCUMENT } from '@angular/common';
+import { flattenData } from './utils/dataTransformer';
 @Component({
   selector: 'app-root',
   standalone: true,
@@ -43,8 +44,9 @@ export class AppComponent implements OnInit {
     this.appService.setUsers(this.users);
 
     this.dataService.getData(this.urls.userTasks).subscribe((data) => {
-      this.userTasks = data;
-      this.appService.setUserTasks(data);
+      const extraAttributes={ attr:'taskEndDateSignal',func:"getSignalClass",params:{param1:"task_taskEndDate"}};
+      const flattenUserTask=flattenData(data,extraAttributes);
+      this.appService.setUserTasks(flattenUserTask);
     });
 
     if (this.urls.st) {

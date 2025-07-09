@@ -26,15 +26,16 @@
         },
          {
             "headerName": "Task Name",
-            "field": "taskName",
+            "field": "task_taskName",
             "width": 200,
-            "cellRenderer": "<div><a class=\"my-action-btn\">~{params.taskName}</a> </div>"
+            "cellRenderer": "<div><a class=\"my-action-btn\">~{params.task_taskName}</a> </div>"
         },
         {
             "headerName": "Status",
-            "field": "taskStatus",
+            "field": "task_taskStatus",
             "width": 150,
-            "cellRenderer": "<div><span class=\"task-status\">~{params.taskStatus}</span> </div>"
+            "defaultValue":"-",
+            "cellRenderer": "<div><span class=\"task-status\">~{params.task_taskStatus}</span> </div>"
         },
         {
             "headerName": "Action",
@@ -46,9 +47,9 @@
             "headerName": "Due By",
             "headerComponent":true,
             "headerComponentTemplate":"<div class='d-flex align-items-center'> <span class='text-white'>Due By</span> <span class='red-signal signals'></span> <span class='yellow-signal signals'></span> <span class='green-signal signals'></span></div>",
-            "field": "taskEndDate",
+            "field": "task_taskEndDate",
             "width": 300,
-            "cellRenderer": "<div><span class=\"task-end-date \">~{params.taskEndDate}</span> </div>"
+            "cellRenderer": "<div><span class=\"task-end-date \">~{params.task_taskEndDate}</span> <span class=\"signals ~{params.taskEndDateSignal} \"></span> </div>"
            
         }
 

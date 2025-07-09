@@ -1,30 +1,31 @@
 import { AnyGridOptions } from "ag-grid-community/dist/types/src/propertyKeys";
 import { parseCommentary } from "./dataSubmission";
-
+import { getSignalClass } from "./gridProperties";
+import { mapper } from "./functionMapper";
 function toFormData(obj: any, fileNameKey: string): FormData {
     const formData = new FormData();
-    const filesUploadType =['withTemplateFile', 'withDataFile']
+    const filesUploadType = ['withTemplateFile', 'withDataFile']
     for (const key in obj) {
         if (key === 'files') {
             // iterrate through obj.files as object with keys like withTemplateFile, withDataFile
             if (typeof obj.files === 'object') {
                 const filesWithTemplate = obj.files['withTemplateFile']
-                if(filesWithTemplate) {
+                if (filesWithTemplate) {
                     if (Array.isArray(filesWithTemplate)) {
-                            filesWithTemplate.forEach((file: File) => {
-                                formData.append('withTemplateFile', file);
-                            });
-                        }
-                } 
+                        filesWithTemplate.forEach((file: File) => {
+                            formData.append('withTemplateFile', file);
+                        });
+                    }
+                }
                 const filesWithData = obj.files['withDataFile']
-                if(filesWithData) {
+                if (filesWithData) {
                     if (Array.isArray(filesWithData)) {
-                            filesWithData.forEach((file: File) => {
-                                formData.append('withDataFile', file);
-                            });
-                        }
-                } 
-            } 
+                        filesWithData.forEach((file: File) => {
+                            formData.append('withDataFile', file);
+                        });
+                    }
+                }
+            }
             continue;
         }
         if (obj.hasOwnProperty(key)) {
@@ -49,6 +50,43 @@ function getAssignedToUsers(assignedToUsers: any) {
 function getAssignedToUsersById(users: any, role: string) {
     return users[role]
     //.filter((group: any) => group.userGroupId === userId)[0].users;
+}
+
+function flattenObject(obj: any, parentKey = '', result: any = {}) {
+    for (let key in obj) {
+        const propName = parentKey ? `${parentKey}_${key}` : key;
+        if (typeof obj[key] === 'object' && obj[key] !== null && !Array.isArray(obj[key])) {
+            flattenObject(obj[key], propName, result);
+        } else {
+            result[propName] = obj[key] || '';
+        }
+    }
+    return result;
+}
+
+
+
+export function flattenData(data: any, extraAttributes: any) {
+
+    const addExtras = (item: any) => {
+        const flat = flattenObject(item);
+        const paramKey = extraAttributes.params?.param1;
+        const paramValue = flat[paramKey];
+        return {
+            ...flat,
+            [extraAttributes.attr]: mapper[extraAttributes.func](paramValue)
+        };
+    };
+
+
+    if (Array.isArray(data)) {
+        return data.map(addExtras);
+    } else if (typeof data === 'object' && data !== null) {
+        return addExtras(data);
+    } else {
+        throw new Error("Unsupported data type");
+    }
+
 }
 
 
@@ -78,16 +116,16 @@ function transformData(data: any[], users: any, role: string) {
 
 function filterDataBySelectedTab(selectedTab: string, role: string, data: any, users: any[]) {
     const tData = transformData(data, users, role)
-    const dd =  tData
+    const dd = tData
         .map((item: any) => {
             const user = item.assignedToUsers.find((u: any) => {
                 return u.role === role
-            } 
-        );
+            }
+            );
             return user ? { ...item, myRole: user.role } : null;
         })
         .filter((item: any) => item?.myRole === selectedTab);
-        return dd
+    return dd
 }
 
 export { toFormData, filterDataBySelectedTab, transformData }

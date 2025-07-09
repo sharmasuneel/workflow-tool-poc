@@ -15,7 +15,7 @@ export function parseCell(str: any, params: any) {
     console.log('parseCell > ', retStr)
     return retStr
 }
-function addSignalClass(date: string): string {
+export function getSignalClass(date: string): string {
     const currentDate = new Date();
     const taskEndDate = new Date(date); // 
     const diffInMs = Math.abs(currentDate.getTime() - taskEndDate.getTime());
@@ -27,7 +27,6 @@ function addSignalClass(date: string): string {
     } else {
         return 'green-signal';
     }
-
 
 }
 
@@ -58,10 +57,6 @@ function parseColumns(columns: any, data: any, props: any) {
                 template: headerComponentTemplate
             } : null,
             cellRenderer: (params: any) => {
-                if (col.field == 'taskEndDate') {
-                    const dynamicClass = addSignalClass(params.value);
-                    col.cellRenderer= `<span>${params.value}</span><span class="signals  ${dynamicClass}"></span>`;
-                }
                 return parseCell(col.cellRenderer, params.data)
             },
 
