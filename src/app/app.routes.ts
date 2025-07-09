@@ -8,9 +8,13 @@ export const routes: Routes = [
     {
         path: 'workflow/setup',
         component: CanvasComponent
-    },
+    }, 
     {
         path: '',
+        component: CanvasComponent
+    },
+    {
+        path: 'tasks',
         component: TaskDashboardComponent
     },
     {
