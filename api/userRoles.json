@@ -1,0 +1,156 @@
+[
+    {
+        "comments": "need api to get user roles and entitlements",
+        "endpoint": "/userRoles",
+        "payloadFromUI": {
+            "userId": "suneel123"
+        },
+        "apiResonse": {
+            "user": {
+                "userId": "suneel123",
+                "role": "preparator",
+                "entitlements": {
+                    "view_reports": true,
+                    "newWorkflow": true,
+                    "editWorkflow": false,
+                    "uploadFiles": true,
+                    "downloadFiles": true,
+                    "canQuery": true
+                }
+            }
+        }
+    },
+    {
+        "comments": "need api to get tasks for a logged-in user",
+        "endpoint": "/getTasksByUserId",
+        "payloadFromUI": {
+            "userId": "suneel123"
+        },
+        "Java logic": "refer chat",
+        "apiResonse": {
+            "tasks": [
+                {
+                    "workflowId": 13,
+                    "uiWorkflowId": "",
+                    "workflowName": "Jai Ganesh",
+                    "workFlowStatus": "notstarted",
+                    "workflowCreatedBy": 1,
+                    "workflowTriggerType": "manual",
+                    "drawflow": "",
+                    "frequency": "monthly",
+                    "description": "",
+                    "taskName": "Upload Plex Details",
+                    "task": {
+                        "taskId": 13,
+                        "taskName": "Upload Plex Details",
+                        "taskStatus": "pending",
+                        "taskAssignedTo": "",
+                        "taskEndDate": "2023-10-31",
+                        "taskEndTime": "01:00:00",
+                        "taskCompletionDate": "2023-10-31",
+                        "taskCompletionTime": "00:00:00",
+                        "taskType": "upload",
+                        "taskBusinessName": "",
+                        "taskAutoVersioning": true,
+                        "taskCaptureComments": false,
+                        "taskUiId": "78a58913-cf64-49fc-9464-b0a150d81e34",
+                        "taskFileHistory": false,
+                        "taskQuery": false,
+                        "taskQueries": [],
+                        "retainFile": false,
+                        "taskOutcomes": [
+                            "yes",
+                            "no",
+                            "maybe"
+                        ],
+                        "taskOutcome": "yes",
+                        "taskHolidayCalenderRegion": "UK",
+                        "taskFiles": [
+                            {
+                                "fileId": 1,
+                                "name": "Template.csv",
+                                "fileType": "text/csv"
+                            }
+                        ]
+                    }
+                }
+            ]
+        }
+    },
+    {
+        "comments": "need put api to assign task to a user on select/reject refer chat",
+        "uiPayload": [
+            {
+                "workflowId": "wf1",
+                "taskId": "task1",
+                "userId": "sanket",
+                "status": "inprogress",
+                "selected": true,
+                "rejected": false
+            }
+        ],
+        "javaResponse": [
+            {
+                "taskId": "task1",
+                "selected": true
+            },
+            {
+                "taskId": "task2",
+                "selected": false,
+                "reason": "already assigned to Saurav"
+            }
+        ]
+    },
+    {
+        "comments": "when upload task completed or updated",
+        "uiPayload": {
+            "userId": "sanket",
+            "workflowId": 13,
+            "workflowName": "Jai Ganesh",
+            "workFlowStatus": "notstarted",
+            "workflowCreatedBy": 1,
+            "workflowTriggerType": "manual",
+            "drawflow": "",
+            "frequency": "monthly",
+            "description": "",
+            "task": {
+                "taskId": 13,
+                "taskType": "upload",
+                "taskName": "Upload Plex Details",
+                "taskStatus": "markAsSelected",
+                "taskAssignedTo": "sanket",
+                "taskEndDate": "2023-10-31",
+                "taskEndTime": "01:00:00",
+                "taskCompletionDate": "2023-10-31",
+                "taskCompletionTime": "00:00:00",
+                "taskBusinessName": "",
+                "taskAutoVersioning": true,
+                "taskCaptureComments": false,
+                "taskUiId": "78a58913-cf64-49fc-9464-b0a150d81e34",
+                "taskFileHistory": false,
+                "taskQuery": false,
+                "queryStatus": "pendingQuery",
+                "taskQueries": [
+                    { "to": "john", "query": "Do I need to add description column", "response": "yes", "queryDate": "446576767"},
+                    { "to": "lily", "query": "Do I need to add 1 more sheet for Plex business name", "response": "no", "queryDate": "446576767"},
+                    { "to": "john", "query": "Do I need to add description column", "response": "yes", "queryDate": "446576767"}
+                ],
+                "retainFile": false,
+                "taskOutcomes": [
+                    "yes",
+                    "no",
+                    "maybe"
+                ],
+                "taskOutcome": "yes",
+                "taskHolidayCalenderRegion": "UK",
+                "taskFiles": [
+                    {
+                        "fileId": 1,
+                        "name": "Template.csv",
+                        "fileType": "text/csv"
+                    }
+                ]
+            }
+        }
+    }
+]

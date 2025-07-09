@@ -31,21 +31,40 @@ export function getSignalClass(date: string): string {
 }
 
 function evaluate(qp: any, data: any) {
-    const result: any = {};
-    for (const key in qp) {
-        if (Object.prototype.hasOwnProperty.call(qp, key)) {
-            let value = qp[key]
-            if (typeof qp[key] === 'string' && qp[key].startsWith('~{')) {
-                value = parseCell(qp[key], data)
+    if (typeof qp === 'string' && qp.startsWith('~{')) {
+        return parseCell(qp, data)
+    } else if (typeof qp === 'object' && qp !== null) {
+        const result: any = {};
+        for (const key in qp) {
+            if (Object.prototype.hasOwnProperty.call(qp, key)) {
+                let value = qp[key]
+                if (typeof qp[key] === 'string' && qp[key].startsWith('~{')) {
+                    value = parseCell(qp[key], data)
+                }
+                result[key] = value;
             }
-            result[key] = value;
         }
+        return result;
     }
-    console.log('parseQueryParams > ', result);
-    return result;
+    return qp
 }
 
-function parseColumns(columns: any, data: any, props: any) {
+function _navigate(route: string, props: any, action: any, data: any) {
+    const navigateConfig = action?.navigate;
+    const queryParams = evaluate(navigateConfig?.queryParams, data);
+
+    if (!route) return;
+
+    const baseRoute = '/' + evaluate(route, data);
+    const subRoute = navigateConfig?.subRoute ? evaluate(navigateConfig.subRoute, data) : null;
+    const fullRoute = subRoute ? [baseRoute, subRoute] : [baseRoute];
+
+    props.router.navigate(fullRoute, { queryParams });
+}
+
+
+function parseColumns(gridProps: any, data: any, props: any) {
+    const { columns, navigateKey, row, route } = gridProps
     const columnsDefs = columns.map((col: any) => {
         const { field, headerName, width, headerComponent, headerComponentTemplate } = col;
 
@@ -61,10 +80,13 @@ function parseColumns(columns: any, data: any, props: any) {
             },
 
             onCellClicked: (params: any) => {
-                const htmlElement = params.event.target.classList.contains(col.class)
+                // const htmlElement = params.event.target.classList.contains(col.class)
+                const htmlElement = null
+                
                 console.log('parseColumns > htmlElement', htmlElement)
                 if (htmlElement) {
-                    const action = col.onClick.action
+                    // TODO: handle cell click 
+                    const action = col.onClick
                     if (action && action.appSetters) {
                         const aps = evaluate(action.appSetters, params.data)
                         for (const key in aps) {
@@ -73,15 +95,10 @@ function parseColumns(columns: any, data: any, props: any) {
                             }
                         }
                     }
-                    if (action && action.navigate) {
-                        //TODO perforn action
-                        if (action.navigate.route) {
-                            props.router.navigate([action.navigate.route], {
-                                queryParams: evaluate(action.navigate.queryParams, params.data)
-                            });
-                        }
-
-                    }
+                    _navigate(route, props, action, params.data)
+                }
+                else if (params.data[navigateKey] && row && row.onClick) {
+                    _navigate(route, props, row.onClick, params.data)
                 }
             }
 

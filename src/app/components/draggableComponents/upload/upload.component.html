@@ -1,0 +1,146 @@
+<drop-container [taskData]="taskData" [taskType]="'upload'" (complete)="onComplete()" (save)="onSave()">
+  <div class="text-primary font-16">Upload</div>
+  <div *ngIf="phase === 'execution'">
+    <label class="text-muted">
+      <input type="checkbox" [(ngModel)]="taskData.acknowledgeTask" />
+      Acknowledge Task
+    </label>
+  </div>
+
+  <div class="upload-type-select mb-3">
+    <label class="mb-1 text-muted">Upload Type</label>
+    <div class="col-12">
+      <select class="w-100 input-height" [(ngModel)]="taskData.uploadType" name="taskData.uploadType">
+        <option value="withTemplateFile">Set Template</option>
+        <option value="withDataFile">With Data</option>
+      </select>
+    </div>
+  </div>
+
+  <div *ngIf="phase === 'execution'" class="upload-type-select mb-3">
+    <label class="mb-1 text-muted">Assigned To</label>
+    <div class="col-12">
+      <select class="w-100 input-height" [(ngModel)]="taskData.assignedTo" name="assignedTo">
+        <option value="rahul">Rahul Sinha</option>
+      </select>
+    </div>
+  </div>
+
+  <div class="d-flex align-items-center justify-content-between">
+    <label class="mb-1 text-muted">
+      {{ 'Upload ' + (taskData.uploadType === 'withDataFile' ? 'Data files' : 'Template') }}
+    </label>
+    <span class="text-primary">
+      {{ (taskData?.fileNames?.length || 0) + ' File(s), ' + (taskData?.sections?.length || 0) + ' Section(s)' }}
+    </span>
+  </div>
+
+  <!-- File drop -->
+  <div [ngStyle]="taskData?.uploadType === 'withDataFile' && phase === 'creation'? {'background-color': 'lightGrey'} : {}" class="upload-box mb-3" 
+    (drop)="taskData?.uploadType !== 'withDataFile' && onFileDrop($event)" 
+    (dragover)="taskData?.uploadType !== 'withDataFile' && onDragOver($event)">
+    <p>
+      Drag & drop file(s) or
+      <label for="fileInput" class="browse-label" [class.disabled]="taskData?.uploadType === 'withDataFile' && phase === 'creation'">Browse</label>
+    </p>
+    <input type="file" id="fileInput" (change)="onFileSelected($event)" accept=".csv" multiple hidden 
+      [disabled]="taskData?.uploadType === 'withDataFile' && phase === 'creation'" />
+  </div>
+
+  <!-- Display list of selected file names -->
+  <div>
+    <ul *ngIf="taskData?.fileNames?.length > 0" class="file-name-list">
+      <label class="mt-1 text-muted"> Uploaded File</label>
+      <li *ngFor="let name of taskData.fileNames; let i = index" style="font-size: 14px;"
+        class="d-flex align-items-center justify-content-between">
+        <a class="text-primary" href=""> {{ name }}</a>
+        <span>
+          <img src="../../../assets/icons/Bin.png" alt="Delete Icon" style="width: 16px; height: 16px; cursor: pointer;"
+            (click)="removeFile(i)" />
+          <img src="../../../assets/icons/Versions.png" alt="Version Icon"
+            style="width: 16px; height: 16px; cursor: pointer;" (click)="openFileHistoryPopup()" />
+        </span>
+      </li>
+    </ul>
+  </div>
+  <!-- End file drop -->
+
+  <form>
+    <div class="form-check mb-2">
+      <input class="form-check-input" type="checkbox" [(ngModel)]="taskData.autoVersioning" name="autoVersioning" />
+      <label class="form-check-label text-muted" for="flexCheckDefault">
+        Set auto file versioning
+      </label>
+    </div>
+
+    <div *ngIf="phase === 'creation' && taskData.uploadType === 'withTemplateFile'">
+      <button type="button" class="btn btn-outline-primary mb-3" (click)="addSection()">Add Section</button>
+
+      <div class="accordion" id="accordionExample">
+        <div class="accordion-item" style="border: none;" *ngFor="let section of taskData.sections; let idx = index">
+          <h2 class="accordion-header">
+            <button class="accordion-button" type="button" data-bs-toggle="collapse"
+              [attr.data-bs-target]="'#collapse' + idx" aria-expanded="true" [attr.aria-controls]="'collapse' + idx">
+              Section {{ idx + 1 }}
+            </button>
+          </h2>
+          <div [id]="'collapse' + idx" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+            <div class="accordion-body">
+              <div>
+                <div class="mb-2">
+                  <label class="text-muted">Business Name</label>
+                  <div class="col-12">
+                    <input type="text" class="w-100 input-height" [(ngModel)]="section.businessName"
+                      name="businessName{{idx}}" />
+                  </div>
+                </div>
+                <div class="mb-2">
+                  <label class="text-muted">Preparator</label>
+                  <div class="col-12">
+                    <select class="w-100 input-height" [(ngModel)]="section.preparatorGroupId" name="preparator{{idx}}">
+                      <option *ngFor="let prep of preparators" [value]="prep.userGroupId">{{ prep.name }}</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="mb-2">
+                  <label class="text-muted">Reviewer</label>
+                  <div class="col-12">
+                    <select class="w-100 input-height" [(ngModel)]="section.reviewerGroupId" name="reviewer{{idx}}">
+                      <option *ngFor="let rev of reviewers" [value]="rev.userGroupId">{{ rev.name }}</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="mb-2">
+                  <label class="text-muted">Approver</label>
+                  <div class="col-12">
+                    <select class="w-100 input-height" [(ngModel)]="section.approverGroupId" name="approver{{idx}}">
+                      <option *ngFor="let apr of approvers" [value]="apr.userGroupId">{{ apr.name }}</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="mb-2">
+                  <label class="text-muted">File Type</label>
+                  <div class="col-12">
+                    <select class="w-100 input-height" [(ngModel)]="section.fileType" name="fileType{{idx}}">
+                      <option value="CSV">CSV</option>
+                      <option value="DOC">DOC</option>
+                      <option value="PDF">PDF</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+    <!-- Section 1 -->
+
+
+    <!-- <div class="pull-right mb-3">
+      <button type="button" class="btn btn-primary mb-2" (click)="onSave()">Save</button>
+    </div> -->
+  </form>
+  <notification-management [taskData]="taskData"></notification-management>
+</drop-container>

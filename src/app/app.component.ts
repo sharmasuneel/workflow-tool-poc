@@ -5,17 +5,17 @@ import { RouterOutlet } from '@angular/router';
 import { DataService } from './services/data.service';
 import { AppService } from './services/app.service';
 import getConfig from './config';
-import { HeaderComponent } from './header/header.component';
-import { LoginComponent } from './common/login/login.component';
-import { usersData, workflowsData } from './stub/staticdata'
-import { PopupComponent } from './common/popup/popup.component';
+import { workflowsData } from './stub/staticdata'
 import { Title } from '@angular/platform-browser';
 import { DOCUMENT } from '@angular/common';
 import { flattenData } from './utils/dataTransformer';
+import { HeaderComponent } from './components/common/header/header.component';
+import { PopupComponent } from './components/common/popup/popup.component';
+
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, CommonModule, HeaderComponent, LoginComponent, PopupComponent],
+  imports: [RouterOutlet, CommonModule, HeaderComponent, PopupComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
 })
@@ -36,7 +36,7 @@ export class AppComponent implements OnInit {
   }
 
   private urls = getConfig()
-  constructor(@Inject(DOCUMENT) private document: Document,private titleService: Title) { }
+  constructor(@Inject(DOCUMENT) private document: Document, private titleService: Title) { }
 
   ngOnInit() {
     this.titleService.setTitle('Document Workflow Management');
@@ -44,8 +44,8 @@ export class AppComponent implements OnInit {
     this.appService.setUsers(this.users);
 
     this.dataService.getData(this.urls.userTasks).subscribe((data) => {
-      const extraAttributes={ attr:'taskEndDateSignal',func:"getSignalClass",params:{param1:"task_taskEndDate"}};
-      const flattenUserTask=flattenData(data,extraAttributes);
+      const extraAttributes = { attr: 'taskEndDateSignal', func: "getSignalClass", params: { param1: "task_taskEndDate" } };
+      const flattenUserTask = flattenData(data, extraAttributes);
       this.appService.setUserTasks(flattenUserTask);
     });
 
@@ -57,7 +57,7 @@ export class AppComponent implements OnInit {
         this.workflows = data;
         this.appService.setWorkflows(data);
       });
-      
+
     }
   }
   changeFavicon(newFaviconPath: any): void {

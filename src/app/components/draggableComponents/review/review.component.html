@@ -1,0 +1,15 @@
+<drop-container [taskData]="taskData" [taskType]="'review'" (save)="onSave()" (approve)="openApproveFilePopup()"
+  (reject)="openRejectFilePopup()">
+  <div class="text-primary font-16">Review</div>
+  <div class="mt-2">
+    <label class="text-muted">
+      <input type="checkbox" [(ngModel)]="taskData.acknowledgeTask" />
+      Required user Acknowledgement
+    </label>
+  </div>
+  <div>
+    <label class="mt-1 text-muted">Files to review</label>
+    <files-section [taskData]="taskData"></files-section>
+  </div>
+  <notification-management [taskData]="taskData"></notification-management>
+</drop-container>
