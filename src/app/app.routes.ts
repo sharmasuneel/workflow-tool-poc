@@ -22,7 +22,7 @@ export const routes: Routes = [
         component: DashboardComponent
     },
     {
-        path: 'task/:id', // Use a colon to define a route parameter
+        path: 'task/:taskType', // Use a colon to define a route parameter
         component: TaskComponent
     },
     {

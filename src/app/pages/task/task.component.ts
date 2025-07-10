@@ -10,13 +10,13 @@ import { ActivatedRoute, Router } from '@angular/router';
 })
 export class TaskComponent implements OnInit {
   tasks: string[] = [];
-  id: string
+  taskType: string
 
   constructor(private route: ActivatedRoute) {}
 
   ngOnInit(): void {
 
-    this.id = this.route.snapshot.paramMap.get('id') || 'route id missing';
+    this.taskType = this.route.snapshot.paramMap.get('taskType') || 'route id missing';
   }
 
 }
