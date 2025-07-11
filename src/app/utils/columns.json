@@ -6,6 +6,7 @@
             "onClick": {
                 "navigate": {
                     "subRoute": "~{params.task_taskType}",
+                    "state":"~{params}",
                     "queryParams": {
                         "workflowId": "~{params.workflowId}",
                         "taskId": "~{params.task_taskId}",
@@ -20,7 +21,7 @@
             {
                 "headerName": "Workflow Name",
                 "field": "workflowname",
-                "width": 250,
+                "width": 270,
                 "class": "my-action-btn",
                 "cellRenderer": "<div><a class=\"my-action-btn\">~{params.workflowName}</a> </div>",
                 "onClick1": {
@@ -42,7 +43,7 @@
             {
                 "headerName": "Task Name",
                 "field": "task_taskName",
-                "width": 200,
+                "width": 250,
                 "cellRenderer": "<div><a class=\"my-action-btn\">~{params.task_taskName}</a> </div>"
             },
             {
@@ -55,7 +56,7 @@
             {
                 "headerName": "Action",
                 "field": "",
-                "width": 215,
+                "width": 255,
                 "cellRenderer": "<div><button class='btn btn-outline-danger reject-btn'>Reject</button>  <button class='btn btn-primary select-btn'>Select</button></div>"
             },
             {
@@ -63,7 +64,7 @@
                 "headerComponent": true,
                 "headerComponentTemplate": "<div class='d-flex align-items-center'> <span class='text-white'>Due By</span> <span class='red-signal signals'></span> <span class='yellow-signal signals'></span> <span class='green-signal signals'></span></div>",
                 "field": "task_taskEndDate",
-                "width": 300,
+                "width": 330,
                 "cellRenderer": "<div><span class=\"task-end-date \">~{params.task_taskEndDate}</span> <span class=\"signals ~{params.taskEndDateSignal} \"></span> </div>"
             }
         ]

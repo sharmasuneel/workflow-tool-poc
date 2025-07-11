@@ -1,3 +1,107 @@
+<!--Query modal-->
+
+<div style="display: block" *ngIf="isVisible && type==='query'" class="modal" data-bs-backdrop="static"
+  data-bs-keyboard="false"  tabindex="-1">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content" style="padding: 0px; width: 500px; height: 500px;">
+      <div class="modal-header chat-modal-content">
+        <h5 class="modal-title">{{title}}</h5>
+        <button  (click)="close()" type="button" class="btn-close btn-close-white" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <label for="assignTo" class="form-label">Assign to</label>
+        <select class="form-select mb-3" id="assignTo">
+          <option selected>Select</option>
+          <option value="1">Process Owner</option>
+          <option value="2">Preparator</option>
+          <option value="3">Reviewer</option>
+        </select>
+        
+      </div>
+      <div class="modal-footer">
+        <div class="input-group mb-3">
+          <span class="input-group-text" id="basic-addon2"><i class="fa fa-paperclip"></i></span>
+          <input type="text" class="form-control" placeholder="Type Message" aria-label="Recipient's username"
+            aria-describedby="basic-addon2">
+          <span class="input-group-text btn btn-primary" id="basic-addon2"><i class="fa fa-send"></i></span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- File Version modal -->
+<div style="display: block" *ngIf="isVisible && type==='fileversion'" class="modal" data-bs-backdrop="static"
+  data-bs-keyboard="false"  tabindex="-1">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content" style="width: 750px;">
+      <div class="modal-header">
+        <h5 class="modal-title">{{title}} | {{taskBusinessName}}</h5>
+        <span (click)="close()" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></span>
+      </div>
+      <div class="modal-body" style="width: 700px;">
+        <table class="table table-striped table-bordered">
+          <thead>
+            <tr>
+              <th>Business Date</th>
+              <th>File Details</th>
+              <th>Uploaded By</th>
+              <th>Version</th>
+              <th>Upload Date</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let file of fileVersions">
+              <td>{{file.businessDate}}</td>
+              <td>{{ file.fileName }}</td>
+              <td>{{ file.uploadedBy }}</td>
+              <td>{{ file.version }}</td>
+              <td>{{ file.uploadDate }}</td>
+            </tr>
+          </tbody>
+
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- File history modal -->
+<div style="display: block" *ngIf="isVisible && type==='filehistory'" class="modal" data-bs-backdrop="static"
+  data-bs-keyboard="false"  tabindex="-1">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content" style="width: 750px;">
+      <div class="modal-header">
+        <h5 class="modal-title">{{title}} | {{taskBusinessName}}</h5>
+        <span (click)="close()" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></span>
+      </div>
+      <div class="modal-body" style="width: 700px;">
+        <table class="table table-striped table-bordered">
+          <thead>
+            <tr>
+              <th>Business Date</th>
+              <th>File Details</th>
+              <th>Uploaded By</th>
+              <th>Version</th>
+              <th>Upload Date</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let file of fileVersions">
+              <td>{{file.businessDate}}</td>
+              <td>{{ file.fileName }}</td>
+              <td>{{ file.uploadedBy }}</td>
+              <td>{{ file.version }}</td>
+              <td>{{ file.uploadDate }}</td>
+            </tr>
+          </tbody>
+
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
 <!-- History modal -->
 <div style="display: block" *ngIf="isVisible && type==='history'" class="modal" data-bs-backdrop="static"
   data-bs-keyboard="false" id="fileHistory" tabindex="-1">

@@ -7,16 +7,14 @@ import { AllCommunityModule, ModuleRegistry } from "ag-grid-community";
 import { AppService } from "app/services/app.service";
 import { gridColumns } from "app/utils/gridProperties";
 import { Router } from "@angular/router";
-import { UserBannerComponent } from "../../components/common/user-banner/user-banner.component";
 import { HeaderComponent } from "../../components/common/header/header.component";
-import { GridHeaderComponent } from "../../components/common/grid/grid-header/grid-header.component";
 ModuleRegistry.registerModules([AllCommunityModule]);
 
 
 @Component({
   selector: 'app-task-dashboard',
   standalone: true,
-  imports: [UserBannerComponent, CommonModule, FormsModule, HeaderComponent, AgGridAngular,GridHeaderComponent],
+  imports: [CommonModule, FormsModule, HeaderComponent, AgGridAngular],
   templateUrl: './taskDashboard.component.html',
   styleUrl: './taskDashboard.component.scss'
 })

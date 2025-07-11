@@ -59,7 +59,7 @@ function _navigate(route: string, props: any, action: any, data: any) {
     const subRoute = navigateConfig?.subRoute ? evaluate(navigateConfig.subRoute, data) : null;
     const fullRoute = subRoute ? [baseRoute, subRoute] : [baseRoute];
 
-    props.router.navigate(fullRoute, { queryParams });
+    props.router.navigate(fullRoute, { state:data,queryParams });
 }
 
 

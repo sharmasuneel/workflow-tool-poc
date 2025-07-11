@@ -1,0 +1,109 @@
+form label {
+    // display: block;
+    // margin-top: 10px;
+}
+
+form input,
+form select {
+    // width: 100%;
+    // padding: 8px;
+    // margin-top: 5px;
+}
+
+button {
+    margin-top: 20px;
+    background-color: #085da8;
+    color: white;
+    padding: 10px;
+    border: none;
+    width: 100%;
+}
+
+.upload-box {
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 2px dashed #595c64;
+    border-radius: 10px;
+    padding: 10px;
+    text-align: center;
+    background: #f9f9f9;
+    transition: background 0.3s ease;
+    cursor: pointer;
+    font-family: 'Segoe UI', sans-serif;
+    color: #333;
+}
+
+.upload-box:hover {
+    background: #eef6ff;
+}
+
+.browse-label {
+    color: #085da8;
+    font-weight: bold;
+    cursor: pointer;
+    text-decoration: underline;
+}
+
+.file-name {
+    margin-top: 10px;
+    color: #2c3e50;
+}
+
+
+.upload-wrapper {
+    // padding: 12px;
+    // display: flex;
+
+    .upload-type-select {}
+}
+.file-name-list{
+    padding: 0
+}
+.btn-primary{
+    background-color: #085da8;
+    border: #085da8;
+}
+.text-primary{
+    color: #085da8 !important;
+}
+.card-header{
+    background-color: #085da8;
+    color: #fff;
+}
+.finish-date{
+    background-color: #00e00e;
+    color: #fff;
+}
+.files-icon{
+    width: 16px;
+    height: 16px; 
+    cursor: pointer;
+    margin-left: 5px;
+
+}
+.chat{
+    color: #085da8;
+}
+p{
+    font-size: 14px;
+    margin-bottom: 5px;
+}
+.workflowname{
+    color: #085da8;
+    text-decoration: none;
+}
+.finish-date {
+    background-color: #00e00e;
+    color: #fff;
+    padding: 10px;
+    border-radius: 10px;
+    font-family: Arial, sans-serif;
+    font-size: 12px;
+
+}
+
+.card-body{
+    margin-left: 13px;
+}

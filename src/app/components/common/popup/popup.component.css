@@ -36,3 +36,13 @@
   .input-group .btn {
     border-left: none;
   }
+  .chat-modal-content{
+    background-color: #085da8;
+    color: #fff;
+  }
+  .modal-content{
+    padding: 0;
+  }
+  .modal-title{
+    font-size: 15px;
+  }

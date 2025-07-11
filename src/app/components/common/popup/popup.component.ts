@@ -22,8 +22,10 @@ export class PopupComponent {
   type = '';
   rejectComment = ''
   btns: any[];
-  taskData: any
-  commentary: any
+  taskData: any;
+  fileVersions:any=[];
+  commentary: any;
+  taskBusinessName:string='';
 
   filehistory = [
     {
@@ -62,7 +64,9 @@ export class PopupComponent {
         this.isVisible = true;
         this.btns = params.btns
         this.type = params.type
-        this.taskData = params.taskData
+        this.taskData = params.taskData;
+        this.fileVersions=params.fileVersions;
+        this.taskBusinessName=params.taskBusinessName;
         this.commentary = this.getcommentaryString(params.commentary)
       } else {
         this.isVisible = false;
