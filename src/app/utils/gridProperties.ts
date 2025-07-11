@@ -58,6 +58,7 @@ function evaluate(qp: any, data: any) {
 
 function _navigate(route: string, props: any, action: any, data: any) {
     const navigateConfig = action?.navigate;
+    const appSetters = navigateConfig.appSetters
     const queryParams = evaluate(navigateConfig?.queryParams, data);
 
     if (!route) return;
@@ -66,7 +67,20 @@ function _navigate(route: string, props: any, action: any, data: any) {
     const subRoute = navigateConfig?.subRoute ? evaluate(navigateConfig.subRoute, data) : null;
     const fullRoute = subRoute ? [baseRoute, subRoute] : [baseRoute];
 
+    if (appSetters) {
+        setApplictionState(appSetters, data, props)
+    }
+
     props.router.navigate(fullRoute, { queryParams });
+}
+
+function setApplictionState(appSetters: any, data: any, props: any) {
+    const aps = evaluate(appSetters, data)
+    for (const key in aps) {
+        if (Object.prototype.hasOwnProperty.call(aps, key)) {
+            props[key](aps[key])
+        }
+    }
 }
 
 function columnEventHandler(clickHandler: any, params: any, props: any) {
@@ -77,7 +91,7 @@ function columnEventHandler(clickHandler: any, params: any, props: any) {
 
     const data = { ...params.data, targetId };
 
-    const {url, payload, onSuccess, onFailure, headers, method} = api[targetId]
+    const { url, payload, onSuccess, onFailure, headers, method, appSetters } = api[targetId]
 
     if (method === 'POST') {
         props.postData(url, evaluate(payload, data), headers, evaluate(onSuccess, data), evaluate(onFailure, data));

@@ -12,6 +12,10 @@
                         "action": "execute",
                         "type": "workflow",
                         "selectedRole": "~{params.selectedRole.role}"
+                    },
+                    "appSetters": {
+                        "setPhase": "execution",
+                        "setWorkflowId": "~{params.workflowId}"
                     }
                 }
             }
@@ -31,11 +35,11 @@
                             "action": "execute",
                             "type": "workflow",
                             "selectedRole": "~{params.selectedRole.role}"
+                        },
+                        "appSetters": {
+                            "setPhase": "execution",
+                            "setWorkflowId": "~{params.workflowId}"
                         }
-                    },
-                    "appSetters": {
-                        "setPhase": "execution",
-                        "setWorkflowId": "~{params.workflowId}"
                     }
                 }
             },
