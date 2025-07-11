@@ -60,7 +60,7 @@ export class PopupComponent {
     this.popupService.popupState$.subscribe((params: any) => {
       if (params) {
         this.title = params.title;
-        this.message = params.msg;
+        this.message = params.message;
         this.isVisible = true;
         this.btns = params.btns
         this.type = params.type

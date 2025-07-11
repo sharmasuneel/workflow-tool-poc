@@ -1,20 +1,27 @@
 
 import columnsJson from './columns.json';
 
-export function parseCell(str: any, params: any) {
-    const retStr = str.replace(/~\{(.*?)\}/g, (_: any, fnBody: any) => {
+export function parseCell(str: string, params: Record<string, any>): any {
+    if (typeof str !== 'string') return null;
+
+    const evaluatedStr = str.replace(/~\{(.*?)\}/g, (_, fnBody) => {
         try {
-            // Create a new function with params in scope
-            // eslint-disable-next-line no-new-func
             const fn = new Function('params', `return ${fnBody};`);
             return fn(params);
-        } catch (e) {
+        } catch {
             return '';
         }
     });
-    console.log('parseCell > ', retStr)
-    return retStr
+
+    const valueMap: Record<string, any> = {
+        'true': true,
+        'false': false,
+        'undefined': null
+    };
+
+    return valueMap.hasOwnProperty(evaluatedStr) ? valueMap[evaluatedStr] : evaluatedStr;
 }
+
 export function getSignalClass(date: string): string {
     const currentDate = new Date();
     const taskEndDate = new Date(date); // 
@@ -51,6 +58,7 @@ function evaluate(qp: any, data: any) {
 
 function _navigate(route: string, props: any, action: any, data: any) {
     const navigateConfig = action?.navigate;
+    const appSetters = navigateConfig.appSetters
     const queryParams = evaluate(navigateConfig?.queryParams, data);
 
     if (!route) return;
@@ -59,14 +67,46 @@ function _navigate(route: string, props: any, action: any, data: any) {
     const subRoute = navigateConfig?.subRoute ? evaluate(navigateConfig.subRoute, data) : null;
     const fullRoute = subRoute ? [baseRoute, subRoute] : [baseRoute];
 
-    props.router.navigate(fullRoute, { state:data,queryParams });
+    if (appSetters) {
+        setApplictionState(appSetters, data, props)
+    }
+
+    props.router.navigate(fullRoute, { state: data, queryParams });
 }
+
+function setApplictionState(appSetters: any, data: any, props: any) {
+
+    const aps = evaluate(appSetters, data)
+    for (const key in aps) {
+        if (Object.prototype.hasOwnProperty.call(aps, key)) {
+            props[key](aps[key])
+        }
+    }
+}
+
+function columnEventHandler(clickHandler: any, params: any, props: any) {
+    const { api, targetIds, tarketKey } = clickHandler;
+    const targetId = params.event?.target?.[tarketKey];
+
+    if (!targetIds?.includes(targetId) || !api[targetId]) return;
+
+    const data = { ...params.data, targetId };
+
+    const { url, payload, onSuccess, onFailure, headers, method, appSetters } = api[targetId]
+
+    if (method === 'POST') {
+        props.postData(url, evaluate(payload, data), headers, evaluate(onSuccess, data), evaluate(onFailure, data));
+    } else if (method === 'GET') {
+        props.getData(url);
+    }
+}
+
 
 
 function parseColumns(gridProps: any, data: any, props: any) {
     const { columns, navigateKey, row, route } = gridProps
     const columnsDefs = columns.map((col: any) => {
-        const { field, headerName, width, headerComponent, headerComponentTemplate } = col;
+        const { field, headerName, width, headerComponent, headerComponentTemplate, onClick, cellRenderer } = col;
 
         return {
             field,
@@ -76,35 +116,35 @@ function parseColumns(gridProps: any, data: any, props: any) {
                 template: headerComponentTemplate
             } : null,
             cellRenderer: (params: any) => {
-                return parseCell(col.cellRenderer, params.data)
+                return parseCell(cellRenderer, params.data)
             },
 
             onCellClicked: (params: any) => {
                 // const htmlElement = params.event.target.classList.contains(col.class)
                 const htmlElement = null
-                
+
+                if (onClick?.clickHandler) { // Handle column events
+                    columnEventHandler(onClick.clickHandler, params, props)
+                } else if (params.data[navigateKey] && row && row.onClick) { // Handle row events
+                    _navigate(route, props, row.onClick, params.data)
+                }
+
                 console.log('parseColumns > htmlElement', htmlElement)
                 if (htmlElement) {
                     // TODO: handle cell click 
-                    const action = col.onClick
-                    if (action && action.appSetters) {
-                        const aps = evaluate(action.appSetters, params.data)
+                    if (onClick && onClick.appSetters) {
+                        const aps = evaluate(onClick.appSetters, params.data)
                         for (const key in aps) {
                             if (Object.prototype.hasOwnProperty.call(aps, key)) {
                                 props[key](aps[key])
                             }
                         }
                     }
-                    _navigate(route, props, action, params.data)
-                }
-                else if (params.data[navigateKey] && row && row.onClick) {
-                    _navigate(route, props, row.onClick, params.data)
+                    _navigate(route, props, onClick, params.data)
                 }
             }
-
         }
     })
-    console.log('parseColumns > ', columnsDefs)
     return columnsDefs
 }
 

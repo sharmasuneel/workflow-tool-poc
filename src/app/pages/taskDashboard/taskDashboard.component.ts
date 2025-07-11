@@ -4,10 +4,12 @@ import { FormsModule } from "@angular/forms";
 import { AgGridAngular } from 'ag-grid-angular';
 import { ColDef } from 'ag-grid-community';
 import { AllCommunityModule, ModuleRegistry } from "ag-grid-community";
-import { AppService } from "app/services/app.service";
 import { gridColumns } from "app/utils/gridProperties";
 import { Router } from "@angular/router";
 import { HeaderComponent } from "../../components/common/header/header.component";
+import { DataService, PopupService, AppService } from "../../services";
+import getConfig from "app/config";
+import { flattenData } from "app/utils/dataTransformer";
 ModuleRegistry.registerModules([AllCommunityModule]);
 
 
@@ -32,6 +34,8 @@ export class TaskDashboardComponent implements OnInit {
   showCreateWorkflowBtn: boolean = true;
 
   private appService = inject(AppService);
+  private dataService = inject(DataService);
+  private popupService = inject(PopupService);
 
   columnDefs: ColDef[];
   columnDefs1: ColDef[] =
@@ -99,11 +103,44 @@ export class TaskDashboardComponent implements OnInit {
 
   ngOnInit(): void {
     this.filteredData = this.appService.getUserTasks();
-    
-    this.columnDefs = gridColumns('task', this.filteredData, { router: this.router, setPhase: this.appService.setPhase, setWorkflowId: this.appService.setWorkflowId,gridHeaderComponent:'app-grid-header' })
-    console.log('filteredData: > ', this.filteredData);
+
+    this.columnDefs = gridColumns('task', this.filteredData, {
+      router: this.router,
+      setPhase: this.appService.setPhase,
+      setWorkflowId: this.appService.setWorkflowId,
+      postData: (url: string, payload: any, headers: any, onSuccess: any, onFailure: any) => this.handlePostData(url, payload, headers, onSuccess, onFailure),
+      getData: (url: string, headers: any) => this.handleGetData(url, headers)
+    })
 
   };
+
+  handleGetData(url: string, headers: any) {
+  }
+
+  refreshTasks() {
+    this.dataService.getData(getConfig().userTasks).subscribe((data) => {
+      const extraAttributes = { attr: 'taskEndDateSignal', func: "getSignalClass", params: { param1: "task_taskEndDate" } };
+      const flattenUserTask = flattenData(data, extraAttributes);
+      this.appService.setUserTasks(flattenUserTask);
+      this.filteredData = flattenUserTask
+    });
+  }
+
+  handlePostData(url: string, payload: any, headers: any, onSuccess: any, onFailure: any) {
+    this.dataService.postData(url, payload).subscribe({
+      next: (data: any) => {
+        const { message, title, type } = onSuccess
+        this.popupService.open({ isVisible: true, title, type, message });
+        this.refreshTasks()
+      }, error: () => {
+        const { message, title, type } = onFailure
+        this.popupService.open({ isVisible: true, title, type: 'error', message });
+        this.refreshTasks()
+      }
+
+    })
+  }
+
   filterWorkFlows(evt: any): void {
     this.selectedRole = evt
     this.showCreateWorkflowBtn = evt === 'owner' || evt.role === 'owner'
