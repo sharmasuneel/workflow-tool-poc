@@ -23,36 +23,38 @@
                 "sections": [
                     {
                         "taskBusinessName": "Fixed Income Financing PLEX Adjustment",
-                        "file": {
-                            "versions": [
-                                {
-                                    "businessDate": "30/05/25",
-                                    "uploadedBy": "Rahul Sinha",
-                                    "fileName": "PlexDetails.csv",
-                                    "version": "1",
-                                    "uploadDate": "15/0/25"
-                                },
-                                {
-                                    "businessDate": "30/05/25",
-                                    "uploadedBy": "Rahul Sinha",
-                                    "fileName": "PlexDetails1.csv",
-                                    "version": "1",
-                                    "uploadDate": "15/0/25"
-                                }
-                            ],
-                            "history": [
-                                {
-                                    "businessDate": "30/05/25",
-                                    "uploadedBy": "Rahul Sinha",
-                                    "fileName": "PlexDetails.csv",
-                                    "version": "1",
-                                    "uploadDate": "15/0/25"
-                                }
-                            ],
-                            "fileId": 1,
-                            "name": "PlexDetails.csv",
-                            "fileType": "text/csv"
-                        }
+                        "files": [
+                            {
+                                "versions": [
+                                    {
+                                        "businessDate": "30/05/25",
+                                        "uploadedBy": "Rahul Sinha",
+                                        "fileName": "PlexDetails.csv",
+                                        "version": "1",
+                                        "uploadDate": "15/0/25"
+                                    },
+                                    {
+                                        "businessDate": "30/05/25",
+                                        "uploadedBy": "Rahul Sinha",
+                                        "fileName": "PlexDetails1.csv",
+                                        "version": "1",
+                                        "uploadDate": "15/0/25"
+                                    }
+                                ],
+                                "history": [
+                                    {
+                                        "businessDate": "30/05/25",
+                                        "uploadedBy": "Rahul Sinha",
+                                        "fileName": "PlexDetails.csv",
+                                        "version": "1",
+                                        "uploadDate": "15/0/25"
+                                    }
+                                ],
+                                "fileId": 1,
+                                "name": "PlexDetails.csv",
+                                "fileType": "text/csv"
+                            }
+                        ]
                     }
                 ],
                 "taskAutoVersioning": true,
@@ -60,12 +62,21 @@
                 "taskUiId": "78a58913-cf64-49fc-9464-b0a150d81e34",
                 "taskFileHistory": false,
                 "taskQuery": false,
-                "taskQueries": [],
+                "taskQueryStatus": "pending",
+                "taskQueries": [
+                    {
+                        "to": "Rahul",
+                        "role": "processor",
+                        "from": "abc",
+                        "date": "11/07/2025 5:00:01",
+                        "message": "Hello"
+                    }
+                ],
                 "retainFile": false,
                 "taskOutcomes": [
-                    "yes",
-                    "no",
-                    "maybe"
+                    {"label":"Yes","value":"yes"},
+                    {"label":"No","value":"no"},
+                    {"label":"Maybe","value":"maybe"}
                 ],
                 "taskOutcome": "yes",
                 "taskHolidayCalenderRegion": "UK"
@@ -134,9 +145,9 @@
                 "taskQueries": [],
                 "retainFile": false,
                 "taskOutcomes": [
-                    "yes",
-                    "no",
-                    "maybe"
+                    {"label":"Yes","value":"yes"},
+                    {"label":"No","value":"no"},
+                    {"label":"Maybe","value":"maybe"}
                 ],
                 "taskOutcome": "yes",
                 "taskHolidayCalenderRegion": "UK"
@@ -205,9 +216,9 @@
                 "taskQueries": [],
                 "retainFile": false,
                 "taskOutcomes": [
-                    "yes",
-                    "no",
-                    "maybe"
+                    {"label":"Yes","value":"yes"},
+                    {"label":"No","value":"no"},
+                    {"label":"Maybe","value":"maybe"}
                 ],
                 "taskOutcome": "yes",
                 "taskHolidayCalenderRegion": "UK"
@@ -276,9 +287,9 @@
                 "taskQueries": [],
                 "retainFile": false,
                 "taskOutcomes": [
-                    "yes",
-                    "no",
-                    "maybe"
+                    {"label":"Yes","value":"yes"},
+                    {"label":"No","value":"no"},
+                    {"label":"Maybe","value":"maybe"}
                 ],
                 "taskOutcome": "yes",
                 "taskHolidayCalenderRegion": "UK"
@@ -347,9 +358,9 @@
                 "taskQueries": [],
                 "retainFile": false,
                 "taskOutcomes": [
-                    "yes",
-                    "no",
-                    "maybe"
+                    {"label":"Yes","value":"yes"},
+                    {"label":"No","value":"no"},
+                    {"label":"Maybe","value":"maybe"}
                 ],
                 "taskOutcome": "yes",
                 "taskHolidayCalenderRegion": "UK"

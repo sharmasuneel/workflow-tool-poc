@@ -1,48 +1,80 @@
 /* Full-screen overlay */
 .overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.5);
-    /* semi-transparent black */
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 1000;
-    /* ensure it's above other content */
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  /* semi-transparent black */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  /* ensure it's above other content */
 }
 
 /* Popup box */
 
 .conversation-item {
-    padding: 10px;
-    
-  }
-  
-  .modal-body {
-    font-size: 14px;
-  }
-  
-  .input-group {
-    width: 100%;
-  }
-  
-  .input-group .form-control {
-    border-right: none;
-  }
-  
-  .input-group .btn {
-    border-left: none;
-  }
-  .chat-modal-content{
-    background-color: #085da8;
-    color: #fff;
-  }
-  .modal-content{
-    padding: 0;
-  }
-  .modal-title{
-    font-size: 15px;
-  }
+  padding: 10px;
+
+}
+
+.modal-body {
+  font-size: 14px;
+}
+
+.input-group {
+  width: 100%;
+}
+
+.input-group .form-control {
+  border-right: none;
+}
+
+.input-group .btn {
+  border-left: none;
+}
+
+.chat-modal-content {
+  background-color: #085da8;
+  color: #fff;
+}
+
+.modal-content {
+  padding: 0;
+}
+
+.modal-title {
+  font-size: 15px;
+}
+
+
+.modal-body table {
+  border: 1px solid #dee2e6;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+.modal-body table th,
+.modal-body table td {
+  padding: 15px;
+  color: #8f8f8f;
+  font-size: 12px;
+}
+
+th {
+  font-weight: 400;
+  background: #f0f0f0;
+  color: #8f8f8f;
+}
+.file-name{
+  color: #085da8;
+}
+.modal-header{
+  color: #8f8f8f;
+  font-size: 12px;
+  border-bottom: none;
+
+}

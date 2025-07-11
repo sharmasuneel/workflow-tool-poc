@@ -1,40 +1,47 @@
 <div class="container mt-3">
     <div>
-        <a class="workflowname" (click)="goToDashboard();"> <i class=" fa fa-arrow-left"></i> Workflow: {{task.workflowName}}</a>
+        <a class="workflowname" (click)="goToDashboard();"> <i class=" fa fa-arrow-left"></i> Workflow:
+            {{task.workflowName}}</a>
     </div>
     <div class="card">
         <div class="card-header">
             <p> Task - {{task.task_taskName}}</p>
             <div class="finish-date col-md-3"> Need to finish by : 20 July 2025, 05:00PM</div>
-        </div> 
+        </div>
         <div class="card-body">
-            <div class="row" *ngFor="let item of task.task_sections">
+            <div class="row" *ngFor="let item of task.task_sections;let taskSectionIndex = index">
                 <div class="col-md-4">
                     <p class="text-muted text-decoration-underline">{{item.taskBusinessName}}</p>
                 </div>
-                <div class="col-md-3">
-                    <div class="upload-box mb-1">
+                <div class="col-md-4">
+                    <div class="upload-box mb-1" *ngIf="taskType === 'upload'">
                         <p>
                             Drag & drop file(s) or
                             <label for="fileInput" class="browse-label">Browse</label>
                         </p>
-                        <input type="file" id="fileInput" accept=".csv" multiple hidden />
+                        <input type="file" (change)="onFileSelected($event,taskSectionIndex)" id="fileInput"
+                            accept=".csv" multiple hidden />
                     </div>
                     <div>
                         <ul class="file-name-list">
-                            <label class="mt-1 text-muted"> Uploaded File</label>
-                           
-                            <li  style="font-size: 14px;" class="d-flex align-items-center justify-content-between">
-                             
-                                <a class="text-primary"> {{item.file.name}}</a>
+                            <label class="mt-1 text-muted" *ngIf="taskType === 'upload'"> Uploaded File</label>
+
+                            <li *ngFor="let file of item.files;let fileIndex=index" style="font-size: 14px;"
+                                class="d-flex align-items-center justify-content-between">
+
+                                <a class="text-primary"> {{file.name}}</a>
                                 <span>
-                                    <img  (click)="openFileVersionPopup(item)" src="../../../assets/icons/Versions.png" alt="Version Icon"
+                                    <img (click)="openFileVersionPopup(item.taskBusinessName,file.versions)"
+                                        src="../../../assets/icons/Versions.png" alt="Version Icon"
                                         class="files-icon" />
-                                    <img (click)="openFileHistoryPopup(item)" src="../../../assets/icons/Audit Trail.png" alt="Audit Trail"
+                                    <img (click)="openFileHistoryPopup(item.taskBusinessName,file.history)"
+                                        src="../../../assets/icons/Audit Trail.png" alt="Audit Trail"
                                         class="files-icon" />
-                                    <img src="../../../assets/icons/Bin.png" alt="Delete Icon"
-                                        class="files-icon" />
+                                    <img (click)="removeFile(taskSectionIndex,fileIndex)"
+                                        src="../../../assets/icons/Bin.png" alt="Delete Icon" class="files-icon" />
+                                    <i *ngIf="taskType !== 'upload'" class="fa fa-download" style="font-size: 11px; cursor: pointer;color: #085da9; margin-left: 11px;"></i>
                                 </span>
+
                             </li>
                         </ul>
                     </div>
@@ -42,26 +49,38 @@
                 <hr class="col-md-12" style="border: 1px solid #ccc;">
             </div>
 
-            
+            <div class="row" *ngIf="taskType === 'review'">
+                <label class="outcomes">Outcomes</label>
+                <div *ngFor="let item of task.task_taskOutcomes">
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="outcomes" value="{{item.value}}">
+                        <label class="form-check-label mb-1 text-muted">
+                            {{item.label}}
+                        </label>
+                    </div>
+                </div>
+
+                <hr class="col-md-12" style="border: 1px solid #ccc;">
+            </div>
             <div class="row">
-                <textarea class=" col-md-7"  rows="4"  matInput type="text" placeholder="Add comments" ></textarea>
-              
+                <textarea class=" col-md-7" rows="4" matInput type="text" placeholder="Add comments"></textarea>
+
                 <div><a class="chat" (click)="openQueryPopup()"> Chat</a> </div>
                 <div class="col-md-7">
-                   <div class="pull-right">
-                    <div class="form-check form-switch" >
-                        <label class="form-check-label" >Mark as Complete</label>
-                        <input class="form-check-input" type="checkbox" role="switch" >
-                      </div>
-                      
-                   </div>
+                    <div class="pull-right">
+                        <div class="form-check form-switch">
+                            <label class="form-check-label">Mark as Complete</label>
+                            <input class="form-check-input" type="checkbox" role="switch">
+                        </div>
+
+                    </div>
                 </div>
-                
-           
+
+
             </div>
         </div>
     </div>
-    
-    
-    
+
+
+
 </div>

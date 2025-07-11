@@ -2,6 +2,7 @@ import { Component, inject, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { PopupService } from 'app/services/popup.service';
+import getConfig from 'app/config';
 
 @Component({
   selector: 'page-task',
@@ -12,10 +13,11 @@ import { PopupService } from 'app/services/popup.service';
 })
 export class TaskComponent implements OnInit {
   tasks: string[] = [];
-  task: any={};
+  task: any = {};
   taskType: string;
   profileSelected: any;
-   private popupService=inject(PopupService);
+  downloadUrl: string = getConfig().downlodFile;
+  private popupService = inject(PopupService);
 
   constructor(private route: ActivatedRoute, private router: Router) {
     const navigation = this.router.getCurrentNavigation();
@@ -27,27 +29,37 @@ export class TaskComponent implements OnInit {
 
   }
 
- 
+
 
   goToDashboard() {
     this.router.navigate(['/tasks']);
   }
-  openFileVersionPopup(data: any) {
+  removeFile(taskSectionIndex: number,fileIndex:number) {
+    this.task.task_sections[taskSectionIndex].files.splice(fileIndex, 1);
+  }
+  onFileSelected(event: Event,taskSectionIndex:number): void {
+    const input = event.target as HTMLInputElement;
+    if (input.files) {
+      this.task.task_sections[taskSectionIndex].files.push(...Array.from(input.files));
+    }
+  }
+  openFileVersionPopup(taskBusinessName:string,fileVersions:any) {
     this.popupService.open({
-      title: 'File Version', taskBusinessName: data.taskBusinessName,
+      title: 'File Version', taskBusinessName: taskBusinessName,
       type: 'fileversion',
-      fileVersions: data.file.versions
+      fileVersions: fileVersions
 
     });
   }
-  openFileHistoryPopup(data: any) {
+  openFileHistoryPopup(taskBusinessName:string,fileHistory:any) {
     this.popupService.open({
-      title: 'File History', taskBusinessName: data.taskBusinessName,
+      title: 'File History', taskBusinessName: taskBusinessName,
       type: 'filehistory',
-      fileVersions: data.file.versions
+      fileVersions: fileHistory
 
     });
   }
+  
   openQueryPopup() {
     this.popupService.open({
       title: 'Chat',
@@ -57,4 +69,4 @@ export class TaskComponent implements OnInit {
     });
   }
 }
- 
+
