@@ -22,7 +22,7 @@
                 "field": "workflowname",
                 "width": 250,
                 "class": "my-action-btn",
-                "cellRenderer": "<div><a class=\"my-action-btn\">~{params.workflowName}</a> </div>",
+                "cellRenderer": "<div><a class=\"my-action-btn\">~{params.workflowName}</a></div>",
                 "onClick1": {
                     "navigate": {
                         "subRoute": "workflow",
@@ -56,7 +56,57 @@
                 "headerName": "Action",
                 "field": "",
                 "width": 215,
-                "cellRenderer": "<div><button class='btn btn-outline-danger reject-btn'>Reject</button>  <button class='btn btn-primary select-btn'>Select</button></div>"
+                "cellRenderer": "<div><button id='rejectTaskBtn' class='btn btn-outline-danger reject-btn'>Reject</button><button id ='selectTaskBtn' class='btn btn-primary select-btn'>Select</button></div>",
+                "onClick": {
+                    "clickHandler": {
+                        "tarketKey": "id",
+                        "targetIds": [
+                            "rejectTaskBtn",
+                            "selectTaskBtn"
+                        ],
+                        "api": {
+                            "rejectTaskBtn": {
+                                "url": "/taskAction",
+                                "method": "POST",
+                                "payload": {
+                                    "workflowId": "~{params.workflowId}",
+                                    "taskId": "~{params.task_taskId}",
+                                    "assignedTo": "~{params.user}",
+                                    "selected": "~{params.selected = params.targetId === 'selectTaskBtn'}",
+                                    "rejected": "~{params.rejected = params.targetId === 'rejectTaskBtn'}",
+                                    "rejectedReason": "~{params.rejectedReason || 'i do not need it'}"
+                                },
+                                "onSuccess": {
+                                    "message": "Task rejected from your queue successfully with ~{params.rejectedReason || ''}",
+                                    "title": "Task Rejected"
+                                },
+                                "onFailure": {
+                                    "message": "Something went wrong Please try again",
+                                    "title": "Task Rejected failed",
+                                    "type": "rejected"
+                                }
+                            },
+                            "selectTaskBtn": {
+                                "url": "/taskAction",
+                                "method": "POST",
+                                "payload": {
+                                    "workflowId": "~{params.workflowId}",
+                                    "taskId": "~{params.task_taskId}",
+                                    "assignedTo": "~{params.user}",
+                                    "selected": "~{params.selected = params.targetId === 'selectTaskBtn'}",
+                                    "rejected": "~{params.rejected = params.targetId === 'rejectTaskBtn'}",
+                                    "rejectedReason": "~{params.rejectedReason || ''}"
+                                },
+                                "onSuccess": {
+                                    "message": "Task selected from your queue successfully"
+                                },
+                                "onFailure": {
+                                    "message": "Something went wrong Please try again"
+                                }
+                            }
+                        }
+                    }
+                }
             },
             {
                 "headerName": "Due By",

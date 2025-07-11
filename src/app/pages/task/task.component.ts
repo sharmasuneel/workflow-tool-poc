@@ -19,4 +19,12 @@ export class TaskComponent implements OnInit {
     this.taskType = this.route.snapshot.paramMap.get('taskType') || 'route id missing';
   }
 
+  onSelect() {
+    debugger
+  }
+
+  onReject() {
+    debugger
+  }
+
 }
