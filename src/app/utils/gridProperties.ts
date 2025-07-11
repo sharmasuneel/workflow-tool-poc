@@ -75,7 +75,6 @@ function _navigate(route: string, props: any, action: any, data: any) {
 }
 
 function setApplictionState(appSetters: any, data: any, props: any) {
-
     const aps = evaluate(appSetters, data)
     for (const key in aps) {
         if (Object.prototype.hasOwnProperty.call(aps, key)) {
@@ -100,8 +99,6 @@ function columnEventHandler(clickHandler: any, params: any, props: any) {
         props.getData(url);
     }
 }
-
-
 
 function parseColumns(gridProps: any, data: any, props: any) {
     const { columns, navigateKey, row, route } = gridProps

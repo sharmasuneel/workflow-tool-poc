@@ -69,7 +69,7 @@ export class CanvasComponent implements OnInit {
 
   mobile_item_selec: string;
   mobile_last_move: TouchEvent | null;
-  draggableNodes: any = nodesData.nodes
+  draggableNodes: any = nodesData.nodes.filter((node) => !node.hide)  
   users: string[] = ['User A', 'User B', 'User C'];
 
   workflowName: string = '';

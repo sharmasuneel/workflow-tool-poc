@@ -31,16 +31,13 @@
                                     "fileName": "PlexDetails.csv",
                                     "version": "1",
                                     "uploadDate": "15/0/25"
-
                                 },
-
                                 {
                                     "businessDate": "30/05/25",
                                     "uploadedBy": "Rahul Sinha",
                                     "fileName": "PlexDetails1.csv",
                                     "version": "1",
                                     "uploadDate": "15/0/25"
-
                                 }
                             ],
                             "history": [
@@ -50,7 +47,6 @@
                                     "fileName": "PlexDetails.csv",
                                     "version": "1",
                                     "uploadDate": "15/0/25"
-
                                 }
                             ],
                             "fileId": 1,
@@ -75,7 +71,6 @@
                 "taskHolidayCalenderRegion": "UK"
             }
         },
-
         {
             "workflowId": 14,
             "uiWorkflowId": "",
@@ -107,16 +102,13 @@
                                     "fileName": "PlexDetails.csv",
                                     "version": "1",
                                     "uploadDate": "15/0/25"
-
                                 },
-
                                 {
                                     "businessDate": "30/05/25",
                                     "uploadedBy": "Rahul Sinha",
                                     "fileName": "PlexDetails1.csv",
                                     "version": "1",
                                     "uploadDate": "15/0/25"
-
                                 }
                             ],
                             "history": [
@@ -126,7 +118,6 @@
                                     "fileName": "PlexDetails.csv",
                                     "version": "1",
                                     "uploadDate": "15/0/25"
-
                                 }
                             ],
                             "fileId": 1,
@@ -182,16 +173,13 @@
                                     "fileName": "PlexDetails.csv",
                                     "version": "1",
                                     "uploadDate": "15/0/25"
-
                                 },
-
                                 {
                                     "businessDate": "30/05/25",
                                     "uploadedBy": "Rahul Sinha",
                                     "fileName": "PlexDetails1.csv",
                                     "version": "1",
                                     "uploadDate": "15/0/25"
-
                                 }
                             ],
                             "history": [
@@ -201,7 +189,148 @@
                                     "fileName": "PlexDetails.csv",
                                     "version": "1",
                                     "uploadDate": "15/0/25"
-
+                                }
+                            ],
+                            "fileId": 1,
+                            "name": "PlexDetails.csv",
+                            "fileType": "text/csv"
+                        }
+                    }
+                ],
+                "taskAutoVersioning": true,
+                "taskCaptureComments": false,
+                "taskUiId": "78a58913-cf64-49fc-9464-b0a150d81e34",
+                "taskFileHistory": false,
+                "taskQuery": false,
+                "taskQueries": [],
+                "retainFile": false,
+                "taskOutcomes": [
+                    "yes",
+                    "no",
+                    "maybe"
+                ],
+                "taskOutcome": "yes",
+                "taskHolidayCalenderRegion": "UK"
+            }
+        },
+        {
+            "workflowId": 14,
+            "uiWorkflowId": "",
+            "workflowName": "Monthly TP Audit",
+            "workFlowStatus": "notstarted",
+            "workflowCreatedBy": 1,
+            "workflowTriggerType": "manual",
+            "drawflow": "",
+            "frequency": "monthly",
+            "description": "",
+            "task": {
+                "taskId": 14,
+                "taskName": "MR Excel Review",
+                "taskAssignedTo": "",
+                "taskEndDate": "2025-07-08",
+                "taskEndTime": "01:00:00",
+                "taskStatus": "completed",
+                "taskCompletionDate": "2023-10-31",
+                "taskCompletionTime": "00:00:00",
+                "taskType": "review",
+                "sections": [
+                    {
+                        "taskBusinessName": "Fixed Income Financing PLEX Adjustment",
+                        "file": {
+                            "versions": [
+                                {
+                                    "businessDate": "30/05/25",
+                                    "uploadedBy": "Rahul Sinha",
+                                    "fileName": "PlexDetails.csv",
+                                    "version": "1",
+                                    "uploadDate": "15/0/25"
+                                },
+                                {
+                                    "businessDate": "30/05/25",
+                                    "uploadedBy": "Rahul Sinha",
+                                    "fileName": "PlexDetails1.csv",
+                                    "version": "1",
+                                    "uploadDate": "15/0/25"
+                                }
+                            ],
+                            "history": [
+                                {
+                                    "businessDate": "30/05/25",
+                                    "uploadedBy": "Rahul Sinha",
+                                    "fileName": "PlexDetails.csv",
+                                    "version": "1",
+                                    "uploadDate": "15/0/25"
+                                }
+                            ],
+                            "fileId": 1,
+                            "name": "PlexDetails.csv",
+                            "fileType": "text/csv"
+                        }
+                    }
+                ],
+                "taskAutoVersioning": true,
+                "taskCaptureComments": false,
+                "taskUiId": "78a58913-cf64-49fc-9464-b0a150d81e34",
+                "taskFileHistory": false,
+                "taskQuery": false,
+                "taskQueries": [],
+                "retainFile": false,
+                "taskOutcomes": [
+                    "yes",
+                    "no",
+                    "maybe"
+                ],
+                "taskOutcome": "yes",
+                "taskHolidayCalenderRegion": "UK"
+            }
+        },
+        {
+            "workflowId": 14,
+            "uiWorkflowId": "",
+            "workflowName": "Monthly TP Audit",
+            "workFlowStatus": "notstarted",
+            "workflowCreatedBy": 1,
+            "workflowTriggerType": "manual",
+            "drawflow": "",
+            "frequency": "monthly",
+            "description": "",
+            "task": {
+                "taskId": 14,
+                "taskName": "MR Excel Review",
+                "taskAssignedTo": "",
+                "taskEndDate": "2025-07-08",
+                "taskEndTime": "01:00:00",
+                "taskStatus": "completed",
+                "taskCompletionDate": "2023-10-31",
+                "taskCompletionTime": "00:00:00",
+                "taskType": "upload",
+                "sections": [
+                    {
+                        "taskBusinessName": "Fixed Income Financing PLEX Adjustment",
+                        "file": {
+                            "versions": [
+                                {
+                                    "businessDate": "30/05/25",
+                                    "uploadedBy": "Rahul Sinha",
+                                    "fileName": "PlexDetails.csv",
+                                    "version": "1",
+                                    "uploadDate": "15/0/25"
+                                },
+                                {
+                                    "businessDate": "30/05/25",
+                                    "uploadedBy": "Rahul Sinha",
+                                    "fileName": "PlexDetails1.csv",
+                                    "version": "1",
+                                    "uploadDate": "15/0/25"
+                                }
+                            ],
+                            "history": [
+                                {
+                                    "businessDate": "30/05/25",
+                                    "uploadedBy": "Rahul Sinha",
+                                    "fileName": "PlexDetails.csv",
+                                    "version": "1",
+                                    "uploadDate": "15/0/25"
                                 }
                             ],
                             "fileId": 1,

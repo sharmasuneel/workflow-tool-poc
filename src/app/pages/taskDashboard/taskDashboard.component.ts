@@ -1,4 +1,4 @@
-import { Component, EventEmitter, inject, Input, OnInit, Output } from "@angular/core";
+import { Component, EventEmitter, inject, OnInit, Output } from "@angular/core";
 import { CommonModule } from "@angular/common";
 import { FormsModule } from "@angular/forms";
 import { AgGridAngular } from 'ag-grid-angular';
@@ -6,7 +6,6 @@ import { ColDef } from 'ag-grid-community';
 import { AllCommunityModule, ModuleRegistry } from "ag-grid-community";
 import { gridColumns } from "app/utils/gridProperties";
 import { Router } from "@angular/router";
-import { HeaderComponent } from "../../components/common/header/header.component";
 import { DataService, PopupService, AppService } from "../../services";
 import getConfig from "app/config";
 import { flattenData } from "app/utils/dataTransformer";
@@ -16,13 +15,13 @@ ModuleRegistry.registerModules([AllCommunityModule]);
 @Component({
   selector: 'app-task-dashboard',
   standalone: true,
-  imports: [CommonModule, FormsModule, HeaderComponent, AgGridAngular],
+  imports: [CommonModule, FormsModule, AgGridAngular],
   templateUrl: './taskDashboard.component.html',
   styleUrl: './taskDashboard.component.scss'
 })
 export class TaskDashboardComponent implements OnInit {
   profileSelected: any;
-  selectedTab: string = 'active';
+  selectedTab: string = 'pending';
   completedCount: number = 0;
   upcomingCount: number = 0;
   activeCount: number = 0;
@@ -36,93 +35,41 @@ export class TaskDashboardComponent implements OnInit {
   private appService = inject(AppService);
   private dataService = inject(DataService);
   private popupService = inject(PopupService);
+  private router = inject(Router);
 
   columnDefs: ColDef[];
-  columnDefs1: ColDef[] =
-    [
-      {
-        headerName: 'Workflow Name',
-        field: 'workflowname',
-        width: 250,
-        cellRenderer: (params: any) => {
-
-          return `<div>
-        ${params.getValue()}
-       </div>`;
-        }
-      },
-      {
-        headerName: 'Task Name',
-        field: 'taskName',
-        width: 200,
-        cellRenderer: (params: any) => {
-
-          return `<div>
-         ${params.getValue()}
-        </div>`;
-        }
-      },
-      {
-        headerName: 'Status',
-        field: 'status',
-        width: 150,
-        cellRenderer: (params: any) => {
-
-          return `<div>
-         ${params.getValue()}
-        </div>`; return ``;
-        }
-      },
-      {
-        headerName: 'Actions',
-        field: 'action',
-        width: 150,
-        cellRenderer: (params: any) => {
-
-          return `
-        <div class="d-flex align-items-center">	
-          <button class="btn btn-primary">Select</button
-        </div>
-        `;
-        }
-      },
-      {
-        headerName: 'Due By',
-        field: 'dueby',
-        width: 150,
-        cellRenderer: (params: any) => {
-
-          return `<div>
-         ${params.getValue()}
-        </div>`;
-        }
-      },
-    ];
-
-  constructor(private router: Router) { }
 
   ngOnInit(): void {
-    this.filteredData = this.appService.getUserTasks();
+    this.resetFilterDataByTab()
+  };
 
-    this.columnDefs = gridColumns('task', this.filteredData, {
+  resetFilterDataByTab() {
+    const data = this.appService.getUserTasks()
+    const extraAttributes = { attr: 'taskEndDateSignal', func: "getSignalClass", params: { param1: "task_taskEndDate" } };
+    this.filteredData = flattenData(data.filter((item: any) => item.task.taskStatus === this.selectedTab), extraAttributes);
+    const columnDefs = gridColumns('task', this.filteredData, {
       router: this.router,
       setPhase: this.appService.setPhase,
       setWorkflowId: this.appService.setWorkflowId,
       postData: (url: string, payload: any, headers: any, onSuccess: any, onFailure: any) => this.handlePostData(url, payload, headers, onSuccess, onFailure),
       getData: (url: string, headers: any) => this.handleGetData(url, headers)
     })
+    this.columnDefs = this.selectedTab === 'completed' ? columnDefs.filter((cd: any) => cd.field !== 'action') : columnDefs
+  }
 
-  };
+  setSelectedTab(tab: string) {
+    this.selectedTab = tab
+    this.resetFilterDataByTab()
+  }
 
   handleGetData(url: string, headers: any) {
+    // handle get api here 
   }
 
   refreshTasks() {
     this.dataService.getData(getConfig().userTasks).subscribe((data) => {
-      const extraAttributes = { attr: 'taskEndDateSignal', func: "getSignalClass", params: { param1: "task_taskEndDate" } };
-      const flattenUserTask = flattenData(data, extraAttributes);
-      this.appService.setUserTasks(flattenUserTask);
-      this.filteredData = flattenUserTask
+      this.appService.setUserTasks(data);
+      this.resetFilterDataByTab()
     });
   }
 

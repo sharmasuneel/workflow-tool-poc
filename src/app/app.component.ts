@@ -8,7 +8,6 @@ import getConfig from './config';
 import { workflowsData } from './stub/staticdata'
 import { Title } from '@angular/platform-browser';
 import { DOCUMENT } from '@angular/common';
-import { flattenData } from './utils/dataTransformer';
 import { HeaderComponent } from './components/common/header/header.component';
 import { PopupComponent } from './components/common/popup/popup.component';
 
@@ -44,9 +43,7 @@ export class AppComponent implements OnInit {
     this.appService.setUsers(this.users);
 
     this.dataService.getData(this.urls.userTasks).subscribe((data) => {
-      const extraAttributes = { attr: 'taskEndDateSignal', func: "getSignalClass", params: { param1: "task_taskEndDate" } };
-      const flattenUserTask = flattenData(data, extraAttributes);
-      this.appService.setUserTasks(flattenUserTask);
+      this.appService.setUserTasks(data);
     });
 
     if (this.urls.st) {

@@ -1,6 +1,17 @@
 {
     "nodes": [
         {
+            "id": "start",
+            "name": "Start",
+            "inputs": 0,
+            "outputs": 1,
+            "class": "start",
+            "data": {},
+            "icon": "Start",
+            "selectedColor": "#EB8857"
+        },
+        {
+            "hide": true,
             "id": "database",
             "name": "Database",
             "inputs": 1,
@@ -12,6 +23,7 @@
             "selectedColor": "#EBBF57"
         },
         {
+            "hide": true,
             "id": "titanEngine",
             "name": "Titan Engine",
             "inputs": 1,
@@ -44,6 +56,7 @@
             "selectedColor": "#E78FFF"
         },
         {
+            "hide": true,
             "id": "app",
             "name": "App",
             "inputs": 1,
@@ -54,6 +67,7 @@
             "selectedColor": "#57EBBA"
         },
         {
+            "hide": true,
             "id": "attestation",
             "name": "Attestation",
             "inputs": 1,
@@ -64,6 +78,7 @@
             "selectedColor": "#D9D9D9"
         },
         {
+            "hide": true,
             "id": "arrow",
             "name": "Arrow",
             "inputs": 1,
@@ -74,6 +89,7 @@
             "selectedColor": "#6308A9"
         },
         {
+            "hide": true,
             "id": "dependency",
             "name": "Dependency",
             "inputs": 1,
@@ -92,16 +108,6 @@
             "icon": "Decision",
             "data": {},
             "selectedColor": "#5757EB"
-        },
-        {
-            "id": "start",
-            "name": "Start",
-            "inputs": 0,
-            "outputs": 1,
-            "class": "start",
-            "data": {},
-            "icon": "Start",
-            "selectedColor": "#EB8857"
         }
     ]
 }

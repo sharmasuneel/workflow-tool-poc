@@ -59,7 +59,7 @@
             },
             {
                 "headerName": "Action",
-                "field": "",
+                "field": "action",
                 "width": 215,
                 "cellRenderer": "<div><button id='rejectTaskBtn' class='btn btn-outline-danger reject-btn'>Reject</button><button id ='selectTaskBtn' class='btn btn-primary select-btn'>Select</button></div>",
                 "onClick": {
