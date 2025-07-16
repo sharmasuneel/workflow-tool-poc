@@ -64,7 +64,9 @@ export class TaskComponent implements OnInit {
     this.popupService.open({
       title: 'Chat',
       type: 'query',
-
+      taskQuery:this.task.task_taskQuery,
+      taskQueryStatus:this.task.task_taskQueryStatus,
+      taskQueries:this.task.task_taskQueries
 
     });
   }

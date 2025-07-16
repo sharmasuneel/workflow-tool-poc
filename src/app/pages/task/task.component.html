@@ -1,6 +1,6 @@
 <div class="container mt-3">
     <div>
-        <a class="workflowname" (click)="goToDashboard();"> <i class=" fa fa-arrow-left"></i> Workflow:
+        <a class="workflowname" (click)="goToDashboard();"> <img src="../../../assets/icons/Left_arrow.png" /> Workflow:
             {{task.workflowName}}</a>
     </div>
     <div class="card">
@@ -35,11 +35,12 @@
                                         src="../../../assets/icons/Versions.png" alt="Version Icon"
                                         class="files-icon" />
                                     <img (click)="openFileHistoryPopup(item.taskBusinessName,file.history)"
-                                        src="../../../assets/icons/Audit Trail.png" alt="Audit Trail"
+                                        src="../../../assets/icons/File_history.png" alt="Audit Trail"
                                         class="files-icon" />
-                                    <img (click)="removeFile(taskSectionIndex,fileIndex)"
+                                    <img *ngIf="taskType === 'upload'" (click)="removeFile(taskSectionIndex,fileIndex)"
                                         src="../../../assets/icons/Bin.png" alt="Delete Icon" class="files-icon" />
-                                    <i *ngIf="taskType !== 'upload'" class="fa fa-download" style="font-size: 11px; cursor: pointer;color: #085da9; margin-left: 11px;"></i>
+                                    <i *ngIf="taskType !== 'upload'" class="fa fa-download"
+                                        style="font-size: 11px; cursor: pointer;color: #085da9; margin-left: 11px;"></i>
                                 </span>
 
                             </li>
@@ -65,15 +66,17 @@
             <div class="row">
                 <textarea class=" col-md-7" rows="4" matInput type="text" placeholder="Add comments"></textarea>
 
-                <div><a class="chat" (click)="openQueryPopup()"> Chat</a> </div>
+                <div><a class="chat" (click)="openQueryPopup()"> Chat</a> <img style="margin-left: 10px;"
+                        src="../../../assets/icons/icon_chat.png" /> </div>
+
                 <div class="col-md-7">
                     <div class="pull-right">
                         <div class="form-check form-switch">
-                            <label class="form-check-label">Mark as Complete</label>
-                            <input class="form-check-input" type="checkbox" role="switch">
+                            <label>Mark as Complete</label>
+                            <input class="form-check-input" type="checkbox" role="switch" id="completeSwitch">
                         </div>
-
                     </div>
+
                 </div>
 
 

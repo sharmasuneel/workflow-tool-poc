@@ -21,12 +21,17 @@ export class PopupComponent {
   message = '';
   type = '';
   rejectComment = ''
-  btns: any[];
   taskData: any;
-  fileVersions:any=[];
+  fileVersions: any = [];
   commentary: any;
-  taskBusinessName:string='';
+  taskBusinessName: string = '';
+  assignedTo: string = '';
+  chatMessage: string = '';
+  taskQuery: string = '';
+  taskQueryStatus: string = '';
+  loggedInUser: any;
 
+  taskQueries: any = [];
   filehistory = [
     {
       businessDate: '2025-06-25',
@@ -57,46 +62,48 @@ export class PopupComponent {
   private appService: AppService = inject(AppService)
 
   constructor() {
+    this.loggedInUser = { userId: 'user_001' } //this.appService.getUser();
+
     this.popupService.popupState$.subscribe((params: any) => {
       if (params) {
-        this.title = params.title;
-        this.message = params.message;
+        const { title, message, type, taskData, fileVersions, taskBusinessName, taskQuery, taskQueryStatus, taskQueries, commentary } = params;
+        this.title = title;
+        this.message = message;
         this.isVisible = true;
-        this.btns = params.btns
-        this.type = params.type
-        this.taskData = params.taskData;
-        this.fileVersions=params.fileVersions;
-        this.taskBusinessName=params.taskBusinessName;
-        this.commentary = this.getcommentaryString(params.commentary)
+        this.type = type;
+        this.taskData = taskData;
+        this.fileVersions = fileVersions;
+        this.taskBusinessName = taskBusinessName;
+        this.taskQuery = taskQuery;
+        this.taskQueryStatus = taskQueryStatus;
+        this.taskQueries = taskQueries;
+        this.commentary = this.getcommentaryString(commentary);
       } else {
         this.isVisible = false;
       }
     });
   }
 
+
   getcommentaryString(commentary: any) {
     if (Array.isArray(commentary)) {
       const dd = commentary.map((line: any, idx: number) => {
-       return  `${idx + 1}. ${line?.taskType.toUpperCase()}: Status: ${line.status} ${line.commentary}`
-    }).join('\n');
+        return `${idx + 1}. ${line?.taskType.toUpperCase()}: Status: ${line.status} ${line.commentary}`
+      }).join('\n');
       debugger
       return dd
     }
     return '';
-
-
   }
 
-  
-
   onApprove() {
-    updateWorkflow(this.appService, this.dataService, this.taskData.uiTaskId, {...this.taskData, status: 'approved'}, this.popupService)
+    updateWorkflow(this.appService, this.dataService, this.taskData.uiTaskId, { ...this.taskData, status: 'approved' }, this.popupService)
     this.close()
     this.router.navigate([''])
     //TODO  add approve
   }
   onReject() {
-    updateWorkflow(this.appService, this.dataService, this.taskData.uiTaskId, {...this.taskData, status: 'rejected'}, this.popupService, true)
+    updateWorkflow(this.appService, this.dataService, this.taskData.uiTaskId, { ...this.taskData, status: 'rejected' }, this.popupService, true)
     this.close()
     this.router.navigate([''])
     //TODO  reject

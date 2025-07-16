@@ -1,29 +1,70 @@
 <!--Query modal-->
 
 <div style="display: block" *ngIf="isVisible && type==='query'" class="modal" data-bs-backdrop="static"
-  data-bs-keyboard="false"  tabindex="-1">
+  data-bs-keyboard="false" tabindex="-1">
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content" style="padding: 0px; width: 500px; height: 500px;">
       <div class="modal-header chat-modal-content">
-        <h5 class="modal-title">{{title}}</h5>
-        <button  (click)="close()" type="button" class="btn-close btn-close-white" aria-label="Close"></button>
+        <div class="row w-100 align-items-center">
+          <div class="col border-0 col">
+            <h5 class="modal-title mb-0 text-white">{{title}}</h5>
+          </div>
+          <div class="col-auto gap-2">
+            <button class="btn btn-close-query">Close Query</button>
+            <span style="margin-left: 20px;" (click)="close()" class="btn-close" data-bs-dismiss="modal"
+              aria-label="Close"></span>
+          </div>
+        </div>
+
+
       </div>
       <div class="modal-body">
-        <label for="assignTo" class="form-label">Assign to</label>
-        <select class="form-select mb-3" id="assignTo">
-          <option selected>Select</option>
-          <option value="1">Process Owner</option>
-          <option value="2">Preparator</option>
-          <option value="3">Reviewer</option>
-        </select>
+
+        <div *ngIf="chatMessage !== ''" class="row align-items-center mb-2">
+          <div class="col-auto">
+            <label for="roleSelect" class="form-label mb-0">Assign to</label>
+          </div>
         
+          <div class="col-md-6">
+            <select class="form-select role" id="roleSelect">
+              <option selected disabled>Select</option>
+        
+              <optgroup label="Process Owner">
+                <option>Elon Holt</option>
+                <option>Michale Miller</option>
+                <option>Davis Anderson</option>
+              </optgroup>
+        
+              <optgroup label="Preparator">
+                <option>Rajat Kumar</option>
+                <option>William Methew</option>
+                <option>Ashok Kala</option>
+              </optgroup>
+        
+              <optgroup label="Reviewer">
+                <option>Wincy Abraham</option>
+                <option>Tony Kale</option>
+                <option>Thomas Moore</option>
+              </optgroup>
+            </select>
+          </div>
+        </div>
+        
+        
+          <div *ngFor="let item of taskQueries">
+          <div class="mb-1" [ngClass]="item.sender_id === loggedInUser.userId? 'text-end' : '' ">
+            <div class="messages p-1 rounded d-inline-block"
+              [ngClass]="item.sender_id === loggedInUser.userId? 'bg-success text-white ' : '' ">{{item.content.text}}
+            </div>
+          </div>
+        </div>
+
       </div>
       <div class="modal-footer">
         <div class="input-group mb-3">
-          <span class="input-group-text" id="basic-addon2"><i class="fa fa-paperclip"></i></span>
-          <input type="text" class="form-control" placeholder="Type Message" aria-label="Recipient's username"
-            aria-describedby="basic-addon2">
-          <span class="input-group-text btn btn-primary" id="basic-addon2"><i class="fa fa-send"></i></span>
+          <span class="input-group-text"><img src="../../../../assets/icons/icon_attachment.png" /></span>
+          <input type="text" [(ngModel)]="chatMessage" class="form-control" placeholder="Type your message here...">
+          <span class="input-group-text btn "><img src="../../../../assets/icons/icon_send.png" /></span>
         </div>
       </div>
     </div>
@@ -32,7 +73,7 @@
 
 <!-- File Version modal -->
 <div style="display: block" *ngIf="isVisible && type==='fileversion'" class="modal" data-bs-backdrop="static"
-  data-bs-keyboard="false"  tabindex="-1">
+  data-bs-keyboard="false" tabindex="-1">
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content" style="width: 750px;">
       <div class="modal-header">
@@ -43,7 +84,7 @@
         <table class="table">
           <thead>
             <tr>
-              
+
               <th>Upload Date</th>
               <th>File Name</th>
               <th>Uploaded By</th>
@@ -69,7 +110,7 @@
 
 <!-- File history modal -->
 <div style="display: block" *ngIf="isVisible && type==='filehistory'" class="modal" data-bs-backdrop="static"
-  data-bs-keyboard="false"  tabindex="-1">
+  data-bs-keyboard="false" tabindex="-1">
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content" style="width: 750px;">
       <div class="modal-header">
@@ -186,8 +227,7 @@
         </div>
         <div class="mb-3">
           <label class="text-muted">Commentary</label>
-          <textarea class="form-control" style="background: #efefef;" rows="3"
-            readonly>{{commentary}}</textarea>
+          <textarea class="form-control" style="background: #efefef;" rows="3" readonly>{{commentary}}</textarea>
         </div>
       </div>
 
@@ -205,31 +245,31 @@
   </div>
 </div>
 <!-- Other modal -->
- <div *ngIf="isVisible">
-  <div style="display: block" *ngIf="type ==='save' || type === 'update' || type === 'reject' || type === 'approve'" class="modal" data-bs-backdrop="static"
-  data-bs-keyboard="false" tabindex="-1">
-  <div class="modal-dialog modal-dialog-centered ">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title">{{title}}</h5>
-        <button type="button" class="btn-close" (click)="close()" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-        <p>{{message}}</p>
-        <div *ngIf="type === 'reject'">
-          <input type="text" class="form-control" placeholder="Add comment" [(ngModel)]="rejectComment">
+<div *ngIf="isVisible">
+  <div style="display: block" *ngIf="type ==='save' || type === 'update' || type === 'reject' || type === 'approve'"
+    class="modal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered ">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">{{title}}</h5>
+          <button type="button" class="btn-close" (click)="close()" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
-      </div>
-      <div class="modal-footer">
-        <button *ngIf="type === 'reject'" type="button" class="btn btn-danger" data-bs-dismiss="modal"
-          (click)="onReject()">Reject</button>
-        <button *ngIf="type === 'approve'" type="button" (click)="onApprove()" class="btn btn-success"
-          data-bs-dismiss="modal">Approve</button>
-        <button *ngIf="type === 'save' || type === 'update'" type="button" class="btn btn-primary" (click)="goToDashboard()">Go to
-          Dashboard</button>
+        <div class="modal-body">
+          <p>{{message}}</p>
+          <div *ngIf="type === 'reject'">
+            <input type="text" class="form-control" placeholder="Add comment" [(ngModel)]="rejectComment">
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button *ngIf="type === 'reject'" type="button" class="btn btn-danger" data-bs-dismiss="modal"
+            (click)="onReject()">Reject</button>
+          <button *ngIf="type === 'approve'" type="button" (click)="onApprove()" class="btn btn-success"
+            data-bs-dismiss="modal">Approve</button>
+          <button *ngIf="type === 'save' || type === 'update'" type="button" class="btn btn-primary"
+            (click)="goToDashboard()">Go to
+            Dashboard</button>
+        </div>
       </div>
     </div>
   </div>
 </div>
- </div>
-

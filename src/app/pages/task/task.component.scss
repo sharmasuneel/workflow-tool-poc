@@ -72,6 +72,7 @@ button {
 }
 .chat{
     color: #085da8;
+    cursor: pointer;
 }
 p{
     font-size: 14px;
@@ -80,6 +81,7 @@ p{
 .workflowname{
     color: #085da8;
     text-decoration: none;
+    cursor:pointer
 }
 .finish-date {
     background-color: #00e00e;
@@ -96,4 +98,8 @@ p{
 }
 .outcomes{
     color: #085da8;
+}
+.form-check .form-check-input {
+    float: right !important;
+    margin-left: 10px !important;
 }

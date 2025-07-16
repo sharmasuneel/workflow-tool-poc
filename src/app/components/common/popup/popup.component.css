@@ -78,3 +78,34 @@ th {
   border-bottom: none;
 
 }
+.input-group-text, .input-group .form-control{
+  border: none !important;
+  background: none;
+}
+.btn-close-query{
+  background: #4edd07;
+  color: #fff;
+  font-size: 14px;
+}
+.assignedto-box{
+background-color: #e6e6e6;
+}
+.messages{
+  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+}
+
+  select.role {
+    font-size: 14px; 
+    padding: 4px 8px; 
+  }
+
+  select.role option,
+  select.role optgroup {
+    font-size: 14px; 
+    padding: 2px 4px;
+    margin: 0;       
+  }
+
+ .col{
+  border: none !important;
+ }
