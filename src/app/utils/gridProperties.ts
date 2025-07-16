@@ -147,7 +147,5 @@ function parseColumns(gridProps: any, data: any, props: any) {
 
 export function gridColumns(gridId: string, data: any, props: any) {
     const dGrid: any = columnsJson
-    const columns = parseColumns(dGrid[gridId], data, props)
-    return columns
-
+    return parseColumns(dGrid[gridId], data, props)
 }

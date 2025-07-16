@@ -4,11 +4,11 @@ import { FormsModule } from "@angular/forms";
 import { AgGridAngular } from 'ag-grid-angular';
 import { ColDef } from 'ag-grid-community';
 import { AllCommunityModule, ModuleRegistry } from "ag-grid-community";
-import { gridColumns } from "app/utils/gridProperties";
 import { Router } from "@angular/router";
-import { DataService, PopupService, AppService } from "../../services";
-import getConfig from "app/config";
-import { flattenData } from "app/utils/dataTransformer";
+import { DataService, PopupService, AppService } from "@services";
+import { gridColumns } from "@utils/gridProperties";
+import getConfig from "@config";
+import { flattenData } from "@utils/dataTransformer";
 ModuleRegistry.registerModules([AllCommunityModule]);
 
 
@@ -74,7 +74,7 @@ export class TaskDashboardComponent implements OnInit {
   }
 
   handlePostData(url: string, payload: any, headers: any, onSuccess: any, onFailure: any) {
-    this.dataService.postData(url, payload).subscribe({
+    this.dataService.postData(url, payload, headers).subscribe({
       next: (data: any) => {
         const { message, title, type } = onSuccess
         this.popupService.open({ isVisible: true, title, type, message });
@@ -86,11 +86,5 @@ export class TaskDashboardComponent implements OnInit {
       }
 
     })
-  }
-
-  filterWorkFlows(evt: any): void {
-    this.selectedRole = evt
-    this.showCreateWorkflowBtn = evt === 'owner' || evt.role === 'owner'
-    this.profileSelected = evt
   }
 }

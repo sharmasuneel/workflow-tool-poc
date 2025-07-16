@@ -1,15 +1,19 @@
-import { CommonModule } from '@angular/common';
+// Angular Core & Common Modules
+import { CommonModule, DOCUMENT } from '@angular/common';
 import { Component, inject, Inject, OnInit } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-
-import { DataService } from '@services/data.service';
-import { AppService }  from '@services/app.service';
-import getConfig from './config';
-import { workflowsData } from './stub/staticdata'
 import { Title } from '@angular/platform-browser';
-import { DOCUMENT } from '@angular/common';
-import { HeaderComponent } from './components/common/header/header.component';
-import { PopupComponent } from './components/common/popup/popup.component';
+
+// Application Services
+import { DataService, AppService } from '@services';
+
+// Application Components
+import { HeaderComponent, PopupComponent } from '@components/common';
+
+// Application Utilities & Config
+import getConfig from './config';
+import { workflowsData } from './stub/staticdata';
+
 
 @Component({
   selector: 'app-root',

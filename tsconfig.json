@@ -4,14 +4,20 @@
   "compilerOptions": {
     "baseUrl": "src",
     "paths": {
+      "@config": [
+        "app/config.ts"
+      ],
       "@icons/*": [
         "assets/icons/*"
+      ],
+      "@fonts/*": [
+        "assets/fonts/*"
       ],
       "@utils/*": [
         "app/utils/*"
       ],
-      "@services/*": [
-        "app/services/*"
+      "@services": [
+        "app/services/index.ts"
       ],
       "@components/*": [
         "app/components/*"
@@ -21,10 +27,7 @@
       ],
       "@pages/*": [
         "app/pages/*"
-      ],
-      "@fonts/*": [
-        "assets/fonts/*"
-      ],
+      ]
     },
     "outDir": "./dist/out-tsc",
     "strict": true,
