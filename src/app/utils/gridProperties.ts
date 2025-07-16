@@ -103,12 +103,12 @@ function columnEventHandler(clickHandler: any, params: any, props: any) {
 function parseColumns(gridProps: any, data: any, props: any) {
     const { columns, navigateKey, row, route } = gridProps
     const columnsDefs = columns.map((col: any) => {
-        const { field, headerName, width, headerComponent, headerComponentTemplate, onClick, cellRenderer } = col;
+        const { field, headerName, flex ,headerComponent, headerComponentTemplate, onClick, cellRenderer } = col;
 
         return {
             field,
             headerName,
-            width,
+            flex,
             headerComponentParams: headerComponent ? {
                 template: headerComponentTemplate
             } : null,

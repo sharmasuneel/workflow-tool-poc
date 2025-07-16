@@ -6,7 +6,25 @@
     "paths": {
       "@icons/*": [
         "assets/icons/*"
-      ]
+      ],
+      "@utils/*": [
+        "app/utils/*"
+      ],
+      "@services/*": [
+        "app/services/*"
+      ],
+      "@components/*": [
+        "app/components/*"
+      ],
+      "@interfaces/*": [
+        "app/interfaces/*"
+      ],
+      "@pages/*": [
+        "app/pages/*"
+      ],
+      "@fonts/*": [
+        "assets/fonts/*"
+      ],
     },
     "outDir": "./dist/out-tsc",
     "strict": true,

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { transformCommentary } from 'app/utils/dataSubmission';
+import { transformCommentary } from '@utils/dataSubmission';
 import { v4 as uuidv4 } from 'uuid';
 
 @Injectable({

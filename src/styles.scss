@@ -664,11 +664,11 @@ body {
   margin-left: 5px;
 }
 .red-signal {
-  background-color: #ff0101;
+  background-color: #FF0000;
 }
 
 .yellow-signal {
-  background-color: #ffcc01;
+  background-color: #FFCC00;
 }
 
 .signals span {
@@ -676,14 +676,15 @@ body {
 }
 
 .green-signal {
-  background-color: #00e00f;
+  background-color: #00E00F;
 }
 
 .select-btn,
 .select-btn:hover {
   margin-top: 5px;
   background-color: #075da8;
-  border-radius: 0%
+  border-radius: 0%;
+  margin-left: 10px;
 }
 
 .reject-btn {
@@ -698,5 +699,9 @@ body {
 
 .task-status {
   cursor: none;
-  border-color: #ffcc01;
+  border-color: #E3D400;
+}
+.ag-row{
+  background: #F0F0F0;
+  border-bottom-color: #fff;
 }

@@ -1,4 +1,4 @@
-<div class="container-fluid">
+<div class="container">
  
   <!--tab-->
   <div class="d-flex justify-content-between align-items-center mb-2">
@@ -36,7 +36,7 @@
   <!--grid-->
 
   <div class="ag-theme-alpine">
-    <ag-grid-angular style="height: 475px;" [rowHeight]="55" [rowData]="filteredData" [columnDefs]="columnDefs"
+    <ag-grid-angular style="height: 475px; width: 100%;" [rowHeight]="55" [rowData]="filteredData" [columnDefs]="columnDefs"
       [localeText]="{ noRowsToShow: 'No workflow to show' }">
     </ag-grid-angular>
   </div>

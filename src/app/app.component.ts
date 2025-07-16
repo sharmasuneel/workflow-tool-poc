@@ -2,8 +2,8 @@ import { CommonModule } from '@angular/common';
 import { Component, inject, Inject, OnInit } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 
-import { DataService } from './services/data.service';
-import { AppService } from './services/app.service';
+import { DataService } from '@services/data.service';
+import { AppService }  from '@services/app.service';
 import getConfig from './config';
 import { workflowsData } from './stub/staticdata'
 import { Title } from '@angular/platform-browser';
