@@ -1,3 +1,4 @@
+/* eslint-disable @angular-eslint/component-selector */
 import { Component, inject, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
@@ -18,8 +19,10 @@ export class TaskComponent implements OnInit {
   profileSelected: any;
   downloadUrl: string = getConfig().downlodFile;
   private popupService = inject(PopupService);
+  private route = inject(ActivatedRoute);
+  private router = inject(Router);
 
-  constructor(private route: ActivatedRoute, private router: Router) {
+  constructor() {
     const navigation = this.router.getCurrentNavigation();
     this.task = navigation?.extras?.state;
   }
