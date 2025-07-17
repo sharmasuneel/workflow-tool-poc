@@ -45,8 +45,15 @@ export class TaskDashboardComponent implements OnInit {
 
   resetFilterDataByTab() {
     const data = this.appService.getUserTasks()
-    const extraAttributes = { attr: 'taskEndDateSignal', func: "getSignalClass", params: { param1: "task_taskEndDate" } };
-    this.filteredData = flattenData(data.filter((item: any) => item.task.taskStatus === this.selectedTab), extraAttributes);
+    const extraAttributes = [{ attr: 'taskEndDateSignal', func: {name:"getSignalClass",params: ['task_taskEndDate'] }}];
+    this.filteredData = flattenData(data.filter((item: any) => {
+      if (this.selectedTab === 'pending' && (item.task.taskStatus === 'pending' || item.task.taskStatus === 'inProgress')) {
+        return true;
+      } else {
+        return this.selectedTab === item.task.taskStatus;
+      }
+
+    }), extraAttributes);
     const columnDefs = gridColumns('task', this.filteredData, {
       router: this.router,
       setPhase: this.appService.setPhase,

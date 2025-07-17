@@ -70,5 +70,8 @@ export class TaskComponent implements OnInit {
 
     });
   }
+  markAsComplete(){
+    
+  }
 }
 

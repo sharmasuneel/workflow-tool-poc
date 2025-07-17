@@ -61,7 +61,7 @@
                 "headerName": "Action",
                 "field": "action",
                 "flex":2,
-                "cellRenderer": "<div><button id='rejectTaskBtn' class='btn btn-outline-danger reject-btn'>Reject</button><button id ='selectTaskBtn' class='btn btn-primary select-btn'>Select</button></div>",
+                "cellRenderer": "<div><button id='rejectTaskBtn' class='btn btn-outline-danger reject-btn ~{params.task_taskStatus === 'inProgress'? 'disabled': ''}'>Reject</button><button id ='selectTaskBtn' class='btn btn-primary select-btn  ~{params.task_taskStatus === 'inProgress'? 'disabled': ''}'>Select</button></div>",
                 "onClick": {
                     "clickHandler": {
                         "tarketKey": "id",

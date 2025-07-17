@@ -67,18 +67,17 @@ function flattenObject(obj: any, parentKey = '', result: any = {}) {
 
 
 export function flattenData(data: any, extraAttributes: any) {
-
     const addExtras = (item: any) => {
         const flat = flattenObject(item);
-        const paramKey = extraAttributes.params?.param1;
-        const paramValue = flat[paramKey];
+       const eas= extraAttributes.map((ea: any) => {
+            const { name, params  } = ea.func;
+            [ea.attr] = mapper[name](...getParamValues(params, flat));
+            return ea;
+        });
         return {
-            ...flat,
-            [extraAttributes.attr]: mapper[extraAttributes.func](paramValue)
+            ...flat, ...eas
         };
     };
-
-
     if (Array.isArray(data)) {
         return data.map(addExtras);
     } else if (typeof data === 'object' && data !== null) {
@@ -86,9 +85,12 @@ export function flattenData(data: any, extraAttributes: any) {
     } else {
         throw new Error("Unsupported data type");
     }
-
 }
-
+function getParamValues(params: any, data: any) {
+    return params.map((param: any) => {
+        return data[param];
+    });
+}
 
 function transformData(data: any[], users: any, role: string) {
     const usersByGroupId = getAssignedToUsersById(users, role)

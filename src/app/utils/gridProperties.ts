@@ -113,7 +113,9 @@ function parseColumns(gridProps: any, data: any, props: any) {
                 template: headerComponentTemplate
             } : null,
             cellRenderer: (params: any) => {
-                return parseCell(cellRenderer, params.data)
+                const cell=parseCell(cellRenderer, params.data);
+                console.log(cell);
+                return cell;
             },
 
             onCellClicked: (params: any) => {
