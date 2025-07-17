@@ -22,7 +22,7 @@ export function parseCell(str: string, params: Record<string, any>): any {
     return valueMap.hasOwnProperty(evaluatedStr) ? valueMap[evaluatedStr] : evaluatedStr;
 }
 
-export function getSignalClass(date: string): string {
+export function getSignalClass(date: string, abc: string): string {
     const currentDate = new Date();
     const taskEndDate = new Date(date); // 
     const diffInMs = Math.abs(currentDate.getTime() - taskEndDate.getTime());
@@ -113,7 +113,9 @@ function parseColumns(gridProps: any, data: any, props: any) {
                 template: headerComponentTemplate
             } : null,
             cellRenderer: (params: any) => {
-                return parseCell(cellRenderer, params.data)
+                const cell=parseCell(cellRenderer, params.data);
+                console.log(cell);
+                return cell;
             },
 
             onCellClicked: (params: any) => {

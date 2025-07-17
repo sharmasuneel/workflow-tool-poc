@@ -2,6 +2,7 @@ import { AnyGridOptions } from "ag-grid-community/dist/types/src/propertyKeys";
 import { parseCommentary } from "./dataSubmission";
 import { getSignalClass } from "./gridProperties";
 import { mapper } from "./functionMapper";
+import { ExtraAttribute } from "@interfaces/extraAttributes.model";
 function toFormData(obj: any, fileNameKey: string): FormData {
     const formData = new FormData();
     const filesUploadType = ['withTemplateFile', 'withDataFile']
@@ -66,19 +67,16 @@ function flattenObject(obj: any, parentKey = '', result: any = {}) {
 
 
 
-export function flattenData(data: any, extraAttributes: any) {
-
+export function flattenData(data: any, extraAttributes: ExtraAttribute[]) {
     const addExtras = (item: any) => {
         const flat = flattenObject(item);
-        const paramKey = extraAttributes.params?.param1;
-        const paramValue = flat[paramKey];
-        return {
-            ...flat,
-            [extraAttributes.attr]: mapper[extraAttributes.func](paramValue)
-        };
+
+        extraAttributes.forEach((ea: ExtraAttribute) => {
+            flat[ea.attr] = mapper[ea.func.name](...getParamValues(ea.func.params, flat));
+        });
+        return flat
+
     };
-
-
     if (Array.isArray(data)) {
         return data.map(addExtras);
     } else if (typeof data === 'object' && data !== null) {
@@ -86,9 +84,12 @@ export function flattenData(data: any, extraAttributes: any) {
     } else {
         throw new Error("Unsupported data type");
     }
-
 }
-
+function getParamValues(params: any, data: any) {
+    return params.map((param: any) => {
+        return data[param];
+    });
+}
 
 function transformData(data: any[], users: any, role: string) {
     const usersByGroupId = getAssignedToUsersById(users, role)

@@ -54,7 +54,7 @@ export class TaskComponent implements OnInit {
 
     });
   }
-  openFileHistoryPopup(taskBusinessName:string,fileHistory:any) {
+  openFileHistoryPopup(taskBusinessName:string,fileHistory: any) {
     this.popupService.open({
       title: 'File History', taskBusinessName: taskBusinessName,
       type: 'filehistory',
@@ -72,6 +72,9 @@ export class TaskComponent implements OnInit {
       taskQueries:this.task.task_taskQueries
 
     });
+  }
+  markAsComplete(){
+    // TODO: Handle markascomplete here
   }
 }
 

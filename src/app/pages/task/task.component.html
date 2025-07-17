@@ -66,14 +66,20 @@
             <div class="row">
                 <textarea class=" col-md-7" rows="4" matInput type="text" placeholder="Add comments"></textarea>
 
-                <div><a class="chat" (click)="openQueryPopup()"> Chat</a> <img style="margin-left: 10px;"
-                        src="../../../assets/icons/icon_chat.png" /> </div>
+                <div>
+                    <a class="chat" (click)="openQueryPopup()"> Chat</a>
+                    <img style="margin-left: 10px;" src="../../../assets/icons/icon_chat.png" />
+                </div>
 
-                <div class="col-md-7">
+                <div class="col-md-12">
+                    <div class="pull-left">
+                        <span>{{task.task_taskQueryStatus}}</span>
+                    </div>
                     <div class="pull-right">
                         <div class="form-check form-switch">
                             <label>Mark as Complete</label>
-                            <input class="form-check-input" type="checkbox" role="switch" id="completeSwitch">
+                            <input [disabled]="task.task_taskQueryStatus === 'pending'" class="form-check-input" (change)="markAsComplete()" type="checkbox" role="switch"
+                                id="completeSwitch">
                         </div>
                     </div>
 
