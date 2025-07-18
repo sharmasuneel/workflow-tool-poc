@@ -4,14 +4,12 @@ import { CommonModule } from '@angular/common';
 import { AgGridAngular } from 'ag-grid-angular';
 import { ColDef } from 'ag-grid-community';
 import { AllCommunityModule, ModuleRegistry } from "ag-grid-community";
-import { AppService } from '../../../services/app.service';
 import { Router } from '@angular/router';
 import { Input } from '@angular/core';
-import { filterDataBySelectedTab, transformData } from '../../../utils/dataTransformer'
-import getConfig from '../../../config';
-import { DataService } from '../../../services/data.service';
+import { filterDataBySelectedTab } from '@utils/dataTransformer'
+import getConfig from '@config';
+import { AppService, DataService, PopupService } from '@services';
 import { workflowsData } from '../../../stub/staticdata'
-import { PopupService } from "../../../services/popup.service";
 
 ModuleRegistry.registerModules([AllCommunityModule]);
 
@@ -35,9 +33,10 @@ export class AppGrid implements OnInit, OnChanges {
   private appService = inject(AppService);
   private dataService = inject(DataService);
   private popupService = inject(PopupService);
+  private router = inject(Router);
+  
   @Input() selectedRole: any = 'owner';
 
-  constructor(private router: Router) { }
   columnDefs: ColDef[] = [
     {
       field: 'workflowName',
@@ -52,7 +51,7 @@ export class AppGrid implements OnInit, OnChanges {
           this.appService.setPhase('execution')
           this.appService.setWorkflowId(params.data.workflowId)
           this.router.navigate(['/workflow'], {
-            queryParams: { id: params.data.workflowId, action: 'execute', type: 'workflow', selectedRole: this.selectedRole.role }
+            queryParams: { id: params.data.workflowId, action: 'execute', type: 'workflow', selectedRole: this.selectedRole }
           });
         }
       }

@@ -1,28 +1,8 @@
 
 import columnsJson from './columns.json';
+import { evaluate, parseCell } from './dataTransformer';
 
-export function parseCell(str: string, params: Record<string, any>): any {
-    if (typeof str !== 'string') return null;
-
-    const evaluatedStr = str.replace(/~\{(.*?)\}/g, (_, fnBody) => {
-        try {
-            const fn = new Function('params', `return ${fnBody};`);
-            return fn(params);
-        } catch {
-            return '';
-        }
-    });
-
-    const valueMap: Record<string, any> = {
-        'true': true,
-        'false': false,
-        'undefined': null
-    };
-
-    return valueMap.hasOwnProperty(evaluatedStr) ? valueMap[evaluatedStr] : evaluatedStr;
-}
-
-export function getSignalClass(date: string, abc: string): string {
+export function getSignalClass(date: string): string {
     const currentDate = new Date();
     const taskEndDate = new Date(date); // 
     const diffInMs = Math.abs(currentDate.getTime() - taskEndDate.getTime());
@@ -34,26 +14,6 @@ export function getSignalClass(date: string, abc: string): string {
     } else {
         return 'green-signal';
     }
-
-}
-
-function evaluate(qp: any, data: any) {
-    if (typeof qp === 'string' && qp.startsWith('~{')) {
-        return parseCell(qp, data)
-    } else if (typeof qp === 'object' && qp !== null) {
-        const result: any = {};
-        for (const key in qp) {
-            if (Object.prototype.hasOwnProperty.call(qp, key)) {
-                let value = qp[key]
-                if (typeof qp[key] === 'string' && qp[key].startsWith('~{')) {
-                    value = parseCell(qp[key], data)
-                }
-                result[key] = value;
-            }
-        }
-        return result;
-    }
-    return qp
 }
 
 function _navigate(route: string, props: any, action: any, data: any) {
@@ -112,12 +72,7 @@ function parseColumns(gridProps: any, data: any, props: any) {
             headerComponentParams: headerComponent ? {
                 template: headerComponentTemplate
             } : null,
-            cellRenderer: (params: any) => {
-                const cell=parseCell(cellRenderer, params.data);
-                console.log(cell);
-                return cell;
-            },
-
+            cellRenderer: (params: any) => parseCell(cellRenderer, params.data),
             onCellClicked: (params: any) => {
                 // const htmlElement = params.event.target.classList.contains(col.class)
                 const htmlElement = null
@@ -128,7 +83,6 @@ function parseColumns(gridProps: any, data: any, props: any) {
                     _navigate(route, props, row.onClick, params.data)
                 }
 
-                console.log('parseColumns > htmlElement', htmlElement)
                 if (htmlElement) {
                     // TODO: handle cell click 
                     if (onClick && onClick.appSetters) {

@@ -1,5 +1,6 @@
 import { Task } from './task.model';
 import { WorkflowParameters} from './parameters.model';
+
 export interface Workflow {
   workflowId: number;
   uiWorkflowId: string;

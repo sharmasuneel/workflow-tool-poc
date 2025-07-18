@@ -69,7 +69,7 @@ function flattenObject(obj: any, parentKey = '', result: any = {}) {
 
 export function flattenData(data: any, extraAttributes: ExtraAttribute[]) {
     const addExtras = (item: any) => {
-        const flat = flattenObject(item);
+        const flat = item;
 
         extraAttributes.forEach((ea: ExtraAttribute) => {
             flat[ea.attr] = mapper[ea.func.name](...getParamValues(ea.func.params, flat));
@@ -85,9 +85,51 @@ export function flattenData(data: any, extraAttributes: ExtraAttribute[]) {
         throw new Error("Unsupported data type");
     }
 }
+
+export function parseCell(str: string, params: Record<string, any>): any {
+    if (typeof str !== 'string') return null;
+
+    const evaluatedStr = str.replace(/~\{(.*?)\}/g, (_, fnBody) => {
+        try {
+            const fn = new Function('params', `return ${fnBody};`);
+            return fn(params);
+        } catch {
+            return '';
+        }
+    });
+
+    const valueMap: Record<string, any> = {
+        'true': true,
+        'false': false,
+        'undefined': null
+    };
+
+    return valueMap.hasOwnProperty(evaluatedStr) ? valueMap[evaluatedStr] : evaluatedStr;
+}
+
+
+export function evaluate(qp: any, data: any) {
+    if (typeof qp === 'string' && qp.startsWith('~{')) {
+        return parseCell(qp, data)
+    } else if (typeof qp === 'object' && qp !== null) {
+        const result: any = {};
+        for (const key in qp) {
+            if (Object.prototype.hasOwnProperty.call(qp, key)) {
+                let value = qp[key]
+                if (typeof qp[key] === 'string' && qp[key].startsWith('~{')) {
+                    value = parseCell(qp[key], data)
+                }
+                result[key] = value;
+            }
+        }
+        return result;
+    }
+    return qp
+}
+
 function getParamValues(params: any, data: any) {
     return params.map((param: any) => {
-        return data[param];
+        return evaluate(param, data)
     });
 }
 

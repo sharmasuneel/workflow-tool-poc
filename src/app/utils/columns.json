@@ -1,15 +1,15 @@
 {
     "task": {
-        "navigateKey": "task_taskType",
+        "navigateKey": "taskType",
         "route": "task",
         "row": {
             "onClick": {
                 "navigate": {
-                    "subRoute": "~{params.task_taskType}",
+                    "subRoute": "~{params.taskType}",
                     "state": "~{params}",
                     "queryParams": {
                         "workflowId": "~{params.workflowId}",
-                        "taskId": "~{params.task_taskId}",
+                        "taskId": "~{params.taskId}",
                         "action": "execute",
                         "type": "workflow",
                         "selectedRole": "~{params.selectedRole.role}"
@@ -46,22 +46,23 @@
             },
             {
                 "headerName": "Task Name",
-                "field": "task_taskName",
+                "field": "taskName",
                 "flex": 2,
-                "cellRenderer": "<div><a class=\"my-action-btn\">~{params.task_taskName}</a> </div>"
+                "cellRenderer": "<div><a class=\"my-action-btn\">~{params.task.taskName}</a> </div>"
             },
             {
                 "headerName": "Status",
-                "field": "task_taskStatus",
+                "field": "taskStatus",
                 "flex": 1,
                 "defaultValue": "-",
-                "cellRenderer": "<div class='mt-2'><span class='task-status task-status-~{params.task_taskStatus}'>~{params.task_taskStatus}</span></div>"
+                "cellRenderer": "<div class='mt-2'><span class='task-status task-status-~{params.taskStatus}'>~{params.task.taskStatus}</span></div>"
             },
             {
                 "headerName": "Action",
                 "field": "action",
                 "flex": 2,
-                "cellRenderer": "<div><button id='rejectTaskBtn' class='btn btn-outline-danger reject-btn ~{params.task_taskStatus === 'inProgress'? 'disabled': ''}'>Reject</button><button id ='selectTaskBtn' class='btn btn-primary select-btn  ~{params.task_taskStatus === 'inProgress'? 'disabled': ''}'>Select</button></div>",
+                "hideRule": "~{}",
+                "cellRenderer": "<div><button id='rejectTaskBtn' class='btn btn-outline-danger reject-btn ~{params.task.taskStatus === 'inProgress'? 'disabled': ''}'>Reject</button><button id ='selectTaskBtn' class='btn btn-primary select-btn  ~{params.task.taskStatus === 'inProgress'? 'disabled': ''}'>Select</button></div>",
                 "onClick": {
                     "clickHandler": {
                         "tarketKey": "id",
@@ -75,11 +76,11 @@
                                 "method": "POST",
                                 "payload": {
                                     "workflowId": "~{params.workflowId}",
-                                    "taskId": "~{params.task_taskId}",
+                                    "taskId": "~{params.task.taskId}",
                                     "assignedTo": "~{params.user}",
                                     "selected": "~{params.selected = params.targetId === 'selectTaskBtn'}",
                                     "rejected": "~{params.rejected = params.targetId === 'rejectTaskBtn'}",
-                                    "rejectedReason": "~{params.rejectedReason || 'i do not need it'}"
+                                    "rejectedReason": "~{params.task.rejectedReason || 'i do not need it'}"
                                 },
                                 "onSuccess": {
                                     "message": "Task rejected from your queue successfully with ~{params.rejectedReason || ''}",
@@ -96,11 +97,11 @@
                                 "method": "POST",
                                 "payload": {
                                     "workflowId": "~{params.workflowId}",
-                                    "taskId": "~{params.task_taskId}",
+                                    "taskId": "~{params.task.taskId}",
                                     "assignedTo": "~{params.user}",
                                     "selected": "~{params.selected = params.targetId === 'selectTaskBtn'}",
                                     "rejected": "~{params.rejected = params.targetId === 'rejectTaskBtn'}",
-                                    "rejectedReason": "~{params.rejectedReason || ''}"
+                                    "rejectedReason": "~{params.task.rejectedReason || ''}"
                                 },
                                 "onSuccess": {
                                     "message": "Task selected from your queue successfully"
@@ -117,9 +118,9 @@
                 "headerName": "Due By",
                 "headerComponent": true,
                 "headerComponentTemplate": "<div class='d-flex align-items-center'> <span class='text-white'>Due By</span> <span class='red-signal signals'></span> <span class='yellow-signal signals'></span> <span class='green-signal signals'></span></div>",
-                "field": "task_taskEndDate",
+                "field": "taskEndDate",
                 "flex": 2,
-                "cellRenderer": "<div><span class=\"task-end-date \">~{params.task_taskEndDate}</span> <span class=\"signals ~{params.taskEndDateSignal} \"></span> </div>"
+                "cellRenderer": "<div><span class=\"task-end-date \">~{params.task.taskEndDate}</span> <span class=\"signals ~{params.taskEndDateSignal} \"></span> </div>"
             }
         ]
     }

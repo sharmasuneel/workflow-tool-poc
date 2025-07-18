@@ -74,8 +74,7 @@ export class AppService {
     });
 
     this.workflows = newWorkflowWithFiles;
-    console.log('tranformed workflows: > ', newWorkflowWithFiles)
-  }
+  } 
 
   getWorkflows() {
     return this.workflows;

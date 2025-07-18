@@ -38,12 +38,12 @@ export class TaskComponent implements OnInit {
     this.router.navigate(['/tasks']);
   }
   removeFile(taskSectionIndex: number,fileIndex:number) {
-    this.task.task_sections[taskSectionIndex].files.splice(fileIndex, 1);
+    this.task.sections[taskSectionIndex].files.splice(fileIndex, 1);
   }
   onFileSelected(event: Event,taskSectionIndex:number): void {
     const input = event.target as HTMLInputElement;
     if (input.files) {
-      this.task.task_sections[taskSectionIndex].files.push(...Array.from(input.files));
+      this.task.sections[taskSectionIndex].files.push(...Array.from(input.files));
     }
   }
   openFileVersionPopup(taskBusinessName:string,fileVersions:any) {
@@ -67,9 +67,9 @@ export class TaskComponent implements OnInit {
     this.popupService.open({
       title: 'Chat',
       type: 'query',
-      taskQuery:this.task.task_taskQuery,
-      taskQueryStatus:this.task.task_taskQueryStatus,
-      taskQueries:this.task.task_taskQueries
+      taskQuery:this.task.taskQuery,
+      taskQueryStatus:this.task.taskQueryStatus,
+      taskQueries:this.task.taskQueries
 
     });
   }
