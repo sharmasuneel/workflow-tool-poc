@@ -1,11 +1,3 @@
-button {
-    margin-top: 20px;
-    background-color: #085da8;
-    color: white;
-    padding: 10px;
-    border: none;
-    width: 100%;
-}
 .upload-box {
     height: 50px;
     display: flex;
@@ -38,51 +30,53 @@ button {
     color: #2c3e50;
 }
 
-
-.upload-wrapper {
-    // padding: 12px;
-    // display: flex;
-
-    .upload-type-select {}
-}
-.file-name-list{
+.file-name-list {
     padding: 0
 }
-.btn-primary{
+
+.btn-primary {
     background-color: #085da8;
     border: #085da8;
 }
-.text-primary{
+
+.text-primary {
     color: #085da8 !important;
 }
-.card-header{
+
+.card-header {
     background-color: #085da8;
     color: #fff;
 }
-.finish-date{
+
+.finish-date {
     background-color: #00e00e;
     color: #fff;
 }
-.files-icon{
+
+.files-icon {
     width: 16px;
-    height: 16px; 
+    height: 16px;
     cursor: pointer;
     margin-left: 5px;
 
 }
-.chat{
+
+.chat {
     color: #085da8;
     cursor: pointer;
 }
-p{
+
+p {
     font-size: 14px;
     margin-bottom: 5px;
 }
-.workflowname{
+
+.workflowname {
     color: #085da8;
     text-decoration: none;
-    cursor:pointer
+    cursor: pointer
 }
+
 .finish-date {
     background-color: #00e00e;
     color: #fff;
@@ -93,13 +87,37 @@ p{
 
 }
 
-.card-body{
+.card-body {
     margin-left: 13px;
 }
-.outcomes{
+
+.outcomes {
     color: #085da8;
 }
+
 .form-check .form-check-input {
     float: right !important;
     margin-left: 10px !important;
+}
+
+.query-status {
+    display: inline-block;
+    width: 100px;
+    border-radius: 50px;
+    text-align: center;
+    padding: 5px;
+}
+
+.query-pending {
+    border: 1px solid #fa8f56;
+    color: #fa8f56;
+}
+
+.query-completed {
+    border: 1px solid #06d035;
+    color: #06d035;
+}
+
+.w-65 {
+    width: 65%;
 }

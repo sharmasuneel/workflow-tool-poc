@@ -683,24 +683,46 @@ body {
 .select-btn:hover {
   margin-top: 5px;
   background-color: #075da8;
-  border-radius: 0%;
+  border-radius: 4px;
+  line-height: 20px;
   margin-left: 10px;
 }
-
+.select-btn.disabled{
+  background: #cbcbcb;
+  border-color: #cbcbcb;
+  color: #000;
+}
 .reject-btn {
   margin-top: 5px;
-  border-radius: 0%;
+  border-radius: 4px;
+  line-height: 20px;
   border-color: #ff0101;
 }
+
+.task-status {
+  display: inline-block;
+  width: 80px;
+  border-radius: 50px; 
+  text-align: center;
+}
+.task-status-pending{
+  border: 1px solid #E3D400;
+}
+.task-status-inProgress{
+  border: 1px solid #00E00F;
+}
+.task-status-completed{
+  border: 1px solid #00E00F;
+  background-color: #00E00F;
+  color: #fff
+}
+
 
 .reject-btn:hover {
   background-color: none;
 }
 
-.task-status {
-  cursor: none;
-  border-color: #E3D400;
-}
+
 .ag-row{
   background: #F0F0F0;
   border-bottom-color: #fff;

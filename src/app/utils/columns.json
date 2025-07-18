@@ -6,7 +6,7 @@
             "onClick": {
                 "navigate": {
                     "subRoute": "~{params.task_taskType}",
-                    "state":"~{params}",
+                    "state": "~{params}",
                     "queryParams": {
                         "workflowId": "~{params.workflowId}",
                         "taskId": "~{params.task_taskId}",
@@ -25,7 +25,7 @@
             {
                 "headerName": "Workflow Name",
                 "field": "workflowname",
-                "flex":1,
+                "flex": 2,
                 "class": "my-action-btn",
                 "cellRenderer": "<div><a class=\"my-action-btn\">~{params.workflowName}</a></div>",
                 "onClick1": {
@@ -47,20 +47,20 @@
             {
                 "headerName": "Task Name",
                 "field": "task_taskName",
-                "flex":2,
+                "flex": 2,
                 "cellRenderer": "<div><a class=\"my-action-btn\">~{params.task_taskName}</a> </div>"
             },
             {
                 "headerName": "Status",
                 "field": "task_taskStatus",
-                "flex":1,
+                "flex": 1,
                 "defaultValue": "-",
-                "cellRenderer": "<div><span class=\"task-status\">~{params.task_taskStatus}</span> </div>"
+                "cellRenderer": "<div class='mt-2'><span class='task-status task-status-~{params.task_taskStatus}'>~{params.task_taskStatus}</span></div>"
             },
             {
                 "headerName": "Action",
                 "field": "action",
-                "flex":2,
+                "flex": 2,
                 "cellRenderer": "<div><button id='rejectTaskBtn' class='btn btn-outline-danger reject-btn ~{params.task_taskStatus === 'inProgress'? 'disabled': ''}'>Reject</button><button id ='selectTaskBtn' class='btn btn-primary select-btn  ~{params.task_taskStatus === 'inProgress'? 'disabled': ''}'>Select</button></div>",
                 "onClick": {
                     "clickHandler": {
@@ -118,7 +118,7 @@
                 "headerComponent": true,
                 "headerComponentTemplate": "<div class='d-flex align-items-center'> <span class='text-white'>Due By</span> <span class='red-signal signals'></span> <span class='yellow-signal signals'></span> <span class='green-signal signals'></span></div>",
                 "field": "task_taskEndDate",
-                "flex":2,
+                "flex": 2,
                 "cellRenderer": "<div><span class=\"task-end-date \">~{params.task_taskEndDate}</span> <span class=\"signals ~{params.taskEndDateSignal} \"></span> </div>"
             }
         ]

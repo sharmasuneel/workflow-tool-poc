@@ -1,7 +1,7 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
-import { AppService } from '../../../services/app.service';
+import { AppService } from '@services';
 import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { Output, EventEmitter } from '@angular/core';

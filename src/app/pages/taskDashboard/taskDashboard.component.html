@@ -1,43 +1,31 @@
-<div class="container">
- 
+<div class="container-fluid">
   <!--tab-->
-  <div class="d-flex justify-content-between align-items-center mb-2">
-    <div>
-      <ul class="nav nav-tabs">
-        <li class="nav-item">
-          <a class="nav-link" [class.active]="selectedTab === 'active'" (click)="setSelectedTab('pending')">Active 
-            <!-- <span class="badge bg-danger rounded-circle">{{ activeCount }} </span> -->
-          </a>
-        </li>
-        <li class="nav-item">
-          <span class="nav-divider">|</span>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" [class.active]="selectedTab === 'completed'" (click)="setSelectedTab('completed')">Completed
-            <!-- <span class="badge bg-danger rounded-circle">{{ completedCount }}</span> -->
-          </a>
-        </li>
-        <li class="nav-item">
-          <span class="nav-divider">|</span>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" [class.active]="selectedTab === 'upcoming'" (click)="setSelectedTab('upcoming')">Upcoming
-            <!-- <span class="badge bg-danger rounded-circle">{{ upcomingCount }}</span> -->
-          </a>
-        </li>
-      </ul>
-
-    </div>
-    <!-- <div>
-      <input class="form-control" type="text" placeholder="Search" />
-    </div> -->
+  <div>
+    <ul class="nav nav-tabs">
+      <li class="nav-item">
+        <a class="nav-link" [class.active]="selectedTab === 'active'" (click)="setSelectedTab('pending')">Active
+        </a>
+      </li>
+      <li class="nav-item">
+        <span class="nav-divider">|</span>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" [class.active]="selectedTab === 'completed'" (click)="setSelectedTab('completed')">Completed
+        </a>
+      </li>
+      <li class="nav-item">
+        <span class="nav-divider">|</span>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" [class.active]="selectedTab === 'upcoming'" (click)="setSelectedTab('upcoming')">Upcoming
+        </a>
+      </li>
+    </ul>
   </div>
-
   <!--grid-->
-
   <div class="ag-theme-alpine">
-    <ag-grid-angular style="height: 475px; width: 100%;" [rowHeight]="55" [rowData]="filteredData" [columnDefs]="columnDefs"
-      [localeText]="{ noRowsToShow: 'No workflow to show' }">
+    <ag-grid-angular style="height: 475px; width: 100%;" [rowHeight]="55" [rowData]="filteredData"
+      [columnDefs]="columnDefs" [localeText]="{ noRowsToShow: 'No workflow to show' }">
     </ag-grid-angular>
   </div>
 

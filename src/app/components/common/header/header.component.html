@@ -1,10 +1,8 @@
-<header class="dashboard-header">
-  <img src="assets/icons/logo.png" alt="Company Logo" class="dashboard-logo" />
+<header class="header">
   <div>
     <h1 class="dashboard-title">
-      {{ greetMsg + (appService.getUser() ? ', ' + appService.getUser().name : '') }}
+      {{ greetMsg}} <span>{{(appService.getUser() ? ', ' + appService.getUser().name : '')}}</span>
     </h1>
-    <div class="subtitle">Risk, Finance & Treasury</div>
   </div>
   <span class="vrbar"></span>
   <nav class="dashboard-nav">
@@ -13,24 +11,9 @@
       <li><a href="#" (click)="onNavClick($event, 'workflow/setup')">workflow Setup</a></li>
     </ul>
   </nav>
-  <div class="dashboard-date">
-    {{ today }}
-    <i class="fa fa-calendar dateIcon" aria-hidden="true"></i>
+  <div>
+    <img class="icon" src="assets/icons/help.png" alt="Help Icon" />
+    <span class="custom-divider"></span>
+    <img class="icon" src="assets/icons/profile.png" alt="Profile Icon" />
   </div>
-
-
-  <div class="dropdown">
-    <button (click)="toggleMenu()" style="border: none;" class="btn" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-      <img src="assets/icons/User Profile.png" />
-    </button>
-    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-      <li><a class="dropdown-item" [class.active]="role.role === 'owner'" (click)="selectRole(users.owner)">Owner</a></li>
-      <li><a class="dropdown-item" [class.active]="role.role === 'preparator'" (click)="selectRole(users.preparator)">Preparator</a></li>
-      <li><a class="dropdown-item" [class.active]="role.role === 'reviewer'" (click)="selectRole(users.reviewer)">Reviewer</a></li>
-      <li><a class="dropdown-item" [class.active]="role.role === 'approver'" (click)="selectRole(users.approver)">Approver</a></li>
-    </ul>
-    </div>
-
- 
-
 </header>

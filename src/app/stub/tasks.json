@@ -3,7 +3,7 @@
         {
             "workflowId": 13,
             "uiWorkflowId": "",
-            "workflowName": "P&L Review",
+            "workflowName": "Monthly Review",
             "workFlowStatus": "notstarted",
             "workflowCreatedBy": 1,
             "workflowTriggerType": "manual",
@@ -12,7 +12,7 @@
             "description": "",
             "task": {
                 "taskId": 13,
-                "taskName": "Upload PLEX Details",
+                "taskName": "Upload Monthly Details",
                 "taskAssignedTo": "",
                 "taskEndDate": "2025-07-08",
                 "taskEndTime": "01:00:00",
@@ -62,29 +62,29 @@
                 "taskUiId": "78a58913-cf64-49fc-9464-b0a150d81e34",
                 "taskFileHistory": false,
                 "taskQuery": false,
+                "taskQueryStatus":"pending",
                 "taskQueries": [
                     {
-                            "message_id": "msg_00124",
-                            "sender_id": "user_001",
-                            "receiver_id": "user_002",
-                            "timestamp": "2025-07-14T11:52:00Z",
-                            "taskId": 13,
-                            "content": {
-                                "text": "Hey, how are you?"
-                            },
-                            "status": "sent"
+                        "message_id": "msg_00124",
+                        "sender_id": "user_001",
+                        "receiver_id": "user_002",
+                        "timestamp": "2025-07-14T11:52:00Z",
+                        "taskId": 13,
+                        "content": {
+                            "text": "Hey, how are you?"
+                        },
+                        "status": "sent"
                     },
                     {
-                            "message_id": "msg_00124",
-                            "sender_id": "user_002",
-                            "receiver_id": "user_002",
-                            "timestamp": "2025-07-14T11:52:00Z",
-                            "taskId": 13,
-                            "content": {
-                                "text": "how are you?"
-                            },
-                            "status": "sent"
-                       
+                        "message_id": "msg_00124",
+                        "sender_id": "user_002",
+                        "receiver_id": "user_002",
+                        "timestamp": "2025-07-14T11:52:00Z",
+                        "taskId": 13,
+                        "content": {
+                            "text": "how are you?"
+                        },
+                        "status": "sent"
                     },
                     {
                         "message_id": "msg_00124",
@@ -96,8 +96,7 @@
                             "text": "Hey, how are you?"
                         },
                         "status": "sent"
-                }
-                  
+                    }
                 ],
                 "retainFile": false,
                 "taskOutcomes": [
@@ -183,27 +182,26 @@
                 "taskQueryStatus": "pending",
                 "taskQueries": [
                     {
-                            "message_id": "msg_00124",
-                            "sender_id": "user_001",
-                            "receiver_id": "user_002",
-                            "timestamp": "2025-07-14T11:52:00Z",
-                            "taskId": 13,
-                            "content": {
-                                "text": "Hey, how are you?"
-                            },
-                            "status": "sent"
+                        "message_id": "msg_00124",
+                        "sender_id": "user_001",
+                        "receiver_id": "user_002",
+                        "timestamp": "2025-07-14T11:52:00Z",
+                        "taskId": 13,
+                        "content": {
+                            "text": "Hey, how are you?"
+                        },
+                        "status": "sent"
                     },
                     {
-                            "message_id": "msg_00124",
-                            "sender_id": "user_002",
-                            "receiver_id": "user_002",
-                            "timestamp": "2025-07-14T11:52:00Z",
-                            "taskId": 13,
-                            "content": {
-                                "text": "how are you?"
-                            },
-                            "status": "sent"
-                       
+                        "message_id": "msg_00124",
+                        "sender_id": "user_002",
+                        "receiver_id": "user_002",
+                        "timestamp": "2025-07-14T11:52:00Z",
+                        "taskId": 13,
+                        "content": {
+                            "text": "how are you?"
+                        },
+                        "status": "sent"
                     },
                     {
                         "message_id": "msg_00124",
@@ -215,8 +213,7 @@
                             "text": "Hey, how are you?"
                         },
                         "status": "sent"
-                }
-                  
+                    }
                 ],
                 "retainFile": false,
                 "taskOutcomes": [
@@ -237,10 +234,10 @@
                 "taskHolidayCalenderRegion": "UK"
             }
         },
-          {
+        {
             "workflowId": 13,
             "uiWorkflowId": "",
-            "workflowName": "P&L Review",
+            "workflowName": "Monthly Equity Adjustment Review",
             "workFlowStatus": "notstarted",
             "workflowCreatedBy": 1,
             "workflowTriggerType": "manual",
@@ -249,14 +246,14 @@
             "description": "",
             "task": {
                 "taskId": 13,
-                "taskName": "Upload PLEX Details",
+                "taskName": "Download MEA File",
                 "taskAssignedTo": "",
                 "taskEndDate": "2025-07-08",
                 "taskEndTime": "01:00:00",
                 "taskStatus": "upcoming",
                 "taskCompletionDate": "2023-10-31",
                 "taskCompletionTime": "00:00:00",
-                "taskType": "upload",
+                "taskType": "download",
                 "sections": [
                     {
                         "taskBusinessName": "Fixed Income Financing PLEX Adjustment",
@@ -299,30 +296,29 @@
                 "taskUiId": "78a58913-cf64-49fc-9464-b0a150d81e34",
                 "taskFileHistory": false,
                 "taskQuery": false,
-                "taskQueryStatus": "pending",
+                "taskQueryStatus": "completed",
                 "taskQueries": [
                     {
-                            "message_id": "msg_00124",
-                            "sender_id": "user_001",
-                            "receiver_id": "user_002",
-                            "timestamp": "2025-07-14T11:52:00Z",
-                            "taskId": 13,
-                            "content": {
-                                "text": "Hey, how are you?"
-                            },
-                            "status": "sent"
+                        "message_id": "msg_00124",
+                        "sender_id": "user_001",
+                        "receiver_id": "user_002",
+                        "timestamp": "2025-07-14T11:52:00Z",
+                        "taskId": 13,
+                        "content": {
+                            "text": "Hey, how are you?"
+                        },
+                        "status": "sent"
                     },
                     {
-                            "message_id": "msg_00124",
-                            "sender_id": "user_002",
-                            "receiver_id": "user_002",
-                            "timestamp": "2025-07-14T11:52:00Z",
-                            "taskId": 13,
-                            "content": {
-                                "text": "how are you?"
-                            },
-                            "status": "sent"
-                       
+                        "message_id": "msg_00124",
+                        "sender_id": "user_002",
+                        "receiver_id": "user_002",
+                        "timestamp": "2025-07-14T11:52:00Z",
+                        "taskId": 13,
+                        "content": {
+                            "text": "how are you?"
+                        },
+                        "status": "sent"
                     },
                     {
                         "message_id": "msg_00124",
@@ -334,8 +330,124 @@
                             "text": "Hey, how are you?"
                         },
                         "status": "sent"
-                }
-                  
+                    }
+                ],
+                "retainFile": false,
+                "taskOutcomes": [
+                    {
+                        "label": "Yes",
+                        "value": "yes"
+                    },
+                    {
+                        "label": "No",
+                        "value": "no"
+                    },
+                    {
+                        "label": "Maybe",
+                        "value": "maybe"
+                    }
+                ],
+                "taskOutcome": "yes",
+                "taskHolidayCalenderRegion": "UK"
+            }
+        },
+        {
+            "workflowId": 13,
+            "uiWorkflowId": "",
+            "workflowName": "Monthly TP Audit",
+            "workFlowStatus": "notstarted",
+            "workflowCreatedBy": 1,
+            "workflowTriggerType": "manual",
+            "drawflow": "",
+            "frequency": "monthly",
+            "description": "",
+            "task": {
+                "taskId": 13,
+                "taskName": "Reviw MR Excel",
+                "taskAssignedTo": "",
+                "taskEndDate": "2025-07-08",
+                "taskEndTime": "01:00:00",
+                "taskStatus": "completed",
+                "taskCompletionDate": "2023-10-31",
+                "taskCompletionTime": "00:00:00",
+                "taskType": "review",
+                "sections": [
+                    {
+                        "taskBusinessName": "Fixed Income Financing PLEX Adjustment",
+                        "files": [
+                            {
+                                "versions": [
+                                    {
+                                        "businessDate": "30/05/25",
+                                        "uploadedBy": "Rahul Sinha",
+                                        "fileName": "PlexDetails.csv",
+                                        "version": "1",
+                                        "uploadDate": "15/0/25"
+                                    },
+                                    {
+                                        "businessDate": "30/05/25",
+                                        "uploadedBy": "Rahul Sinha",
+                                        "fileName": "PlexDetails1.csv",
+                                        "version": "1",
+                                        "uploadDate": "15/0/25"
+                                    }
+                                ],
+                                "history": [
+                                    {
+                                        "businessDate": "30/05/25",
+                                        "uploadedBy": "Rahul Sinha",
+                                        "fileName": "PlexDetails.csv",
+                                        "version": "1",
+                                        "uploadDate": "15/0/25"
+                                    }
+                                ],
+                                "fileId": 1,
+                                "name": "PlexDetails.csv",
+                                "fileType": "text/csv"
+                            }
+                        ]
+                    }
+                ],
+                "taskAutoVersioning": true,
+                "taskCaptureComments": false,
+                "taskUiId": "78a58913-cf64-49fc-9464-b0a150d81e34",
+                "taskFileHistory": false,
+                "taskQuery": false,
+                "taskQueryStatus": "completed",
+                "taskQueries": [
+                    {
+                        "message_id": "msg_00124",
+                        "sender_id": "user_001",
+                        "receiver_id": "user_002",
+                        "timestamp": "2025-07-14T11:52:00Z",
+                        "taskId": 13,
+                        "content": {
+                            "text": "Hey, how are you?"
+                        },
+                        "status": "sent"
+                    },
+                    {
+                        "message_id": "msg_00124",
+                        "sender_id": "user_002",
+                        "receiver_id": "user_002",
+                        "timestamp": "2025-07-14T11:52:00Z",
+                        "taskId": 13,
+                        "content": {
+                            "text": "how are you?"
+                        },
+                        "status": "sent"
+                    },
+                    {
+                        "message_id": "msg_00124",
+                        "sender_id": "user_002",
+                        "receiver_id": "user_002",
+                        "timestamp": "2025-07-14T11:52:00Z",
+                        "taskId": 13,
+                        "content": {
+                            "text": "Hey, how are you?"
+                        },
+                        "status": "sent"
+                    }
                 ],
                 "retainFile": false,
                 "taskOutcomes": [

@@ -1,95 +1,78 @@
 <div class="container mt-3">
-    <div>
-        <a class="workflowname" (click)="goToDashboard();"> <img src="../../../assets/icons/Left_arrow.png" /> Workflow:
-            {{task.workflowName}}</a>
-    </div>
-    <div class="card">
-        <div class="card-header">
-            <p> Task - {{task.task_taskName}}</p>
-            <div class="finish-date col-md-3"> Need to finish by : 20 July 2025, 05:00PM</div>
-        </div>
-        <div class="card-body">
-            <div class="row" *ngFor="let item of task.task_sections;let taskSectionIndex = index">
-                <div class="col-md-4">
-                    <p class="text-muted text-decoration-underline">{{item.taskBusinessName}}</p>
-                </div>
-                <div class="col-md-4">
-                    <div class="upload-box mb-1" *ngIf="taskType === 'upload'">
-                        <p>
-                            Drag & drop file(s) or
-                            <label for="fileInput" class="browse-label">Browse</label>
-                        </p>
-                        <input type="file" (change)="onFileSelected($event,taskSectionIndex)" id="fileInput"
-                            accept=".csv" multiple hidden />
-                    </div>
-                    <div>
-                        <ul class="file-name-list">
-                            <label class="mt-1 text-muted" *ngIf="taskType === 'upload'"> Uploaded File</label>
+    <div class="justify-content-left col-10">
+        <a class="workflowname" (click)="goToDashboard()">
+            <img src="../../../assets/icons/Left_arrow.png" alt="Back" />
+            Workflow: {{ task.workflowName }}
+        </a>
 
-                            <li *ngFor="let file of item.files;let fileIndex=index" style="font-size: 14px;"
-                                class="d-flex align-items-center justify-content-between">
-
-                                <a class="text-primary"> {{file.name}}</a>
-                                <span>
-                                    <img (click)="openFileVersionPopup(item.taskBusinessName,file.versions)"
-                                        src="../../../assets/icons/Versions.png" alt="Version Icon"
-                                        class="files-icon" />
-                                    <img (click)="openFileHistoryPopup(item.taskBusinessName,file.history)"
-                                        src="../../../assets/icons/File_history.png" alt="Audit Trail"
-                                        class="files-icon" />
-                                    <img *ngIf="taskType === 'upload'" (click)="removeFile(taskSectionIndex,fileIndex)"
-                                        src="../../../assets/icons/Bin.png" alt="Delete Icon" class="files-icon" />
-                                    <i *ngIf="taskType !== 'upload'" class="fa fa-download"
-                                        style="font-size: 11px; cursor: pointer;color: #085da9; margin-left: 11px;"></i>
-                                </span>
-
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-                <hr class="col-md-12" style="border: 1px solid #ccc;">
+        <div class="card w-65 mt-3">
+            <div class="card-header">
+                <p>Task - {{ task.task_taskName }}</p>
+                <span class="text-muted finish-date ">Need to finish by: 20 July 2025, 05:00 PM</span>
             </div>
 
-            <div class="row" *ngIf="taskType === 'review'">
-                <label class="outcomes">Outcomes</label>
-                <div *ngFor="let item of task.task_taskOutcomes">
-                    <div class="form-check">
-                        <input class="form-check-input" type="radio" name="outcomes" value="{{item.value}}">
-                        <label class="form-check-label mb-1 text-muted">
-                            {{item.label}}
-                        </label>
-                    </div>
-                </div>
+            <div class="card-body">
+                <ng-container *ngFor="let item of task.task_sections; let i = index">
+                    <div class="d-flex justify-content-between align-items-start flex-wrap mb-2">
+                        <p class="text-muted text-decoration-underline">{{ item.taskBusinessName }}</p>
+                        <div>
+                            <div *ngIf="taskType === 'upload'" class="upload-box mb-2">
+                                <p>
+                                    Drag & drop file(s) or
+                                    <label for="fileInput-{{ i }}" class="browse-label">Browse</label>
+                                </p>
+                                <input type="file" id="fileInput-{{ i }}" (change)="onFileSelected($event, i)"
+                                    accept=".csv" multiple hidden />
+                            </div>
 
-                <hr class="col-md-12" style="border: 1px solid #ccc;">
-            </div>
-            <div class="row">
-                <textarea class=" col-md-7" rows="4" matInput type="text" placeholder="Add comments"></textarea>
-
-                <div>
-                    <a class="chat" (click)="openQueryPopup()"> Chat</a>
-                    <img style="margin-left: 10px;" src="../../../assets/icons/icon_chat.png" />
-                </div>
-
-                <div class="col-md-12">
-                    <div class="pull-left">
-                        <span>{{task.task_taskQueryStatus}}</span>
-                    </div>
-                    <div class="pull-right">
-                        <div class="form-check form-switch">
-                            <label>Mark as Complete</label>
-                            <input [disabled]="task.task_taskQueryStatus === 'pending'" class="form-check-input" (change)="markAsComplete()" type="checkbox" role="switch"
-                                id="completeSwitch">
+                            <ul class="file-name-list list-unstyled" *ngIf="item.files?.length">
+                                <label class="mt-1 text-muted">Uploaded File</label>
+                                <li *ngFor="let file of item.files; let j = index"
+                                    class="d-flex align-items-center justify-content-between" style="font-size: 14px;">
+                                    <a class="text-primary">{{ file.name }}</a>
+                                    <span>
+                                        <img src="../../../assets/icons/Versions.png" alt="Version Icon"
+                                            class="files-icon"
+                                            (click)="openFileVersionPopup(item.taskBusinessName, file.versions)" />
+                                        <img src="../../../assets/icons/File_history.png" alt="File History"
+                                            class="files-icon"
+                                            (click)="openFileHistoryPopup(item.taskBusinessName, file.history)" />
+                                        <img *ngIf="taskType === 'upload'" src="../../../assets/icons/Bin.png"
+                                            alt="Delete Icon" class="files-icon" (click)="removeFile(i, j)" />
+                                        <img *ngIf="taskType !== 'upload'" src="../../../assets/icons/File_download.png"
+                                            alt="File Download" class="files-icon" />
+                                    </span>
+                                </li>
+                            </ul>
                         </div>
                     </div>
+                    <hr style="border: 1px solid #ccc;" />
+                </ng-container>
 
+                <div class="mb-3">
+                    <textarea class="form-control" rows="4" matInput placeholder="Add comments"></textarea>
                 </div>
 
+                <div class="d-flex align-items-center mb-3">
+                    <a class="chat me-2" (click)="openQueryPopup()">Chat</a>
+                    <img src="../../../assets/icons/icon_chat.png" alt="Chat Icon" />
+                </div>
+
+                <div class="d-flex justify-content-between align-items-center">
+                    <span class="query-status"
+                        [ngClass]="task.task_taskQueryStatus === 'pending' ? 'query-pending' : 'query-completed' ">{{
+                        task.task_taskQueryStatus }}</span>
+
+                    <div class="form-check form-switch">
+                        <label class="form-check-label me-2">Mark as Complete</label>
+                        <input class="form-check-input" type="checkbox" role="switch" id="completeSwitch"
+                            [disabled]="task.task_taskQueryStatus === 'pending'" (change)="markAsComplete()" />
+                    </div>
+                </div>
 
             </div>
         </div>
+
+
     </div>
-
-
-
 </div>
