@@ -1,7 +1,7 @@
 <header class="header">
   <div>
     <h1 class="dashboard-title">
-      {{ greetMsg}} <span>{{(appService.getUser() ? ', ' + appService.getUser().name : '')}}</span>
+      <span class="greet-message">{{ greetMsg}} , </span><span class="user-name">{{(appService.getUser() ? appService.getUser().name : '')}}</span>
     </h1>
   </div>
   <span class="vrbar"></span>

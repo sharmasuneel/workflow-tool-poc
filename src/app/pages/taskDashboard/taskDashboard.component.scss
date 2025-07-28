@@ -1,6 +1,6 @@
 
   .nav-link.active{
-    color: #0e5ba3;
+    color: #085DA9 !important;
     text-decoration: underline;
   }
   .nav-link{
@@ -14,6 +14,9 @@
    cursor: pointer;
   }
  
+.nav-item a{
+  color: #828282;
+}
   .nav-tabs .nav-link:hover, .nav-tabs .nav-link:focus {
     border: none;
   }

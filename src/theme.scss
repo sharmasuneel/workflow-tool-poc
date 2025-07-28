@@ -1,44 +1,124 @@
+//Space unit
+$spacing-unit: 4px;
+$base-width: $spacing-unit * 2; // 8px
+$base-height: $spacing-unit * 2; // 8px
+$base-size: 0.5rem; // or 8px
+
 // Colors
-$primary-color: #1976d2;
+$primary-color: #085da8;
 $secondary-color: #9c27b0;
 $background-color: #f5f5f5;
 $text-color: #212121;
 $border-color: #e0e0e0;
- 
+$white-color: #fff;
+$black-color: #000;
+$light-color: #555555;
+$success-color: #00E00F;
+
 // Typography
 $font-family-base: 'Roboto', sans-serif;
 $font-size-base: 16px;
 $font-size-sm: 14px;
 $font-size-lg: 20px;
- 
-// Spacing
- 
+$font-weight-normal: 400;
+$font-weight-bold: 700;
+
+
 // Borders
 $border-radius: 4px;
 $border-width: 1px;
 $border-style: solid;
- 
+
 // Shadows
 $box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
- 
+
 // Breakpoints
 $breakpoint-sm: 576px;
 $breakpoint-md: 768px;
 $breakpoint-lg: 992px;
 $breakpoint-xl: 1200px;
- 
-$base-size: 0.5rem; // or 16px
-$spacing-unit: 4px;
- 
+
+//font family
+$font-effra-regular: 'Effra Regular', sans-serif;
+$font-effra-bold: 'Effra Bold', sans-serif;
+
+
+@font-face {
+    font-family: 'Effra Regular';
+    src: url('/assets/fonts/effra/EFFRA_TRIAL_RG.TTF') format('truetype');
+    font-weight: 400;
+    font-style: normal;
+}
+
+
+
 @function fontsize($scale) {
     @return $base-size * $scale;
 }
- 
+
+@function fontweight($weight) {
+    @if $weight ==normal {
+        @return $font-weight-normal;
+    }
+
+    @else if $weight ==bold {
+        @return $font-weight-bold;
+    }
+
+    @else {
+        @return $weight;
+    }
+}
+
 @function spacing($scale) {
     @return $spacing-unit * $scale;
 }
- 
-.t-container {
-    background-color: $background-color;
-    padding: spacing(6);
+
+
+@function width($scale) {
+    @return $base-width * $scale;
+}
+
+@function height($scale) {
+    @return $base-height * $scale;
+}
+
+@function to-px($value) {
+    @if type-of($value)=='number' and unitless($value) {
+        @return $value * 1px;
+    }
+
+    @return $value;
+}
+
+@mixin border($radius: 4, $width: 1, $style: solid, $color: #000) {
+    border: to-px($width) $style $color;
+    border-radius: to-px($radius);
+}
+
+
+@mixin text-align($alignment: left) {
+    @if $alignment ==left or $alignment ==right or $alignment ==center or $alignment ==justify {
+        text-align: $alignment;
+    }
+
+    else {
+        text-align: left;
+    }
+}
+
+
+
+//common classes
+.btn-primary {
+    background-color: $primary-color;
+    border: $primary-color;
+}
+
+.text-primary {
+    color: $primary-color !important;
+}
+
+.cursor-pointer {
+    cursor: pointer;
 }

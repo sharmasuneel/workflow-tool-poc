@@ -1,123 +1,74 @@
-.upload-box {
-    height: 50px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border: 2px dashed #595c64;
-    border-radius: 10px;
-    padding: 10px;
-    text-align: center;
-    background: #f9f9f9;
-    transition: background 0.3s ease;
-    cursor: pointer;
-    font-family: 'Segoe UI', sans-serif;
-    color: #333;
-}
+@use '../../../theme.scss' as theme;
 
-.upload-box:hover {
-    background: #eef6ff;
+.root{
+    min-width: theme.width(60);
+    max-width:theme.width(80);
+
+}
+.file-upload-container {
+    @include theme.border(10, 2, dashed, theme.$light-color);
+    background: theme.$background-color;
+    color: theme.$light-color;
+    padding: theme.spacing(2);
 }
 
 .browse-label {
-    color: #085da8;
-    font-weight: bold;
+    color: theme.$primary-color;
     cursor: pointer;
+    font-weight: theme.fontweight(bold);
     text-decoration: underline;
 }
 
-.file-name {
-    margin-top: 10px;
-    color: #2c3e50;
-}
-
-.file-name-list {
-    padding: 0
-}
-
-.btn-primary {
-    background-color: #085da8;
-    border: #085da8;
-}
-
-.text-primary {
-    color: #085da8 !important;
-}
-
 .card-header {
-    background-color: #085da8;
-    color: #fff;
+    background-color: theme.$primary-color;
+    color: theme.$white-color;
 }
 
 .finish-date {
-    background-color: #00e00e;
-    color: #fff;
+    background-color: theme.$success-color;
+    color: theme.$white-color !important;
+    padding: theme.spacing(2);
+    border-radius: theme.$border-radius;
+    font-size: theme.fontsize(1.5);
 }
 
 .files-icon {
-    width: 16px;
-    height: 16px;
-    cursor: pointer;
-    margin-left: 5px;
-
-}
-
-.chat {
-    color: #085da8;
+    margin-left: theme.spacing(1);
+    width: theme.width(2);
+    height: theme.height(2);
     cursor: pointer;
 }
 
 p {
-    font-size: 14px;
-    margin-bottom: 5px;
-}
-
-.workflowname {
-    color: #085da8;
-    text-decoration: none;
-    cursor: pointer
-}
-
-.finish-date {
-    background-color: #00e00e;
-    color: #fff;
-    padding: 10px;
-    border-radius: 10px;
-    font-family: Arial, sans-serif;
-    font-size: 12px;
-
-}
-
-.card-body {
-    margin-left: 13px;
-}
-
-.outcomes {
-    color: #085da8;
-}
-
-.form-check .form-check-input {
-    float: right !important;
-    margin-left: 10px !important;
-}
-
-.query-status {
-    display: inline-block;
-    width: 100px;
-    border-radius: 50px;
-    text-align: center;
-    padding: 5px;
-}
-
-.query-pending {
-    border: 1px solid #fa8f56;
-    color: #fa8f56;
+    font-size: theme.fontsize(1.75);
+    margin-bottom: theme.spacing(1);
 }
 
 .query-completed {
-    border: 1px solid #06d035;
-    color: #06d035;
+    @include theme.border(15, 2, solid, theme.$success-color);
+    color: theme.$success-color;
 }
 
-.w-65 {
-    width: 65%;
+.query-pending {
+    @include theme.border(15, 2, solid, #fa8f56);
+    color: #fa8f56;
+}
+
+.query-status {
+    @include theme.text-align(center);
+    padding: theme.spacing(1);
+    width: theme.width(12);
+}
+
+.page-title {
+    color: theme.$primary-color;
+    cursor: pointer;
+    text-decoration: none;
+    margin-bottom: theme.spacing(2);
+    font-family: theme.$font-effra-regular;
+    font-weight: 500;
+    font-size: 16px;
+}
+.light-color{
+    color: theme.$light-color;
 }
